@@ -14,16 +14,16 @@ import lombok.Data;
 @Table(name="T_HMCM_COMMON")
 @Data
 @DynamicInsert
-@DynamicUpdate
 public class Common {
 	
+	//코드(PK)
 	@Id
-	@Column(nullable = false)
 	private String commonCode;
 	
-	@Column(nullable = false)
+	//코드유형(A: 색상, B: 소재, C: 카테고리)
 	private String commonType;
 	
+	//코드명
 	@Column(nullable = false)
 	private String commonCodeName;
 
