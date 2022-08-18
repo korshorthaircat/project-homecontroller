@@ -13,14 +13,14 @@ import lombok.Data;
 @Table(name="T_HMCT_ORDR")
 public class Order {
     
-	//아이디
-	@ManyToOne
-	@JoinColumn(name="userId")
-	private User user;
-	
-	//주문 번호
+	//주문 번호(PK) 
 	@Id
 	private String orderNo;
+	
+	//회원 아이디(FK)
+	@ManyToOne
+	@JoinColumn(name="USER_ID")
+	private User user;
 	
 	//주문상태
 	private String orderStatus;
@@ -39,6 +39,5 @@ public class Order {
 	
 	//배송료
 	private String orderFee;
-
 	
 }

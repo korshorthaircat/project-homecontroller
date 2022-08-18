@@ -12,14 +12,13 @@ import lombok.Data;
 @Data
 public class Delivery {
     
-	//주문번호
-	@JoinColumn(name="orderNo")
-	
-	private Order order;
-	
-	//배송 번호
+	//배송 번호(PK)
 	@Id
 	private String deliveryNo;
+	
+	//주문 번호(FK)
+	@JoinColumn(name="ORDER_NO")
+	private Order order;
 	
 	//수령인 이름
 	private String deliveryName;
@@ -41,6 +40,5 @@ public class Delivery {
 	
 	//운송장 번호
 	private String deliveryTrackingNo;
-	
 	
 }

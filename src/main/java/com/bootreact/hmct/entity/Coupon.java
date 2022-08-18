@@ -1,7 +1,10 @@
 package com.bootreact.hmct.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -11,9 +14,9 @@ import lombok.Data;
 @Data
 public class Coupon {
 
-	//쿠폰 번호 
-	@Column(nullable = false)
-	private String couponNo;
+	//쿠폰 번호(PK)
+	@Id
+	private int couponNo;
 	
 	//쿠폰 이름 
 	@Column(nullable = false)
@@ -21,7 +24,7 @@ public class Coupon {
 	
 	//쿠폰 유효기간 
 	@Column(nullable = false)
-	private String couponExpdate;
+	private LocalDateTime couponExpdate;
 	
 	//쿠폰 방식(P, W) 
 	@Column(nullable = false)
