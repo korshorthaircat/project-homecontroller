@@ -1,8 +1,12 @@
 package com.bootreact.hmct.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -11,26 +15,27 @@ import lombok.Data;
 @Table(name="T_HMCT_EXCHN")
 @Data
 public class Exchange {
-	//PK, FK(주문번호) 설정 필요
 	
-	//교환 번호
+	//교환 번호(PK)
 	@Id
-	@Column(nullable = false)
-	private String exchangeNo;
+	private int exchangeNo;
+	
+	//주문 번호(FK)
+	@OneToOne
+	@JoinColumn(name="ORDER_NO")
+	private Order order;
 
 	//교환 신청일자
 	@Column(nullable = false)
-	private String exchangeRgsdate;
+	private LocalDateTime exchangeRgsdate = LocalDateTime.now();
 	
 	//교환 접수일자
 	@Column(nullable = false)
-	private String exchangeMdfdate;
+	private LocalDateTime exchangeMdfdate = LocalDateTime.now();
 	
 	//교환 처리상태
 	@Column(nullable = false)
 	private String exchangeStatus;
 	
-	//주문번호
-	@Column(nullable = false)
-	private String orderNo;
+
 }

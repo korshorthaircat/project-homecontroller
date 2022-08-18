@@ -9,38 +9,39 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import lombok.Data;
 
 @Entity
-@Table(name="T_HMCT_CANCEL")
+@Table(name="T_HMCT_RETUN")
 @Data
-public class Cancel {
+public class Retun {
 	
-	//취소 번호(PK)
+	//반품 번호(PK) 
 	@Id
-	private int cancelNo;
+	private String retunNo;
 	
 	//주문 번호(FK)
 	@OneToOne
 	@JoinColumn(name="ORDER_NO")
 	private Order order;
 
-	//취소 신청일자
+	//반품 신청일자
 	@Column(nullable = false)
-	private LocalDateTime cancelRgsdate = LocalDateTime.now();
+	private LocalDateTime retunRgsdate = LocalDateTime.now();
 	
-	//취소 접수일자
+	//반품 접수일자 
 	@Column(nullable = false)
-	private LocalDateTime cancelMdfdate = LocalDateTime.now();
-
-	//취소 처리상태
-	@Column(nullable = false)
-	private String cancelStatus;
+	private LocalDateTime retunMdfdate = LocalDateTime.now();
 	
-	//취소 금액
+	//반품 처리상태
+	@Column(nullable = false)
+	private String retunState;
+	
+	//운송장번호
 	@Column
-	private String cancelAmount;
-	
+	private String retunTrackingNo;
 	
 	
 }
