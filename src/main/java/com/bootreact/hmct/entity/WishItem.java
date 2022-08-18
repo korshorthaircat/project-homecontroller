@@ -1,6 +1,8 @@
 package com.bootreact.hmct.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -26,5 +28,4 @@ public class WishItem {
 	@ManyToOne
 	@JoinColumn(name="PRODUCT_NO")
 	private Product product;
-	
 }
