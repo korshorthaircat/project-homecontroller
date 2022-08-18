@@ -7,7 +7,7 @@ import com.bootreact.hmct.entity.User;
 public class AdminController {
 
 //회원 관리 
-	//성찬 test
+  //sc test
 
 //	회원정보 조회
 	ResponseEntity<?> getUserList() {
