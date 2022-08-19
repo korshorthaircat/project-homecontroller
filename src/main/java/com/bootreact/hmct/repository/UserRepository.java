@@ -6,4 +6,8 @@ import com.bootreact.hmct.entity.User;
 
 public interface UserRepository extends JpaRepository<User, String>{
 
+	User findByUserName(String userName);
+
+	
+
 }
