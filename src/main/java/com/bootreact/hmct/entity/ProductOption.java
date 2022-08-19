@@ -13,7 +13,7 @@ import org.hibernate.annotations.DynamicInsert;
 import lombok.Data;
 
 @Entity
-@Table(name="T_HMCM_PRODUCT_OPTN")
+@Table(name="T_HMCT_PRODUCT_OPTN")
 @Data
 @DynamicInsert
 @IdClass(ProductOptionId.class)
