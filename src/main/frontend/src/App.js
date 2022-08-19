@@ -1,16 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
-import Header from './components/Header';
-
+import "./App.css";
+import ProductDetail_Img from "./components/productDetail/ProductDetail_Img";
 
 function App() {
-  return (
-    <div>
-      <Header />
-    
-    </div>
-  );
+  return <ProductDetail_Img />;
 }
-//react test(sc)
 
 export default App;
