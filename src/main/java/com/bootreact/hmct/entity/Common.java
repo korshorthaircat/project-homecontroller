@@ -11,7 +11,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import lombok.Data;
 
 @Entity
-@Table(name="T_HMCM_COMMON")
+@Table(name="T_HMCT_COMMON")
 @Data
 @DynamicInsert
 public class Common {
