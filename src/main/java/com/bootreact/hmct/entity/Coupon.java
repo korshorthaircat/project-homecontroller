@@ -16,7 +16,7 @@ public class Coupon {
 
 	//쿠폰 번호(PK)
 	@Id
-	private int couponNo;
+	private int couponNo;//"COUPON_NO"
 	
 	//쿠폰 이름 
 	@Column(nullable = false)
