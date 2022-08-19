@@ -14,6 +14,7 @@ const ProductDetail_Img = () => {
   return (
     <div className="wrap" id="list">
       <ProductMainImg datas={datas} onView={onView} currItem={currItem} />
+      <p>윤정</p>
     </div>
   );
 };
