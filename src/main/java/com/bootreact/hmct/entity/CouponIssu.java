@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="T_HMCT_COUPON")
+@Table(name="T_HMCT_COUPON_ISSU")
 @Data
 @IdClass(CouponIssuId.class)
 public class CouponIssu {

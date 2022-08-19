@@ -14,8 +14,6 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="com.spring.boardweb.dto.BoardDTO" alias="board"></typeAlias>
-		<typeAlias type="com.spring.boardweb.dto.UserDTO" alias="user"></typeAlias>
-		<typeAlias type="com.spring.boardweb.dto.BoardFileDTO" alias="boardFile"></typeAlias>
+		<!--  <typeAlias type="com.spring.boardweb.dto.UserDTO" alias="user"></typeAlias>-->
 	</typeAliases>
 </configuration>

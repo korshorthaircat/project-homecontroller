@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -20,6 +21,7 @@ public class Payment {
 	private String paymentNo;
 	
 	//주문 번호(FK)
+	@OneToOne
 	@JoinColumn(name="ORDER_NO")
 	private Order order;
 	

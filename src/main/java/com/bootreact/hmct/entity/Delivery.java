@@ -3,6 +3,7 @@ package com.bootreact.hmct.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -17,6 +18,7 @@ public class Delivery {
 	private String deliveryNo;
 	
 	//주문 번호(FK)
+	@OneToOne
 	@JoinColumn(name="ORDER_NO")
 	private Order order;
 	

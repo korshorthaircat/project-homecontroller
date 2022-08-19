@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -17,6 +18,7 @@ import lombok.Data;
 @Table(name="T_HMCT_REVIEW")
 @Data
 @DynamicInsert
+@IdClass(ReviewId.class)
 public class Review {
     //리뷰 번호(PK)
 	@Id
