@@ -67,6 +67,6 @@ export function logout() {
   window.location.href = "/login";
 }
 
-export function join(member) {
-  return call("/api/member/join", "POST", member);
+export function join(user) {
+  return call("/api/user/join", "POST", user);
 }
