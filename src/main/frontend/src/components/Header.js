@@ -12,7 +12,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 
 const Header = () => {
@@ -34,16 +36,7 @@ const Header = () => {
     return (
         <Box sx={{ flexGrow: 1}}>
       <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={auth}
-              onChange={handleChange}
-              aria-label="login switch"
-            />
-          }
-          label={auth ? 'Logout' : 'Login'}
-        />
+       
       </FormGroup>
       <AppBar position="static">
         <Toolbar>
@@ -56,9 +49,9 @@ const Header = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Photos
-          </Typography>
+          <div>
+            <img className="logo" src='images/logo.png' />
+          </div>
           {auth && (
             <div>
               <IconButton
@@ -71,6 +64,7 @@ const Header = () => {
               >
                 <AccountCircle />
               </IconButton>
+
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
@@ -88,7 +82,34 @@ const Header = () => {
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+
+                
               </Menu>
+
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+
+             
+              <IconButton>
+              <PermIdentityOutlinedIcon />
+              </IconButton>
+
+              <IconButton>
+              <FavoriteBorderOutlinedIcon />
+              </IconButton> 
+
+              <IconButton>
+              <ShoppingCartOutlinedIcon />
+              </IconButton>
+              
             </div>
           )}
         </Toolbar>
