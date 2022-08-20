@@ -1,24 +1,22 @@
-
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 const Header = () => {
-    const [auth, setAuth] = React.useState(true);
+  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleChange = (event) => {
@@ -33,11 +31,9 @@ const Header = () => {
     setAnchorEl(null);
   };
 
-    return (
-        <Box sx={{ flexGrow: 1}}>
-      <FormGroup>
-       
-      </FormGroup>
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <FormGroup></FormGroup>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -50,7 +46,7 @@ const Header = () => {
             <MenuIcon />
           </IconButton>
           <div>
-            <img className="logo" src='images/logo.png' />
+            <img className="logo" src="images/logo.png" />
           </div>
           {auth && (
             <div>
@@ -69,21 +65,19 @@ const Header = () => {
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-
-                
               </Menu>
 
               <IconButton
@@ -97,25 +91,23 @@ const Header = () => {
                 <AccountCircle />
               </IconButton>
 
-             
               <IconButton>
-              <PermIdentityOutlinedIcon />
+                <PermIdentityOutlinedIcon />
               </IconButton>
 
               <IconButton>
-              <FavoriteBorderOutlinedIcon />
-              </IconButton> 
+                <FavoriteBorderOutlinedIcon />
+              </IconButton>
 
               <IconButton>
-              <ShoppingCartOutlinedIcon />
+                <ShoppingCartOutlinedIcon />
               </IconButton>
-              
             </div>
           )}
         </Toolbar>
       </AppBar>
     </Box>
-    );
+  );
 };
 
 export default Header;

@@ -146,7 +146,7 @@ const Join = () => {
               회원가입
             </Typography>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} md={8}>
             <TextField
               name="userId"
               variant="outlined"
