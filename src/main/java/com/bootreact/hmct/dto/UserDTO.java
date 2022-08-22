@@ -17,7 +17,7 @@ public class UserDTO {
 	private String userZip;
 	private String userAddr;
 	private String userAddrDetail;
-	private String userPoint;
+	private int userPoint;
 	private LocalDateTime userJoinYmd;
 	private String userMarketing;
 	
