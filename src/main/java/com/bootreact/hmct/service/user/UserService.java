@@ -6,5 +6,5 @@ public interface UserService {
 
 	User join(User user);
 	
-	User login(String username, String password);
+	User login(String userId, String userPw);
 }

@@ -9,7 +9,6 @@ import {
   Typography,
   FormControlLabel,
   Checkbox,
-  Box,
 } from "@mui/material";
 import { join } from "../../service/ApiService";
 import $ from "jquery";
@@ -17,8 +16,8 @@ import $ from "jquery";
 const Join = () => {
   //id 중복체크가 됐는지 확인하는 변수
   let checkId = true;
-  let pwValidation = false;
-  let pwCheck = false;
+  let pwValidation = true;
+  let pwCheck = true;
 
   $("#pwValidation").hide();
   $("#pwCheckResult").hide();
@@ -272,7 +271,7 @@ const Join = () => {
             <FormControlLabel
               control={
                 <Checkbox
-                  value="문자 이메일"
+                  value="y"
                   name="userMarketing"
                   id="userMarketing"
                   color="success"
@@ -280,20 +279,6 @@ const Join = () => {
               }
               label="나의 프로필, 관심사, 그리고 구매 이력에 따라 맞춰진 HomeController의 홈퍼니싱 아이디어와 신상품 소식, 그리고 할인 혜택 정보를 받고 싶어요!"
             />
-          </Grid>
-
-          <Grid item xs={12}>
-            <FormControlLabel
-              label="Parent"
-              control={
-                <Checkbox
-                  checked={checked[0] && checked[1]}
-                  indeterminate={checked[0] !== checked[1]}
-                  onChange={handleChange1}
-                />
-              }
-            />
-            {children}
           </Grid>
 
           <Grid item xs={12}>
