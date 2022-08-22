@@ -28,10 +28,29 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
-    const username = data.get("username");
-    const password = data.get("password");
+    const userId = data.get("userId");
+    const userPw = data.get("userPw");
+    const userName = data.get("userName");
+    const userNickname = data.get("userNickname");
+    const userTel = data.get("userTel");
+    const userMail = data.get("userMail");
+    const userZip = data.get("userZip");
+    const userAddr = data.get("userAddr");
+    const userAddrDetail = data.get("userAddrDetail");
+    const userMarketing = data.get("userMarketing");
 
-    login({ username: username, password: password });
+    login({
+      userId: userId,
+      userPw: userPw,
+      userName: userName,
+      userNickname: userNickname,
+      userTel: userTel,
+      userMail: userMail,
+      userZip: userZip,
+      userAddr: userAddr,
+      userAddrDetail: userAddrDetail,
+      userMarketing: userMarketing,
+    });
   };
 
   return (
@@ -51,9 +70,9 @@ const Login = () => {
               variant="outlined"
               required
               fullWidth
-              id="username"
+              id="userId"
               label="아이디"
-              name="username"
+              name="userId"
             />
           </Grid>
           <Grid item xs={12}>
@@ -61,14 +80,14 @@ const Login = () => {
               variant="outlined"
               required
               fullWidth
-              id="password"
+              id="userPw"
               label="비밀번호"
-              name="password"
+              name="userPw"
               type="password"
             />
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" fullWidth variant="contained" color="primary">
+            <Button type="submit" fullWidth variant="contained" color="success">
               로그인
             </Button>
           </Grid>

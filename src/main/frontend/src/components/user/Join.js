@@ -1,4 +1,5 @@
 import React from "react";
+import useState from "react";
 import {
   Button,
   TextField,
@@ -15,8 +16,8 @@ import $ from "jquery";
 const Join = () => {
   //id 중복체크가 됐는지 확인하는 변수
   let checkId = true;
-  let pwValidation = false;
-  let pwCheck = false;
+  let pwValidation = true;
+  let pwCheck = true;
 
   $("#pwValidation").hide();
   $("#pwCheckResult").hide();
@@ -270,7 +271,7 @@ const Join = () => {
             <FormControlLabel
               control={
                 <Checkbox
-                  value="userMarketing"
+                  value="y"
                   name="userMarketing"
                   id="userMarketing"
                   color="success"
