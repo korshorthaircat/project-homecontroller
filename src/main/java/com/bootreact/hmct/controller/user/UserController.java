@@ -21,7 +21,8 @@ import com.bootreact.hmct.service.user.UserService;
 @RequestMapping("/api/user")
 public class UserController {
 	
-	@Autowired UserService userService;
+	@Autowired
+	UserService userService;
 	
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
