@@ -6,6 +6,8 @@ import lombok.Data;
 
 @Data
 public class WishShowroomId implements Serializable{
-    private String user;
+    private static final long serialVersionUID = 8168165483519663540L;
+    
+	private String user;
     private int showroom;
 } 

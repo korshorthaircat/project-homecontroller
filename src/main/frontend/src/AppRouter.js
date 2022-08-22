@@ -28,6 +28,7 @@ const AppRouter = () => {
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route path="/join" element={<Join />} />
+          <Route path="/mypage" element={<mypage />} />
         </Routes>
       </BrowserRouter>
     </div>
