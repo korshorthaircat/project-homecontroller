@@ -8,6 +8,7 @@ import Join from "./components/user/Join";
 import Header from "./components/Header";
 import Checkout from "./components/order/Checkout";
 import Dashboard from "./components/admin/Dashboard";
+import Mypage from "./components/mypage/Mypage";
 
 function Copyright() {
   return (
@@ -30,7 +31,7 @@ const AppRouter = () => {
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route path="/join" element={<Join />} />
-          <Route path="/mypage" element={<mypage />} />
+          <Route path="/mypage" element={<Mypage />} />
           <Route path="/order" element={<Checkout />} />
           <Route path="/admin" element={<Dashboard />} />
         </Routes>
