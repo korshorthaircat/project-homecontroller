@@ -1,5 +1,4 @@
-import React from "react";
-import useState from "react";
+import React, { useRef, useState } from "react";
 import {
   Button,
   TextField,
@@ -10,14 +9,15 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
-import { join } from "../../service/ApiService";
 import $ from "jquery";
+import { join } from "../../service/ApiService";
+import { useDaumPostcodePopup } from "react-daum-postcode";
 
 const Join = () => {
   //id 중복체크가 됐는지 확인하는 변수
-  let checkId = true;
-  let pwValidation = true;
-  let pwCheck = true;
+  let checkId = false;
+  let pwValidation = false;
+  let pwCheck = false;
 
   $("#pwValidation").hide();
   $("#pwCheckResult").hide();
@@ -102,6 +102,40 @@ const Join = () => {
     }
   });
 
+  //우편번호 및 주소 조회(다음 우편번호 검색 서비스 사용)
+  const open = useDaumPostcodePopup(
+    "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+  );
+
+  let [zipCode, setZipCode] = useState("");
+  let [fullAddress, setFullAddress] = useState("");
+
+  const handleComplete = (data) => {
+    fullAddress = data.address;
+    let extraAddress = "";
+
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+      setZipCode(data.zonecode);
+      setFullAddress(fullAddress);
+    }
+
+    // console.log(data);
+    // console.log(zipCode);
+    // console.log(fullAddress);
+  };
+
+  const handleClick = () => {
+    open({ onComplete: handleComplete });
+  }; //onComplete - 우편번호 검색이 끝났을 때 사용자가 선택한 정보를 받아올 콜백함수. 주소 데이터의 구성은 Daum 가이드를 참고.
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
@@ -147,7 +181,7 @@ const Join = () => {
               회원가입
             </Typography>
           </Grid>
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} sm={8}>
             <TextField
               name="userId"
               variant="outlined"
@@ -157,10 +191,19 @@ const Join = () => {
               label="아이디"
               autoFocus
             />
-            <Button id="btnIdCheck" variant="outlined" color="success">
+          </Grid>
+
+          <Grid item xs={12} sm={4}>
+            <Button
+              id="btnIdCheck"
+              variant="contained"
+              color="success"
+              style={{ width: "111px", height: "56px" }}
+            >
               중복체크
             </Button>
           </Grid>
+
           <Grid item xs={12}>
             <TextField
               name="userPw"
@@ -236,7 +279,19 @@ const Join = () => {
               type="email"
             />
           </Grid>
-          <Grid item xs={12}>
+
+          <Grid item xs={12} sm={4}>
+            <Button
+              id="userZipSearch"
+              variant="contained"
+              color="success"
+              style={{ height: "56px" }}
+              onClick={handleClick}
+            >
+              우편번호 검색
+            </Button>
+          </Grid>
+          <Grid item xs={12} sm={8}>
             <TextField
               name="userZip"
               variant="outlined"
@@ -244,6 +299,7 @@ const Join = () => {
               fullWidth
               id="userZip"
               label="우편번호"
+              value={zipCode}
             />
           </Grid>
           <Grid item xs={12}>
@@ -254,6 +310,7 @@ const Join = () => {
               fullWidth
               id="userAddr"
               label="주소"
+              value={fullAddress}
             />
           </Grid>
           <Grid item xs={12}>
@@ -266,7 +323,6 @@ const Join = () => {
               label="세부 주소"
             />
           </Grid>
-
           <Grid item xs={12}>
             <FormControlLabel
               control={
@@ -282,7 +338,13 @@ const Join = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <Button type="submit" fullWidth variant="contained" color="success">
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="success"
+              style={{ height: "56px" }}
+            >
               회원가입
             </Button>
           </Grid>
