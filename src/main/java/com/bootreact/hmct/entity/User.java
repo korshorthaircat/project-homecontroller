@@ -59,8 +59,8 @@ public class User {
 	private String userAddrDetail;
 	
 	//포인트
-	@ColumnDefault("'0'")
-	private String userPoint;
+	@ColumnDefault("0")
+	private int userPoint;
 	
 	//가입일
 	@Column(nullable = false)
