@@ -107,7 +107,7 @@ export default function Checkout() {
                   <Button
                     variant="contained"
                     onClick={handleNext}
-                    sx={{ mt: 3, ml: 1 }}
+                    sx={{ mt: 3, ml: 1, backgroundColor: "#003319" }}
                   >
                     {activeStep === steps.length - 1 ? "주문하기" : "다음"}
                   </Button>
