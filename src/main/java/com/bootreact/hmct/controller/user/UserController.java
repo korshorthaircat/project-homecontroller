@@ -116,8 +116,7 @@ public class UserController {
 			userDTO.setUserAddrDetail(loginUser.getUserAddrDetail());
 			userDTO.setUserPoint(loginUser.getUserPoint());
 			userDTO.setUserMarketing(loginUser.getUserMarketing());
-			//발행된 토큰 DTO에 담아서 리턴 
-			userDTO.setToken(token);
+			userDTO.setToken(token);//발행된 토큰 DTO에 담아서 리턴 
 			
 			return ResponseEntity.ok().body(userDTO);
 		} else {

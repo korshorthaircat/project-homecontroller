@@ -6,11 +6,11 @@ import axios from "axios";
 import { API_BASE_URL } from "../../app-config";
 
 const Login = () => {
-  const login = (member) => {
+  const login = (user) => {
     axios({
       method: "post",
-      url: API_BASE_URL + "/api/member/login",
-      data: member,
+      url: API_BASE_URL + "/api/user/login",
+      data: user,
     }).then((response) => {
       if (response.data.token) {
         //우리는 어디엔가 액세스토큰을 저장하고, 백엔드 서비스에 접근할 때 이 토큰을 요청에 동봉해야한다.
