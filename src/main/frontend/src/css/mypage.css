@@ -11,7 +11,7 @@ aside {
     display: flex;
     justify-content: space-between;
     margin-bottom: 50px;
-    )
+}
 
     /*11. 뉴스 페이지 반응형 웹 적용*/
 @media screen and (max-width: 600px) {
@@ -22,3 +22,4 @@ aside {
     article, aside {
         width: 100%;
     }
+}
