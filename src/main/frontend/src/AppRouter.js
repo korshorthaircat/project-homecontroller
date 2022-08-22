@@ -7,6 +7,7 @@ import Join from "./components/user/Join";
 import Header from "./components/Header";
 import Checkout from "./components/order/Checkout";
 import Dashboard from "./components/admin/Dashboard";
+import Mypage from "./components/mypage/Mypage";
 
 function Copyright() {
   return (
