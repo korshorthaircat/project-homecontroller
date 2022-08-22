@@ -15,7 +15,7 @@ public class Order {
     
 	//주문 번호(PK) 
 	@Id
-	private String orderNo;
+	private int orderNo;
 	
 	//회원 아이디(FK)
 	@ManyToOne

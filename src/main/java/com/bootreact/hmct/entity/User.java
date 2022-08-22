@@ -24,7 +24,8 @@ public class User {
 	
 	//비밀번호 
 	@Column(nullable = false)
-	private String userPw;  
+	private String userPw;
+	
 	//이름 
 	@Column(nullable = false)
 	private String userName;
@@ -58,7 +59,7 @@ public class User {
 	private String userAddrDetail;
 	
 	//포인트
-	@Column(nullable = false)
+	@ColumnDefault("'0'")
 	private String userPoint;
 	
 	//가입일

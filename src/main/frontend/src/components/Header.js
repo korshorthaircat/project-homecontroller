@@ -65,30 +65,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-
-
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
- 
-
-
-
- 
-
-  
-
- 
-
-  
-  
-
-  
-  
-      
-
-  
 
     return (
       <Box sx={{ flexGrow: 1 }}>

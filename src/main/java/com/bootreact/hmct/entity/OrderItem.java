@@ -31,7 +31,7 @@ public class OrderItem {
 	private Product product;			 
 		
 	//제품 수량
-	@ColumnDefault("'1'")
+	@Column
 	private String productCount;
 	
 	//제품 금액
