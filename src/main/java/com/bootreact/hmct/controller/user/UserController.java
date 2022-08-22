@@ -97,7 +97,7 @@ public class UserController {
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody User user) {
 		//로그인한 Member 객체 생성
-		User loginUser = userService.login(user.getUserName(), user.getUserPw());
+		User loginUser = userService.login(user.getUserId(), user.getUserPw());
 
 		if(loginUser != null) {
 			//로그인된 유저에 대한 토큰 발행 
