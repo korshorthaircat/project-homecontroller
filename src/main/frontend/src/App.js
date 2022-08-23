@@ -1,8 +1,8 @@
 import "./App.css";
-import ProductDetail_Img from "./components/productDetail/ProductDetail_Img";
+import Button from "react-bootstrap/Button";
 
 function App() {
-  return <ProductDetail_Img />;
+  return <div></div>;
 }
 
 export default App;

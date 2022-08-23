@@ -4,11 +4,13 @@ import { Box } from "@mui/system";
 import { Browser, Routes, Route, BrowserRouter } from "react-router-dom";
 import App from "./App";
 import Login from "./components/user/Login";
-import Join from "./components/user/Join";
 import Header from "./components/Header";
 import Checkout from "./components/order/Checkout";
 import Dashboard from "./components/admin/Dashboard";
 import Mypage from "./components/mypage/Mypage";
+import Join from "./components/user/Join";
+import ProductCatalog from "./components/productCatalog/ProductCatalog";
+import InteriorShowroom from "./components/showroom/InteriorShowroom";
 
 function Copyright() {
   return (
@@ -30,10 +32,10 @@ const AppRouter = () => {
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/join" element={<Join />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/order" element={<Checkout />} />
           <Route path="/admin" element={<Dashboard />} />
+          <Route path="/join" element={<Join />} />
         </Routes>
       </BrowserRouter>
     </div>

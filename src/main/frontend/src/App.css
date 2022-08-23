@@ -73,3 +73,9 @@
   width: 180px;
 }
 
+.wrapper{
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+

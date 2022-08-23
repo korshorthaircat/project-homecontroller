@@ -1,4 +1,5 @@
 import React from "react";
+import "../../css/productDetail.css";
 
 const ProductImgList = ({ item, onView }) => {
   const { image, title, id } = item;

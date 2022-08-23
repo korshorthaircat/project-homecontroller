@@ -4,6 +4,11 @@ import Grid from "@mui/material/Grid";
 import { Container } from "@mui/system";
 import axios from "axios";
 import { API_BASE_URL } from "../../app-config";
+import Checkbox from "@mui/material/Checkbox";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+
+const label = { inputProps: { "아이디 저장": "Checkbox demo" } };
 
 const Login = () => {
   const login = (member) => {
@@ -85,6 +90,23 @@ const Login = () => {
               name="userPw"
               type="password"
             />
+          </Grid>
+          <Grid container justifyContent="flex-end">
+            <FormGroup
+              sx={{
+                display: {
+                  xs: "none",
+                  md: "flex",
+                },
+                justifyContent: "center",
+                justifyItems: "center",
+              }}
+            >
+              <FormControlLabel
+                control={<Checkbox />}
+                label="아이디 저장하기"
+              />
+            </FormGroup>
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" fullWidth variant="contained" color="success">
