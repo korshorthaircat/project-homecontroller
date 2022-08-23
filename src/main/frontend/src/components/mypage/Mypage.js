@@ -12,7 +12,7 @@ function Mypage() {
     <div className="">
     <ImageList sx={{ width: 1500, height: 450 }}>
       <ImageListItem key="Subheader" cols={6}>
-        <ListSubheader component="div">December</ListSubheader>
+        <ListSubheader component="div">December</ListSubheader>   
       </ImageListItem>
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
