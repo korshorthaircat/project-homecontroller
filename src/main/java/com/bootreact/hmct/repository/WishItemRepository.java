@@ -10,6 +10,6 @@ import com.bootreact.hmct.entity.WishItemId;
 public interface WishItemRepository extends JpaRepository<WishItem, WishItemId>{
 	//public static final WishItem wishItem = new WishItem();
 	
-	//void save(String userId, int productId);   
+	//void save(String userId, int productId);      
 	
 }
