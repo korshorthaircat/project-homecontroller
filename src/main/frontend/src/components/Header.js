@@ -109,7 +109,7 @@ const Header = () => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1 }} >
         <FormGroup>
           <IconButton
             className="greenheader_btn"
@@ -229,7 +229,7 @@ const Header = () => {
           anchor="left"
           open={open}
         >
-          <DrawerHeader>
+          <DrawerHeader >
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "ltr" ? (
                 <ChevronLeftIcon />
