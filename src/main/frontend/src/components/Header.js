@@ -4,17 +4,9 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -24,14 +16,32 @@ import CelebrationOutlinedIcon from "@mui/icons-material/CelebrationOutlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import LightOutlinedIcon from "@mui/icons-material/LightOutlined";
 import Link from "@mui/material/Link";
-import Button from "@mui/material/Button";
+import { FormGroup } from "@mui/material";
+import CelebrationOutlinedIcon from "@mui/icons-material/CelebrationOutlined";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import LightOutlinedIcon from "@mui/icons-material/LightOutlined";
+import "../css/header.css";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+
+
+const drawerWidth = 450;
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: "100px",
-  backgroundColor: "lightgrey",
+  backgroundColor: "#F0F0F0",
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: 'lightgray',
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -69,6 +79,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
   const [loginUser, setLoginUser] = React.useState(null); 
   const logout = React.useCallback((e) => {
     console.log(e);
@@ -83,6 +94,19 @@ const Header = () => {
   }, []);
 
  return (
+
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+
     <Box sx={{ flexGrow: 1 }}>
       <FormGroup>
         <IconButton
@@ -191,11 +215,13 @@ const Header = () => {
               <ShoppingCartOutlinedIcon />
             </IconButton>
           </Box>
+        
         </Toolbar>
       </AppBar>
 
       <hr className="header_line" />
     </Box>
+    </>
   );
 };
 
