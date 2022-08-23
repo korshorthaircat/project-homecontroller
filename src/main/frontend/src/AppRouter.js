@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useCallback, useEffect} from "react";
 import { Typography } from "@mui/material";
 import { Browser, Routes, Route, BrowserRouter } from "react-router-dom";
 import App from "./App";
@@ -24,6 +24,7 @@ function Copyright() {
 }
 
 const AppRouter = () => {
+
   // 경로에 따라 실행되는 컴포넌트가 다르므로, 그 정보를 갖고있는 AppRouter를 가장 먼저 렌더링해야 한다.(Index.js에서)
   return (
     <div>
