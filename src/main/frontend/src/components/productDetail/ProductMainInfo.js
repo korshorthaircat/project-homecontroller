@@ -6,16 +6,17 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import "../../css/ProductDetail.css";
 import { useState } from "react";
-import SelectOption from "./SelectOption";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { FavoriteBorder } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import MainInfoNav from "./MainInfoNav";
 
 const ProductMainInfo = () => {
   const [color, setColor] = React.useState("");
   const handleChange = (event) => {
     setColor(event.target.value);
   };
+  
 
   return (
     <div className="productMainInfo">
@@ -28,7 +29,7 @@ const ProductMainInfo = () => {
       </div>
 
       <p>
-        <hr className="line1"></hr>
+        <hr className="line2"></hr>
       </p>
 
       <FormControl
@@ -64,6 +65,8 @@ const ProductMainInfo = () => {
             alignItems: "center",
           }}
         />
+
+        <MainInfoNav />
       </div>
     </div>
   );
