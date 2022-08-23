@@ -4,7 +4,6 @@ import { Box } from "@mui/system";
 import { Browser, Routes, Route, BrowserRouter } from "react-router-dom";
 import App from "./App";
 import Login from "./components/user/Login";
-import Join from "./components/user/Join";
 import Header from "./components/Header";
 import Checkout from "./components/order/Checkout";
 import Dashboard from "./components/admin/Dashboard";
@@ -30,7 +29,6 @@ const AppRouter = () => {
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/join" element={<Join />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/order" element={<Checkout />} />
           <Route path="/admin" element={<Dashboard />} />
