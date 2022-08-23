@@ -10,10 +10,16 @@ import SearchIcon from "@mui/icons-material/Search";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { FormGroup } from "@mui/material";
+import {
+  FormGroup,
+  getListItemAvatarUtilityClass,
+  rgbToHex,
+} from "@mui/material";
+import { color } from "@mui/system";
 import CelebrationOutlinedIcon from "@mui/icons-material/CelebrationOutlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import LightOutlinedIcon from "@mui/icons-material/LightOutlined";
+import Link from "@mui/material/Link";
 import "../css/header.css";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -69,18 +75,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
-}));
-
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+  const [loginUser, setLoginUser] = React.useState(null);
+  const logout = React.useCallback((e) => {
+    console.log(e);
+    e.preventDefault();
+    sessionStorage.removeItem("USER_INFO");
+    setLoginUser(null);
+    /*window.location.href="/";*/
+  }, []);
+
+  React.useEffect(() => {
+    setLoginUser(JSON.parse(sessionStorage.getItem("USER_INFO")));
+  }, []);
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -94,152 +104,115 @@ const Header = () => {
   };
 
   return (
-    <>
-      <Box sx={{ flexGrow: 1 }}>
-        <FormGroup>
-          <IconButton
-            className="greenheader_btn"
-            size="large"
-            aria-label="show 4 new mails"
-            color="inherit"
-          >
-            <LocalShippingOutlinedIcon sx={{ color: "white" }} />
-            <p className="greenheader_text">배송 서비스</p>
-          </IconButton>
-
-          <IconButton
-            className="greenheader_btn"
-            size="large"
-            aria-label="show 4 new mails"
-            color="inherit"
-          >
-            <CelebrationOutlinedIcon sx={{ color: "white" }} />
-            <p className="greenheader_text">이벤트 및 프로모션</p>
-          </IconButton>
-
-          <IconButton
-            className="greenheader_btn"
-            size="large"
-            aria-label="show 4 new mails"
-            color="inherit"
-          >
-            <LightOutlinedIcon sx={{ color: "white" }} />
-            <p className="greenheader_text">온라인쇼룸</p>
-          </IconButton>
-        </FormGroup>
-
-        <AppBar
-          position="static"
-          sx={{ backgroundColor: "white", boxShadow: "none" }}
+    <Box sx={{ flexGrow: 1 }}>
+      <FormGroup>
+        <IconButton
+          className="greenheader_btn"
+          size="large"
+          aria-label="show 4 new mails"
+          color="inherit"
         >
-          <Toolbar>
+          <LocalShippingOutlinedIcon sx={{ color: "white" }} />
+          <p className="greenheader_text">배송 서비스</p>
+        </IconButton>
+
+        <IconButton
+          className="greenheader_btn"
+          size="large"
+          aria-label="show 4 new mails"
+          color="inherit"
+        >
+          <CelebrationOutlinedIcon sx={{ color: "white" }} />
+          <p className="greenheader_text">이벤트 및 프로모션</p>
+        </IconButton>
+
+        <IconButton
+          className="greenheader_btn"
+          size="large"
+          aria-label="show 4 new mails"
+          color="inherit"
+        >
+          <LightOutlinedIcon sx={{ color: "white" }} />
+          <p className="greenheader_text">온라인쇼룸</p>
+        </IconButton>
+      </FormGroup>
+
+      <AppBar
+        position="static"
+        sx={{ backgroundColor: "white", boxShadow: "none" }}
+      >
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+
+          <img className="logo" src="images/logo.png" />
+
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="검색어 입력"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
+
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
-              edge="start"
+              aria-label="show 4 new mails"
               color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              sx={{ mr: 2, ...(open && { display: "none" }) }}
             >
-              <MenuIcon />
+              <PermIdentityOutlinedIcon sx={{ fontSize: 28 }} />
+              <div className="login_text">
+                {loginUser !== null ? (
+                  <>
+                    <p>{loginUser.userNickname}</p>
+                    <Link onClick={logout} href="/">
+                      로그아웃
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      <Link href="/join">회원가입</Link>
+                    </p>
+                    <Link href="/login">로그인</Link>
+                  </>
+                )}
+              </div>
             </IconButton>
 
-            <img className="logo" src="images/logo.png" />
-
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="검색어 입력"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
-
-            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
-              >
-                <PermIdentityOutlinedIcon sx={{ fontSize: 28 }} />
-                <p className="login_text">로그인</p>
-              </IconButton>
-
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <FavoriteBorderOutlinedIcon />
-              </IconButton>
-
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-haspopup="true"
-                color="inherit"
-              >
-                <ShoppingCartOutlinedIcon />
-              </IconButton>
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box",
-            },
-          }}
-          variant="persistent"
-          anchor="left"
-          open={open}
-        >
-          <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "ltr" ? (
-                <ChevronLeftIcon />
-              ) : (
-                <ChevronRightIcon />
-              )}
+            <IconButton
+              size="large"
+              aria-label="show 17 new notifications"
+              color="inherit"
+            >
+              <FavoriteBorderOutlinedIcon />
             </IconButton>
-          </DrawerHeader>
-          <Divider />
-          <List>
-            {["카테고리", "인테리어 쇼룸", "Send email", "Drafts"].map(
-              (text, index) => (
-                <ListItem key={text} disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                    </ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItemButton>
-                </ListItem>
-              )
-            )}
-          </List>
-          <Divider />
-          <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Drawer>
-        <hr className="header_line" />
-      </Box>
-    </>
+
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <ShoppingCartOutlinedIcon />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      <hr className="header_line" />
+    </Box>
   );
 };
 

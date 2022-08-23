@@ -24,6 +24,8 @@ const Join = () => {
   const [userAddr, setUserAddr] = useState("");
   const [userAddrDetail, setUserAddrDetail] = useState("");
 
+  const onIdHandler = (event) => {};
+
   const onMailHandler = (event) => {
     setUserMail(event.currentTarget.value);
   };
@@ -198,6 +200,7 @@ const Join = () => {
               fullWidth
               id="userName"
               label="이름"
+              onChange={onNameHandler}
             />
           </Grid>
           <Grid item xs={12}>
