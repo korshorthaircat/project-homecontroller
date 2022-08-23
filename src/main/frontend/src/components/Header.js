@@ -267,7 +267,9 @@ const Header = () => {
             ))}
           </List>
         </Drawer>
-        <hr className="header_line" />
+        <div className="header_line">
+        <hr />
+        </div>
       </Box>
     </>
   );

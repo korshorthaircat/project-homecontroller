@@ -1,12 +1,4 @@
-@fontface {
-    font-family: "Noto Sans", cursive;
-    src: url("https://fonts.googleapis.com/css?family=Noto Sans");
-  } 
-  
-  body {
-    font-family: "Noto Sans", cursive;
-  }
-  
+
   .css-dmmspl-MuiFormGroup-root {
     background-color: rgb(178, 204, 90);
     height: 35px;
@@ -49,14 +41,25 @@
     background-color: lightgray;
   }
   
-  .header_line {
+  /* .header_line {
+    display: flex;
+    justify-content: center;
+    
+  } */
+
+  .header_line hr {
     position: absolute;
     left: 220px;
+    
     width: 1545px;
     border: 1px solid lightgray;
     margin: 0px;
     
+    
+    
   }
+
+ 
   
   
   .css-dmmspl-MuiFormGroup-root {
