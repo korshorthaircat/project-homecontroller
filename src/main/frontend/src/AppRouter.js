@@ -1,6 +1,5 @@
 import React from "react";
 import { Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import { Browser, Routes, Route, BrowserRouter } from "react-router-dom";
 import App from "./App";
 import Login from "./components/user/Login";
@@ -8,6 +7,8 @@ import Header from "./components/Header";
 import Checkout from "./components/order/Checkout";
 import Dashboard from "./components/admin/Dashboard";
 import Mypage from "./components/mypage/Mypage";
+import ImageThumb from "./components/productDetail/ImageThumb";
+import ProductMainInfo from "./components/productDetail/ProductMainInfo";
 
 function Copyright() {
   return (
@@ -29,9 +30,14 @@ const AppRouter = () => {
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
+<<<<<<< HEAD
           <Route path="/mypage" element={<Mypage />} />
+=======
+          <Route path="/join" element={<Join />} />
+>>>>>>> branch 'main' of https://github.com/rlqma102/project-homecontroller.git
           <Route path="/order" element={<Checkout />} />
           <Route path="/admin" element={<Dashboard />} />
+          <Route path="/productDetail" element={<ImageThumb />} />
         </Routes>
       </BrowserRouter>
     </div>

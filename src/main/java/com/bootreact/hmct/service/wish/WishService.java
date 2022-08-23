@@ -6,3 +6,5 @@ public interface WishService {
 	//void addProduct(String userId, int productId);
 
 }
+
+ 
