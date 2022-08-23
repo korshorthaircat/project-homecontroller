@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
+import { styled, alpha, useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,16 +10,16 @@ import SearchIcon from "@mui/icons-material/Search";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { FormGroup, getListItemAvatarUtilityClass, rgbToHex } from "@mui/material";
+import {
+  FormGroup,
+  getListItemAvatarUtilityClass,
+  rgbToHex,
+} from "@mui/material";
 import { color } from "@mui/system";
 import CelebrationOutlinedIcon from "@mui/icons-material/CelebrationOutlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import LightOutlinedIcon from "@mui/icons-material/LightOutlined";
 import Link from "@mui/material/Link";
-import { FormGroup } from "@mui/material";
-import CelebrationOutlinedIcon from "@mui/icons-material/CelebrationOutlined";
-import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
-import LightOutlinedIcon from "@mui/icons-material/LightOutlined";
 import "../css/header.css";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -33,7 +33,6 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 
-
 const drawerWidth = 450;
 
 const Search = styled("div")(({ theme }) => ({
@@ -41,7 +40,7 @@ const Search = styled("div")(({ theme }) => ({
   borderRadius: "100px",
   backgroundColor: "#F0F0F0",
   "&:hover": {
-    backgroundColor: 'lightgray',
+    backgroundColor: "lightgray",
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -80,7 +79,7 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  const [loginUser, setLoginUser] = React.useState(null); 
+  const [loginUser, setLoginUser] = React.useState(null);
   const logout = React.useCallback((e) => {
     console.log(e);
     e.preventDefault();
@@ -88,12 +87,10 @@ const Header = () => {
     setLoginUser(null);
     /*window.location.href="/";*/
   }, []);
-  
+
   React.useEffect(() => {
     setLoginUser(JSON.parse(sessionStorage.getItem("USER_INFO")));
   }, []);
-
- return (
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -106,7 +103,7 @@ const Header = () => {
     setOpen(false);
   };
 
-
+  return (
     <Box sx={{ flexGrow: 1 }}>
       <FormGroup>
         <IconButton
@@ -174,27 +171,23 @@ const Header = () => {
               color="inherit"
             >
               <PermIdentityOutlinedIcon sx={{ fontSize: 28 }} />
-                  <div className="login_text">
-                    {loginUser !== null ? 
-                         (
-                           <>
-                            <p>{loginUser.userNickname}</p>
-                            <Link onClick={logout} href="/" >
-                              로그아웃
-                              </Link>
-                            </>
-                          )
-                         :
-                         (<>
-                         <p><Link href="/join">
-                            회원가입
-                          </Link></p>
-                          <Link href="/login">
-                            로그인
-                          </Link>
-                          </>
-                          )}
-                  </div>                                 
+              <div className="login_text">
+                {loginUser !== null ? (
+                  <>
+                    <p>{loginUser.userNickname}</p>
+                    <Link onClick={logout} href="/">
+                      로그아웃
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      <Link href="/join">회원가입</Link>
+                    </p>
+                    <Link href="/login">로그인</Link>
+                  </>
+                )}
+              </div>
             </IconButton>
 
             <IconButton
@@ -215,13 +208,11 @@ const Header = () => {
               <ShoppingCartOutlinedIcon />
             </IconButton>
           </Box>
-        
         </Toolbar>
       </AppBar>
 
       <hr className="header_line" />
     </Box>
-    </>
   );
 };
 
