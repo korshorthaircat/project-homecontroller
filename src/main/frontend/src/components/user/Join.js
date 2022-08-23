@@ -9,98 +9,77 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
-import $ from "jquery";
 import { join } from "../../service/ApiService";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 
 const Join = () => {
-  //id 중복체크가 됐는지 확인하는 변수
-  let checkId = false;
-  let pwValidation = false;
-  let pwCheck = false;
+  const [userId, setUserId] = useState("");
+  const [userPw, setUserPw] = useState("");
+  const [userPwCheck, setUserPwCheck] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userNickname, setUserNickname] = useState("");
+  const [userTel, setUserTel] = useState("");
+  const [userMail, setUserMail] = useState("");
+  const [userZip, setUserZip] = useState("");
+  const [userAddr, setUserAddr] = useState("");
+  const [userAddrDetail, setUserAddrDetail] = useState("");
 
-  $("#pwValidation").hide();
-  $("#pwCheckResult").hide();
+  const onMailHandler = (event) => {
+    setUserMail(event.currentTarget.value);
+  };
 
-  //아이디 중복 체크
-  $("#btnIdCheck").on("click", function () {
-    if ($("#userId").val() == null || $("#userId").val() == "") {
-      alert("아이디를 입력하세요.");
-      return;
-    }
-  });
+  const onPwHandler = (event) => {
+    setUserPw(event.currentTarget.value);
+  };
 
-  $("#userId").on("change", function () {
-    checkId = false;
-    $("#btnIdCheck").attr("disabled", false);
-  });
+  const onNameHandler = (event) => {
+    setUserName(event.currentTarget.value);
+  };
 
-  //비밀번호 유효성 검사
-  function validatePassword(character) {
-    return /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{9,}$/.test(character);
-  }
+  const onPwCheckHandler = (event) => {
+    setUserPwCheck(event.currentTarget.value);
+  };
 
-  $("#userPw").on("change", function () {
-    if (!validatePassword($("#userPw").val())) {
-      pwValidation = false;
-      $("#pwValidation").show();
-      $("#userPw").focus();
-    } else {
-      pwValidation = true;
-      $("#pwValidation").hide();
-    }
+  const hasPwError = (passwordEntered) => (userPw.length < 5 ? true : false);
 
-    if ($("#userPw").val() == $("#userPwCheck").val()) {
-      pwCheck = true;
-      $("#pwCheckResult").css("color", "green");
-      $("#pwCheckResult").text("비밀번호가 일치합니다.");
-    } else {
-      pwCheck = false;
-      $("#pwCheckResult").css("color", "red");
-      $("#pwCheckResult").text("비밀번호가 일치하지 않습니다.");
-    }
-  });
+  const hasNotSameError = (passwordEntered) =>
+    userPw != userPwCheck ? true : false;
 
-  //비밀번호 확인
-  $("#userPwCheck").on("change", function () {
-    $("#pwCheckResult").show();
+  const onSubmitHandler = (event) => {
+    event.preventDefault(); // 아무 동작 안하고 버튼만 눌러도 리프레쉬 되는 것을 막음
 
-    if ($("#userPw").val() == $("#userPwCheck").val()) {
-      pwCheck = true;
-      $("#pwCheckResult").css("color", "green");
-      $("#pwCheckResult").text("비밀번호가 일치합니다.");
-    } else {
-      pwCheck = false;
-      $("#pwCheckResult").css("color", "red");
-      $("#pwCheckResult").text("비밀번호가 일치하지 않습니다.");
-    }
-  });
-
-  //회원가입할(회원가입 폼 서브밋될) 때 마지막 유효성 검사
-  $("#joinForm").on("submit", function (e) {
-    if (!checkId) {
-      alert("아이디 중복체크를 진행해주세요.");
-      $("#userId").focus();
-      e.preventDefault();
-      return;
+    if (userPw !== userPwCheck) {
+      return alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
     }
 
-    if (!pwValidation) {
-      alert(
-        "비밀번호는 영문자, 숫자, 특수문자 조합의 9자리 이상으로 설정해주세요."
-      );
-      $("#userPw").focus();
-      e.preventDefault();
-      return;
-    }
+    const data = new FormData(event.target);
+    const userId = data.get("userId");
+    const userPw = data.get("userPw");
+    const userName = data.get("userName");
+    const userNickname = data.get("userNickname");
+    const userTel = data.get("userTel");
+    const userMail = data.get("userMail");
+    const userZip = data.get("userZip");
+    const userAddr = data.get("userAddr");
+    const userAddrDetail = data.get("userAddrDetail");
+    const userMarketing = data.get("userMarketing");
 
-    if (!pwCheck) {
-      alert("비밀번호가 일치하지 않습니다.");
-      $("#userPwCheck").focus();
-      e.preventDefault();
-      return;
-    }
-  });
+    join({
+      userId: userId,
+      userPw: userPw,
+      userName: userName,
+      userNickname: userNickname,
+      userTel: userTel,
+      userMail: userMail,
+      userZip: userZip,
+      userAddr: userAddr,
+      userAddrDetail: userAddrDetail,
+      userMarketing: userMarketing,
+    }).then((response) => {
+      //회원가입 성공시 로그인 페이지로 이동
+      window.location.href = "/login";
+    });
+  };
 
   //우편번호 및 주소 조회(다음 우편번호 검색 서비스 사용)
   const open = useDaumPostcodePopup(
@@ -136,40 +115,9 @@ const Join = () => {
     open({ onComplete: handleComplete });
   }; //onComplete - 우편번호 검색이 끝났을 때 사용자가 선택한 정보를 받아올 콜백함수. 주소 데이터의 구성은 Daum 가이드를 참고.
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    const userId = data.get("userId");
-    const userPw = data.get("userPw");
-    const userName = data.get("userName");
-    const userNickname = data.get("userNickname");
-    const userTel = data.get("userTel");
-    const userMail = data.get("userMail");
-    const userZip = data.get("userZip");
-    const userAddr = data.get("userAddr");
-    const userAddrDetail = data.get("userAddrDetail");
-    const userMarketing = data.get("userMarketing");
-
-    join({
-      userId: userId,
-      userPw: userPw,
-      userName: userName,
-      userNickname: userNickname,
-      userTel: userTel,
-      userMail: userMail,
-      userZip: userZip,
-      userAddr: userAddr,
-      userAddrDetail: userAddrDetail,
-      userMarketing: userMarketing,
-    }).then((response) => {
-      //회원가입 성공시 로그인 페이지로 이동
-      window.location.href = "/login";
-    });
-  };
-
   return (
     <Container component="main" maxWidth="xs" style={{ marginTop: "8%" }}>
-      <form noValidate onSubmit={handleSubmit} id="joinForm">
+      <form noValidate onSubmit={onSubmitHandler} id="joinForm">
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <img
@@ -213,14 +161,18 @@ const Join = () => {
               id="userPw"
               label="비밀번호"
               type="password"
+              helperText="비밀번호는 특수문자 1자 이상을 포함하여 9자리 이상으로
+              설정해주세요."
             />
+            {/* 
             <Typography
               id="pwValidation"
               style={{ color: "red", fontSize: "0.8rem" }}
             >
-              비밀번호는 영문자, 숫자, 특수문자 조합의 9자리 이상으로
+              비밀번호는 특수문자 1자 이상을 포함하여 9자리 이상으로
               설정해주세요.
             </Typography>
+             */}
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -266,6 +218,7 @@ const Join = () => {
               fullWidth
               id="userTel"
               label="전화번호"
+              helperText="숫자만 입력해주세요. 예) 01012345678"
             />
           </Grid>
           <Grid item xs={12}>
@@ -344,6 +297,7 @@ const Join = () => {
               variant="contained"
               color="success"
               style={{ height: "56px" }}
+              onSubmit={onSubmitHandler}
             >
               회원가입
             </Button>
