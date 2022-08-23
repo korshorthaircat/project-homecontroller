@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, alpha, useTheme } from "@mui/material/styles";
+import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -18,23 +18,13 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { FormGroup, rgbToHex } from "@mui/material";
+import { FormGroup, getListItemAvatarUtilityClass, rgbToHex } from "@mui/material";
 import { color } from "@mui/system";
 import CelebrationOutlinedIcon from "@mui/icons-material/CelebrationOutlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import LightOutlinedIcon from "@mui/icons-material/LightOutlined";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-
-const drawerWidth = 450;
+import Link from "@mui/material/Link";
+import Button from "@mui/material/Button";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -76,31 +66,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
-}));
-
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [loginUser, setLoginUser] = React.useState(null); 
+  const logout = React.useCallback((e) => {
+    console.log(e);
+    e.preventDefault();
+    sessionStorage.removeItem("USER_INFO");
+    setLoginUser(null);
+    /*window.location.href="/";*/
+  }, []);
+  
+  React.useEffect(() => {
+    setLoginUser(JSON.parse(sessionStorage.getItem("USER_INFO")));
+  }, []);
 
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  return (
+ return (
     <Box sx={{ flexGrow: 1 }}>
       <FormGroup>
         <IconButton
@@ -144,13 +126,12 @@ const Header = () => {
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
+            sx={{ mr: 2 }}
           >
             <MenuIcon />
           </IconButton>
 
-          <img className="logo" />
+          <img className="logo" src="images/logo.png" />
 
           <Search>
             <SearchIconWrapper>
@@ -169,7 +150,27 @@ const Header = () => {
               color="inherit"
             >
               <PermIdentityOutlinedIcon sx={{ fontSize: 28 }} />
-              <p className="login_text">로그인</p>
+                  <div className="login_text">
+                    {loginUser !== null ? 
+                         (
+                           <>
+                            <p>{loginUser.userNickname}</p>
+                            <Link onClick={logout} href="/" >
+                              로그아웃
+                              </Link>
+                            </>
+                          )
+                         :
+                         (<>
+                         <p><Link href="/join">
+                            회원가입
+                          </Link></p>
+                          <Link href="/login">
+                            로그인
+                          </Link>
+                          </>
+                          )}
+                  </div>                                 
             </IconButton>
 
             <IconButton
@@ -192,57 +193,7 @@ const Header = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {["카테고리", "인테리어 쇼룸", "Send email", "Drafts"].map(
-            (text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            )
-          )}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
+
       <hr className="header_line" />
     </Box>
   );

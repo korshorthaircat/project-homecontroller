@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback, useState} from "react";
 import { Button, TextField, Typography, Link } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Container } from "@mui/system";
@@ -11,11 +11,11 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 const label = { inputProps: { "아이디 저장": "Checkbox demo" } };
 
 const Login = () => {
-  const login = (member) => {
+  const login = (user) => {
     axios({
       method: "post",
-      url: API_BASE_URL + "/api/member/login",
-      data: member,
+      url: API_BASE_URL + "/api/user/login",
+      data: user,
     }).then((response) => {
       if (response.data.token) {
         //우리는 어디엔가 액세스토큰을 저장하고, 백엔드 서비스에 접근할 때 이 토큰을 요청에 동봉해야한다.
@@ -24,37 +24,23 @@ const Login = () => {
         //웹 스토리지에는 두 종류가 있다. 세션 스토리지와 로컬 스토리지.
         //세션 스토리지는 브라우저를 닫으면 사라지고, 로컬스토리지는 브라우저를 닫아도 사라지지 않는다.
         //사용자가 브라우저를 재시작할때마다 로그인하게 하고 싶다면 세션 스토리지를, 브라우저를 재시작해도 로그인 상태를 유지하고 싶으면 로컬스토리지를 사용하면 된다.
-        localStorage.setItem("ACCESS_TOKEN", response.data.token); //로컬 스토리지에 토큰 저장
+        sessionStorage.setItem("ACCESS_TOKEN", response.data.token); //로컬 스토리지에 토큰 저장
+        //setUserInfo(response.data);
+        sessionStorage.setItem("USER_INFO", JSON.stringify(response.data));
         window.location.href = "/";
       }
     });
-  };
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
     const userId = data.get("userId");
     const userPw = data.get("userPw");
-    const userName = data.get("userName");
-    const userNickname = data.get("userNickname");
-    const userTel = data.get("userTel");
-    const userMail = data.get("userMail");
-    const userZip = data.get("userZip");
-    const userAddr = data.get("userAddr");
-    const userAddrDetail = data.get("userAddrDetail");
-    const userMarketing = data.get("userMarketing");
-
+   
     login({
       userId: userId,
       userPw: userPw,
-      userName: userName,
-      userNickname: userNickname,
-      userTel: userTel,
-      userMail: userMail,
-      userZip: userZip,
-      userAddr: userAddr,
-      userAddrDetail: userAddrDetail,
-      userMarketing: userMarketing,
     });
   };
 
