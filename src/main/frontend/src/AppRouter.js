@@ -10,6 +10,7 @@ import Dashboard from "./components/admin/Dashboard";
 import Mypage from "./components/mypage/Mypage";
 import ImageThumb from "./components/productDetail/ImageThumb";
 import ProductMainInfo from "./components/productDetail/ProductMainInfo";
+import InteriorShowroom from "./components/showroom/InteriorShowroom";
 
 function Copyright() {
   return (
@@ -35,6 +36,7 @@ const AppRouter = () => {
           <Route path="/order" element={<Checkout />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/productDetail" element={<ImageThumb />} />
+          <Route path="/showroom" element={<InteriorShowroom />} />
         </Routes>
       </BrowserRouter>
     </div>
