@@ -1,7 +1,10 @@
+
 .imgBox {
-    margin-left: 5%;
+    margin-left: 10%;
     width: 50%;
     height: auto;
+    
+
     
     
 }
@@ -9,7 +12,6 @@
   .Main-img{
     width: 100%;
     height: 90%;
-    
   }
   
   .mainImg, .thumbImg {
@@ -24,11 +26,13 @@
   }
 
   #productDetailInfoAll {
-    margin: 30px;
-    font-size: 30px;
+    margin: 20px;
+    font-size: 22px;
     font-weight: 600;
     border: 0px;
     background-color: white;
+    grid-column-start: 9;
+    grid-column-end: span 4;
   }
 
   .line1 {
@@ -40,11 +44,15 @@
   width: 50px;
   float: right;
 }
+
+
+
+
+
   .productMainInfo {
     display: flex;
     flex-direction: column;
-    position:fixed; 
-    z-index:5;       
+    position: sticky;
     width: 30%;    
     height: 1000px;   
     top:200px;         
@@ -53,20 +61,20 @@
   }
 
   .productName {
-    font-size: 50px;
+    font-size: 25px;
     margin: 5px;
     font-weight: 700;
   }
 
   .productCategory {
-    font-size: 20px;
+    font-size: 13px;
     margin: 5px;
     font-weight: 500;
     margin-left: 10px;
   }
  
   .productPrice {
-    font-size: 40px;
+    font-size: 25px;
     margin: 5px;
     font-weight: 600;
   }
@@ -74,7 +82,7 @@
   #Review p {
     float: left;
     margin: 5px;
-    font-size: 23px;
+    font-size: 15px;
     font-weight: 400;
   }
 
@@ -86,13 +94,13 @@
   }
 
   #sellBtn {
-    width: 300px;
-    height: 60px;
+    width: 200px;
+    height: 50px;
     border-radius: 30px;
     border: 0px;
     background-color: #003319;
     color: white;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 500;
     margin: auto;
   }
@@ -110,5 +118,36 @@
 
   #productWishBtn {
     margin-left: -20px;
-    margin-right: 40px;
+    margin-right: 70px;
+  }
+
+  #acodianProductName {
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 70px;
+  }
+
+  #acodianProductInfo {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  #acodianProductNo_text {
+    display: inline-block;
+    background-color: #111;
+    padding: .25rem .75rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.25;
+    font-size: 13px;
+    margin-top: 50px;
+  }
+
+  #acodianProductNo {
+    font-size: 14px;
+    margin-left: 5px;
+  }
+
+  .sameCategory {
+    width: 1600px;
   }
