@@ -3,7 +3,6 @@ import { useState } from "react";
 import "../../css/ProductDetail.css";
 import ProductMainInfo from "./ProductMainInfo";
 import ProductDetailInfo from "./ProductDetailInfo";
-import NavContents from "./NavContents";
 
 const choice = {
   img1: {
@@ -41,38 +40,38 @@ function ImageThumb() {
           className="btn"
           onClick={() => play("img1")}
           type="image"
-          src= "/images/inter (1).png"
+          src="/images/inter (1).png"
           alt="1번째사진"
         ></input>
         <input
           className="btn"
           onClick={() => play("img2")}
           type="image"
-          src= "/images/inter (2).png"
+          src="/images/inter (2).png"
           alt="2번째사진"
         ></input>
         <input
           className="btn"
           onClick={() => play("img3")}
           type="image"
-          src= "/images/inter (3).png"
+          src="/images/inter (3).png"
           alt="3번째사진"
         ></input>
         <input
           className="btn"
           onClick={() => play("img4")}
           type="image"
-          src= "/images/inter (2).png"
+          src="/images/inter (2).png"
           alt="4번째사진"
         ></input>
       </div>
       <p>
         <hr className="line1"></hr>
       </p>
-      <ProductDetailInfo />
 
       <ProductMainInfo />
-      <NavContents />
+
+      <ProductDetailInfo />
     </div>
   );
 }

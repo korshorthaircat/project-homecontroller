@@ -88,10 +88,10 @@ export function callForPayment(api, method, request) {
   });
 }
 
-export function logout() {
-  localStorage.setItem("ACCESS_TOKEN", null);
-  window.location.href = "/login";
-}
+// export function logout() {
+//   sessionStorage.setItem("ACCESS_TOKEN", null);
+//   window.location.href = "/login";
+// }
 
 export function join(user) {
   return call("/api/user/join", "POST", user);

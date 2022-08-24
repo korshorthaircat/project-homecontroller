@@ -28,6 +28,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Link from "@mui/material/Link";
 
+
 const drawerWidth = 450;
 
 const Search = styled("div")(({ theme }) => ({
@@ -88,6 +89,7 @@ const Header = () => {
     console.log(e);
     e.preventDefault();
     sessionStorage.removeItem("USER_INFO");
+    // sessionStorage.removeItem("ACCESS_TOKEN");
     setLoginUser(null);
     /*window.location.href="/";*/
   }, []);
@@ -146,21 +148,23 @@ const Header = () => {
           position="static"
           sx={{ backgroundColor: "white", boxShadow: "none" }}
         >
-          <Toolbar>
+          <Toolbar >
             <IconButton
+            
               size="large"
               edge="start"
               color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
-              sx={{ mr: 2, ...(open && { display: "none" }) }}
+              sx={{ mr: 2, ...(open && { display: "none" })}}
             >
               <MenuIcon />
             </IconButton>
 
+            <div className="logoSearchbarLogin">
             <img className="logo" src="images/logo.png" />
 
-            <Search>
+            <Search className="searchBar">
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -177,7 +181,7 @@ const Header = () => {
                 color="inherit"
               >
                 <PermIdentityOutlinedIcon sx={{ fontSize: 28 }} />
-                <div className="login_text">
+                
                   {loginUser !== null ? (
                     <>
                       <p>{loginUser.userNickname}</p>
@@ -186,14 +190,10 @@ const Header = () => {
                       </Link>
                     </>
                   ) : (
-                    <>
-                      <p>
-                        <Link href="/join">회원가입</Link>
-                      </p>
-                      <Link href="/login">로그인</Link>
-                    </>
+                    <div className="login_text">
+                      <Link href="/login">로그인 또는 가입하기</Link>
+                    </div>
                   )}
-                </div>
               </IconButton>
 
               <IconButton
@@ -214,6 +214,7 @@ const Header = () => {
                 <ShoppingCartOutlinedIcon />
               </IconButton>
             </Box>
+            </div>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -267,9 +268,7 @@ const Header = () => {
             ))}
           </List>
         </Drawer>
-        <div className="header_line">
-        <hr />
-        </div>
+        
       </Box>
     </>
   );
