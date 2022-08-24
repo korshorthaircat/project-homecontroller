@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import {
   Button,
   TextField,
@@ -20,39 +20,87 @@ const Join = () => {
   const [userNickname, setUserNickname] = useState("");
   const [userTel, setUserTel] = useState("");
   const [userMail, setUserMail] = useState("");
-  const [userZip, setUserZip] = useState("");
-  const [userAddr, setUserAddr] = useState("");
-  const [userAddrDetail, setUserAddrDetail] = useState("");
 
-  const onIdHandler = (event) => {};
+  const [isPassword, setIsPassword] = useState(false);
+  const [isCheckedPassword, setIsCheckedPassword] = useState(false);
 
-  const onMailHandler = (event) => {
-    setUserMail(event.currentTarget.value);
+  useEffect(() => {
+    //userPw 텍스트필드의 헬퍼텍스트 컬러 변경
+    if (isPassword) {
+      document.getElementById("userPw-helper-text").style.color = "green";
+    } else {
+      document.getElementById("userPw-helper-text").style.color = "red";
+    }
+  }, [userPw]);
+
+  const onIdHandler = (event) => {
+    setUserId(event.currentTarget.value);
   };
 
-  const onPwHandler = (event) => {
-    setUserPw(event.currentTarget.value);
-  };
+  const onChangePassword = useCallback(
+    (event) => {
+      const passwordRegex = new RegExp(
+        "^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$"
+      );
+      setUserPw(event.currentTarget.value);
 
-  const onNameHandler = (event) => {
-    setUserName(event.currentTarget.value);
-  };
+      if (!passwordRegex.test(userPw)) {
+        setIsPassword(false);
+      } else {
+        setIsPassword(true);
+      }
+    },
+    [userPw]
+  );
 
   const onPwCheckHandler = (event) => {
     setUserPwCheck(event.currentTarget.value);
   };
 
-  const hasPwError = (passwordEntered) => (userPw.length < 5 ? true : false);
+  useEffect(() => {
+    setUserPwCheck((currentValue) => currentValue);
 
-  const hasNotSameError = (passwordEntered) =>
-    userPw != userPwCheck ? true : false;
+    console.log(userPw);
+    console.log(userPwCheck);
+
+    if (userPw !== userPwCheck) {
+      setIsCheckedPassword(false);
+    } else {
+      setIsCheckedPassword(true);
+    }
+
+    if (userPw !== userPwCheck) {
+      setIsCheckedPassword(false);
+    } else {
+      setIsCheckedPassword(true);
+    }
+  }, [userPwCheck]);
+
+  const onNameHandler = (event) => {
+    setUserName(event.currentTarget.value);
+  };
+
+  const onNicknameHandler = (event) => {
+    setUserNickname(event.currentTarget.value);
+  };
+
+  const onTelHandler = (event) => {
+    setUserTel(event.currentTarget.value);
+  };
+
+  const onMailHandler = (event) => {
+    setUserMail(event.currentTarget.value);
+  };
+
+  const hasNotSameError = useCallback(
+    (str) => {
+      return userPw !== userPwCheck ? true : false;
+    },
+    [userPw, userPwCheck]
+  );
 
   const onSubmitHandler = (event) => {
     event.preventDefault(); // 아무 동작 안하고 버튼만 눌러도 리프레쉬 되는 것을 막음
-
-    if (userPw !== userPwCheck) {
-      return alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-    }
 
     const data = new FormData(event.target);
     const userId = data.get("userId");
@@ -66,21 +114,28 @@ const Join = () => {
     const userAddrDetail = data.get("userAddrDetail");
     const userMarketing = data.get("userMarketing");
 
-    join({
-      userId: userId,
-      userPw: userPw,
-      userName: userName,
-      userNickname: userNickname,
-      userTel: userTel,
-      userMail: userMail,
-      userZip: userZip,
-      userAddr: userAddr,
-      userAddrDetail: userAddrDetail,
-      userMarketing: userMarketing,
-    }).then((response) => {
-      //회원가입 성공시 로그인 페이지로 이동
-      window.location.href = "/login";
-    });
+    if (!(isPassword && isCheckedPassword)) {
+      console.log(isPassword);
+      console.log(isCheckedPassword);
+      alert("제대로 입력하세요.");
+      return;
+    } else {
+      join({
+        userId: userId,
+        userPw: userPw,
+        userName: userName,
+        userNickname: userNickname,
+        userTel: userTel,
+        userMail: userMail,
+        userZip: userZip,
+        userAddr: userAddr,
+        userAddrDetail: userAddrDetail,
+        userMarketing: userMarketing,
+      }).then((response) => {
+        //회원가입 성공시 로그인 페이지로 이동
+        window.location.href = "/login";
+      });
+    }
   };
 
   //우편번호 및 주소 조회(다음 우편번호 검색 서비스 사용)
@@ -140,6 +195,8 @@ const Join = () => {
               id="userId"
               label="아이디"
               autoFocus
+              value={userId}
+              onChange={onIdHandler}
             />
           </Grid>
 
@@ -163,18 +220,14 @@ const Join = () => {
               id="userPw"
               label="비밀번호"
               type="password"
-              helperText="비밀번호는 특수문자 1자 이상을 포함하여 9자리 이상으로
-              설정해주세요."
+              value={userPw}
+              onChange={onChangePassword}
+              helperText={
+                isPassword
+                  ? "안전한 비밀번호입니다."
+                  : "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
+              }
             />
-            {/* 
-            <Typography
-              id="pwValidation"
-              style={{ color: "red", fontSize: "0.8rem" }}
-            >
-              비밀번호는 특수문자 1자 이상을 포함하여 9자리 이상으로
-              설정해주세요.
-            </Typography>
-             */}
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -185,11 +238,15 @@ const Join = () => {
               id="userPwCheck"
               label="비밀번호 확인"
               type="password"
+              value={userPwCheck}
+              onChange={onPwCheckHandler}
+              error={hasNotSameError("userPwCheck")}
+              helperText={
+                hasNotSameError("userPwCheck")
+                  ? "입력한 비밀번호와 일치하지 않습니다."
+                  : null
+              }
             />
-            <Typography
-              id="pwCheckResult"
-              style={{ fontSize: "0.8rem" }}
-            ></Typography>
           </Grid>
 
           <Grid item xs={12}>
@@ -200,6 +257,7 @@ const Join = () => {
               fullWidth
               id="userName"
               label="이름"
+              value={userName}
               onChange={onNameHandler}
             />
           </Grid>
@@ -211,6 +269,8 @@ const Join = () => {
               fullWidth
               id="userNickname"
               label="닉네임"
+              value={userNickname}
+              onChange={onNicknameHandler}
             />
           </Grid>
           <Grid item xs={12}>
@@ -222,6 +282,8 @@ const Join = () => {
               id="userTel"
               label="전화번호"
               helperText="숫자만 입력해주세요. 예) 01012345678"
+              value={userTel}
+              onChange={onTelHandler}
             />
           </Grid>
           <Grid item xs={12}>
@@ -233,6 +295,8 @@ const Join = () => {
               id="userMail"
               label="이메일"
               type="email"
+              value={userMail}
+              onChange={onMailHandler}
             />
           </Grid>
 
