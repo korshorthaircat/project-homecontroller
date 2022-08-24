@@ -11,6 +11,7 @@ import Mypage from "./components/mypage/Mypage";
 import ImageThumb from "./components/productDetail/ImageThumb";
 import ProductMainInfo from "./components/productDetail/ProductMainInfo";
 import InteriorShowroom from "./components/showroom/InteriorShowroom";
+import Footer from "./components/Footer";
 
 function Copyright() {
   return (
@@ -41,6 +42,7 @@ const AppRouter = () => {
           <Route path="/showroom" element={<InteriorShowroom />} />
         </Routes>
       </BrowserRouter>
+      <Footer/>
     </div>
   );
 };
