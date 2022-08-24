@@ -54,14 +54,12 @@
   .logoSearchbarLogin {
     display: flex;
     justify-content: center;
+
     align-items: center;
     height: 90px;
     width: 1650px;
     border-bottom: 1px solid darkgray;
-  }
-
- 
-  
+  } 
   
   .css-dmmspl-MuiFormGroup-root {
     display: flex;

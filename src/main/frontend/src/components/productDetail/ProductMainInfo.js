@@ -35,7 +35,7 @@ const ProductMainInfo = () => {
       <FormControl
         fullWidth
         className="colorSelect"
-        style={{ width: "500px", marginTop: "30px", marginLeft: "10px" }}
+        style={{ width: "300px", marginTop: "30px", marginLeft: "10px" }}
       >
         <InputLabel id="colorSelect">색상선택</InputLabel>
         <Select
