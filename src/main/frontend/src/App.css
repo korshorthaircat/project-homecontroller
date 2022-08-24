@@ -1,0 +1,13 @@
+body {
+    overflow-x: hidden;
+}
+
+.main_text {
+    font-weight: bold;
+}
+
+.eventCard {
+    display: flex;
+    justify-content: center;
+}
+
