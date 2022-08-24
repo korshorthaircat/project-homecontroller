@@ -1,30 +1,9 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import React from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 
-const getItems = () =>
-  Array(20)
-    .fill(0)
-    .map((_, ind) => ({ id: `element-${ind}` }));
-
 function InteriorShowroom() {
-  const [items, setItems] = React.useState(getItems);
-  const [selected, setSelected] = React.useState([]);
-  const [position, setPosition] = React.useState(0);
-
-  const isItemSelected = (id) => !!selected.find((el) => el === id);
-
-  const handleClick =
-    (id) =>
-    ({ getItemById, scrollToItem }) => {
-      const itemSelected = isItemSelected(id);
-
-      setSelected((currentSelected) =>
-        itemSelected
-          ? currentSelected.filter((el) => el !== id)
-          : currentSelected.concat(id)
-      );
-    };
   return (
     <div className="wrapper">
       <div className="showroomMain">
