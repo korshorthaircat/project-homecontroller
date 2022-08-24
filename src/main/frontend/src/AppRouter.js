@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Typography } from "@mui/material";
 import { Browser, Routes, Route, BrowserRouter } from "react-router-dom";
 import App from "./App";
@@ -12,6 +12,7 @@ import ImageThumb from "./components/productDetail/ImageThumb";
 import ProductMainInfo from "./components/productDetail/ProductMainInfo";
 import InteriorShowroom from "./components/showroom/InteriorShowroom";
 import Footer from "./components/Footer";
+import SplitButton from "./components/list/SplitButton";
 
 function Copyright() {
   return (
@@ -25,7 +26,6 @@ function Copyright() {
 }
 
 const AppRouter = () => {
-
   // 경로에 따라 실행되는 컴포넌트가 다르므로, 그 정보를 갖고있는 AppRouter를 가장 먼저 렌더링해야 한다.(Index.js에서)
   return (
     <div>
@@ -40,9 +40,10 @@ const AppRouter = () => {
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/productDetail" element={<ImageThumb />} />
           <Route path="/showroom" element={<InteriorShowroom />} />
+          <Route path="/list" element={<SplitButton />} />
         </Routes>
       </BrowserRouter>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
