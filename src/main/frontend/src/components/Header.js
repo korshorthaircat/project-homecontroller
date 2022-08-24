@@ -89,6 +89,7 @@ const Header = () => {
     console.log(e);
     e.preventDefault();
     sessionStorage.removeItem("USER_INFO");
+    // sessionStorage.removeItem("ACCESS_TOKEN");
     setLoginUser(null);
     /*window.location.href="/";*/
   }, []);

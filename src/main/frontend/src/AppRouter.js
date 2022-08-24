@@ -14,6 +14,7 @@ import InteriorShowroom from "./components/showroom/InteriorShowroom";
 import Footer from "./components/Footer";
 import SplitButton from "./components/list/SplitButton";
 import KakaoPay from "./components/order/KakaoPay";
+import UserManage from "./components/admin/UserManage";
 
 function Copyright() {
   return (
@@ -39,6 +40,7 @@ const AppRouter = () => {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/order" element={<Checkout />} />
           <Route path="/admin" element={<Dashboard />} />
+          <Route path="/UserManage" element={<UserManage/>}/>
           <Route path="/productDetail" element={<ImageThumb />} />
           <Route path="/showroom" element={<InteriorShowroom />} />
           <Route path="/list" element={<SplitButton />} />
