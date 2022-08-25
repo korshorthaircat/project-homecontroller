@@ -8,6 +8,7 @@ import Join from "./components/user/Join";
 import Checkout from "./components/order/Checkout";
 import Dashboard from "./components/admin/Dashboard";
 import Mypage from "./components/mypage/Mypage";
+import UserUpdate from "./components/mypage/UserUpdate";
 import ImageThumb from "./components/productDetail/ImageThumb";
 import ProductMainInfo from "./components/productDetail/ProductMainInfo";
 import InteriorShowroom from "./components/showroom/InteriorShowroom";
@@ -41,6 +42,7 @@ const AppRouter = () => {
           <Route path="/join" element={<Join />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<Mypage />} />
+          <Route path="/mypage" element={<UserUpdate />} />
           <Route path="/order" element={<Checkout />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/UserManage" element={<UserManage/>}/>
