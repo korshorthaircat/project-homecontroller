@@ -181,6 +181,7 @@ const Join = () => {
               className="logo"
               src="images/logo.png"
               style={{ width: "400px" }}
+              alt="로고"
             />
             <Typography component="h1" variant="h5">
               회원가입
