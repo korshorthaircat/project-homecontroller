@@ -1,72 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+
+//요청에 보내줄 파람스를 부모 컴포넌트에서 보내주도록 수정하기
+// const KakaoPay2 = ({ params }) => {
+//   const [data, setData] = useState(params);
+//   const [responseData, setResponseData] = useState(params);
+//response데이타는 따로 스테이트 만들어서 관리하기
+//next_redirect_pc_url: "", tid: "", 만 갖도록...
 
 const KakaoPay2 = () => {
-  const [params, setParams] = useState({});
-
-  // useState를 썼더니 SetParams가 실행되기도 전에
-  // axios 요청이 비어있는 params로 들어가는 것 같음...
-
-  // let params = {
-  //   // 응답에서 가져올 값들
-  //   next_redirect_pc_url: "",
-  //   tid: "",
-  //   // 요청에 넘겨줄 매개변수들
-  //   params: {
-  //     cid: "TC0ONETIME",
-  //     partner_order_id: "partner_order_id",
-  //     partner_user_id: "partner_user_id",
-  //     item_name: "책상",
-  //     quantity: 1,
-  //     total_amount: 2200,
-  //     vat_amount: 200,
-  //     tax_free_amount: 0,
-  //     approval_url: "http://localhost:3000/",
-  //     fail_url: "http://localhost:3000/",
-  //     cancel_url: "http://localhost:3000/",
-  //   },
-  // };
+  const [data, setData] = useState({
+    // 응답에서 가져올 값들
+    next_redirect_pc_url: "",
+    tid: "",
+    // 요청에 넘겨줄 매개변수들
+    params: {
+      cid: "TC0ONETIME",
+      partner_order_id: "partner_order_id",
+      partner_user_id: "partner_user_id",
+      item_name: "책상",
+      quantity: 1,
+      total_amount: 2200,
+      vat_amount: 200,
+      tax_free_amount: 0,
+      approval_url: "http://localhost:3000/",
+      fail_url: "http://localhost:3000/",
+      cancel_url: "http://localhost:3000/",
+    },
+  });
 
   useEffect(() => {
-    setParams({
-      // 응답에서 가져올 값들
-      next_redirect_pc_url: "",
-      tid: "",
-      // 요청에 넘겨줄 매개변수들
-      params: {
-        cid: "TC0ONETIME",
-        partner_order_id: "partner_order_id",
-        partner_user_id: "partner_user_id",
-        item_name: "책상",
-        quantity: 1,
-        total_amount: 2200,
-        vat_amount: 200,
-        tax_free_amount: 0,
-        approval_url: "http://localhost:3000/",
-        fail_url: "http://localhost:3000/",
-        cancel_url: "http://localhost:3000/",
-      },
-    });
-    console.log(params);
+    const queryStr = Object.keys(data)
+      .map((key) => key + "=" + data[key])
+      .join("&");
 
     axios({
       url: "https://kapi.kakao.com/v1/payment/ready",
-      //url: "/v1/payment/ready", //프록시에 카카오 도메인을 설정했으므로 결제준비 url만 설정
       method: "post",
       headers: {
-        Authorization: "KakaoAK ad3cffd957a8fbe95dfcde71f91574af", //카카오 developers에 등록한 admin키
+        Authorization: "KakaoAK e9b2a60cdcbf332af5df8ba23399b883",
         "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
       },
-      params,
-    }).then((response) => {
-      console.log(response.data);
+      data: queryStr, //요청에 파라미터 보내줄 때 쿼리스트링으로 보내줘야 함
+    })
+      .then((response) => {
+        console.log(response.data);
 
-      // response에서 필요한 data만 뽑기
-      // response의 data로 state 갱신하기
-    });
-  }, []);
+        // response에서 필요한 data만 뽑기
+        // response의 data로 state 갱신하기
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [data]);
 
   return (
     <div>

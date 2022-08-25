@@ -61,6 +61,7 @@ const Login = () => {
               id="userId"
               label="아이디"
               name="userId"
+              autoComplete="userId"
             />
           </Grid>
           <Grid item xs={12}>
@@ -72,6 +73,7 @@ const Login = () => {
               label="비밀번호"
               name="userPw"
               type="password"
+              autoComplete="current-password"
             />
           </Grid>
           <Grid container justifyContent="flex-end">
