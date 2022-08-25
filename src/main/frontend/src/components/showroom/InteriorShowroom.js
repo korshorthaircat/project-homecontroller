@@ -76,6 +76,7 @@ function InteriorShowroom() {
       <div className="wrapper">
         <SplitButton></SplitButton>
         <SplitButton></SplitButton>
+        <SplitButton></SplitButton>
       </div>
     </Container>
   );
