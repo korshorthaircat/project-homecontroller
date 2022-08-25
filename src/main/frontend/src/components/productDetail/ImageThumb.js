@@ -31,48 +31,53 @@ function ImageThumb() {
   };
 
   return (
-    <div className="imgBox">
-      <div className="mainImg">
-        <Box item={userSelect} />
-      </div>
-      <div className="thumbImg">
-        <input
-          className="btn"
-          onClick={() => play("img1")}
-          type="image"
-          src="/images/inter (1).png"
-          alt="1번째사진"
-        ></input>
-        <input
-          className="btn"
-          onClick={() => play("img2")}
-          type="image"
-          src="/images/inter (2).png"
-          alt="2번째사진"
-        ></input>
-        <input
-          className="btn"
-          onClick={() => play("img3")}
-          type="image"
-          src="/images/inter (3).png"
-          alt="3번째사진"
-        ></input>
-        <input
-          className="btn"
-          onClick={() => play("img4")}
-          type="image"
-          src="/images/inter (2).png"
-          alt="4번째사진"
-        ></input>
-      </div>
-      <p>
-        <hr className="line1"></hr>
-      </p>
+    <>
+      <div className="main">
+        <div className="imgBox">
+          <div style={{ textAlign: "center" }}>
+            <Box item={userSelect} />
+          </div>
+          <div className="thumbImg">
+            <input
+              className="btn"
+              onClick={() => play("img1")}
+              type="image"
+              src="/images/inter (1).png"
+              alt="1번째사진"
+            ></input>
+            <input
+              className="btn"
+              onClick={() => play("img2")}
+              type="image"
+              src="/images/inter (2).png"
+              alt="2번째사진"
+            ></input>
+            <input
+              className="btn"
+              onClick={() => play("img3")}
+              type="image"
+              src="/images/inter (3).png"
+              alt="3번째사진"
+            ></input>
+            <input
+              className="btn"
+              onClick={() => play("img4")}
+              type="image"
+              src="/images/inter (2).png"
+              alt="4번째사진"
+            ></input>
+          </div>
+          <p>
+            <hr className="line1"></hr>
+          </p>
 
-      <ProductMainInfo />
-
-      <ProductDetailInfo />
-    </div>
+          <ProductDetailInfo />
+        </div>
+        <div className="contentBox">
+          <ProductMainInfo />
+        </div>
+      </div>
+    </>
   );
 }
 
