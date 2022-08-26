@@ -10,7 +10,10 @@ import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import NavContentInfo from "./NavContentInfo";
+import NavContentSize from "./NavContentSize";
+import NavContentRev from "./NavContentRev";
 import ProductDetailInfo from "./ProductDetailInfo";
+import { hover } from "@testing-library/user-event/dist/hover";
 
 const drawerBleeding = 56;
 
@@ -27,7 +30,7 @@ const StyledBox = styled(Box)(({ theme }) => ({}));
 const Puller = styled(Box)(({ theme }) => ({}));
 
 function MainInfoNav(props) {
-  const { window } = props;
+  const { window, option } = props;
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen) => () => {
@@ -37,6 +40,10 @@ function MainInfoNav(props) {
   // This is used only for the example
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
+  function Test(props) {
+    const [open, setOpen] = React.useState(false);
+  }
 
   return (
     <Root>
@@ -52,7 +59,7 @@ function MainInfoNav(props) {
       />
 
       {/* 오픈박스버튼 */}
-      <Box sx={{position: "absolute"}}>
+      <Box sx={{ position: "absolute" }}>
         <Button
           onClick={toggleDrawer(true)}
           sx={{
@@ -92,7 +99,13 @@ function MainInfoNav(props) {
             overflow: "auto",
           }}
         >
-          <NavContentInfo />
+          {option === "info" ? (
+            <NavContentInfo />
+          ) : option === "size" ? (
+            <NavContentSize />
+          ) : (
+            <NavContentRev />
+          )}
         </StyledBox>
       </SwipeableDrawer>
     </Root>

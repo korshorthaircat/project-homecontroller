@@ -5,6 +5,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import "../../css/ProductDetail.css";
+import Textarea from "../../css/Textarea";
 
 export default function NavContentInfo() {
   const [expanded, setExpanded] = React.useState(false);
@@ -22,11 +23,11 @@ export default function NavContentInfo() {
         <AccordionDetails>
           <Typography>
             <p id="acodianProductName">제품 설명</p>
-            <textarea id="acodianProductInfo">
+            <textarea id="acodianProductInfo" >
               시트의 내구성 좋은 금속 스프링은 소파에 푹신한 편안함을 제공하여
               오랫동안 앉거나 편안하게 휴식을 즐길 수 있습니다. 커버는 물세탁
               가능하며 간편하게 벗겨내고 다시 씌울 수 있어 깔끔하게 관리하기
-              편합니다. 프레임에는 10년 품질보증이 제공됩니다. 브로슈어에서
+              편합니다.프레임에는 10년 품질보증이 제공됩니다. 브로슈어에서
               품질보증 기간에 대한 내용을 읽어 보세요.
             </textarea>
             <span id="acodianProductNo_text">제품 번호 </span>
@@ -49,6 +50,31 @@ export default function NavContentInfo() {
               fontWeight: 600,
               fontSize: "17px",
             }}
+          ></Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography></Typography>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion
+        expanded={expanded === "panel"}
+        onChange={handleChange("panel")}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2bh-content"
+          id="panel2bh-header"
+        >
+          <Typography
+            sx={{
+              width: "33%",
+              flexShrink: 0,
+              height: "80px",
+              transform: "translateY(35%)",
+              fontWeight: 600,
+              fontSize: "17px",
+            }}
           >
             참고
           </Typography>
@@ -57,6 +83,7 @@ export default function NavContentInfo() {
           <Typography>이케아코리아</Typography>
         </AccordionDetails>
       </Accordion>
+
       <Accordion
         expanded={expanded === "panel2"}
         onChange={handleChange("panel2")}

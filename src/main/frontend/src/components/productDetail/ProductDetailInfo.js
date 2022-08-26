@@ -1,3 +1,4 @@
+import { hover } from "@testing-library/user-event/dist/hover";
 import React, { Component } from "react";
 import MainInfoNav from "./MainInfoNav";
 import SameCategoryList from "./SameCategoryList";
@@ -11,7 +12,7 @@ const ProductDetailInfo = () => {
         style={{ position: "relative" }}
       >
         <div>
-          <MainInfoNav />
+          <MainInfoNav option="info" />
         </div>
         제품설명
       </button>
@@ -27,7 +28,7 @@ const ProductDetailInfo = () => {
           style={{ position: "relative" }}
         >
           <div>
-            <MainInfoNav />
+            <MainInfoNav option="size" />
           </div>
           치수
         </button>
@@ -41,12 +42,13 @@ const ProductDetailInfo = () => {
           style={{ position: "relative" }}
         >
           <div>
-            <MainInfoNav />
+            <MainInfoNav option="review"/>
           </div>
           상품평
         </button>
         <img id="arrowIcon" src="/Product_arrow.png"></img>
       </p>
+      <hr className="line1"></hr>
       <div>
         <SameCategoryList />
       </div>

@@ -33,7 +33,7 @@ export default function NavContentSize() {
               가구 밑 여유공간: 11 cm
             </p>
 
-            <img id="productSizeImg" src="/Product_ikea.png"></img>
+            <img id="productSizeImg" src="/images/Product_ikea.png" style={{width:"400px"}}></img>
           </Typography>
         </AccordionDetails>
 
@@ -41,6 +41,34 @@ export default function NavContentSize() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
           id="panel1bh-header"
+        >
+          <Typography
+            sx={{
+              width: "33%",
+              flexShrink: 0,
+              height: "80px",
+              transform: "translateY(35%)",
+              fontWeight: 600,
+              fontSize: "17px",
+            }}
+          >
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+           
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion
+        expanded={expanded === "panel"}
+        onChange={handleChange("panel")}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2bh-content"
+          id="panel2bh-header"
         >
           <Typography
             sx={{
@@ -75,27 +103,8 @@ export default function NavContentSize() {
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Accordion
-        expanded={expanded === "panel2"}
-        onChange={handleChange("panel2")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2bh-content"
-          id="panel2bh-header"
-        >
-          <Typography
-            sx={{
-              width: "33%",
-              flexShrink: 0,
-              height: "80px",
-              transform: "translateY(35%)",
-              fontWeight: 600,
-              fontSize: "17px",
-            }}
-          ></Typography>
-        </AccordionSummary>
-      </Accordion>
+
+      
     </div>
   );
 }

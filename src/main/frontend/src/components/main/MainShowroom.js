@@ -13,8 +13,8 @@ const MainShowroom = () => {
             <MainShowroomColor color="white" />
             <MainShowroomColor color="black" />
             <MainShowroomColor color="pink" />
-            <MainShowroomColor color="gray" />
-            <MainShowroomColor color="brown" />    
+            <MainShowroomColor color="beige" />
+            <MainShowroomColor color="gray" />    
         </div>
     );
 };
