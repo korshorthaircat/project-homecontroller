@@ -14,10 +14,11 @@ import ProductMainInfo from "./components/productDetail/ProductMainInfo";
 import InteriorShowroom from "./components/showroom/InteriorShowroom";
 import Footer from "./components/Footer";
 import SplitButton from "./components/list/SplitButton";
-import KakaoPay from "./components/order/KakaoPay";
 import KakaoPayReady from "./components/order/KakaoPayReady";
 import KakaoPayResult from "./components/order/KakaoPayResult";
 import UserManage from "./components/admin/UserManage";
+import Cart from "./components/cart/Cart";
+import Cart2 from "./components/cart/Cart2";
 
 function Copyright() {
   return (
@@ -48,7 +49,8 @@ const AppRouter = () => {
           <Route path="/productDetail" element={<ImageThumb />} />
           <Route path="/showroom" element={<InteriorShowroom />} />
           <Route path="/list" element={<SplitButton />} />
-          <Route path="/kakaopay" element={<KakaoPay />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart2" element={<Cart2 />} />
           <Route path="/kakaopayReady" element={<KakaoPayReady />} />
           <Route path="/kakaopayResult" element={<KakaoPayResult />} />
         </Routes>
