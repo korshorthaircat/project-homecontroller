@@ -19,7 +19,7 @@ const KakaoPayReady = () => {
     total_amount: 2200,
     vat_amount: 200,
     tax_free_amount: 0,
-    approval_url: "http://localhost:3000/kakaopayResult",
+    approval_url: "http://localhost:3000/kakaopayResult/",
     fail_url: "http://localhost:3000/kakaopayResult",
     cancel_url: "http://localhost:3000/kakaopayResult",
   });
@@ -51,7 +51,7 @@ const KakaoPayReady = () => {
       // response에서 필요한 data만 뽑기
       const next_redirect_pc_url = response.data.next_redirect_pc_url;
       const tid = response.data.tid;
-      //윈도우의 로컬 스토리지에 tid 저장하기(결제승인 api에 매개변수로 함께 줘야 함)
+      //세션 스토리지에 tid 저장하기(결제승인 api에 매개변수로 함께 줘야 함)
       sessionStorage.setItem("tid", tid);
       sessionStorage.setItem("params", params);
 
