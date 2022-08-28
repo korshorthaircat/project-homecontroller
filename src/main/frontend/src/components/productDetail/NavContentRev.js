@@ -1,11 +1,7 @@
 import * as React from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import "../../css/ProductDetail.css";
 import Textarea from "../../css/Textarea";
+import RevInserNav from "./RevInsertNav";
 
 export default function NavContentRev() {
   return (
@@ -24,6 +20,9 @@ export default function NavContentRev() {
         </div>
 
         <button type="button" id="RevInsert">
+          <div>
+            <RevInserNav />
+          </div>
           상품평 작성
         </button>
 

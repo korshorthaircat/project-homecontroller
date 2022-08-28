@@ -6,14 +6,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { grey } from "@mui/material/colors";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import NavContentInfo from "./NavContentInfo";
-import NavContentSize from "./NavContentSize";
-import NavContentRev from "./NavContentRev";
-import ProductDetailInfo from "./ProductDetailInfo";
-import { hover } from "@testing-library/user-event/dist/hover";
+import NavRevInsert from "./NavRevInsert";
 
 const drawerBleeding = 56;
 
@@ -29,8 +24,8 @@ const StyledBox = styled(Box)(({ theme }) => ({}));
 
 const Puller = styled(Box)(({ theme }) => ({}));
 
-function MainInfoNav(props) {
-  const { window, option } = props;
+function RevInsertNav(props) {
+  const { window } = props;
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen) => () => {
@@ -95,20 +90,14 @@ function MainInfoNav(props) {
             overflow: "auto",
           }}
         >
-          {option === "info" ? (
-            <NavContentInfo />
-          ) : option === "size" ? (
-            <NavContentSize />
-          ) : (
-            <NavContentRev />
-          )}
+          <NavRevInsert />
         </StyledBox>
       </SwipeableDrawer>
     </Root>
   );
 }
 
-MainInfoNav.propTypes = {
+RevInsertNav.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
@@ -116,4 +105,4 @@ MainInfoNav.propTypes = {
   window: PropTypes.func,
 };
 
-export default MainInfoNav;
+export default RevInsertNav;
