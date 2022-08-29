@@ -2,8 +2,12 @@ import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainImage from "./components/main/MainImage";
 import EventCard from "./components/main/EventCard";
-import MainShowroom from "./components/main/MainShowroom"
-import Carousel from "./components/main/Carousel"
+import MainShowroom from "./components/main/MainShowroom";
+import CarouselSlide from "./components/main/CarouselSlide";
+
+
+
+
 
 function App() {
   return (
@@ -15,14 +19,14 @@ function App() {
 
       <h4 className="main_text">진행중인 이벤트 및 프로모션</h4>
       
-      <EventCard />
+      {/* <EventCard /> */}
 
       <h4 className="main_text">다양한 HOME CONTROLLER 서비스</h4>
 
       <h4 className="main_text">인테리어 쇼룸</h4>
       {/* <MainShowroom /> */}
 
-      <Carousel />
+      <CarouselSlide/>
       
     </div>
   )
