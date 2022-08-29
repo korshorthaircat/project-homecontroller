@@ -68,13 +68,14 @@ const Join = () => {
     } else {
       setIsCheckedPassword(true);
     }
-
-    if (userPw !== userPwCheck) {
-      setIsCheckedPassword(false);
-    } else {
-      setIsCheckedPassword(true);
-    }
   }, [userPwCheck]);
+
+  const hasNotSameError = useCallback(
+    (str) => {
+      return userPw !== userPwCheck ? true : false;
+    },
+    [userPw, userPwCheck]
+  );
 
   const onNameHandler = (event) => {
     setUserName(event.currentTarget.value);
@@ -91,13 +92,6 @@ const Join = () => {
   const onMailHandler = (event) => {
     setUserMail(event.currentTarget.value);
   };
-
-  const hasNotSameError = useCallback(
-    (str) => {
-      return userPw !== userPwCheck ? true : false;
-    },
-    [userPw, userPwCheck]
-  );
 
   const onSubmitHandler = (event) => {
     event.preventDefault(); // 아무 동작 안하고 버튼만 눌러도 리프레쉬 되는 것을 막음
@@ -181,6 +175,7 @@ const Join = () => {
               className="logo"
               src="images/logo.png"
               style={{ width: "400px" }}
+              alt="로고"
             />
             <Typography component="h1" variant="h5">
               회원가입

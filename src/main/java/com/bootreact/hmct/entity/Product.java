@@ -45,7 +45,7 @@ public class Product {
 
 	//제품가격
 	@Column(nullable = false)
-	private String productPrice;
+	private int productPrice;
 
 	//제품설명_요약
 	@Column(nullable = false)

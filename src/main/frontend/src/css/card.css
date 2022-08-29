@@ -1,0 +1,64 @@
+.imageArea {
+    width: 350px;
+    height: 350px;
+    
+    background-size: cover;
+    margin: 0 auto;
+}
+
+.textArea {
+    padding-top: 25px;
+    width: 350px;
+    height: 180px;
+    background-size: cover;
+    margin: 0 auto;
+}
+
+.textArea p {
+    margin-bottom: 0px;
+}
+
+.card {
+    border: none;
+
+}
+
+.price_text {
+    font-size: 22px;
+    font-weight: bold;
+    
+}
+
+
+
+.last {
+    display: flex;
+    align-items: center;
+   
+    
+}
+
+.last p {
+    margin-bottom: 0px;
+}
+
+.title_text {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.category_text {
+    font-size: 14px;
+}
+
+
+
+.priceArea {
+    margin-top: 20px;
+
+}
+
+.product_line {
+    margin: 10px 0;
+}
+
