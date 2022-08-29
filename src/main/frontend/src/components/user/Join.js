@@ -11,6 +11,8 @@ import {
 } from "@mui/material";
 import { join } from "../../service/ApiService";
 import { useDaumPostcodePopup } from "react-daum-postcode";
+import axios from "axios";
+import { API_BASE_URL } from "../../app-config";
 
 const Join = () => {
   const [userId, setUserId] = useState("");
@@ -60,9 +62,6 @@ const Join = () => {
   useEffect(() => {
     setUserPwCheck((currentValue) => currentValue);
 
-    console.log(userPw);
-    console.log(userPwCheck);
-
     if (userPw !== userPwCheck) {
       setIsCheckedPassword(false);
     } else {
@@ -93,6 +92,83 @@ const Join = () => {
     setUserMail(event.currentTarget.value);
   };
 
+  //아이디 중복 조회 버튼 클릭시
+  const checkId = () => {
+    if (userId == null) {
+      alert("아이디를 입력하세요.");
+      return;
+    }
+
+    axios({
+      method: "post",
+      url: API_BASE_URL + "/api/user/checkId",
+      data: userId,
+    }).then((response) => {
+      console.log(response);
+    });
+  };
+
+  // $.ajax({
+  //   url: "/user/idCheck",
+  //   type: "post",
+  //   //data: $("#joinForm").serialize(), //입력된 user정보를 보내줘야 함
+  //   success: function (obj) {
+  //     //서버의 응답 데이터가 클라이언트에게 도착하면 자동으로 실행되는 함수(콜백함수)
+  //     if (obj === "idOk") {
+  //       if (
+  //         confirm(
+  //           "사용가능한 아이디입니다. " +
+  //             $("#userId").val() +
+  //             "를(을) 사용하시겠습니까?"
+  //         )
+  //       ) {
+  //         checkId = true;
+  //         $("#btnIdCheck").attr("disabled", true);
+  //       }
+  //     } else {
+  //       checkId = false;
+  //       alert("이미 존재하는 아이디입니다.");
+  //       $("#userId").focus();
+  //       return;
+  //     }
+  //   },
+  //   error: function (e) {
+  //     console.log(e);
+  //   },
+  // });
+
+  //우편번호 및 주소 조회(다음 우편번호 검색 서비스 사용)
+  const open = useDaumPostcodePopup(
+    "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+  );
+
+  let [zipCode, setZipCode] = useState("");
+  let [fullAddress, setFullAddress] = useState("");
+
+  const handleComplete = (data) => {
+    fullAddress = data.address;
+    let extraAddress = "";
+
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+      setZipCode(data.zonecode);
+      setFullAddress(fullAddress);
+    }
+  };
+
+  //우편번호 검색 버튼 클릭시
+  const handleClick = () => {
+    open({ onComplete: handleComplete });
+  }; //onComplete - 우편번호 검색이 끝났을 때 사용자가 선택한 정보를 받아올 콜백함수. 주소 데이터의 구성은 Daum 가이드를 참고.
+
+  //회원가입 버튼 클릭시
   const onSubmitHandler = (event) => {
     event.preventDefault(); // 아무 동작 안하고 버튼만 눌러도 리프레쉬 되는 것을 막음
 
@@ -132,40 +208,6 @@ const Join = () => {
     }
   };
 
-  //우편번호 및 주소 조회(다음 우편번호 검색 서비스 사용)
-  const open = useDaumPostcodePopup(
-    "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
-  );
-
-  let [zipCode, setZipCode] = useState("");
-  let [fullAddress, setFullAddress] = useState("");
-
-  const handleComplete = (data) => {
-    fullAddress = data.address;
-    let extraAddress = "";
-
-    if (data.addressType === "R") {
-      if (data.bname !== "") {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== "") {
-        extraAddress +=
-          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-      }
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-      setZipCode(data.zonecode);
-      setFullAddress(fullAddress);
-    }
-
-    // console.log(data);
-    // console.log(zipCode);
-    // console.log(fullAddress);
-  };
-
-  const handleClick = () => {
-    open({ onComplete: handleComplete });
-  }; //onComplete - 우편번호 검색이 끝났을 때 사용자가 선택한 정보를 받아올 콜백함수. 주소 데이터의 구성은 Daum 가이드를 참고.
-
   return (
     <Container component="main" maxWidth="xs" style={{ marginTop: "8%" }}>
       <form noValidate onSubmit={onSubmitHandler} id="joinForm">
@@ -201,6 +243,7 @@ const Join = () => {
               variant="contained"
               color="success"
               style={{ width: "111px", height: "56px" }}
+              onClick={checkId}
             >
               중복체크
             </Button>

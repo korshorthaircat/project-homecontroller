@@ -5,33 +5,30 @@ import { useLocation } from "react-router-dom";
 const KakaoPayResult = () => {
   const { search } = useLocation(); //location 안에 있는 토큰 정보를 빼내서 사용해야 한다.
   const [params, setParams] = useState({});
+  const [rcParams, setRcParams] = useState(
+    JSON.parse(sessionStorage.getItem("params"))
+  );
+  const [tid, setTid] = useState(sessionStorage.getItem("tid"));
 
   useEffect(() => {
-    async function setInitailParams() {
-      console.log(1);
-      const pgToken = search.split("=")[1];
+    const pgToken = search.split("=")[1];
 
-      const rcParams = sessionStorage.getItem("params");
+    setParams({
+      ...rcParams,
+      tid: tid,
+      pg_token: pgToken,
+    });
 
-      const tidParams = {
-        ...rcParams,
-        tid: sessionStorage.getItem("tid"),
-        pg_token: pgToken,
-      };
-
-      setParams(tidParams);
-    }
-    setInitailParams();
-  }, []);
+    console.log(params);
+  }, [rcParams, tid]);
 
   useEffect(() => {
-    console.log(2);
-    async function callKakaoPayResult() {
+    if (JSON.stringify(params) !== "{}") {
       const queryStr = Object.keys(params)
         .map((key) => key + "=" + params[key])
         .join("&");
 
-      await axios({
+      axios({
         url: "https://kapi.kakao.com/v1/payment/approve",
         method: "post",
         headers: {
@@ -50,11 +47,9 @@ const KakaoPayResult = () => {
           console.log(e);
         });
     }
-  }, [params]);
+  }, [rcParams, tid, params]);
   //url에 붙어서 온 pg_token을 결제api에 줄 params에 할당
   //params.pg_token = search.split("=")[1];
-
-  return;
 };
 
 export default KakaoPayResult;
