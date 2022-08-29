@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import ProductInCart from "./ProductInCart";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -38,10 +38,25 @@ const Cart = () => {
   const [orderAmount, setOrderAmount] = useState(0);
 
   //결제금액
-  const [paymentAmount, setPaymentAmount] = useState(orderAmount);
+  const [paymentAmount, setPaymentAmount] = useState(0);
+
+  useEffect(() => {
+    if (document.getElementById("auto-select").value == "3,000원 할인") {
+      setPaymentAmount(paymentAmount - 3000);
+      console.log(paymentAmount);
+    } else if (
+      document.getElementById("auto-select").value == "첫 구매 회원 10% 할인"
+    ) {
+      setPaymentAmount(paymentAmount * 0.9);
+      console.log(paymentAmount);
+    } else if (document.getElementById("auto-select").value == "5,000원 할인") {
+      setPaymentAmount(paymentAmount - 5000);
+      console.log(paymentAmount);
+    }
+  }, []);
 
   //쿠폰 옵션
-  const coupon = [
+  const coupons = [
     {
       couponNo: "1",
       couponExpdate: "220930",
@@ -62,10 +77,10 @@ const Cart = () => {
     },
   ];
 
-  const defaultProps = {
-    options: coupon,
-    getOptionLabel: (option) => option.couponName,
-  };
+  const [couponVal, setCouponVal] = useState(coupons[0]);
+  // const handleClick = () => {
+  //   setCouponVal(coupons[0]);
+  // };
 
   //주문하기 버튼 클릭시 실행될 함수
   const onClickHandler = () => {
@@ -89,6 +104,8 @@ const Cart = () => {
               product={product}
               orderAmount={orderAmount}
               setOrderAmount={setOrderAmount}
+              paymentAmount={paymentAmount}
+              setPaymentAmount={setPaymentAmount}
             ></ProductInCart>
           ))}
         </Grid>
@@ -112,9 +129,9 @@ const Cart = () => {
               <Grid sx={{ paddingBottom: "70px" }}>
                 <Typography variant="h5">할인 혜택 적용하기(선택)</Typography>
                 <Autocomplete
-                  {...defaultProps}
-                  id="auto-select"
-                  autoSelect
+                  value={couponVal}
+                  options={coupons}
+                  getOptionLabel={(option) => option.couponName}
                   sx={{ width: 200 }}
                   renderInput={(params) => (
                     <TextField

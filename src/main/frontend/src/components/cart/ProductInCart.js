@@ -14,20 +14,47 @@ import { useScrollTrigger } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
-const ProductInCart = ({ product, orderAmount, setOrderAmount }) => {
-  //수량 변경
+const ProductInCart = ({
+  product,
+  orderAmount,
+  setOrderAmount,
+  paymentAmount,
+  setPaymentAmount,
+}) => {
+  //제품 수량관리를 위해 useReducer 사용
+  const [number, dispatch] = useReducer(reducer, 0);
+
+  //수량 변경 버튼 클릭시 수량과 주문금액에 영향
   function reducer(state, action) {
     switch (action.type) {
       case "INCREMENT":
         setOrderAmount(orderAmount + parseInt(product.productPrice));
         return state + 1;
       case "DECREMENT":
-        setOrderAmount(orderAmount - parseInt(product.productPrice));
-        return state - 1;
+        if (orderAmount > 1) {
+          setOrderAmount(orderAmount - parseInt(product.productPrice));
+          return state - 1;
+        } else {
+          return state;
+        }
       default:
         return state;
     }
   }
+
+  //수량 증가
+  const onIncrease = () => {
+    dispatch({ type: "INCREMENT" });
+  };
+
+  //수량 감소
+  const onDecrease = () => {
+    dispatch({ type: "DECREMENT" });
+  };
+
+  useEffect(() => {
+    setPaymentAmount(orderAmount);
+  }, [orderAmount]);
 
   //제품 이미지
   const ProductImg = styled("img")({
@@ -48,26 +75,6 @@ const ProductInCart = ({ product, orderAmount, setOrderAmount }) => {
   const defaultProps = {
     options: commonTable,
     getOptionLabel: (option) => option.commonCodeName,
-  };
-
-  // useEffect(() => {
-  //   setOrderAmount(
-  //     //orderAmount + parseInt(products.map((product) => product.productPrice))
-  //     orderAmount + parseInt(products.map((product) => product.productPrice))
-  //   );
-  // }, []);
-
-  //useReducer 테스트
-  const [number, dispatch] = useReducer(reducer, 0);
-
-  //장바구니 수량 추가
-  const onIncrease = () => {
-    dispatch({ type: "INCREMENT" });
-  };
-
-  //장바구니 수량 감소
-  const onDecrease = () => {
-    dispatch({ type: "DECREMENT" });
   };
 
   return (
