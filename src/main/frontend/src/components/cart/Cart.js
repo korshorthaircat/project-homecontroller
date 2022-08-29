@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useReducer, useState } from "react";
 import ProductInCart from "./ProductInCart";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -11,6 +11,35 @@ import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import CartItemList from "./CartItemList";
 
 const Cart = () => {
+  function createProductData(
+    prooductNo,
+    productCategory,
+    productDeliveryInfo,
+    productName,
+    productPrice
+  ) {
+    return {
+      prooductNo,
+      productCategory,
+      productDeliveryInfo,
+      productName,
+      productPrice,
+    };
+  }
+
+  //제품들
+  const products = [
+    createProductData(1, "C13", "배송 가능", "ANNAKAJSA 안나카이사", 5000),
+    createProductData(2, "C01", "배송 가능", "MALM 말름 오토만침대", 30000),
+    createProductData(3, "C02", "배송 가능", "멋있는 전등", 50000),
+  ];
+
+  //주문금액
+  const [orderAmount, setOrderAmount] = useState(0);
+
+  //결제금액
+  const [paymentAmount, setPaymentAmount] = useState(orderAmount);
+
   //쿠폰 옵션
   const coupon = [
     {
@@ -38,9 +67,6 @@ const Cart = () => {
     getOptionLabel: (option) => option.couponName,
   };
 
-  //주문금액
-  const [orderAmount, setOrderAmount] = useState(0);
-
   //주문하기 버튼 클릭시 실행될 함수
   const onClickHandler = () => {
     window.location.href = "/order";
@@ -58,7 +84,13 @@ const Cart = () => {
         marginTop={"20px"}
       >
         <Grid className="productsInCart">
-          <ProductInCart setOrderAmount={setOrderAmount}></ProductInCart>
+          {products.map((product) => (
+            <ProductInCart
+              product={product}
+              orderAmount={orderAmount}
+              setOrderAmount={setOrderAmount}
+            ></ProductInCart>
+          ))}
         </Grid>
 
         <Grid className="cartInfo">
@@ -95,7 +127,7 @@ const Cart = () => {
               </Grid>
               <Grid sx={{ paddingBottom: "20px" }}>
                 <Typography variant="h4">총 결제금액</Typography>
-                <Typography>₩ 50,000</Typography>
+                <Typography>₩ {paymentAmount}</Typography>
               </Grid>
               <Grid>
                 <Button variant="contained" onClick={onClickHandler}>

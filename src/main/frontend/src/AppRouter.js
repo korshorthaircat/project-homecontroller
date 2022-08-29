@@ -22,7 +22,6 @@ import ProductList from "./components/admin/ProductList";
 import Cart from "./components/cart/Cart";
 import Cart2 from "./components/cart/Cart2";
 
-
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">

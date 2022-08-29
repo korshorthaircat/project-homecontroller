@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useReducer, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -11,8 +11,24 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import { useScrollTrigger } from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
-const ProductInCart = ({ setOrderAmount }) => {
+const ProductInCart = ({ product, orderAmount, setOrderAmount }) => {
+  //수량 변경
+  function reducer(state, action) {
+    switch (action.type) {
+      case "INCREMENT":
+        setOrderAmount(orderAmount + parseInt(product.productPrice));
+        return state + 1;
+      case "DECREMENT":
+        setOrderAmount(orderAmount - parseInt(product.productPrice));
+        return state - 1;
+      default:
+        return state;
+    }
+  }
+
   //제품 이미지
   const ProductImg = styled("img")({
     margin: "auto",
@@ -34,36 +50,25 @@ const ProductInCart = ({ setOrderAmount }) => {
     getOptionLabel: (option) => option.commonCodeName,
   };
 
-  //수량 옵션
-  const count = ["1", "2", "3", "4", "5"];
+  // useEffect(() => {
+  //   setOrderAmount(
+  //     //orderAmount + parseInt(products.map((product) => product.productPrice))
+  //     orderAmount + parseInt(products.map((product) => product.productPrice))
+  //   );
+  // }, []);
 
-  function createProductData(
-    prooductNo,
-    productCategory,
-    productDeliveryInfo,
-    productName,
-    productPrice
-  ) {
-    return {
-      prooductNo,
-      productCategory,
-      productDeliveryInfo,
-      productName,
-      productPrice,
-    };
-  }
+  //useReducer 테스트
+  const [number, dispatch] = useReducer(reducer, 0);
 
-  const products = [
-    createProductData(5764, "C13", "배송 가능", "ANNAKAJSA 안나카이사", 69900),
-    createProductData(9462, "C01", "배송 가능", "MALM 말름 오토만침대", 599000),
-  ];
+  //장바구니 수량 추가
+  const onIncrease = () => {
+    dispatch({ type: "INCREMENT" });
+  };
 
-  useEffect(() => {
-    setOrderAmount(
-      //orderAmount + parseInt(products.map((product) => product.productPrice))
-      parseInt(products.map((product) => product.productPrice))
-    );
-  }, []);
+  //장바구니 수량 감소
+  const onDecrease = () => {
+    dispatch({ type: "DECREMENT" });
+  };
 
   return (
     <Paper
@@ -77,54 +82,50 @@ const ProductInCart = ({ setOrderAmount }) => {
           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
       }}
     >
-      {products.map((product) => (
-        <Typography>
-          <Grid container spacing={2} sx={{ paddingBottom: "40px" }}>
-            <Grid item>
-              <ButtonBase sx={{ width: 128, height: 128 }}>
-                <ProductImg alt="complex" src="images/light1.png" />
-              </ButtonBase>
-            </Grid>
-            <Grid item xs={12} sm container>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <Typography gutterBottom variant="subtitle1" component="div">
-                    {product.productName}
-                  </Typography>
-                  <Autocomplete
-                    {...defaultProps}
-                    id="auto-select"
-                    autoSelect
-                    sx={{ width: 200 }}
-                    renderInput={(params) => (
-                      <TextField {...params} label="컬러" variant="standard" />
-                    )}
-                  />
-                  <Autocomplete
-                    id="auto-select"
-                    autoSelect
-                    options={count}
-                    sx={{ width: 200 }}
-                    renderInput={(params) => (
-                      <TextField {...params} label="수량" variant="standard" />
-                    )}
-                  />
-                </Grid>
-                <Grid item>
-                  <Typography sx={{ cursor: "pointer" }} variant="body2">
-                    삭제하기
-                  </Typography>
-                </Grid>
+      <Typography>
+        <Grid container spacing={2} sx={{ paddingBottom: "40px" }}>
+          <Grid item>
+            <ButtonBase sx={{ width: 128, height: 128 }}>
+              <ProductImg alt="complex" src="images/light1.png" />
+            </ButtonBase>
+          </Grid>
+          <Grid item xs={12} sm container>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1" component="div">
+                  {product.productName}
+                </Typography>
+                <Autocomplete
+                  {...defaultProps}
+                  id="auto-select"
+                  autoSelect
+                  sx={{ width: 200 }}
+                  renderInput={(params) => (
+                    <TextField {...params} label="컬러" variant="standard" />
+                  )}
+                />
+
+                <Typography>
+                  수량:
+                  <RemoveCircleOutlineIcon onClick={onDecrease} />
+                  {number}
+                  <AddCircleOutlineIcon onClick={onIncrease} />
+                </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="subtitle1" component="div">
-                  ₩ {product.productPrice}
+                <Typography sx={{ cursor: "pointer" }} variant="body2">
+                  삭제하기
                 </Typography>
               </Grid>
             </Grid>
+            <Grid item>
+              <Typography variant="subtitle1" component="div">
+                ₩ {product.productPrice}
+              </Typography>
+            </Grid>
           </Grid>
-        </Typography>
-      ))}
+        </Grid>
+      </Typography>
     </Paper>
   );
 };
