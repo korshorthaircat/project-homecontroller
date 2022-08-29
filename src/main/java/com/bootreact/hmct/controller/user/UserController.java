@@ -70,8 +70,17 @@ public class UserController {
 //	//이메일 인증
 //	void validateEmail() {}
 //
-//	//아이디 중복체크
-//	void checkId() {}
+	//아이디 중복체크
+	@PostMapping("/checkId")
+	public String checkId(User user) {
+		User checkId = userService.checkId(user.getUserId());
+		
+		if(checkId == null) {
+			return "idOk";
+		} else {
+			return "idFail";
+		}
+	}
 //
 //	//닉네임 중복체크
 //	void checkNickname() {}
