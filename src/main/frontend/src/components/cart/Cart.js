@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import ProductInCart from "./ProductInCart";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -11,8 +11,52 @@ import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import CartItemList from "./CartItemList";
 
 const Cart = () => {
+  function createProductData(
+    prooductNo,
+    productCategory,
+    productDeliveryInfo,
+    productName,
+    productPrice
+  ) {
+    return {
+      prooductNo,
+      productCategory,
+      productDeliveryInfo,
+      productName,
+      productPrice,
+    };
+  }
+
+  //제품들
+  const products = [
+    createProductData(1, "C13", "배송 가능", "ANNAKAJSA 안나카이사", 5000),
+    createProductData(2, "C01", "배송 가능", "MALM 말름 오토만침대", 30000),
+    createProductData(3, "C02", "배송 가능", "멋있는 전등", 50000),
+  ];
+
+  //주문금액
+  const [orderAmount, setOrderAmount] = useState(0);
+
+  //결제금액
+  const [paymentAmount, setPaymentAmount] = useState(0);
+
+  useEffect(() => {
+    if (document.getElementById("auto-select").value == "3,000원 할인") {
+      setPaymentAmount(paymentAmount - 3000);
+      console.log(paymentAmount);
+    } else if (
+      document.getElementById("auto-select").value == "첫 구매 회원 10% 할인"
+    ) {
+      setPaymentAmount(paymentAmount * 0.9);
+      console.log(paymentAmount);
+    } else if (document.getElementById("auto-select").value == "5,000원 할인") {
+      setPaymentAmount(paymentAmount - 5000);
+      console.log(paymentAmount);
+    }
+  }, []);
+
   //쿠폰 옵션
-  const coupon = [
+  const coupons = [
     {
       couponNo: "1",
       couponExpdate: "220930",
@@ -33,13 +77,10 @@ const Cart = () => {
     },
   ];
 
-  const defaultProps = {
-    options: coupon,
-    getOptionLabel: (option) => option.couponName,
-  };
-
-  //주문금액
-  const [orderAmount, setOrderAmount] = useState(0);
+  const [couponVal, setCouponVal] = useState(coupons[0]);
+  // const handleClick = () => {
+  //   setCouponVal(coupons[0]);
+  // };
 
   //주문하기 버튼 클릭시 실행될 함수
   const onClickHandler = () => {
@@ -58,7 +99,15 @@ const Cart = () => {
         marginTop={"20px"}
       >
         <Grid className="productsInCart">
-          <ProductInCart setOrderAmount={setOrderAmount}></ProductInCart>
+          {products.map((product) => (
+            <ProductInCart
+              product={product}
+              orderAmount={orderAmount}
+              setOrderAmount={setOrderAmount}
+              paymentAmount={paymentAmount}
+              setPaymentAmount={setPaymentAmount}
+            ></ProductInCart>
+          ))}
         </Grid>
 
         <Grid className="cartInfo">
@@ -80,9 +129,9 @@ const Cart = () => {
               <Grid sx={{ paddingBottom: "70px" }}>
                 <Typography variant="h5">할인 혜택 적용하기(선택)</Typography>
                 <Autocomplete
-                  {...defaultProps}
-                  id="auto-select"
-                  autoSelect
+                  value={couponVal}
+                  options={coupons}
+                  getOptionLabel={(option) => option.couponName}
                   sx={{ width: 200 }}
                   renderInput={(params) => (
                     <TextField
@@ -95,7 +144,7 @@ const Cart = () => {
               </Grid>
               <Grid sx={{ paddingBottom: "20px" }}>
                 <Typography variant="h4">총 결제금액</Typography>
-                <Typography>₩ 50,000</Typography>
+                <Typography>₩ {paymentAmount}</Typography>
               </Grid>
               <Grid>
                 <Button variant="contained" onClick={onClickHandler}>
