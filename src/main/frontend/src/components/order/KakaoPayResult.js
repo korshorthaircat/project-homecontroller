@@ -3,7 +3,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 const KakaoPayResult = () => {
-  const { search } = useLocation();
+  const { search } = useLocation(); //location 안에 있는 토큰 정보를 빼내서 사용해야 한다.
   const [params, setParams] = useState({});
 
   useEffect(() => {
