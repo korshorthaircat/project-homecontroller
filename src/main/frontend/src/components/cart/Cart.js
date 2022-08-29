@@ -11,27 +11,29 @@ import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import CartItemList from "./CartItemList";
 
 const Cart = () => {
-  function createProductData(
-    prooductNo,
-    productCategory,
-    productDeliveryInfo,
-    productName,
-    productPrice
-  ) {
-    return {
-      prooductNo,
-      productCategory,
-      productDeliveryInfo,
-      productName,
-      productPrice,
-    };
-  }
-
   //제품들
   const products = [
-    createProductData(1, "C13", "배송 가능", "ANNAKAJSA 안나카이사", 5000),
-    createProductData(2, "C01", "배송 가능", "MALM 말름 오토만침대", 30000),
-    createProductData(3, "C02", "배송 가능", "멋있는 전등", 50000),
+    {
+      prooductNo: 1,
+      productCategory: "C13",
+      productDeliveryInfo: "배송 가능",
+      productName: "ANNAKAJSA 안나카이사",
+      productPrice: 5000,
+    },
+    {
+      prooductNo: 2,
+      productCategory: "C01",
+      productDeliveryInfo: "배송 가능",
+      productName: "MALM 말름 오토만침대",
+      productPrice: 10000,
+    },
+    {
+      prooductNo: 3,
+      productCategory: "C02",
+      productDeliveryInfo: "배송 가능",
+      productName: "멋있는 전등",
+      productPrice: 3000,
+    },
   ];
 
   //주문금액

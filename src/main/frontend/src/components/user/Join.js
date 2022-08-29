@@ -105,37 +105,25 @@ const Join = () => {
       data: userId,
     }).then((response) => {
       console.log(response);
+      //     if (obj === "idOk") {
+      //       if (
+      //         confirm(
+      //           "사용가능한 아이디입니다. " +
+      //             $("#userId").val() +
+      //             "를(을) 사용하시겠습니까?"
+      //         )
+      //       ) {
+      //         checkId = true;
+      //         $("#btnIdCheck").attr("disabled", true);
+      //       }
+      //     } else {
+      //       checkId = false;
+      //       alert("이미 존재하는 아이디입니다.");
+      //       $("#userId").focus();
+      //       return;
+      //     }
     });
   };
-
-  // $.ajax({
-  //   url: "/user/idCheck",
-  //   type: "post",
-  //   //data: $("#joinForm").serialize(), //입력된 user정보를 보내줘야 함
-  //   success: function (obj) {
-  //     //서버의 응답 데이터가 클라이언트에게 도착하면 자동으로 실행되는 함수(콜백함수)
-  //     if (obj === "idOk") {
-  //       if (
-  //         confirm(
-  //           "사용가능한 아이디입니다. " +
-  //             $("#userId").val() +
-  //             "를(을) 사용하시겠습니까?"
-  //         )
-  //       ) {
-  //         checkId = true;
-  //         $("#btnIdCheck").attr("disabled", true);
-  //       }
-  //     } else {
-  //       checkId = false;
-  //       alert("이미 존재하는 아이디입니다.");
-  //       $("#userId").focus();
-  //       return;
-  //     }
-  //   },
-  //   error: function (e) {
-  //     console.log(e);
-  //   },
-  // });
 
   //우편번호 및 주소 조회(다음 우편번호 검색 서비스 사용)
   const open = useDaumPostcodePopup(
