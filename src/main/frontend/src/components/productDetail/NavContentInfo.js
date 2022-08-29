@@ -23,13 +23,13 @@ export default function NavContentInfo() {
         <AccordionDetails>
           <Typography>
             <p id="acodianProductName">제품 설명</p>
-            <textarea id="acodianProductInfo" >
+            <p id="acodianProductInfo" >
               시트의 내구성 좋은 금속 스프링은 소파에 푹신한 편안함을 제공하여
               오랫동안 앉거나 편안하게 휴식을 즐길 수 있습니다. 커버는 물세탁
               가능하며 간편하게 벗겨내고 다시 씌울 수 있어 깔끔하게 관리하기
               편합니다.프레임에는 10년 품질보증이 제공됩니다. 브로슈어에서
               품질보증 기간에 대한 내용을 읽어 보세요.
-            </textarea>
+            </p>
             <span id="acodianProductNo_text">제품 번호 </span>
             <p />
             <p id="acodianProductNo">294.768.27</p>
