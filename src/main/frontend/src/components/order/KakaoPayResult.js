@@ -12,13 +12,11 @@ const KakaoPayResult = () => {
 
   useEffect(() => {
     const pgToken = search.split("=")[1];
-
     setParams({
       ...rcParams,
       tid: tid,
       pg_token: pgToken,
     });
-
     console.log(params);
   }, [rcParams, tid]);
 
@@ -38,12 +36,10 @@ const KakaoPayResult = () => {
         data: queryStr, //요청에 파라미터 보내줄 때 쿼리스트링으로 보내줘야 함
       })
         .then((response) => {
-          console.log(3);
           //결제 승인에 대한 응답 출력
           console.log(response);
         })
         .catch((e) => {
-          console.log(4);
           console.log(e);
         });
     }
