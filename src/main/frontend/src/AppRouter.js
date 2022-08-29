@@ -14,11 +14,14 @@ import ProductMainInfo from "./components/productDetail/ProductMainInfo";
 import InteriorShowroom from "./components/showroom/InteriorShowroom";
 import Footer from "./components/Footer";
 import SplitButton from "./components/list/SplitButton";
-import KakaoPay from "./components/order/KakaoPay";
-import KakaoPay2 from "./components/order/KakaoPay2";
 import KakaoPayReady from "./components/order/KakaoPayReady";
 import KakaoPayResult from "./components/order/KakaoPayResult";
 import UserManage from "./components/admin/UserManage";
+import ProductAdd from "./components/admin/ProductAdd";
+import ProductList from "./components/admin/ProductList";
+import Cart from "./components/cart/Cart";
+import Cart2 from "./components/cart/Cart2";
+
 
 function Copyright() {
   return (
@@ -45,12 +48,14 @@ const AppRouter = () => {
           <Route path="/mypage" element={<UserUpdate />} />
           <Route path="/order" element={<Checkout />} />
           <Route path="/admin" element={<Dashboard />} />
-          <Route path="/UserManage" element={<UserManage/>}/>
+          <Route path="/admin1" element={<ProductAdd />} />
+          <Route path="/admin2" element={<ProductList />} />
+          <Route path="/UserManage" element={<UserManage />} />
           <Route path="/productDetail" element={<ImageThumb />} />
           <Route path="/showroom" element={<InteriorShowroom />} />
           <Route path="/list" element={<SplitButton />} />
-          <Route path="/kakaopay" element={<KakaoPay />} />
-          <Route path="/kakaopay2" element={<KakaoPay2 />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart2" element={<Cart2 />} />
           <Route path="/kakaopayReady" element={<KakaoPayReady />} />
           <Route path="/kakaopayResult" element={<KakaoPayResult />} />
         </Routes>
