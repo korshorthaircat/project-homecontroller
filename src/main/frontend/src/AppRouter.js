@@ -22,7 +22,6 @@ import ProductList from "./components/admin/ProductList";
 import Cart from "./components/cart/Cart";
 import Cart2 from "./components/cart/Cart2";
 
-
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -53,7 +52,7 @@ const AppRouter = () => {
           <Route path="/UserManage" element={<UserManage />} />
           <Route path="/productDetail" element={<ImageThumb />} />
           <Route path="/showroom" element={<InteriorShowroom />} />
-          <Route path="/list" element={<SplitButton />} />
+          <Route path="/list" element={<ProductList />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart2" element={<Cart2 />} />
           <Route path="/kakaopayReady" element={<KakaoPayReady />} />

@@ -1,8 +1,80 @@
 package com.bootreact.hmct.controller.product;
 
-import org.springframework.http.ResponseEntity;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.bootreact.hmct.entity.Product;
+import com.bootreact.hmct.entity.ProductImage;
+
+@RestController
+@RequestMapping("/api/product")
 public class ProductController {
+	
+	//@Autowired
+	//ProductService productService;
+	
+	//제품등록하기
+	@PostMapping(value = "/insertProduct", consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+	public void product(MultipartHttpServletRequest mphsRequest,
+			Product product, HttpServletRequest request) throws IllegalStateException, IOException {
+		
+		List<ProductImage> fileList = new ArrayList<ProductImage>();
+		
+		//서버의 루트 경로 가져오기
+		String rootPath = request.getSession().getServletContext().getRealPath("/");
+		
+		String attachPath = "/upload/";
+		
+		File directory = new File(rootPath + attachPath);
+		
+		if(directory.exists() == false) {
+			//서버 루트 경로에 upload 폴더 만들기 
+			directory.mkdir();
+		}
+		
+		//첨부파일 목록 꺼내오기 
+		Iterator<String> iterator = mphsRequest.getFileNames(); 
+		
+		while(iterator.hasNext()) {
+			//iterator에 담겨있는 파일이름들로 첨부파일 꺼내오기 
+			List<MultipartFile> list = mphsRequest.getFiles(iterator.next());
+			
+			for(MultipartFile multipartFile : list) {
+				if(!multipartFile.isEmpty()) {
+					ProductImage productImage = new ProductImage();
+					
+					productImage.setProduct(product);
+					
+					//고유 파일명 생성 
+					//실제 서버에 저장되는 파일명
+					String uuid = UUID.randomUUID().toString();
+					productImage.setProductImageName(uuid + multipartFile.getOriginalFilename());
+					
+					productImage.setProductImagePath(rootPath + attachPath);
+					
+					fileList.add(productImage);
+					
+					//파일 업로드 처리 
+					File file = new File(rootPath + attachPath + uuid + multipartFile.getOriginalFilename());
+					
+					multipartFile.transferTo(file);
+				}
+			}
+		}
+	}
 
 //	//제품상세
 //
