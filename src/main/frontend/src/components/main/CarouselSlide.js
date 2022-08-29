@@ -4,6 +4,8 @@ import 'react-multi-carousel/lib/styles.css';
 import ProductCard from './ProductCard';
 import "../../css/carousel.css";
 
+
+
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -98,40 +100,24 @@ const stateText = [
   }
 ];
 
-// const CustomRightArrow = ({ onClick, ...rest }) => {
-//   const {
-//     onMove,
-//     carouselState: { currentSlide, deviceType }
-//   } = rest;
-//   // onMove means if dragging or swiping in progress.
-//   return <button onClick={() => onClick()} />;
-// };
-
-// const CustomLeftArrow = ({ onClick, ...rest }) => {
-//   const {
-//     onMove,
-//     carouselState: { currentSlide, deviceType }
-//   } = rest;
-//   // onMove means if dragging or swiping in progress.
-//   return <button onClick={() => onClick()} />;
-// };
+//
 
 
 
-  
+
 
 
 const CarouselSlide = () => {
   return (
+    
     <div className='carousel_container'>
+     
       <Carousel
+     
       responsive={responsive}
-      // CustomRightArrow={<CustomRightArrow />}
-      // CustomLeftArrow={<CustomLeftArrow />}
-      
-      >
       
         
+      >        
         <ProductCard />
         {stateText.map((data) => (
           <ProductCard
@@ -142,6 +128,7 @@ const CarouselSlide = () => {
 
         ))}
       </Carousel>
+      
     </div>
   );
 };

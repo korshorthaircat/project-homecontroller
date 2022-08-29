@@ -1,6 +1,6 @@
 .imageArea {
-    width: 350px;
-    height: 350px;
+    width: 360px;
+    height: 360px;
     
     background-size: cover;
     margin: 0 auto;
@@ -8,7 +8,7 @@
 
 .textArea {
     padding-top: 25px;
-    width: 350px;
+    width: 360px;
     height: 180px;
     background-size: cover;
     margin: 0 auto;
@@ -60,5 +60,14 @@
 
 .product_line {
     margin: 10px 0;
+}
+
+.react-multiple-carousel__arrow--left {
+    left: 0px;
+}
+
+.react-multiple-carousel__arrow--right {
+    right: 0px;
+    
 }
 

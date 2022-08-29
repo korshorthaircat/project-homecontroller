@@ -6,7 +6,7 @@
   }
   
   .logo {
-    width: 9%;
+    width: 130px;
     height: auto;
   }
   
@@ -57,7 +57,7 @@
 
     align-items: center;
     height: 90px;
-    width: 1650px;
+    width: 1640px;
     border-bottom: 1px solid darkgray;
   } 
   

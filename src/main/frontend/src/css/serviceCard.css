@@ -1,0 +1,27 @@
+.serviceCard_background {
+    width: 230px;
+    height: 310px;
+    background-color: #F0F0F0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
+.serviceCard_content {
+    display: flex;
+    flex-direction: column;
+   
+}
+
+
+
+.serviceCard_text p {
+    margin-top: 30px;
+    text-align: center;
+    margin-bottom: 0;
+    font-weight: bold;
+    
+}
