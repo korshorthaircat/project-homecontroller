@@ -18,6 +18,8 @@ import KakaoPay from "./components/order/KakaoPay";
 import KakaoPayReady from "./components/order/KakaoPayReady";
 import KakaoPayResult from "./components/order/KakaoPayResult";
 import UserManage from "./components/admin/UserManage";
+import ProductAdd from "./components/admin/ProductAdd";
+import ProductList from "./components/admin/ProductList";
 
 function Copyright() {
   return (
@@ -44,6 +46,8 @@ const AppRouter = () => {
           <Route path="/mypage" element={<UserUpdate />} />
           <Route path="/order" element={<Checkout />} />
           <Route path="/admin" element={<Dashboard />} />
+          <Route path="/admin1" element={<ProductAdd />} />
+          <Route path="/admin2" element={<ProductList />} />
           <Route path="/UserManage" element={<UserManage />} />
           <Route path="/productDetail" element={<ImageThumb />} />
           <Route path="/showroom" element={<InteriorShowroom />} />
