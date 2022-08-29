@@ -43,15 +43,12 @@ const Cart = () => {
   useEffect(() => {
     if (document.getElementById("auto-select").value == "3,000원 할인") {
       setPaymentAmount(paymentAmount - 3000);
-      console.log(paymentAmount);
     } else if (
       document.getElementById("auto-select").value == "첫 구매 회원 10% 할인"
     ) {
       setPaymentAmount(paymentAmount * 0.9);
-      console.log(paymentAmount);
     } else if (document.getElementById("auto-select").value == "5,000원 할인") {
       setPaymentAmount(paymentAmount - 5000);
-      console.log(paymentAmount);
     }
   }, []);
 
