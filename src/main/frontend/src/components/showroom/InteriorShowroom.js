@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SplitButton from "../list/SplitButton";
+import Chip from "../list/Chip";
 
 function InteriorShowroom() {
   return (
@@ -77,6 +78,7 @@ function InteriorShowroom() {
         <SplitButton></SplitButton>
         <SplitButton></SplitButton>
         <SplitButton></SplitButton>
+        <Chip></Chip>
       </div>
     </Container>
   );

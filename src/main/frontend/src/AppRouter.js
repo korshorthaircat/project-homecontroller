@@ -20,6 +20,7 @@ import UserManage from "./components/admin/UserManage";
 import ProductAdd from "./components/admin/ProductAdd";
 import ProductList from "./components/admin/ProductList";
 import Cart from "./components/cart/Cart";
+import Cart2 from "./components/cart/Cart2";
 
 function Copyright() {
   return (
@@ -51,7 +52,7 @@ const AppRouter = () => {
           <Route path="/UserManage" element={<UserManage />} />
           <Route path="/productDetail" element={<ImageThumb />} />
           <Route path="/showroom" element={<InteriorShowroom />} />
-          <Route path="/list" element={<SplitButton />} />
+          <Route path="/list" element={<ProductList />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/kakaopayReady" element={<KakaoPayReady />} />
           <Route path="/kakaopayResult" element={<KakaoPayResult />} />
