@@ -20,6 +20,7 @@ const ProductInCart = ({
   setOrderAmount,
   paymentAmount,
   setPaymentAmount,
+  coupon,
 }) => {
   //제품 수량관리를 위해 useReducer 사용
   const [number, dispatch] = useReducer(reducer, 0);
@@ -52,9 +53,17 @@ const ProductInCart = ({
     dispatch({ type: "DECREMENT" });
   };
 
+  //쿠폰 선택에 따른 결제금액 재계산
   useEffect(() => {
     setPaymentAmount(orderAmount);
-  }, [orderAmount]);
+    if (coupon == "1") {
+      setPaymentAmount(orderAmount * 0.9);
+    } else if (coupon == "2") {
+      setPaymentAmount(orderAmount - 3000);
+    } else if (coupon == "3") {
+      setPaymentAmount(orderAmount - 5000);
+    }
+  }, [orderAmount, coupon]);
 
   //제품 이미지
   const ProductImg = styled("img")({

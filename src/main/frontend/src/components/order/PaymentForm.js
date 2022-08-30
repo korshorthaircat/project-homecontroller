@@ -4,55 +4,59 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { Button } from "@mui/material";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 
 export default function PaymentForm() {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        결제 정보 입력
+        결제 수단 선택
       </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="cardName"
-            label="카드 사용자 이름"
-            fullWidth
-            autoComplete="cc-name"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="cardNumber"
-            label="카드 번호"
-            fullWidth
-            autoComplete="cc-number"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="expDate"
-            label="카드 유효기간"
-            fullWidth
-            autoComplete="cc-exp"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="cvv"
-            label="CVC"
-            helperText="카드 뒷면의 3자리 숫자"
-            fullWidth
-            autoComplete="cc-csc"
-            variant="standard"
-          />
-        </Grid>
+        <FormControl>
+          {/* <FormLabel id="demo-row-radio-buttons-group-label">
+            결제 수단 선택
+          </FormLabel> */}
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+          >
+            <FormControlLabel
+              value="disabled"
+              disabled
+              control={<Radio />}
+              label="신용카드"
+            />
+            <FormControlLabel
+              value="disabled"
+              disabled
+              control={<Radio />}
+              label="무통장입금"
+            />
+            <FormControlLabel
+              value="disabled"
+              disabled
+              control={<Radio />}
+              label="계좌이체"
+            />
+            <FormControlLabel
+              value="카카오페이"
+              control={<Radio />}
+              label="카카오페이"
+            />
+            <FormControlLabel
+              value="disabled"
+              disabled
+              control={<Radio />}
+              label="네이버페이"
+            />
+          </RadioGroup>
+        </FormControl>
         <Grid item xs={12}>
           <FormControlLabel
             control={<Checkbox color="success" name="saveCard" value="yes" />}

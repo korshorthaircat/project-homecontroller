@@ -9,9 +9,22 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import CartItemList from "./CartItemList";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Link from "@mui/material/Link";
 
 const Cart = () => {
-  //제품들
+  // const [order, setOrder] = useState({
+  //   orderNo: 1,
+  //   userId: "gogo",
+  //   orderStatus: "결제대기",
+  //   paymentAmount: paymentAmount,
+  //   cart: products,
+  // });
+
+  //장바구니의 제품들
   const products = [
     {
       prooductNo: 1,
@@ -42,44 +55,11 @@ const Cart = () => {
   //결제금액
   const [paymentAmount, setPaymentAmount] = useState(0);
 
-  useEffect(() => {
-    if (document.getElementById("auto-select").value == "3,000원 할인") {
-      setPaymentAmount(paymentAmount - 3000);
-    } else if (
-      document.getElementById("auto-select").value == "첫 구매 회원 10% 할인"
-    ) {
-      setPaymentAmount(paymentAmount * 0.9);
-    } else if (document.getElementById("auto-select").value == "5,000원 할인") {
-      setPaymentAmount(paymentAmount - 5000);
-    }
-  }, []);
-
-  //쿠폰 옵션
-  const coupons = [
-    {
-      couponNo: "1",
-      couponExpdate: "220930",
-      couponMethod: "P",
-      couponName: "첫 구매 회원 10% 할인",
-    },
-    {
-      couponNo: "2",
-      couponExpdate: "220930",
-      couponMethod: "W",
-      couponName: "3,000원 할인",
-    },
-    {
-      couponNo: "3",
-      couponExpdate: "220930",
-      couponMethod: "W",
-      couponName: "5,000원 할인",
-    },
-  ];
-
-  const [couponVal, setCouponVal] = useState(coupons[0]);
-  // const handleClick = () => {
-  //   setCouponVal(coupons[0]);
-  // };
+  //쿠폰 선택
+  const [coupon, setCoupon] = useState("");
+  const handleChange = (event) => {
+    setCoupon(event.target.value);
+  };
 
   //주문하기 버튼 클릭시 실행될 함수
   const onClickHandler = () => {
@@ -105,6 +85,7 @@ const Cart = () => {
               setOrderAmount={setOrderAmount}
               paymentAmount={paymentAmount}
               setPaymentAmount={setPaymentAmount}
+              coupon={coupon}
             ></ProductInCart>
           ))}
         </Grid>
@@ -125,30 +106,51 @@ const Cart = () => {
                 <Typography variant="h4">총 주문금액</Typography>
                 <Typography>₩ {orderAmount}</Typography>
               </Grid>
-              <Grid sx={{ paddingBottom: "70px" }}>
+              <Grid sx={{ paddingBottom: "30px" }}>
                 <Typography variant="h5">할인 혜택 적용하기(선택)</Typography>
-                <Autocomplete
-                  value={couponVal}
-                  options={coupons}
-                  getOptionLabel={(option) => option.couponName}
-                  sx={{ width: 200 }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="쿠폰 선택"
-                      variant="standard"
-                    />
-                  )}
-                />
+                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                  <InputLabel id="demo-simple-select-autowidth-label">
+                    쿠폰 선택
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-autowidth-label"
+                    id="demo-simple-select-autowidth"
+                    value={coupon}
+                    onChange={handleChange}
+                    autoWidth
+                    label="Coupon"
+                  >
+                    <MenuItem value="">
+                      <em>쿠폰 선택 없음</em>
+                    </MenuItem>
+                    <MenuItem value={"1"}>첫 구매 회원 10% 할인</MenuItem>
+                    <MenuItem value={"2"}>3,000원 할인</MenuItem>
+                    <MenuItem value={"3"}>5,000원 할인</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid>
               <Grid sx={{ paddingBottom: "20px" }}>
                 <Typography variant="h4">총 결제금액</Typography>
                 <Typography>₩ {paymentAmount}</Typography>
               </Grid>
               <Grid>
-                <Button variant="contained" onClick={onClickHandler}>
+                {/* <Button variant="contained" onClick={onClickHandler}>
                   상품 주문하기
-                </Button>
+                </Button> */}
+
+                <Link
+                  to={{
+                    pathname: "/order",
+                    state: {
+                      orderNo: 1,
+                      userId: "gogo",
+                      paymentAmount: paymentAmount,
+                      cart: products,
+                    },
+                  }}
+                >
+                  <Button variant="contained">상품 주문하기</Button>
+                </Link>
               </Grid>
             </Grid>
           </Paper>
