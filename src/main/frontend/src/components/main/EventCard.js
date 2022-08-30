@@ -9,15 +9,15 @@ import { CardActionArea } from '@mui/material';
 const EventCard = () => {
   return (
     <div>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 510, height: 310}}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
+          height="200"
           image="images/inter (1).png"
           alt="green iguana"
         />
-        <CardContent>
+        <CardContent sx={{backgroundColor: "red"}}>
           <Typography gutterBottom variant="h5" component="div">
             Lizard
           </Typography>

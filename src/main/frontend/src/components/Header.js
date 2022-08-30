@@ -27,7 +27,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Link from "@mui/material/Link";
-
+import Badge from '@mui/material/Badge';
 
 const drawerWidth = 450;
 
@@ -211,7 +211,11 @@ const Header = () => {
                 aria-haspopup="true"
                 color="inherit"
               >
+                <Badge 
+                
+                badgeContent={5} color="success">
                 <ShoppingCartOutlinedIcon />
+                </Badge>
               </IconButton>
             </Box>
             </div>

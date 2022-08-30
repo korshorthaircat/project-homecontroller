@@ -6,6 +6,7 @@ import "../../css/carousel.css";
 
 
 
+
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -115,8 +116,16 @@ const ProductCarousel = () => {
       <Carousel
      
       responsive={responsive}
+      swipeable={true}
+                draggable={true}
+                showDots={true}
+      dotListClass="custom-dot-list-style"
+      containerClass="carousel-container"
+      itemClass="carousel-item-padding-40-px"
+
       
-        
+      
+      
       >        
         <ProductCard />
         {stateText.map((data) => (

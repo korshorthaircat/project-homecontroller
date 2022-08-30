@@ -16,7 +16,8 @@ const ProductCard = ({image, title, category, price} ) => {
         <div className='card'>
           <img
           className='imageArea'
-          src={image}>
+          src={image}
+           alt="">
 
           </img>
 
