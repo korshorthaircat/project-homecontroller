@@ -71,20 +71,21 @@ function UserManage() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [data, setData] = React.useState([]);
+    const [userList, setUserList] = React.useState([]);
     
     let listUrl = 'http://localhost:8080/api/user/getUserList';
 
     const list = () => {
         axios.get(listUrl, {}).then(response => {
-          setData(response.data);
-          console.log(response.data);
+            setUserList(response.data);
+        }).catch(e => {
+            console.log(e);
         });
       };
 
     React.useEffect(() => {
         list();
-      },[]);
+    },[]);
     
     return (
         <ThemeProvider theme={mdTheme} >
@@ -94,67 +95,61 @@ function UserManage() {
                         <AdminItemList/>
                     </List>
                 </Box>
-                <Box
-                    component="main"
-                    sx={{
-                        backgroundColor: (theme) =>
-                        theme.palette.mode === "light"
-                            ? theme.palette.grey[100]
-                            : theme.palette.grey[900],
-                        flexGrow: 1,
-                        minHeight: "100vh",
-                        overflow: "auto",
+               
+                <Container style={{ marginTop: "5%" }}>
+                    <h1>회원 관리폼</h1>
+                    <Box
+                        component="form"
+                        sx={{
+                        "& .MuiTextField-root": { m: 1, width: "30ch" },
                         }}
-                >
-                <Typography
-                  sx={{fontSize: 35,
-                       fontWeight: 30}}>
-                   <b>회원 관리 폼</b>
-                </Typography>
-                 <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>이름</TableCell>
-                                <TableCell align="center">아이디</TableCell>
-                                <TableCell align="center">닉네임</TableCell>
-                                <TableCell align="center">전화번호</TableCell>
-                                <TableCell align="center">가입일</TableCell>
-                                <TableCell align="center">수정</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                        {rows.map((data) => (
-                            <TableRow
-                            key={data.userName}
-                            // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">
-                                    {data.userName}
-                                </TableCell>
-                                <TableCell align="center">{data.userId}</TableCell>
-                                <TableCell align="center">{data.userNickname}</TableCell>
-                                <TableCell align="center">{data.userTel}</TableCell>
-                                <TableCell align="center">{data.userJoinYmd}</TableCell>
-                                <TableCell align="center">   
-                                    <Button onClick={handleOpen}
-                                         sx={{ border: "1px solid lightgray",
-                                            backgroundColor: "#fff",
-                                            borderRadius: "5px",
-                                            width: "70px",
-                                            height: "45px",                                           
-                                            alignItems:"center",}}>
-                                        <img className="AdminEdit" src="images/edit.png"/>
-                                         수정
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                        </TableBody>
-                    </Table>
+                        noValidate
+                        autoComplete="off"
+                    >
+                
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell >이름</TableCell>
+                                    <TableCell align="center">아이디</TableCell>
+                                    <TableCell align="center">닉네임</TableCell>
+                                    <TableCell align="center">전화번호</TableCell>
+                                    <TableCell align="center">가입일</TableCell>
+                                    <TableCell align="center">수정</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                            {userList.data ? userList.data.map((r) => (
+                                <TableRow
+                                key={r.userName}
+                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        {r.userName}
+                                    </TableCell>
+                                    <TableCell align="center">{r.userId}</TableCell>
+                                    <TableCell align="center">{r.userNickname}</TableCell>
+                                    <TableCell align="center">{r.userTel}</TableCell>
+                                    <TableCell align="center">{r.userJoinYmd}</TableCell>
+                                    <TableCell align="center">   
+                                        <Button onClick={handleOpen}
+                                            sx={{ border: "1px solid lightgray",
+                                                backgroundColor: "#fff",
+                                                borderRadius: "5px",
+                                                width: "70px",
+                                                height: "45px",                                           
+                                                alignItems:"center",}}>
+                                            <img className="AdminEdit" src="images/edit.png"/>
+                                            수정
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            )) : <TableRow>조회된 데이터가 없습니다.</TableRow>}
+                            </TableBody>
+                        </Table>
                     </TableContainer>
-                    
-                    
+  
                     <Modal
                         open={open}
                         onClose={handleClose}
@@ -297,9 +292,8 @@ function UserManage() {
                         </Box>
                         </form>
                     </Modal>
-                    
-                
-                </Box>
+                  </Box>
+                </Container>
             </Box>
         </ThemeProvider>
     );

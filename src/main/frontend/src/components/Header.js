@@ -86,10 +86,10 @@ const Header = () => {
 
   const [loginUser, setLoginUser] = React.useState(null);
   const logout = React.useCallback((e) => {
-    console.log(e);
-    e.preventDefault();
+    // console.log(e);
+    // e.preventDefault();
     sessionStorage.removeItem("USER_INFO");
-    // sessionStorage.removeItem("ACCESS_TOKEN");
+    sessionStorage.removeItem("ACCESS_TOKEN");
     setLoginUser(null);
     /*window.location.href="/";*/
   }, []);

@@ -5,7 +5,7 @@ import java.util.List;
 import com.bootreact.hmct.entity.User;
 
 public interface UserService {
-	List<User> getUserList(String userName);
+	List<User> getUserList();
 
 	User join(User user);
 	

@@ -75,7 +75,7 @@ public class UserController {
     @GetMapping("/getUserList")
     public ResponseEntity<?> getUserList(@AuthenticationPrincipal String userName){
     	try {
-    		List<User> userList = userService.getUserList(userName);
+    		List<User> userList = userService.getUserList();
     		
     		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
     		
@@ -92,6 +92,7 @@ public class UserController {
     			userDTO.setUserAddrDetail(t.getUserAddrDetail());
     			userDTO.setUserPoint(t.getUserPoint());
     			userDTO.setUserMarketing(t.getUserMarketing());
+    			userDTO.setUserJoinYmd(t.getUserJoinYmd());
     			
     			userDTOList.add(userDTO);	
     		}
@@ -117,7 +118,7 @@ public class UserController {
     		
     		userService.deleteUser(user);
     		
-    		List<User> userList = userService.getUserList(userName);
+    		List<User> userList = userService.getUserList();
     		
     		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
     		
@@ -134,6 +135,7 @@ public class UserController {
     			userDTO.setUserAddrDetail(t.getUserAddrDetail());
     			userDTO.setUserPoint(t.getUserPoint());
     			userDTO.setUserMarketing(t.getUserMarketing());
+    			userDTO.setUserJoinYmd(t.getUserJoinYmd());
     			
     			userDTOList.add(userDTO);	
     		}
@@ -160,7 +162,7 @@ public class UserController {
     		
     		userService.deleteUser(user);
     		
-    		List<User> userList = userService.getUserList(userName);
+    		List<User> userList = userService.getUserList();
     		
     		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
     		
@@ -177,6 +179,7 @@ public class UserController {
     			userDTO.setUserAddrDetail(t.getUserAddrDetail());
     			userDTO.setUserPoint(t.getUserPoint());
     			userDTO.setUserMarketing(t.getUserMarketing());
+    			userDTO.setUserJoinYmd(t.getUserJoinYmd());
     			
     			userDTOList.add(userDTO);	
     		}

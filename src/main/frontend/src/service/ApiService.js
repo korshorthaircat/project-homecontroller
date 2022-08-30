@@ -100,7 +100,3 @@ export function join(user) {
 export function pay() {
   return callForPayment("/api/order/kakaopay", "POST", null);
 }
-
-export function getUserList(user){
-  return call("/api/admin/UserManage", "GET" , user);
-}

@@ -104,15 +104,18 @@ export default function AdminItemList() {
               <ListItemIcon>
                 <EventNote />
               </ListItemIcon>
-              <ListItemText primary="주문 목록" />
+              <Link href="/OrderManage">
+                <ListItemText primary="주문 목록" />
+              </Link>
             </ListItemButton>
 
-            <ListItemButton sx={{ pl: 4 }}>
+            {/* <ListItemButton sx={{ pl: 4 }}>
               <ListItemIcon>
                 <EventNote />
               </ListItemIcon>
               <ListItemText primary="주문 상세" />
-            </ListItemButton>
+            </ListItemButton> */}
+
           </List>
         </Collapse>
         <Divider sx={{ my: 1 }} />
