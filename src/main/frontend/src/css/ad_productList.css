@@ -1,0 +1,47 @@
+.updateButton {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #b5c95a;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 15px;
+    padding: 8px;
+    width: 80px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 2px;
+    font-weight: 700;
+  }
+  
+  .updateButton span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .updateButton span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .updateButton:hover span {
+    padding-right: 25px;
+  }
+  
+  .updateButton:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+
+  .css-1q1u3t4-MuiTableRow-root.Mui-selected:hover {
+    background-color: #FFFFFF;
+  }
+  .css-1q1u3t4-MuiTableRow-root.Mui-selected {
+    background-color: #FFFFFF;
+  }
