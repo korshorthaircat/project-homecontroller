@@ -22,6 +22,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import AdminItemList from "./AdminItemList";
+import "../../css/ad_productList.css"
 
 
 function createData(
@@ -413,7 +414,7 @@ export default function EnhancedTable() {
         <AdminItemList />
       </div>
       <div>
-        <Box sx={{ width: "100%", margin: "50px 0px 30px 0px" }}>
+        <Box sx={{ width: "100%", margin: "50px 0px 30px 100px" }}>
           <Paper sx={{ width: "100%", mb: 2 }}>
             {/* 삭제되는 수량뜨는 툴바 */}
             <EnhancedTableToolbar numSelected={selected.length} />
