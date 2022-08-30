@@ -44,17 +44,16 @@ const AppRouter = () => {
           <Route path="/join" element={<Join />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<Mypage />} />
-          <Route path="/mypage" element={<UserUpdate />} />
+          <Route path="/userupdate" element={<UserUpdate />} />
           <Route path="/order" element={<Checkout />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin1" element={<ProductAdd />} />
-          <Route path="/admin2" element={<ProductList />} />
+          {/* <Route path="/admin2" element={<ProductList />} /> */}
           <Route path="/UserManage" element={<UserManage />} />
           <Route path="/productDetail" element={<ImageThumb />} />
           <Route path="/showroom" element={<InteriorShowroom />} />
           <Route path="/list" element={<ProductList />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/cart2" element={<Cart2 />} />
           <Route path="/kakaopayReady" element={<KakaoPayReady />} />
           <Route path="/kakaopayResult" element={<KakaoPayResult />} />
         </Routes>

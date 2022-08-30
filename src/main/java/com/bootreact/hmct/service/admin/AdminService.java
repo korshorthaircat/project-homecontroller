@@ -1,5 +1,9 @@
 package com.bootreact.hmct.service.admin;
 
-public interface AdminService {
+import java.util.List;
 
+import com.bootreact.hmct.entity.User;
+
+public interface AdminService {
+	 
 }

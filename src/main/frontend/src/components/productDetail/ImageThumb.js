@@ -19,7 +19,11 @@ const choice = {
   },
   img4: {
     name: "img4",
-    img: process.env.PUBLIC_URL + "/images/inter (2).png",
+    img: process.env.PUBLIC_URL + "/images/light3.png",
+  },
+  img5: {
+    name: "img5",
+    img: process.env.PUBLIC_URL + "/images/light1.png",
   },
 };
 
@@ -63,8 +67,15 @@ function ImageThumb() {
               className="btn"
               onClick={() => play("img4")}
               type="image"
-              src="/images/inter (2).png"
+              src="/images/light3.png"
               alt="4번째사진"
+            ></input>
+            <input
+              className="btn"
+              onClick={() => play("img5")}
+              type="image"
+              src="/images/light1.png"
+              alt="5번째사진"
             ></input>
           </div>
           <p>

@@ -20,7 +20,7 @@ const Footer = () => {
             <div className='footer_line'>
             <hr />
             </div>
-            <img className="footer_logo" src="images/logo.png" />
+            <img className="footer_logo" src="images/logo_2.png" />
             <p className='footer_content'>HOME CONTROLLER <br/>
             주소 : (우)06134 서울 강남구 강남대로94길 20, 삼오빌딩 <br/>
             사업자 등록번호 : 012-34-56789 <br/>

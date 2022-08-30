@@ -10,9 +10,8 @@
 }
 
   .item-img{
-    width: 800px;
-    height: 500px;
-    border-radius: 5px;
+    width: 830px;
+    height: 550px;
 
   }
   
@@ -24,10 +23,10 @@
 
   .btn {
     width: 150px;
-    height: 100px;
+    height: 150px;
     padding: 0px;
-    margin: 30px 20px;
-    border-radius: 15px;
+    margin: 30px 10px;
+    border-radius: 0px;
   }
 
   #productDetailInfoAll {
@@ -36,8 +35,6 @@
     font-weight: 600;
     border: 0px;
     background-color: white;
-    grid-column-start: 9;
-    grid-column-end: span 4;
   }
 
   .line1 {
@@ -108,7 +105,26 @@
     background-color: rgb(255, 255, 255);
   }
 
+  .selectColorBtn{
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    margin: 20px 2px;
+  }
+  .selectColorBtn:hover {
+    border: 2px solid #003319;
+  }
 
+  .selectColor {
+    background-color: rgba(255, 255, 255, 0);
+    width: 300px;
+    text-align: left;
+  }
+
+  .selectColorUnder:hover{
+    text-decoration: underline;
+  }
+  
   .line2 {
     width: 400PX;
     margin-left: 0;

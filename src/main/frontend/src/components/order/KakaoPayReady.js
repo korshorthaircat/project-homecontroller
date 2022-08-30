@@ -16,15 +16,13 @@ const KakaoPayReady = () => {
     partner_user_id: "partner_user_id",
     item_name: "책상",
     quantity: 1,
-    total_amount: 2200,
-    vat_amount: 200,
+    total_amount: 10000,
+    vat_amount: 1000,
     tax_free_amount: 0,
     approval_url: "http://localhost:3000/kakaopayResult/",
     fail_url: "http://localhost:3000/kakaopayResult",
     cancel_url: "http://localhost:3000/kakaopayResult",
   });
-
-  const [result, setResult] = useState(0);
 
   const [responseData, setResponseData] = useState({
     // 응답에서 가져올 값들
@@ -53,7 +51,7 @@ const KakaoPayReady = () => {
       const tid = response.data.tid;
       //세션 스토리지에 tid 저장하기(결제승인 api에 매개변수로 함께 줘야 함)
       sessionStorage.setItem("tid", tid);
-      sessionStorage.setItem("params", params);
+      sessionStorage.setItem("params", JSON.stringify(params));
 
       // response의 data로 state 갱신하기
       setResponseData({
@@ -61,8 +59,7 @@ const KakaoPayReady = () => {
         tid: { tid },
       });
 
-      const axiosresult = (window.location.href = next_redirect_pc_url);
-      setResult(axiosresult);
+      window.location.href = next_redirect_pc_url;
     });
     // .catch((e) => {
     //   console.log(e);

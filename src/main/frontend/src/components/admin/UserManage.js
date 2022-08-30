@@ -16,14 +16,24 @@ import Button from '@mui/material/Button';
 import { Toolbar } from "@mui/material";
 import "../../css/admin.css";
 import Modal from '@mui/material/Modal';
+import axios from 'axios';
+import { API_BASE_URL } from "../../app-config";
+import { getUserList } from "../../service/ApiService";
 
-function createData(userId, userName, userNickname, userTel, userJoinYmd, userUpdate) {
-    return { userId, userName, userNickname, userTel, userJoinYmd, userUpdate };
+function createData(userId, userName, userNickname, userTel,
+                    userMail, userPoint, userJoinYmd, userMarketing,
+                    userAddr, userAddrDetail, userZipcode,userUpdate,
+                    updateAdminUser, deleteAdminUser) {
+   
+    return { userId, userName, userNickname, userTel,
+             userMail, userPoint, userJoinYmd, userMarketing,
+             userAddr, userAddrDetail, userZipcode,userUpdate, 
+             updateAdminUser, deleteAdminUser};
   }
 
 
 const rows = [
-createData('AuserId', 'A홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
+createData("AuserId", 'A홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
 createData('BuserId', 'B홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
 createData('CuserId', 'C홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
 createData('DuserId', 'D홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
@@ -43,7 +53,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: "40%",
-    height:"50%",
+    height:"75%",
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -52,11 +62,30 @@ const style = {
     padding: 0,
 };
 
+const modalstyle = {
+    backgroundColor: "lightgray",
+    width:"30%",
+};
+
 function UserManage() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [data, setData] = React.useState([]);
+    
+    let listUrl = 'http://localhost:8080/api/user/getUserList';
 
+    const list = () => {
+        axios.get(listUrl, {}).then(response => {
+          setData(response.data);
+          console.log(response.data);
+        });
+      };
+
+    React.useEffect(() => {
+        list();
+      },[]);
+    
     return (
         <ThemeProvider theme={mdTheme} >
             <Box sx={{ display: "flex"}} style={{maxWidth:"1750px"}}>
@@ -77,13 +106,17 @@ function UserManage() {
                         overflow: "auto",
                         }}
                 >
-                <Toolbar/>
+                <Typography
+                  sx={{fontSize: 35,
+                       fontWeight: 30}}>
+                   <b>회원 관리 폼</b>
+                </Typography>
                  <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>아이디</TableCell>
-                                <TableCell align="center">이름</TableCell>
+                                <TableCell>이름</TableCell>
+                                <TableCell align="center">아이디</TableCell>
                                 <TableCell align="center">닉네임</TableCell>
                                 <TableCell align="center">전화번호</TableCell>
                                 <TableCell align="center">가입일</TableCell>
@@ -91,18 +124,18 @@ function UserManage() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                        {rows.map((row) => (
+                        {rows.map((data) => (
                             <TableRow
-                            key={row.userId}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            key={data.userName}
+                            // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.userId}
+                                    {data.userName}
                                 </TableCell>
-                                <TableCell align="center">{row.userName}</TableCell>
-                                <TableCell align="center">{row.userNickname}</TableCell>
-                                <TableCell align="center">{row.userTel}</TableCell>
-                                <TableCell align="center">{row.userJoinYmd}</TableCell>
+                                <TableCell align="center">{data.userId}</TableCell>
+                                <TableCell align="center">{data.userNickname}</TableCell>
+                                <TableCell align="center">{data.userTel}</TableCell>
+                                <TableCell align="center">{data.userJoinYmd}</TableCell>
                                 <TableCell align="center">   
                                     <Button onClick={handleOpen}
                                          sx={{ border: "1px solid lightgray",
@@ -120,12 +153,14 @@ function UserManage() {
                         </TableBody>
                     </Table>
                     </TableContainer>
-
+                    
+                    
                     <Modal
                         open={open}
                         onClose={handleClose}
                         aria-labelledby="modal-modal-title"
                      >
+                        <form>
                         <Box sx={style}>
                             <Typography id="modal-modal-title" 
                             sx={{
@@ -135,21 +170,134 @@ function UserManage() {
                             }}>
                                 회원 정보
                             </Typography>
+                            
                             <TableContainer>
                                <Table>
                                  <TableRow>
-                                    <TableCell></TableCell>
-                                    <TableCell></TableCell>
+                                    <TableCell component={"th"} 
+                                               sx={modalstyle}>
+                                        이름
+                                    </TableCell>
+                                    <TableCell>
+                                        <input type="text" style={{border: "none"}} placeholder="userName"/>
+                                    </TableCell>
                                  </TableRow>
 
                                  <TableRow>
-                                    <TableCell></TableCell>
-                                    <TableCell></TableCell>
+                                    <TableCell component={"th"} 
+                                               sx={modalstyle}>
+                                        아이디
+                                    </TableCell>
+                                    <TableCell>
+                                        <input type="text" style={{border: "none"}} placeholder="userId"/>
+                                    </TableCell>
                                  </TableRow>
+
+                                 <TableRow>
+                                    <TableCell component={"th"} 
+                                               sx={modalstyle}>
+                                        닉네임
+                                    </TableCell>
+                                    <TableCell>
+                                        <input type="text" style={{border: "none"}} placeholder="usernickname"/>
+                                    </TableCell>
+                                 </TableRow>
+
+                                 <TableRow>
+                                    <TableCell component={"th"} 
+                                               sx={modalstyle}>
+                                        주소
+                                    </TableCell>
+                                    <TableCell>
+                                        <input type="text" style={{border: "none"}} placeholder="useraddr"/>
+                                    </TableCell>
+                                 </TableRow>
+
+                                 <TableRow>
+                                    <TableCell component={"th"} 
+                                               sx={modalstyle}>
+                                        상세주소
+                                    </TableCell>
+                                    <TableCell>
+                                        <input type="text" style={{border: "none"}} placeholder="user_addr_detail"/>
+                                    </TableCell>
+                                 </TableRow>
+
+                                 <TableRow>
+                                    <TableCell component={"th"} 
+                                               sx={modalstyle}>
+                                        우편번호
+                                    </TableCell>
+                                    <TableCell>
+                                        <input type="text" style={{border: "none"}} placeholder="userzipcode"/>
+                                    </TableCell>
+                                 </TableRow>
+
+                                 <TableRow>
+                                    <TableCell component={"th"} 
+                                               sx={modalstyle}>
+                                        메일
+                                    </TableCell>
+                                    <TableCell>
+                                        <input type="email" style={{border: "none"}} placeholder="usermail"/>
+                                    </TableCell>
+                                 </TableRow>
+
+                                 <TableRow>
+                                    <TableCell component={"th"} 
+                                               sx={modalstyle}>
+                                        전화번호
+                                    </TableCell>
+                                    <TableCell>
+                                        <input type="tel" style={{border: "none"}} placeholder="usertel"/>
+                                    </TableCell>
+                                 </TableRow>
+
+                                 <TableRow>
+                                    <TableCell component={"th"} 
+                                               sx={modalstyle}>
+                                        가입일자
+                                    </TableCell>
+                                    <TableCell>
+                                        <input type="datetime" style={{border: "none"}} placeholder="userjoinymd"/>
+                                    </TableCell>
+                                 </TableRow>
+
+                                 <TableRow>
+                                    <TableCell component={"th"} 
+                                               sx={modalstyle}>
+                                        포인트
+                                    </TableCell>
+                                    <TableCell>
+                                        <input type="number" style={{border: "none"}} placeholder="userpoint"/>
+                                    </TableCell>
+                                 </TableRow>
+
+                                 <TableRow>
+                                    <TableCell component={"th"} 
+                                               sx={modalstyle}>
+                                        마케팅 수신여부
+                                    </TableCell>
+                                    <TableCell>
+                                        <input type="text" style={{border: "none"}} placeholder="y"/>
+                                    </TableCell>
+                                 </TableRow>                                  
                                </Table>
                             </TableContainer>
+                            <span class="buttonSpan">
+                                <Button sx={{marginTop: "20px"}}>
+                                    <img className="AdminEdit" src="images/edit.png"/>
+                                        수정
+                                </Button>
+                                <Button sx={{marginTop: "20px"}}>
+                                    <img className="AdminEdit" src="images/delete.png"/>
+                                        삭제
+                                </Button>
+                            </span>
                         </Box>
+                        </form>
                     </Modal>
+                    
                 
                 </Box>
             </Box>
