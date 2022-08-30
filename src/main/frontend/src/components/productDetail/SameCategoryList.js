@@ -1,6 +1,6 @@
 import React from "react";
 import "../../css/ProductDetail.css";
-import CarouselSlide from "../main/CarouselSlide";
+import ProductCarousel from "../main/ProductCarousel";
 
 const SameCategoryList = () => {
   return (

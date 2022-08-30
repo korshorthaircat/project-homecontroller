@@ -1,10 +1,10 @@
 import React from 'react';
 import MainShowroomColor from '../../components/main/MainShowroomColor';
-
+import "../../css/mainShowroom.css";
 
 const MainShowroom = () => {
     return (
-        <div>
+        <div className='mainShowroomColor'>
             <MainShowroomColor color="red" />
             <MainShowroomColor color="yellow" />
             <MainShowroomColor color="green" />

@@ -2,7 +2,7 @@ import { hover } from "@testing-library/user-event/dist/hover";
 import React, { Component } from "react";
 import MainInfoNav from "./MainInfoNav";
 import SameCategoryList from "./SameCategoryList";
-import CarouselSlide from "../main/CarouselSlide";
+import ProductCarousel from "../main/ProductCarousel";
 
 const ProductDetailInfo = () => {
   return (
