@@ -43,7 +43,7 @@ const AppRouter = () => {
           <Route path="/join" element={<Join />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<Mypage />} />
-          <Route path="/mypage" element={<UserUpdate />} />
+          <Route path="/userupdate" element={<UserUpdate />} />
           <Route path="/order" element={<Checkout />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin1" element={<ProductAdd />} />
