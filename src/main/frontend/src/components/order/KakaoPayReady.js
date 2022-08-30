@@ -2,13 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
 
-//요청에 보내줄 파람스를 부모 컴포넌트에서 보내주도록 수정하기
-// const KakaoPay2 = ({ params }) => {
-//   const [data, setData] = useState(params);
-//   const [responseData, setResponseData] = useState(params);
-//response데이타는 따로 스테이트 만들어서 관리하기
-//next_redirect_pc_url: "", tid: "", 만 갖도록...
-
 const KakaoPayReady = () => {
   const [params, setParams] = useState({
     cid: "TC0ONETIME",
