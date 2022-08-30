@@ -1,5 +1,7 @@
 package com.bootreact.hmct.service.user.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,22 @@ public class UserServiceImpl implements UserService {
 		} else {
 			return null;
 		}
+	}
+	
+	@Override
+	public List<User> getUserList(String userName){
+		return userRepository.findByUserName(userName);
+	}
+	
+	@Override
+	public void deleteUser(User user) {
+		userRepository.delete(user);
+		
+	}
+	
+	@Override
+	public void updateUser(User user) {
+		userRepository.save(user);
 	}
 
 	@Override

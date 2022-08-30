@@ -1,16 +1,8 @@
-/* .AdminButton{
-    border: 1px solid lightgray;
-    background-color: #fff;
-    border-radius: 5px;
-    width: 70px;
-    height: 45px;
-    padding-bottom: 17px;
-
-} */
-
+.buttonSpan{
+    margin-left: 300px;
+}
 
 .AdminEdit{
-    
     width: 19px;
     height: 19px;
 }
