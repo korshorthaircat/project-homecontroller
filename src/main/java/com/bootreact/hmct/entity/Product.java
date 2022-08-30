@@ -81,11 +81,7 @@ public class Product {
 	//제품 배송시 주의사항
 	@Column(nullable = false, columnDefinition = "varchar(2000)")
 	private String productDeliveryInfo;
-
-	//제품재고량
-	@Column(nullable = false)
-	private String productInvntry;
-
+	
 	//치수
 	@Column(nullable = false)
 	private String productGauge;
