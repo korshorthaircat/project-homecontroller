@@ -5,18 +5,17 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.bootreact.hmct.entity.Product;
+import com.bootreact.hmct.entity.ProductImage;
 
 
 @Service
 public interface ProductService {
-	List<Product> insertProduct(String product);
+	int insertProduct(Product product);
 	
-	void insertProduct(Product product);
+	void insertProductFiles(List<ProductImage> fileList);
 	
-	void deleteProduct(Product product);
-	
-	void updateProduct(Product product);
-	
-	
+//	void deleteProduct(Product product);
+//	
+//	void updateProduct(Product product);
 
 }

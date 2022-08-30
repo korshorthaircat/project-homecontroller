@@ -107,7 +107,7 @@ const stateText = [
 
 
 
-const CarouselSlide = () => {
+const ProductCarousel = () => {
   return (
     
     <div className='carousel_container'>
@@ -133,4 +133,4 @@ const CarouselSlide = () => {
   );
 };
 
-export default CarouselSlide;
+export default ProductCarousel;

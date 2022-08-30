@@ -4,32 +4,20 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import "../../css/carousel.css";
-import styled from 'styled-components';
-
-const CardWrapper = styled.a`
-
-`;
 
 
-
-
-const EventCard = (id, title, thumbnail, condition) => {
-    return (
-      
-        <div className='eventCard'>
-          <CardWrapper  href={`/course/${id}`}>
-            <Card sx={{ maxWidth: 350}}>
+const EventCard = () => {
+  return (
+    <div>
+      <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
-        
         <CardMedia
           component="img"
-          height="300"
-          image="/images/main_images/mainImage_4.jpg"
+          height="140"
+          image="images/inter (1).png"
           alt="green iguana"
         />
-        
-        <CardContent >
+        <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             Lizard
           </Typography>
@@ -40,12 +28,8 @@ const EventCard = (id, title, thumbnail, condition) => {
         </CardContent>
       </CardActionArea>
     </Card>
-    </CardWrapper>
-    
-    
-        </div>
-      
-    );
+    </div>
+  );
 };
 
 export default EventCard;

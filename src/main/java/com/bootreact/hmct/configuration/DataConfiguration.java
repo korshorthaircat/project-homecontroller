@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -22,6 +23,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @PropertySource("classpath:/application.properties") 
 //설정내용을 어느 파일에서 읽어올 것인지 결정.(classpath:는 src/main/resource를 의미)
 //Mapper 클래스를 스캔할 경로 지정
+@MapperScan(basePackages="com.bootreact.hmct.mapper")
 public class DataConfiguration {
 	
 	@Autowired
