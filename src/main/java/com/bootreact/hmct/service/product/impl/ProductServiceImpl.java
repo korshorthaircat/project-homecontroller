@@ -38,4 +38,10 @@ public class ProductServiceImpl implements ProductService {
 			productImageRepository.save(pi);
 		}
 	}
+
+	@Override
+	public List<Product> getProductList(int productNo) {
+		
+		return productRepository.findByProductNo(productNo);
+	}
 }

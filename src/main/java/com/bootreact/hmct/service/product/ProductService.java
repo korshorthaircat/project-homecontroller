@@ -10,6 +10,8 @@ import com.bootreact.hmct.entity.ProductImage;
 
 @Service
 public interface ProductService {
+	List<Product> getProductList(int productNo);
+	
 	int insertProduct(Product product);
 	
 	void insertProductFiles(List<ProductImage> fileList);
