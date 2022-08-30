@@ -16,5 +16,5 @@ public interface UserService {
 	void updateUser(User user);
 
 	User checkId(String userId);
-
+          
 }
