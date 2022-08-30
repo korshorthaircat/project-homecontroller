@@ -1,9 +1,10 @@
 
 import React from 'react';
-import "../../css/card.css";
+import "../../css/productCard.css";
 import IconButton from "@mui/material/IconButton";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+
 
 
 
@@ -38,7 +39,7 @@ const ProductCard = ({image, title, category, price} ) => {
                 sx= {{padding: "0 6px", left: 180}}
               >
                 
-                <FavoriteIcon sx={{fontSize: 30}} />
+                <FavoriteBorderOutlinedIcon sx={{fontSize: 30}} />
                 
               </IconButton>
 
@@ -51,7 +52,7 @@ const ProductCard = ({image, title, category, price} ) => {
                 
                 
               >
-                <ShoppingCartIcon sx={{fontSize: 30}} />
+                <ShoppingCartOutlinedIcon sx={{fontSize: 30}} />
               </IconButton>
               
               
