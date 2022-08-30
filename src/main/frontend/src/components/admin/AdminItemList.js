@@ -29,7 +29,7 @@ export default function AdminItemList() {
   return (
     <React.Fragment>
       <List
-        style={{ width: "250px", marginLeft: "220px", marginRight: "100px" }}
+        style={{ width: "250px", marginLeft: "50%", marginRight: "100px" }}
         sx={{ bgcolor: "background.paper" }}
         component="nav"
         aria-labelledby="nested-list-subheader"

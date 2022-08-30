@@ -64,4 +64,13 @@ public class UserServiceImpl implements UserService {
 		userRepository.save(user);
 	}
 
+	@Override
+	public User checkId(String userId) {
+		if(userRepository.findById(userId).isPresent()) {
+			return userRepository.findById(userId).get();
+		} else {
+			return null;
+		}
+	}
+
 }

@@ -1,28 +1,14 @@
-/*6. 기사부분과 사이드 크기 지정*/
-/* article {
-    width: 74%;
-}
 
-aside {
-    width: 22%;
-}
-
-.news-content {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 50px;
-}
-
-    /*11. 뉴스 페이지 반응형 웹 적용*/
-/* @media screen and (max-width: 600px) {
-    .news-content {
-        flex-direction: column;
-    }
-
-    article, aside {
-        width: 100%;
-<<<<<<< HEAD
-    }  */
-
-
-
+    .icons {
+        display: flex;
+        /* flex-direction: row; */
+        position: relative;
+        width: 1500px;
+        height: 100%;
+        margin: 0 auto;
+        word-break: break-all;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      

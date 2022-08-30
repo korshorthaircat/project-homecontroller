@@ -10,8 +10,11 @@ public interface UserService {
 	User join(User user);
 	
 	User login(String userId, String userPw);
-	
+
 	void deleteUser(User user);
 	
 	void updateUser(User user);
+
+	User checkId(String userId);
+
 }

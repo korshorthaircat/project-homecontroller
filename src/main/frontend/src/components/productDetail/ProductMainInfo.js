@@ -16,7 +16,6 @@ const ProductMainInfo = () => {
   const handleChange = (event) => {
     setColor(event.target.value);
   };
-  
 
   return (
     <div className="productMainInfo">
@@ -32,23 +31,24 @@ const ProductMainInfo = () => {
         <hr className="line2"></hr>
       </p>
 
-      <FormControl
-        fullWidth
-        className="colorSelect"
-        style={{ width: "300px", marginTop: "30px", marginLeft: "10px" }}
-      >
-        <InputLabel id="colorSelect">색상선택</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="colorSelect"
-          value={color}
-          label="Color"
-          onChange={handleChange}
-        >
-          <MenuItem value={"white"}>White</MenuItem>
-          <MenuItem value={"black"}>Black</MenuItem>
-        </Select>
-      </FormControl>
+      <div>
+        <div style={{ display: "flex" }}>
+          <img className="selectColorBtn" src="/images/light3.png"></img>
+
+          <img className="selectColorBtn" src="/images/light3.png"></img>
+
+          <img className="selectColorBtn" src="/images/light3.png"></img>
+        </div>
+
+        <button className="selectColor">
+          <div style={{display: "flex"}}>
+          <p className="selectColorUnder" style={{ fontWeight: "800" }}>색상선택</p>
+          <img style={{width:"20px", height:"20px", align:"right", marginRight:"0px"}} src="/Product_arrow.png"></img>
+          </div>
+          <p style={{ fontSize: "13px", marginLeft: "10px" }}>화이트</p>
+        </button>
+      </div>
+
       <div className="sellHeartBtn">
         <button type="button" id="sellBtn">
           구매하기
