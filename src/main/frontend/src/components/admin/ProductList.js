@@ -22,7 +22,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import AdminItemList from "./AdminItemList";
-import "../../css/ad_productList.css";
 
 function createData(
   productNo,
@@ -552,4 +551,3 @@ export default function EnhancedTable() {
     </div>
   );
 }
-
