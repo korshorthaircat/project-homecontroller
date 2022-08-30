@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,19 +19,24 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bootreact.hmct.entity.Product;
 import com.bootreact.hmct.entity.ProductImage;
+import com.bootreact.hmct.service.product.ProductService;
 
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
 	
-	//@Autowired
-	//ProductService productService;
+	@Autowired
+	ProductService productService;
 	
 	//제품등록하기
 	@PostMapping(value = "/insertProduct", consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
 	public void product(MultipartHttpServletRequest mphsRequest,
 			Product product, HttpServletRequest request) throws IllegalStateException, IOException {
+		/*상품정보 등록 시작*/
+		int prNo = productService.insertProduct(product);
+		/*상품정보 등록 끝*/
 		
+		/*파일 서버에 업로드 시작*/
 		List<ProductImage> fileList = new ArrayList<ProductImage>();
 		
 		//서버의 루트 경로 가져오기
@@ -55,8 +61,10 @@ public class ProductController {
 			for(MultipartFile multipartFile : list) {
 				if(!multipartFile.isEmpty()) {
 					ProductImage productImage = new ProductImage();
+					Product pr = new Product();
+					pr.setProductNo(prNo);
 					
-					productImage.setProduct(product);
+					productImage.setProduct(pr);
 					
 					//고유 파일명 생성 
 					//실제 서버에 저장되는 파일명
@@ -74,6 +82,11 @@ public class ProductController {
 				}
 			}
 		}
+		/*파일 서버에 업로드 끝*/
+		
+		/*업로드 파일정보 저장 시작*/
+		productService.insertProductFiles(fileList);
+		/*업로드 파일정보 저장 끝*/
 	}
 
 //	//제품상세

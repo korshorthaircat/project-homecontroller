@@ -4,7 +4,10 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
@@ -17,10 +20,18 @@ import lombok.Data;
 @Data
 @DynamicInsert
 @DynamicUpdate
+@SequenceGenerator(
+		name = "PRODUCT_NO_GENERATOR",
+		sequenceName = "PRODUCT_NO_SEQ",
+		initialValue=1,
+		allocationSize=1
+		)
 public class Product {
 
 	//제품번호
 	@Id
+	@GeneratedValue(strategy= GenerationType.SEQUENCE,
+					generator = "PRODUCT_NO_GENERATOR")
 	private int productNo;
 
 	//제품명

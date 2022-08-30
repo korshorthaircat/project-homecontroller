@@ -34,7 +34,7 @@ public class ProductImage {
 	private String productImageName;
 	
 	//이미지 파일 유형
-	@Column(nullable = false)
+	@Column
 	private String productImageType;
 	
 	//이미지 파일 경로
