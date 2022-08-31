@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -191,9 +190,9 @@ public class AdminController {
 //
 ////	상품 조회(리스트/상세)
     @GetMapping("/admin2")
-    public ResponseEntity<?> getProductList(@AuthenticationPrincipal int productNo){
+    public ResponseEntity<?> getProductList(Product product){
     	try {
-    		List<Product> productList = productService.getProductList(productNo);
+    		List<Product> productList = productService.getProductList();
     		
     		List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
     		

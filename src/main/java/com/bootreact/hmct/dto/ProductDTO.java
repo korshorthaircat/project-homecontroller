@@ -21,7 +21,6 @@ public class ProductDTO {
 		private String productMng;
 		private String productSafe;
 		private String productDeliveryinfo;
-		private String productInvntry;
 		private String productGauge;
 		private String productMaterial;
 		private String productCategory;

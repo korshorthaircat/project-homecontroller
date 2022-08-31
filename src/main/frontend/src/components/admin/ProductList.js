@@ -22,8 +22,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import AdminItemList from "./AdminItemList";
-import "../../css/ad_productList.css"
-
+import axios from "axios";
 
 function createData(
   productNo,
@@ -408,6 +407,25 @@ export default function EnhancedTable() {
     document.location.href("/");
   };
 
+  const [productList, setProductList] = React.useState([]);
+
+  let listUrl = "http://localhost:8080/api/admin/admin2";
+
+  const list = () => {
+    axios
+      .get(listUrl, {})
+      .then((response) => {
+        setProductList(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  React.useEffect(() => {
+    list();
+  }, []);
+
   return (
     <div style={{ display: "flex" }}>
       <div>
@@ -463,56 +481,71 @@ export default function EnhancedTable() {
                             />
                           </TableCell>
 
-                          <TableCell
-                            component="th"
-                            id={labelId}
-                            scope="row"
-                            padding="none"
-                            align="center"
-                          >
-                            {row.productNo}
-                          </TableCell>
+                          {productList.data ? (
+                            productList.data.map((r) => (
+                              <TableRow
+                                key={r.productNo}
+                                sx={{
+                                  "&:last-child td, &:last-child th": {
+                                    border: 0,
+                                  },
+                                }}
+                              >
+                                {/* 내용 */}
+                                <TableCell
+                                  component="th"
+                                  id={labelId}
+                                  scope="row"
+                                  padding="none"
+                                  align="center"
+                                >
+                                  {r.productNo}
+                                </TableCell>
 
-                          {/* 내용 */}
-                          <TableCell align="center">
-                            {row.productName}
-                          </TableCell>
-                          <TableCell align="center">
-                            {row.productState}
-                          </TableCell>
-                          <TableCell align="center">
-                            {row.productSize}
-                          </TableCell>
-                          <TableCell align="center">
-                            {row.productRgsde}
-                          </TableCell>
-                          <TableCell align="center">
-                            {row.productUpdde}
-                          </TableCell>
-                          <TableCell align="center">
-                            {row.productPrice}
-                          </TableCell>
-                          <TableCell align="center">
-                            {row.productType}
-                          </TableCell>
-                          <TableCell align="center">
-                            {row.productInvntry}
-                          </TableCell>
-                          <TableCell align="center">
-                            {row.productRemark}
-                          </TableCell>
+                                <TableCell align="center">
+                                  {r.productName}
+                                </TableCell>
+                                <TableCell align="center">
+                                  {r.productState}
+                                </TableCell>
+                                <TableCell align="center">
+                                  {r.productSize}
+                                </TableCell>
+                                <TableCell align="center">
+                                  {r.productRgsde}
+                                </TableCell>
+                                <TableCell align="center">
+                                  {r.productUpdde}
+                                </TableCell>
+                                <TableCell align="center">
+                                  {r.productPrice}
+                                </TableCell>
+                                <TableCell align="center">
+                                  {r.productType}
+                                </TableCell>
+                                <TableCell align="center">
+                                  {r.productInvntry}
+                                </TableCell>
+                                <TableCell align="center">
+                                  {r.productRemark}
+                                </TableCell>
 
-                          <TableCell align="center">
-                            <button
-                              onClick={handleClickUpdate}
-                              className="updateButton"
-                              style={{
-                                verticalAlign: "middle",
-                              }}
-                            >
-                              <span>수정</span>
-                            </button>
-                          </TableCell>
+                                <TableCell align="center">
+                                  <button
+                                    onClick={handleClickUpdate}
+                                    className="updateButton"
+                                    style={{
+                                      verticalAlign: "middle",
+                                    }}
+                                  >
+                                    <span>수정</span>
+                                  </button>
+                                </TableCell>
+                              </TableRow>
+                            ))
+                          ) : (
+                            <TableRow>조회된 데이터가 없습니다.</TableRow>
+                          )}
 
                           {/* if({row.productNo === 존재할 때 }){  
                               버튼이 보인다....
