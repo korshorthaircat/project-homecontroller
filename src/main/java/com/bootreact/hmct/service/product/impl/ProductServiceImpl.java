@@ -43,11 +43,17 @@ public class ProductServiceImpl implements ProductService {
 			productImageRepository.save(pi);
 		}
 	}
+
 	
 	@Override
 	public void insertProductOption(ProductOption productOption) {
 		productOptionRepository.save(productOption);
-		
 	}
 	
+
+	@Override
+	public List<Product> getProductList() {
+		
+		return productRepository.findAll();
+	}
 }

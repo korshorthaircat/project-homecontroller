@@ -17,10 +17,12 @@ import SplitButton from "./components/list/SplitButton";
 import KakaoPayReady from "./components/order/KakaoPayReady";
 import KakaoPayResult from "./components/order/KakaoPayResult";
 import UserManage from "./components/admin/UserManage";
+import OrderManage from "./components/admin/OrderManage";
 import ProductAdd from "./components/admin/ProductAdd";
 import ProductList from "./components/admin/ProductList";
 import Cart from "./components/cart/Cart";
 import Cart2 from "./components/cart/Cart2";
+import AdminOrderDetail from "./components/admin/AdminOrderDetail";
 
 function Copyright() {
   return (
@@ -48,8 +50,10 @@ const AppRouter = () => {
           <Route path="/order" element={<Checkout />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin1" element={<ProductAdd />} />
-          {/* <Route path="/admin2" element={<ProductList />} /> */}
+          <Route path="/admin2" element={<ProductList />} />
           <Route path="/UserManage" element={<UserManage />} />
+          <Route path="/OrderManage" element={<OrderManage />} />
+          <Route path="/AdminOrderDetail" element={<AdminOrderDetail />} />
           <Route path="/productDetail" element={<ImageThumb />} />
           <Route path="/showroom" element={<InteriorShowroom />} />
           <Route path="/list" element={<ProductList />} />

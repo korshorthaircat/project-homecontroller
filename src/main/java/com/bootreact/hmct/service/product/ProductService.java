@@ -11,6 +11,8 @@ import com.bootreact.hmct.entity.ProductOption;
 
 @Service
 public interface ProductService {
+	List<Product> getProductList();
+	
 	int insertProduct(Product product);
 	
 	void insertProductFiles(List<ProductImage> fileList);
