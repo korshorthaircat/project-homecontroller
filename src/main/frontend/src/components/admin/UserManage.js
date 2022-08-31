@@ -13,37 +13,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import { Toolbar } from "@mui/material";
 import "../../css/admin.css";
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
-import { API_BASE_URL } from "../../app-config";
-import { getUserList } from "../../service/ApiService";
-
-function createData(userId, userName, userNickname, userTel,
-                    userMail, userPoint, userJoinYmd, userMarketing,
-                    userAddr, userAddrDetail, userZipcode,userUpdate,
-                    updateAdminUser, deleteAdminUser) {
-   
-    return { userId, userName, userNickname, userTel,
-             userMail, userPoint, userJoinYmd, userMarketing,
-             userAddr, userAddrDetail, userZipcode,userUpdate, 
-             updateAdminUser, deleteAdminUser};
-  }
-
-
-const rows = [
-createData("AuserId", 'A홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
-createData('BuserId', 'B홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
-createData('CuserId', 'C홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
-createData('DuserId', 'D홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
-createData('EuserId', 'E홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
-createData('FuserId', 'F홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
-createData('GuserId', 'G홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
-createData('HuserId', 'H홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
-createData('IuserId', 'I홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
-createData('JuserId', 'J홍길동', 'exnick', '010-0000-0001', '2022-08-24', ''),
-];
 
 const mdTheme = createTheme();
 
@@ -71,10 +43,15 @@ function UserManage() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    
+    //db에서 데이터 리스트화 
+    //state 선언
     const [userList, setUserList] = React.useState([]);
     
+    //부트에서 적어둔 메서드 호출
     let listUrl = 'http://localhost:8080/api/user/getUserList';
-
+    
+    //axios로 setUserList에 담아줌
     const list = () => {
         axios.get(listUrl, {}).then(response => {
             setUserList(response.data);
@@ -82,11 +59,11 @@ function UserManage() {
             console.log(e);
         });
       };
-
+    
     React.useEffect(() => {
         list();
     },[]);
-    
+    //여기까지
     return (
         <ThemeProvider theme={mdTheme} >
             <Box sx={{ display: "flex"}} style={{maxWidth:"1750px"}}>
@@ -120,18 +97,19 @@ function UserManage() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {userList.data ? userList.data.map((r) => (
+                            {/* 가져온 data mapping ?절 사용(map 뒤의 u는 아무거나 가능)*/}
+                            {userList.data ? userList.data.map((u) => (
                                 <TableRow
-                                key={r.userName}
+                                key={u.userName}
                                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell component="th" scope="row">
-                                        {r.userName}
+                                        {u.userName}
                                     </TableCell>
-                                    <TableCell align="center">{r.userId}</TableCell>
-                                    <TableCell align="center">{r.userNickname}</TableCell>
-                                    <TableCell align="center">{r.userTel}</TableCell>
-                                    <TableCell align="center">{r.userJoinYmd}</TableCell>
+                                    <TableCell align="center">{u.userId}</TableCell>
+                                    <TableCell align="center">{u.userNickname}</TableCell>
+                                    <TableCell align="center">{u.userTel}</TableCell>
+                                    <TableCell align="center">{u.userJoinYmd}</TableCell>
                                     <TableCell align="center">   
                                         <Button onClick={handleOpen}
                                             sx={{ border: "1px solid lightgray",
@@ -146,6 +124,7 @@ function UserManage() {
                                     </TableCell>
                                 </TableRow>
                             )) : <TableRow>조회된 데이터가 없습니다.</TableRow>}
+                            {/* 처음 tablerow에서 키값 잡아준후 여기까지 매핑*/}
                             </TableBody>
                         </Table>
                     </TableContainer>
@@ -174,7 +153,7 @@ function UserManage() {
                                         이름
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} placeholder="userName"/>
+                                        <input type="text" style={{border: "none"}} placeholder="userName" />
                                     </TableCell>
                                  </TableRow>
 
@@ -280,12 +259,12 @@ function UserManage() {
                                </Table>
                             </TableContainer>
                             <span class="buttonSpan">
-                                <Button sx={{marginTop: "20px"}}>
+                                <Button type="submit" sx={{marginTop: "20px"}}>
                                     <img className="AdminEdit" src="images/edit.png"/>
                                         수정
                                 </Button>
-                                <Button sx={{marginTop: "20px"}}>
-                                    <img className="AdminEdit" src="images/delete.png"/>
+                                <Button type="submit" sx={{marginTop: "20px"}}>
+                                    <img className="AdminEdit2" src="images/delete.png"/>
                                         삭제
                                 </Button>
                             </span>

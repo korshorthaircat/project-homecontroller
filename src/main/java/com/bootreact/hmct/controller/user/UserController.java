@@ -71,7 +71,7 @@ public class UserController {
 		}
 	}
 	
-	//회원 정보 조회  
+	//회원 정보 리스트  
     @GetMapping("/getUserList")
     public ResponseEntity<?> getUserList(@AuthenticationPrincipal String userName){
     	try {
@@ -110,6 +110,48 @@ public class UserController {
     	}
     };
     
+//    @GetMapping("/getUserList")
+//    public ResponseEntity<?> getUser(@RequestBody User user, String userName){
+//    	try {
+//			user.setUserName(userName);
+//    		
+//    		userService.getUser(user);
+//    		
+//    		List<User> userList = userService.getUserList();
+//    		
+//    		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
+//    		
+//    		for(User t: userList) {
+//    			UserDTO userDTO = new UserDTO();
+//    			userDTO.setUserId(t.getUserId());
+//    			userDTO.setUserName(t.getUserName());
+//    			userDTO.setUserNickname(t.getUserNickname());
+//    			userDTO.setUserTel(t.getUserTel());
+//    			userDTO.setUserMail(t.getUserMail());
+//    			userDTO.setUserRole(t.getUserRole());
+//    			userDTO.setUserZip(t.getUserZip());
+//    			userDTO.setUserAddr(t.getUserAddr());
+//    			userDTO.setUserAddrDetail(t.getUserAddrDetail());
+//    			userDTO.setUserPoint(t.getUserPoint());
+//    			userDTO.setUserMarketing(t.getUserMarketing());
+//    			userDTO.setUserJoinYmd(t.getUserJoinYmd());
+//    			
+//    			userDTOList.add(userDTO);	
+//    		}
+//    		ResponseDTO<UserDTO> response = new ResponseDTO<>();
+//    		
+//    		response.setData(userDTOList);
+//    		
+//    		return ResponseEntity.ok().body(response);
+//    		
+//    	}catch(Exception e){
+//    		System.out.println(e.getMessage());
+//    		ResponseDTO<UserDTO> response = new ResponseDTO<>();
+//    		response.setError(e.getMessage());
+//    		return ResponseEntity.badRequest().body(response);		
+//    	}
+//    };
+//    
     //회원 삭제
     @DeleteMapping("/deleteAdminUser")
     public ResponseEntity<?> deleteUser(@RequestBody User user, String userName){
