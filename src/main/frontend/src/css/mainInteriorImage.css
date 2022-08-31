@@ -1,0 +1,10 @@
+.image_box{
+    width: 1640px;
+    margin: 0 auto;
+}
+
+.image_box1 {
+    width: 780px;
+    height: 910px;
+    background-color: aqua;
+}
