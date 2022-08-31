@@ -79,8 +79,10 @@ public class UserController {
     		
     		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
     		
+    		//내가 가져오고싶은 정보들 
     		for(User t: userList) {
     			UserDTO userDTO = new UserDTO();
+    			
     			userDTO.setUserId(t.getUserId());
     			userDTO.setUserName(t.getUserName());
     			userDTO.setUserNickname(t.getUserNickname());
@@ -110,37 +112,30 @@ public class UserController {
     	}
     };
     
-//    @GetMapping("/getUserList")
-//    public ResponseEntity<?> getUser(@RequestBody User user, String userName){
+//    //회원 정보 조회
+//    @GetMapping("/viewUser")
+//    public ResponseEntity<?> viewUser(@RequestBody User user, String userName){
 //    	try {
 //			user.setUserName(userName);
 //    		
-//    		userService.getUser(user);
-//    		
-//    		List<User> userList = userService.getUserList();
-//    		
-//    		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
-//    		
-//    		for(User t: userList) {
-//    			UserDTO userDTO = new UserDTO();
-//    			userDTO.setUserId(t.getUserId());
-//    			userDTO.setUserName(t.getUserName());
-//    			userDTO.setUserNickname(t.getUserNickname());
-//    			userDTO.setUserTel(t.getUserTel());
-//    			userDTO.setUserMail(t.getUserMail());
-//    			userDTO.setUserRole(t.getUserRole());
-//    			userDTO.setUserZip(t.getUserZip());
-//    			userDTO.setUserAddr(t.getUserAddr());
-//    			userDTO.setUserAddrDetail(t.getUserAddrDetail());
-//    			userDTO.setUserPoint(t.getUserPoint());
-//    			userDTO.setUserMarketing(t.getUserMarketing());
-//    			userDTO.setUserJoinYmd(t.getUserJoinYmd());
-//    			
-//    			userDTOList.add(userDTO);	
-//    		}
-//    		ResponseDTO<UserDTO> response = new ResponseDTO<>();
-//    		
-//    		response.setData(userDTOList);
+//    		userService.viewUser(userName);
+//    		  		  		
+//			UserDTO userDTO = new UserDTO();
+//			
+//			userDTO.setUserId(user.getUserId());
+//			userDTO.setUserName(user.getUserName());
+//			userDTO.setUserNickname(user.getUserNickname());
+//			userDTO.setUserTel(user.getUserTel());
+//			userDTO.setUserMail(user.getUserMail());
+//			userDTO.setUserRole(user.getUserRole());
+//			userDTO.setUserZip(user.getUserZip());
+//			userDTO.setUserAddr(user.getUserAddr());
+//			userDTO.setUserAddrDetail(user.getUserAddrDetail());
+//			userDTO.setUserPoint(user.getUserPoint());
+//			userDTO.setUserMarketing(user.getUserMarketing());
+//			userDTO.setUserJoinYmd(user.getUserJoinYmd());
+//				
+//    		ResponseDTO<UserDTO> response = new ResponseDTO<>();    		
 //    		
 //    		return ResponseEntity.ok().body(response);
 //    		

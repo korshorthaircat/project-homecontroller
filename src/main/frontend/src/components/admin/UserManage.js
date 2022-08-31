@@ -55,6 +55,8 @@ function UserManage() {
     const list = () => {
         axios.get(listUrl, {}).then(response => {
             setUserList(response.data);
+
+            //오류나면 오류메세지
         }).catch(e => {
             console.log(e);
         });
@@ -64,6 +66,13 @@ function UserManage() {
         list();
     },[]);
     //여기까지
+    // const[viewUser, setViewUser] = React.useState({});
+
+    // React.useEffect(() => {
+    //    setViewUser(list());
+    //    console.log(viewUser);
+    // },[]); 
+
     return (
         <ThemeProvider theme={mdTheme} >
             <Box sx={{ display: "flex"}} style={{maxWidth:"1750px"}}>
@@ -146,14 +155,17 @@ function UserManage() {
                             </Typography>
                             
                             <TableContainer>
+                            
                                <Table>
                                  <TableRow>
                                     <TableCell component={"th"} 
-                                               sx={modalstyle}>
+                                               sx={modalstyle}
+                                               >
                                         이름
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} placeholder="userName" />
+                                        <input type="text" style={{border: "none"}} 
+                                               placeholder="userName"  />
                                     </TableCell>
                                  </TableRow>
 
@@ -163,7 +175,8 @@ function UserManage() {
                                         아이디
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} placeholder="userId"/>
+                                        <input type="text" style={{border: "none"}} 
+                                               placeholder="userId" />
                                     </TableCell>
                                  </TableRow>
 
@@ -173,7 +186,8 @@ function UserManage() {
                                         닉네임
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} placeholder="usernickname"/>
+                                        <input type="text" style={{border: "none"}} 
+                                               placeholder="usernickname" />
                                     </TableCell>
                                  </TableRow>
 
@@ -183,7 +197,8 @@ function UserManage() {
                                         주소
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} placeholder="useraddr"/>
+                                        <input type="text" style={{border: "none"}} 
+                                               placeholder="useraddr" />
                                     </TableCell>
                                  </TableRow>
 
@@ -193,7 +208,8 @@ function UserManage() {
                                         상세주소
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} placeholder="user_addr_detail"/>
+                                        <input type="text" style={{border: "none"}} 
+                                               placeholder="user_addr_detail" />
                                     </TableCell>
                                  </TableRow>
 
@@ -203,7 +219,8 @@ function UserManage() {
                                         우편번호
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} placeholder="userzipcode"/>
+                                        <input type="text" style={{border: "none"}} 
+                                               placeholder="userzipcode" />
                                     </TableCell>
                                  </TableRow>
 
@@ -213,7 +230,8 @@ function UserManage() {
                                         메일
                                     </TableCell>
                                     <TableCell>
-                                        <input type="email" style={{border: "none"}} placeholder="usermail"/>
+                                        <input type="email" style={{border: "none"}} 
+                                               placeholder="usermail" />
                                     </TableCell>
                                  </TableRow>
 
@@ -223,7 +241,8 @@ function UserManage() {
                                         전화번호
                                     </TableCell>
                                     <TableCell>
-                                        <input type="tel" style={{border: "none"}} placeholder="usertel"/>
+                                        <input type="tel" style={{border: "none"}} 
+                                               placeholder="usertel" />
                                     </TableCell>
                                  </TableRow>
 
@@ -233,7 +252,8 @@ function UserManage() {
                                         가입일자
                                     </TableCell>
                                     <TableCell>
-                                        <input type="datetime" style={{border: "none"}} placeholder="userjoinymd"/>
+                                        <input type="datetime" style={{border: "none"}} 
+                                               placeholder="userjoinymd" />
                                     </TableCell>
                                  </TableRow>
 
@@ -243,7 +263,8 @@ function UserManage() {
                                         포인트
                                     </TableCell>
                                     <TableCell>
-                                        <input type="number" style={{border: "none"}} placeholder="userpoint"/>
+                                        <input type="number" style={{border: "none"}} 
+                                               placeholder="userpoint" />
                                     </TableCell>
                                  </TableRow>
 
@@ -253,10 +274,12 @@ function UserManage() {
                                         마케팅 수신여부
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} placeholder="y"/>
+                                        <input type="text" style={{border: "none"}} 
+                                               placeholder="y" />
                                     </TableCell>
                                  </TableRow>                                  
                                </Table>
+                               
                             </TableContainer>
                             <span class="buttonSpan">
                                 <Button type="submit" sx={{marginTop: "20px"}}>
