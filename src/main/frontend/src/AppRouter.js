@@ -9,6 +9,8 @@ import Checkout from "./components/order/Checkout";
 import Dashboard from "./components/admin/Dashboard";
 import Mypage from "./components/mypage/Mypage";
 import UserUpdate from "./components/mypage/UserUpdate";
+import ReviewList from "./components/mypage/ReviewList";
+import OrderList from "./components/mypage/OrderList";
 import ImageThumb from "./components/productDetail/ImageThumb";
 import ProductMainInfo from "./components/productDetail/ProductMainInfo";
 import InteriorShowroom from "./components/showroom/InteriorShowroom";
@@ -47,6 +49,8 @@ const AppRouter = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/userupdate" element={<UserUpdate />} />
+          <Route path="/reviewlist" element={<ReviewList />} />
+          <Route path="/orderlist" element={<OrderList />} />
           <Route path="/order" element={<Checkout />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin1" element={<ProductAdd />} />

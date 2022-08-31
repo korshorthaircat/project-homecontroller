@@ -23,23 +23,26 @@ function Mypage() {
     }} />
     </Link>
 
-    <Link  href="/orderlist">
+    <Link  href="/wishlist">
     <img src="../images/mypage_icons/wishlist.png" View style={{
       padding: 40,
       flex: 1,
       flexDirection: 'row' 
     }} />
     </Link>
+    
     <img src="../images/mypage_icons/cart.png" View style={{
       padding: 40,
       flex: 1,
       flexDirection: 'row'
     }} />
+    <Link  href="/orderlist">
     <img src="../images/mypage_icons/orderdetails.png" View style={{
       padding: 40,
       flex: 1,
       flexDirection: 'row'
     }} />
+    </Link>
     <Link  href="/reviewlist">
     <img src="../images/mypage_icons/board.png" View style={{
       padding: 40,
