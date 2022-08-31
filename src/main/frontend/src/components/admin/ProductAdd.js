@@ -14,6 +14,7 @@ import AdminItemList from "./AdminItemList";
 import List from "@mui/material/List";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
+import { Select } from "@mui/material";
 
 const mdTheme = createTheme();
 
@@ -81,26 +82,23 @@ function ProductAdd() {
     const fObj = {};
     f.forEach((value, key) => (fObj[key] = value));
 
-    const formData = new FormData();
+    fObj.uploadFiles = fileList;
 
-    for (const [key, value] of Object.entries(fObj)) {
-      formData.append(
-        key,
-        new Blob([JSON.stringify(value)], { type: "application/json" })
-      );
-    }
+    // const formData = new FormData();
 
-    formData.append(
-      "productNo",
-      new Blob([JSON.stringify(event.target.productNo.value)], {
-        type: "application/json",
-      })
-    );
+    // formData.append(
+    //   "productNo",
+    //   new Blob([JSON.stringify(event.target.productNo.value)], {
+    //     type: "application/json",
+    //   })
+    // );
 
-    fileList.forEach((file) => {
-      // 파일 데이터 저장
-      formData.append("uploadFiles", file);
-    });
+    // fileList.forEach((file) => {
+    //   // 파일 데이터 저장
+    //   formData.append("uploadFiles", file);
+    // });
+
+    console.log(fObj.uploadFiles);
 
     axios({
       url: "http://localhost:8080/api/product/insertProduct",
@@ -114,6 +112,67 @@ function ProductAdd() {
       .catch((e) => {
         console.log(e);
       });
+  };
+
+  //제품소재 공통코드
+  const color = [
+    {
+      value: "A01",
+      label: "빨간색",
+    },
+    {
+      value: "A02",
+      label: "주황색",
+    },
+    {
+      value: "A03",
+      label: "노란색",
+    },
+    {
+      value: "A04",
+      label: "초록색",
+    },
+    {
+      value: "A05",
+      label: "파란색",
+    },
+    {
+      value: "A06",
+      label: "보라색",
+    },
+    {
+      value: "A07",
+      label: "흰색",
+    },
+    {
+      value: "A08",
+      label: "검은색",
+    },
+    {
+      value: "A09",
+      label: "베이지",
+    },
+    {
+      value: "A10",
+      label: "멀티컬러",
+    },
+    {
+      value: "A11",
+      label: "분홍색",
+    },
+    {
+      value: "A12",
+      label: "회색",
+    },
+    {
+      value: "A13",
+      label: "갈색",
+    },
+  ];
+  const [ProductColor, setProductColor] = React.useState("");
+
+  const handleColorChange = (event) => {
+    setProductstate(event.target.value);
   };
 
   return (
@@ -140,11 +199,6 @@ function ProductAdd() {
               autoComplete="off"
             >
               <div>
-                <TextField
-                  id="outlined-required"
-                  name="productNo"
-                  label="제품번호"
-                />
                 <TextField
                   id="outlined-required"
                   name="productName"
@@ -222,17 +276,55 @@ function ProductAdd() {
                 <TextField
                   id="outlined-number"
                   label="제품 재고수량"
-                  name="productInvntry"
-                  type="number"
+                  name="productInventory"
+                  // type="number"
                   InputLabelProps={{
                     shrink: true,
                   }}
                 />
-                <TextField id="outlined-required" label="제품소재(공통코드)" />
+                <TextField
+                  id="outlined-select-color-native"
+                  select
+                  name="commonCode"
+                  label="제품 컬러(공통코드)"
+                  value={ProductColor}
+                  onChange={handleColorChange}
+                  SelectProps={{
+                    native: true,
+                  }}
+                  helperText="제품 색상 선택"
+                >
+                  {color.map((c) => (
+                    <option key={c.value} value={c.value}>
+                      {c.label}
+                    </option>
+                  ))}
+                </TextField>
+                {/* <TextField
+                  id="outlined-select-color-native"
+                  select
+                  name="commonCode"
+                  label="제품 컬러(공통코드)"
+                  value={ProductColor}
+                  onChange={handleColorChange}
+                  SelectProps={{
+                    native: true,
+                  }}
+                ></TextField> */}
+                <TextField
+                  id="outlined-required"
+                  label="제품소재(공통코드)"
+                  name="productMaterial"
+                />
                 <TextField
                   id="outlined-required"
                   name="productCategory"
                   label="제품 카테고리(공통코드)"
+                />
+                <TextField
+                  id="outlined-required"
+                  name="commonCode"
+                  label="제품 색상(공통코드)"
                 />
                 <FormControl sx={{ m: 1, width: "93%" }}>
                   <InputLabel htmlFor="outlined-adornment-amount">
@@ -280,7 +372,7 @@ function ProductAdd() {
                   <TextField
                     id="outlined-multiline-static"
                     label="제품배송시 주의사항"
-                    name="productDeliveryinfo"
+                    name="productDeliveryInfo"
                     multiline
                     rows={4}
                   />
