@@ -212,7 +212,6 @@ public class AdminController {
     			productDTO.setProductMng(t.getProductMng());
     			productDTO.setProductSafe(t.getProductSafe());
     			productDTO.setProductDeliveryinfo(t.getProductDeliveryInfo());
-    			productDTO.setProductInvntry(t.getProductInvntry());
     			productDTO.setProductGauge(t.getProductGauge());
     			productDTO.setProductMaterial(t.getProductMaterial());
     			productDTO.setProductCategory(t.getProductCategory());
