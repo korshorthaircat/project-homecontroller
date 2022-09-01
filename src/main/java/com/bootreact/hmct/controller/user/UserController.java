@@ -71,7 +71,7 @@ public class UserController {
 		}
 	}
 	
-	//회원 정보 조회  
+	//회원 정보 리스트  
     @GetMapping("/getUserList")
     public ResponseEntity<?> getUserList(@AuthenticationPrincipal String userName){
     	try {
@@ -79,8 +79,10 @@ public class UserController {
     		
     		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
     		
+    		//내가 가져오고싶은 정보들 
     		for(User t: userList) {
     			UserDTO userDTO = new UserDTO();
+    			
     			userDTO.setUserId(t.getUserId());
     			userDTO.setUserName(t.getUserName());
     			userDTO.setUserNickname(t.getUserNickname());
@@ -110,6 +112,41 @@ public class UserController {
     	}
     };
     
+//    //회원 정보 조회
+//    @GetMapping("/viewUser")
+//    public ResponseEntity<?> viewUser(@RequestBody User user, String userName){
+//    	try {
+//			user.setUserName(userName);
+//    		
+//    		userService.viewUser(userName);
+//    		  		  		
+//			UserDTO userDTO = new UserDTO();
+//			
+//			userDTO.setUserId(user.getUserId());
+//			userDTO.setUserName(user.getUserName());
+//			userDTO.setUserNickname(user.getUserNickname());
+//			userDTO.setUserTel(user.getUserTel());
+//			userDTO.setUserMail(user.getUserMail());
+//			userDTO.setUserRole(user.getUserRole());
+//			userDTO.setUserZip(user.getUserZip());
+//			userDTO.setUserAddr(user.getUserAddr());
+//			userDTO.setUserAddrDetail(user.getUserAddrDetail());
+//			userDTO.setUserPoint(user.getUserPoint());
+//			userDTO.setUserMarketing(user.getUserMarketing());
+//			userDTO.setUserJoinYmd(user.getUserJoinYmd());
+//				
+//    		ResponseDTO<UserDTO> response = new ResponseDTO<>();    		
+//    		
+//    		return ResponseEntity.ok().body(response);
+//    		
+//    	}catch(Exception e){
+//    		System.out.println(e.getMessage());
+//    		ResponseDTO<UserDTO> response = new ResponseDTO<>();
+//    		response.setError(e.getMessage());
+//    		return ResponseEntity.badRequest().body(response);		
+//    	}
+//    };
+//    
     //회원 삭제
     @DeleteMapping("/deleteAdminUser")
     public ResponseEntity<?> deleteUser(@RequestBody User user, String userName){
@@ -205,13 +242,19 @@ public class UserController {
 //
 	//아이디 중복체크
 	@PostMapping("/checkId")
-	public String checkId(User user) {
+	public ResponseEntity<?> checkId(@RequestBody User user) {
+		System.out.println(user.getUserId());
+		List<User> userList = new ArrayList<User>();
 		User checkId = userService.checkId(user.getUserId());
+		userList.add(checkId);
 		
-		if(checkId == null) {
-			return "idOk";
-		} else {
-			return "idFail";
+		ResponseDTO<User> response = new ResponseDTO<>();
+		response.setData(userList);
+		
+		if(checkId == null) { //아이디 사용가능 
+			return null; 
+		} else { //아이디 사용 불가
+			return ResponseEntity.ok().body(response);
 		}
 	}
 //

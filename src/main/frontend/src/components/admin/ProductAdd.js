@@ -321,11 +321,6 @@ function ProductAdd() {
                   name="productCategory"
                   label="제품 카테고리(공통코드)"
                 />
-                <TextField
-                  id="outlined-required"
-                  name="commonCode"
-                  label="제품 색상(공통코드)"
-                />
                 <FormControl sx={{ m: 1, width: "93%" }}>
                   <InputLabel htmlFor="outlined-adornment-amount">
                     제품설명 - 요약
