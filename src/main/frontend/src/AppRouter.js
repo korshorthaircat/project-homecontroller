@@ -25,6 +25,8 @@ import ProductList from "./components/admin/ProductList";
 import Cart from "./components/cart/Cart";
 import AdminOrderDetail from "./components/admin/AdminOrderDetail";
 import ProductUpdate from "./components/admin/ProductUpdate";
+import ColorBox from "./components/order/ColorBox";
+import ContextTest from "./components/order/ContextTest";
 
 
 const AppRouter = () => {
@@ -41,7 +43,7 @@ const AppRouter = () => {
           <Route path="/userupdate" element={<UserUpdate />} />
           <Route path="/reviewlist" element={<ReviewList />} />
           <Route path="/orderlist" element={<OrderList />} />
-          {/* <Route path="/order" element={<Checkout />} /> */}
+          <Route path="/order" element={<Checkout />} /> 
           <Route path="/order" element={<Order />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin1" element={<ProductAdd />} />
@@ -54,6 +56,7 @@ const AppRouter = () => {
           <Route path="/showroom" element={<InteriorShowroom />} />
           <Route path="/list" element={<ProductList />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/contextTest" element={<ContextTest />} />
           <Route path="/kakaopayReady" element={<KakaoPayReady />} />
           <Route path="/kakaopayResult" element={<KakaoPayResult />} />
         </Routes>
