@@ -14,6 +14,8 @@ public interface UserService {
 	void deleteUser(User user);
 	
 	void updateUser(User user);
+	
+//	void viewUser(String userName);
 
 	User checkId(String userId);
           
