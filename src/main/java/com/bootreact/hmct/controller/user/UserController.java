@@ -147,7 +147,7 @@ public class UserController {
 //    	}
 //    };
 //    
-    //회원 삭제
+    //회원 삭제  
     @DeleteMapping("/deleteAdminUser")
     public ResponseEntity<?> deleteUser(@RequestBody User user, String userName){
     	try {
