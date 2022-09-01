@@ -309,8 +309,8 @@ public class UserController {
 			return ResponseEntity.badRequest().body(response);
 		}
 	}
-	
-//r
+
+
 //	//로그아웃
 //	void logout() {}
 }
