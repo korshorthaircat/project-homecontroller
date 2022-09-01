@@ -63,9 +63,8 @@ function UserManage() {
     
     //axios로 setUserList에 담아줌
     const list = () => {
-        axios.get(listUrl, {}).then(response => {
+        axios.get(listUrl).then(response => {
             setUserList(response.data);
-
             //오류나면 오류메세지
         }).catch(e => {
             console.log(e);
@@ -88,7 +87,7 @@ function UserManage() {
               setOpen(false);
               setUserList(response.data)            
             }).catch(e => {
-               console.log("update오류" +e);
+               console.log("update오류" + e);
             })
         } else {
            axios({
@@ -181,7 +180,7 @@ function UserManage() {
                     <Modal
                         open={open}
                         onClose={handleClose}
-                        aria-labelledby="modal-modal-title"                                
+                        aria-labelledby="modal-modal-title"                                                    
                      >
                         <form onSubmit={handleSubmit}>
                         <Box sx={style}>

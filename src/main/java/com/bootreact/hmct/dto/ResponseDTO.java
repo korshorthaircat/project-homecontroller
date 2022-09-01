@@ -12,7 +12,4 @@ public class ResponseDTO<T> {
 	
 	private List<T> data;
 
-
-		
-	
 }

@@ -1,6 +1,6 @@
 package com.bootreact.hmct.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,7 +66,7 @@ public class User {
 	
 	//가입일
 	@Column(nullable = false)
-	private LocalDateTime userJoinYmd = LocalDateTime.now();
+	private LocalDate userJoinYmd = LocalDate.now();
 	
 	//마케팅 동의
 	@Column(nullable = false)
