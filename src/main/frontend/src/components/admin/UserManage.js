@@ -39,19 +39,26 @@ const modalstyle = {
     width:"30%",
 };
 
-function UserManage() {
+function UserManage() { 
     const [open, setOpen] = React.useState(false);
     const handleOpen = (index) => {
         setOpen(true);
         setUserInfo(userList.data[index]);
     };
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false);
+    };
     const [userInfo, setUserInfo] = React.useState({});
+    
+    //updateUser, deleteUser
+    let upuserUrl = 'http://localhost:8080/api/user/updateUser';
+    let deluserUrl = 'http://localhost:8080/api/user/deleteUser';
+
     //db에서 데이터 리스트화 
     //state 선언
     const [userList, setUserList] = React.useState([]);
     
-    //부트에서 적어둔 메서드 호출
+    //부트에서 적어둔 메서드 호출 getUserList
     let listUrl = 'http://localhost:8080/api/user/getUserList';
     
     //axios로 setUserList에 담아줌
@@ -69,7 +76,42 @@ function UserManage() {
         list();
     },[]);
     
+    //수정, 삭제 서브밋 처리 함수
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(document.activeElement.value === "update") {
+            axios({
+                url: upuserUrl,
+                method: 'put',
+                data: userInfo
+            }).then(response => {
+              setOpen(false);
+              setUserList(response.data)            
+            }).catch(e => {
+               console.log("update오류" +e);
+            })
+        } else {
+           axios({
+               url: deluserUrl,
+               method: 'delete',
+               data: userInfo
+           }).then(response =>{
+               setOpen(false);
+               setUserList(response.data)            
+           }).catch(e => {
+             console.log("delete오류" + e);
+          })
+        }
+    }
 
+    //회원정보 수정
+    const handleChange = (e) => {
+        const updateUser = {
+            ...userInfo,
+            [e.target.name]: e.target.value
+        }
+        setUserInfo(updateUser);
+    }
     return (
         <ThemeProvider theme={mdTheme} >
             <Box sx={{ display: "flex"}} style={{maxWidth:"1750px"}}>
@@ -130,7 +172,7 @@ function UserManage() {
                                         </Button>
                                     </TableCell>
                                 </TableRow>
-                            )) : <TableRow>조회된 데이터가 없습니다.</TableRow>}
+                            )) : <TableRow><TableCell>조회된 데이터가 없습니다.</TableCell></TableRow>}
                             {/* 처음 tablerow에서 키값 잡아준후 여기까지 매핑*/}
                             </TableBody>
                         </Table>
@@ -139,10 +181,9 @@ function UserManage() {
                     <Modal
                         open={open}
                         onClose={handleClose}
-                        aria-labelledby="modal-modal-title"
-                        userInfo={userInfo}
+                        aria-labelledby="modal-modal-title"                                
                      >
-                        <form>
+                        <form onSubmit={handleSubmit}>
                         <Box sx={style}>
                             <Typography id="modal-modal-title" 
                             sx={{
@@ -163,8 +204,8 @@ function UserManage() {
                                         이름
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} 
-                                               placeholder="userName" value={userInfo.userName} />
+                                        <input type="text" style={{border: "none"}} name="userName" onChange={handleChange}
+                                               placeholder="userName" value={userInfo.userName}/>                 
                                     </TableCell>
                                  </TableRow>
 
@@ -174,7 +215,7 @@ function UserManage() {
                                         아이디
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} 
+                                        <input type="text" style={{border: "none"}} name="userId" onChange={handleChange}
                                                placeholder="userId" value={userInfo.userId}/>
                                     </TableCell>
                                  </TableRow>
@@ -185,7 +226,7 @@ function UserManage() {
                                         닉네임
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} 
+                                        <input type="text" style={{border: "none"}} name="userNickname" onChange={handleChange}
                                                placeholder="usernickname" value={userInfo.userNickname}/>
                                     </TableCell>
                                  </TableRow>
@@ -196,7 +237,7 @@ function UserManage() {
                                         주소
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none", width: "500px"}} 
+                                        <input type="text" style={{border: "none", width: "500px"}} name="userAddr" onChange={handleChange}
                                                placeholder="useraddr" value={userInfo.userAddr}/>
                                     </TableCell>
                                  </TableRow>
@@ -207,7 +248,7 @@ function UserManage() {
                                         상세주소
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} 
+                                        <input type="text" style={{border: "none"}} name="userAddrDetail" onChange={handleChange}
                                                placeholder="user_addr_detail" value={userInfo.userAddrDetail}/>
                                     </TableCell>
                                  </TableRow>
@@ -218,7 +259,7 @@ function UserManage() {
                                         우편번호
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} 
+                                        <input type="text" style={{border: "none"}} name="userZip" onChange={handleChange}
                                                placeholder="userzipcode" value={userInfo.userZip}/>
                                     </TableCell>
                                  </TableRow>
@@ -229,7 +270,7 @@ function UserManage() {
                                         메일
                                     </TableCell>
                                     <TableCell>
-                                        <input type="email" style={{border: "none"}} 
+                                        <input type="email" style={{border: "none"}} name="userMail" onChange={handleChange}
                                                placeholder="usermail" value={userInfo.userMail}/>
                                     </TableCell>
                                  </TableRow>
@@ -240,7 +281,7 @@ function UserManage() {
                                         전화번호
                                     </TableCell>
                                     <TableCell>
-                                        <input type="tel" style={{border: "none"}} 
+                                        <input type="tel" style={{border: "none"}} name="userTel" onChange={handleChange}
                                                placeholder="usertel" value={userInfo.userTel}/>
                                     </TableCell>
                                  </TableRow>
@@ -251,7 +292,7 @@ function UserManage() {
                                         가입일자
                                     </TableCell>
                                     <TableCell>
-                                        <input type="datetime" style={{border: "none"}} 
+                                        <input type="datetime" style={{border: "none"}} name="userJoinYmd" onChange={handleChange}
                                                placeholder="userjoinymd" value={userInfo.userJoinYmd}/>
                                     </TableCell>
                                  </TableRow>
@@ -262,7 +303,7 @@ function UserManage() {
                                         포인트
                                     </TableCell>
                                     <TableCell>
-                                        <input type="number" style={{border: "none"}} 
+                                        <input type="number" style={{border: "none"}} name="userPoint" onChange={handleChange}
                                                placeholder="userpoint" value={userInfo.userPoint}/>
                                     </TableCell>
                                  </TableRow>
@@ -273,7 +314,7 @@ function UserManage() {
                                         마케팅 수신여부
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} 
+                                        <input type="text" style={{border: "none"}} name="userMarketing" onChange={handleChange}
                                                placeholder="y" value={userInfo.userMarketing}/>
                                     </TableCell>
                                  </TableRow>                                  
@@ -281,11 +322,13 @@ function UserManage() {
                                
                             </TableContainer>
                             <span class="buttonSpan">
-                                <Button type="submit" sx={{marginTop: "20px"}}>
+                                <Button type="submit" sx={{marginTop: "20px"}}
+                                        value="update">
                                     <img className="AdminEdit" src="images/edit.png"/>
                                         수정
                                 </Button>
-                                <Button type="submit" sx={{marginTop: "20px"}}>
+                                <Button type="submit" sx={{marginTop: "20px"}} 
+                                        value="delete">
                                     <img className="AdminEdit2" src="images/delete.png"/>
                                         삭제
                                 </Button>

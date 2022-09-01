@@ -148,11 +148,10 @@ public class UserController {
 //    };
 //    
     //회원 삭제  
-    @DeleteMapping("/deleteAdminUser")
-    public ResponseEntity<?> deleteUser(@RequestBody User user, String userName){
+    @DeleteMapping("/deleteUser")
+    public ResponseEntity<?> deleteUser(@RequestBody User user){
     	try {
-    		user.setUserName(userName);
-    		
+
     		userService.deleteUser(user);
     		
     		List<User> userList = userService.getUserList();
@@ -192,12 +191,13 @@ public class UserController {
     
     
     //회원정보 수정
-    @PutMapping("/updateAdminUser")
-    public ResponseEntity<?> updateUser(@RequestBody User user, String userName){
+    @PutMapping("/updateUser")
+    public ResponseEntity<?> updateUser(@RequestBody User user){
     	try {
-    		user.setUserId(userName);
+    		User pwUser = userService.findbyUserId(user.getUserId());
     		
-    		userService.deleteUser(user);
+    		user.setUserPw(pwUser.getUserPw());
+    		userService.updateUser(user);
     		
     		List<User> userList = userService.getUserList();
     		
