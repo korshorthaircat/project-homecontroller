@@ -56,4 +56,10 @@ public class ProductServiceImpl implements ProductService {
 		
 		return productRepository.findAll();
 	}
+
+@Override
+public void updateProduct(Product product) {
+	productRepository.save(product);
+	
+}
 }
