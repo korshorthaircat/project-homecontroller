@@ -25,6 +25,7 @@ import ProductList from "./components/admin/ProductList";
 import Cart from "./components/cart/Cart";
 import AdminOrderDetail from "./components/admin/AdminOrderDetail";
 import ProductUpdate from "./components/admin/ProductUpdate";
+import ProductCategoryList from "./components/list/ProductCategoryList";
 
 function Copyright() {
   return (
@@ -51,7 +52,6 @@ const AppRouter = () => {
           <Route path="/userupdate" element={<UserUpdate />} />
           <Route path="/reviewlist" element={<ReviewList />} />
           <Route path="/orderlist" element={<OrderList />} />
-          <Route path="/order" element={<Checkout />} />
           <Route path="/order" element={<Order />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin1" element={<ProductAdd />} />
@@ -62,7 +62,7 @@ const AppRouter = () => {
           <Route path="/AdminOrderDetail" element={<AdminOrderDetail />} />
           <Route path="/productDetail" element={<ImageThumb />} />
           <Route path="/showroom" element={<InteriorShowroom />} />
-          <Route path="/list" element={<ProductList />} />
+          <Route path="/list" element={<ProductCategoryList />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/kakaopayReady" element={<KakaoPayReady />} />
           <Route path="/kakaopayResult" element={<KakaoPayResult />} />
