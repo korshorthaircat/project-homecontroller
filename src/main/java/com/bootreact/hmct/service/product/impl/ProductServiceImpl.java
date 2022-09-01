@@ -50,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
 		productOptionRepository.save(productOption);
 	}
 	
-
+//관리자상품조회
 	@Override
 	public List<Product> getProductList() {
 		
