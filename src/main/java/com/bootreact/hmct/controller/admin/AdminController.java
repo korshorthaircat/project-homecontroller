@@ -92,6 +92,7 @@ public class AdminController {
     			productDTO.setProductDeliveryinfo(t.getProductDeliveryInfo());
     			productDTO.setProductGauge(t.getProductGauge());
     			productDTO.setProductMaterial(t.getProductMaterial());
+    			productDTO.setProductCategory(t.getProductCategory());
     			
     			productDTOList.add(productDTO);	
     		}
