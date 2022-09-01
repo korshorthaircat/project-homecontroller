@@ -242,13 +242,19 @@ public class UserController {
 //
 	//아이디 중복체크
 	@PostMapping("/checkId")
-	public String checkId(User user) {
+	public ResponseEntity<?> checkId(@RequestBody User user) {
+		System.out.println(user.getUserId());
+		List<User> userList = new ArrayList<User>();
 		User checkId = userService.checkId(user.getUserId());
+		userList.add(checkId);
 		
-		if(checkId == null) {
-			return "idOk";
-		} else {
-			return "idFail";
+		ResponseDTO<User> response = new ResponseDTO<>();
+		response.setData(userList);
+		
+		if(checkId == null) { //아이디 사용가능 
+			return null; 
+		} else { //아이디 사용 불가
+			return ResponseEntity.ok().body(response);
 		}
 	}
 //

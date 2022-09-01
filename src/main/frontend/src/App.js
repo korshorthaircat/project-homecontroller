@@ -19,7 +19,7 @@ function App() {
 
       
       <h4 className="main_title">개발자들을 위한 인테리어 추천템!</h4>
-      {/* <MainInteriorImage/> */}
+      <MainInteriorImage/>
       <h4 className="main_title">진행중인 이벤트 및 프로모션</h4>
       {/* <EventCarousel/> */}
       

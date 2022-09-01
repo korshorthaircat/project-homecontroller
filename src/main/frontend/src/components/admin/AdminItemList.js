@@ -76,7 +76,9 @@ export default function AdminItemList() {
               <ListItemIcon>
                 <EventNote />
               </ListItemIcon>
-              <ListItemText primary="상품 수정" />
+              <Link href="/admin3">
+                <ListItemText primary="상품 수정" />
+              </Link>
             </ListItemButton>
           </List>
         </Collapse>
@@ -115,7 +117,6 @@ export default function AdminItemList() {
               </ListItemIcon>
               <ListItemText primary="주문 상세" />
             </ListItemButton> */}
-
           </List>
         </Collapse>
         <Divider sx={{ my: 1 }} />

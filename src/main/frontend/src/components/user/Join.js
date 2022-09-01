@@ -23,8 +23,12 @@ const Join = () => {
   const [userTel, setUserTel] = useState("");
   const [userMail, setUserMail] = useState("");
 
+  //비밀번호가 형식에 부합하는 경우
   const [isPassword, setIsPassword] = useState(false);
+  //비빌번호와 비밀번호체크가 서로 일치하는 경우
   const [isCheckedPassword, setIsCheckedPassword] = useState(false);
+  //아이디가 중복되지 않은 경우
+  const [isValidId, setIsValidId] = useState(false);
 
   useEffect(() => {
     //userPw 텍스트필드의 헬퍼텍스트 컬러 변경
@@ -98,30 +102,21 @@ const Join = () => {
       alert("아이디를 입력하세요.");
       return;
     }
-
     axios({
       method: "post",
       url: API_BASE_URL + "/api/user/checkId",
-      data: userId,
+      data: { userId: userId },
     }).then((response) => {
       console.log(response);
-      //     if (obj === "idOk") {
-      //       if (
-      //         confirm(
-      //           "사용가능한 아이디입니다. " +
-      //             $("#userId").val() +
-      //             "를(을) 사용하시겠습니까?"
-      //         )
-      //       ) {
-      //         checkId = true;
-      //         $("#btnIdCheck").attr("disabled", true);
-      //       }
-      //     } else {
-      //       checkId = false;
-      //       alert("이미 존재하는 아이디입니다.");
-      //       $("#userId").focus();
-      //       return;
-      //     }
+      if (response.data == "") {
+        //아이디 사용가능
+        alert("아이디 사용 가능");
+        setIsValidId(true);
+      } else {
+        //아이디 사용 불가능
+        alert("아이디 사용 불가능");
+        setIsValidId(false);
+      }
     });
   };
 
@@ -152,7 +147,7 @@ const Join = () => {
   };
 
   //우편번호 검색 버튼 클릭시
-  const handleClick = () => {
+  const handleZipBtnClick = () => {
     open({ onComplete: handleComplete });
   }; //onComplete - 우편번호 검색이 끝났을 때 사용자가 선택한 정보를 받아올 콜백함수. 주소 데이터의 구성은 Daum 가이드를 참고.
 
@@ -172,10 +167,14 @@ const Join = () => {
     const userAddrDetail = data.get("userAddrDetail");
     const userMarketing = data.get("userMarketing");
 
-    if (!(isPassword && isCheckedPassword)) {
-      console.log(isPassword);
-      console.log(isCheckedPassword);
-      alert("제대로 입력하세요.");
+    if (!isPassword) {
+      alert("숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요.");
+      return;
+    } else if (!isCheckedPassword) {
+      alert("입력한 비밀번호와 일치하지 않습니다.");
+      return;
+    } else if (!isValidId) {
+      alert("아이디 중복체크를 진행해주세요.");
       return;
     } else {
       join({
@@ -332,7 +331,7 @@ const Join = () => {
               variant="contained"
               color="success"
               style={{ height: "56px" }}
-              onClick={handleClick}
+              onClick={handleZipBtnClick}
             >
               우편번호 검색
             </Button>

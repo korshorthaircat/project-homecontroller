@@ -14,12 +14,13 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
+import { useLocation } from "react-router-dom";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="https://localhost:3000/">
         HomeController
       </Link>{" "}
       {new Date().getFullYear()}
@@ -28,7 +29,7 @@ function Copyright() {
   );
 }
 
-const steps = ["배송 정보 입력", "결제 정보 입력", "주문내역 확인"];
+const steps = ["배송 정보 입력", "결제 정보 확인", "주문내역 확인"];
 
 function getStepContent(step) {
   switch (step) {
@@ -47,6 +48,8 @@ const theme = createTheme();
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const location = useLocation();
+  const [payInfo, setPayInfo] = React.useState({});
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -55,6 +58,15 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  React.useEffect(() => {
+    //console.log(location.state);
+    setPayInfo(location.state.obj);
+  }, []);
+
+  // React.useEffect(() => {
+  //   console.log(payInfo);
+  // }, [payInfo]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -78,7 +90,7 @@ export default function Checkout() {
           </Typography>
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (
-              <Step key={label}>
+              <Step key={label} payInfo={payInfo}>
                 <StepLabel>{label}</StepLabel>
               </Step>
             ))}

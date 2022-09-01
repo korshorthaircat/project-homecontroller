@@ -1,24 +1,36 @@
 package com.bootreact.hmct.controller.mypage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.bootreact.hmct.service.cart.CartService;
+import com.bootreact.hmct.service.inquiry.InquiryService;
+import com.bootreact.hmct.service.mypage.MypageService;
+import com.bootreact.hmct.service.order.OrderService;
+import com.bootreact.hmct.service.product.ProductService;
+import com.bootreact.hmct.service.review.ReviewService;
+import com.bootreact.hmct.service.user.UserService;
+import com.bootreact.hmct.service.wish.WishService;
+
 public class MypageController {
 
-//오토와이어드 ******
-//	OrderService orderService;
-//	UserService userService;
-//	ProductService productService;
-//	CartService cartService;
-//	ReviewService reviewService;
-//	InquirySerivce inquiryService;
-//	MypageService mypageService;
+	@Autowired
+	OrderService orderService;
+	UserService userService;
+	ProductService productService;
+	CartService cartService;
+	ReviewService reviewService;
+	InquiryService inquiryService;
+	MypageService mypageService;
+	WishService wishService;
 
 	
 ////	주문내역 조회
-//	void getOrderList() {} //주문목록 조회 
+//	void getOrderList() {} //주문목록 조회
 //	void getOrderItemList() {} //주문아이템 조회
 //	
 ////	포인트 및 쿠폰
 //	void getUserPoint() {} //적립된 포인트 조회
-//	void getUserCouponList() {} //보유한 쿠폰 리스트 조회 
+//	void getUserCouponList() {} //보유한 쿠폰 리스트 조회
 //	
 ////	게시글 관리(1:1문의)
 //	void insertInquiryBoard(Inquiry inquiry, User user) {}
@@ -35,6 +47,7 @@ public class MypageController {
 //	void deleteReview(Review review, User user) {}
 //
 ////	회원정보관리
+	
 //	void updateUser() {}
 //	void deleteUser() {}
 //	void getUser() {}
