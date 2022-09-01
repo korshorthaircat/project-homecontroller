@@ -21,9 +21,16 @@ const ProductInCart = ({
   paymentAmount,
   getPaymentAmount,
   coupon,
+  getInitialAmount,
 }) => {
   //제품 수량관리를 위해 useReducer 사용
-  const [number, dispatch] = useReducer(reducer, 0);
+  const [number, dispatch] = useReducer(reducer, 1);
+
+  useEffect(() => {
+    if (number === 1) {
+      getInitialAmount(parseInt(product.productPrice));
+    }
+  }, []);
 
   //수량 변경 버튼 클릭시 수량과 주문금액에 영향
   function reducer(state, action) {
@@ -32,7 +39,7 @@ const ProductInCart = ({
         getOrderAmount(orderAmount + parseInt(product.productPrice));
         return state + 1;
       case "DECREMENT":
-        if (orderAmount > 1) {
+        if (state > 1) {
           getOrderAmount(orderAmount - parseInt(product.productPrice));
           return state - 1;
         } else {
