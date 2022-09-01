@@ -2,6 +2,7 @@ import * as React from "react";
 import "../../css/ProductDetail.css";
 import Textarea from "../../css/Textarea";
 import RevInserNav from "./RevInsertNav";
+import RevStar from "./RevStar";
 
 export default function NavContentRev() {
   return (
@@ -11,9 +12,7 @@ export default function NavContentRev() {
 
         <p className="gradeNo">4.3</p>
         <div id="Review">
-          <p className="RevproductGrade" style={{ fontSize: "20px" }}>
-            ★★★★★
-          </p>
+          <RevStar />
           <p className="RevproductRevCount" style={{ fontSize: "20px" }}>
             (267)
           </p>

@@ -51,6 +51,17 @@ const Cart = () => {
     setCoupon(event.target.value);
   };
 
+  //초기 주문금액
+  let initialAmount = 0;
+  const getInitialAmount = (amount) => {
+    initialAmount += amount;
+  };
+
+  useEffect(() => {
+    console.log(initialAmount);
+    setOrderAmount(initialAmount);
+  }, [initialAmount]);
+
   //주문금액 가져오기
   const getOrderAmount = (amount) => {
     setOrderAmount(amount);
@@ -85,6 +96,7 @@ const Cart = () => {
               paymentAmount={paymentAmount}
               getPaymentAmount={getPaymentAmount}
               coupon={coupon}
+              getInitialAmount={getInitialAmount}
             ></ProductInCart>
           ))}
         </Grid>
