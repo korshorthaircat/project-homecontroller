@@ -28,16 +28,6 @@ import ProductUpdate from "./components/admin/ProductUpdate";
 import ColorBox from "./components/order/ColorBox";
 import ContextTest from "./components/order/ContextTest";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright"}
-      <i className="fa-brands fa-github" style={{ fontSize: "1.7rem" }}></i>
-      &nbsp; bitcamp &nbsp;
-      {new Date().getFullYear()}
-    </Typography>
-  );
-}
 
 const AppRouter = () => {
   // 경로에 따라 실행되는 컴포넌트가 다르므로, 그 정보를 갖고있는 AppRouter를 가장 먼저 렌더링해야 한다.(Index.js에서)
@@ -53,6 +43,7 @@ const AppRouter = () => {
           <Route path="/userupdate" element={<UserUpdate />} />
           <Route path="/reviewlist" element={<ReviewList />} />
           <Route path="/orderlist" element={<OrderList />} />
+          <Route path="/order" element={<Checkout />} /> 
           <Route path="/order" element={<Order />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin1" element={<ProductAdd />} />

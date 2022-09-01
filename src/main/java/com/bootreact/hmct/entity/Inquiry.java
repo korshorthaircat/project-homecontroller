@@ -22,9 +22,9 @@ public class Inquiry {
 	private String inquiryNo;
 	
 	//회원 아이디(FK)
-	@ManyToOne
-	@JoinColumn(name="USER_ID")
-	private User user;
+//	@ManyToOne
+//	@JoinColumn(name="USER_ID")
+//	private User user;
 		
 	//문의글 제목 
 	@Column(nullable = false)
