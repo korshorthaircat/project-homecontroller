@@ -22,6 +22,7 @@ import ProductAdd from "./components/admin/ProductAdd";
 import ProductList from "./components/admin/ProductList";
 import Cart from "./components/cart/Cart";
 import AdminOrderDetail from "./components/admin/AdminOrderDetail";
+import ProductUpdate from "./components/admin/ProductUpdate";
 
 function Copyright() {
   return (
@@ -50,6 +51,7 @@ const AppRouter = () => {
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin1" element={<ProductAdd />} />
           <Route path="/admin2" element={<ProductList />} />
+          <Route path="/admin3" element={<ProductUpdate />} />
           <Route path="/UserManage" element={<UserManage />} />
           <Route path="/OrderManage" element={<OrderManage />} />
           <Route path="/AdminOrderDetail" element={<AdminOrderDetail />} />
