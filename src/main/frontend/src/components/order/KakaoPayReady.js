@@ -1,16 +1,27 @@
 import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
+import { useLocation } from "react-router-dom";
 
 const KakaoPayReady = () => {
+  //결제정보
+  const [payInfo, setPayInfo] = useState({});
+
+  //Order.js에서 Link를 통해 보낸 state에서 결제정보를 꺼냄
+  const location = useLocation();
+  React.useEffect(() => {
+    setPayInfo(location.state.obj);
+    console.log(payInfo);
+  }, []);
+
   const [params, setParams] = useState({
     cid: "TC0ONETIME",
-    partner_order_id: "partner_order_id",
-    partner_user_id: "partner_user_id",
-    item_name: "책상",
+    partner_order_id: payInfo.orderNo,
+    partner_user_id: payInfo.userId,
+    item_name: payInfo.orderName,
     quantity: 1,
-    total_amount: 10000,
-    vat_amount: 1000,
+    total_amount: payInfo.paymentAmount,
+    vat_amount: 0,
     tax_free_amount: 0,
     approval_url: "http://localhost:3000/kakaopayResult/",
     fail_url: "http://localhost:3000/kakaopayResult",

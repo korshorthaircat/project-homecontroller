@@ -5,7 +5,7 @@ import App from "./App";
 import Login from "./components/user/Login";
 import Header from "./components/Header";
 import Join from "./components/user/Join";
-import Checkout from "./components/order/Checkout";
+import Order from "./components/order/Order";
 import Dashboard from "./components/admin/Dashboard";
 import Mypage from "./components/mypage/Mypage";
 import UserUpdate from "./components/mypage/UserUpdate";
@@ -21,7 +21,6 @@ import OrderManage from "./components/admin/OrderManage";
 import ProductAdd from "./components/admin/ProductAdd";
 import ProductList from "./components/admin/ProductList";
 import Cart from "./components/cart/Cart";
-import Cart2 from "./components/cart/Cart2";
 import AdminOrderDetail from "./components/admin/AdminOrderDetail";
 
 function Copyright() {
@@ -47,7 +46,7 @@ const AppRouter = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/userupdate" element={<UserUpdate />} />
-          <Route path="/order" element={<Checkout />} />
+          <Route path="/order" element={<Order />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin1" element={<ProductAdd />} />
           <Route path="/admin2" element={<ProductList />} />

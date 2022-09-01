@@ -5,47 +5,38 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
-import CartItemList from "./CartItemList";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
-  // const [order, setOrder] = useState({
-  //   orderNo: 1,
-  //   userId: "gogo",
-  //   orderStatus: "결제대기",
-  //   paymentAmount: paymentAmount,
-  //   cart: products,
-  // });
-
   //장바구니의 제품들
   const products = [
     {
       prooductNo: 1,
       productCategory: "C13",
-      productDeliveryInfo: "배송 가능",
       productName: "ANNAKAJSA 안나카이사",
+      productDetail: "반암막 커튼 한쌍, 베이지",
       productPrice: 5000,
+      productDeliveryInfo: "배송 가능",
     },
     {
       prooductNo: 2,
       productCategory: "C01",
-      productDeliveryInfo: "배송 가능",
-      productName: "MALM 말름 오토만침대",
+      productName: "MALM 말름",
+      productDetail: "오토만침대, 화이트, 150x200 cm",
       productPrice: 10000,
+      productDeliveryInfo: "배송 가능",
     },
     {
       prooductNo: 3,
       productCategory: "C02",
+      productName: "LAMPAN 람판",
+      productDetail: "탁상스탠드, 화이트, 29 cm",
+      productPrice: 7000,
       productDeliveryInfo: "배송 가능",
-      productName: "멋있는 전등",
-      productPrice: 3000,
     },
   ];
 
@@ -61,6 +52,16 @@ const Cart = () => {
     setCoupon(event.target.value);
   };
 
+  //주문금액 가져오기
+  const getOrderAmount = (amount) => {
+    setOrderAmount(amount);
+  };
+
+  //결제금액 가져오기
+  const getPaymentAmount = (payment) => {
+    setPaymentAmount(payment);
+  };
+
   //주문하기 버튼 클릭시 실행될 함수
   const onClickHandler = () => {
     window.location.href = "/order";
@@ -68,8 +69,6 @@ const Cart = () => {
 
   return (
     <div>
-      <Typography variant="h4">장바구니</Typography>
-
       <Grid
         container
         spacing={2}
@@ -78,13 +77,14 @@ const Cart = () => {
         marginTop={"20px"}
       >
         <Grid className="productsInCart">
+          <Typography variant="h4">장바구니</Typography>
           {products.map((product) => (
             <ProductInCart
               product={product}
               orderAmount={orderAmount}
-              setOrderAmount={setOrderAmount}
+              getOrderAmount={getOrderAmount}
               paymentAmount={paymentAmount}
-              setPaymentAmount={setPaymentAmount}
+              getPaymentAmount={getPaymentAmount}
               coupon={coupon}
             ></ProductInCart>
           ))}
@@ -139,9 +139,9 @@ const Cart = () => {
                 </Button> */}
 
                 <Link
-                  to={{
-                    pathname: "/order",
-                    state: {
+                  to={"/order"}
+                  state={{
+                    obj: {
                       orderNo: 1,
                       userId: "gogo",
                       paymentAmount: paymentAmount,
