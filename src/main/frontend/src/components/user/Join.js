@@ -110,11 +110,11 @@ const Join = () => {
       console.log(response);
       if (response.data == "") {
         //아이디 사용가능
-        alert("아이디 사용 가능");
+        alert("사용할 수 있는 아이디입니다.");
         setIsValidId(true);
       } else {
         //아이디 사용 불가능
-        alert("아이디 사용 불가능");
+        alert("중복 아이디입니다. 다른 아이디를 사용해주세요.");
         setIsValidId(false);
       }
     });

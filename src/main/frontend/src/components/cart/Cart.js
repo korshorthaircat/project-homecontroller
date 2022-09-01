@@ -2,7 +2,6 @@ import { Typography } from "@mui/material";
 import React, { useEffect, useReducer, useState } from "react";
 import ProductInCart from "./ProductInCart";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
@@ -134,10 +133,6 @@ const Cart = () => {
                 <Typography>₩ {paymentAmount}</Typography>
               </Grid>
               <Grid>
-                {/* <Button variant="contained" onClick={onClickHandler}>
-                  상품 주문하기
-                </Button> */}
-
                 <Link
                   to={"/order"}
                   state={{
