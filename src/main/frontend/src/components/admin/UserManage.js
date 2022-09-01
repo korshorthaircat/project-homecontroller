@@ -41,9 +41,12 @@ const modalstyle = {
 
 function UserManage() {
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
+    const handleOpen = (index) => {
+        setOpen(true);
+        setUserInfo(userList.data[index]);
+    };
     const handleClose = () => setOpen(false);
-    
+    const [userInfo, setUserInfo] = React.useState({});
     //db에서 데이터 리스트화 
     //state 선언
     const [userList, setUserList] = React.useState([]);
@@ -65,13 +68,7 @@ function UserManage() {
     React.useEffect(() => {
         list();
     },[]);
-    //여기까지
-    // const[viewUser, setViewUser] = React.useState({});
-
-    // React.useEffect(() => {
-    //    setViewUser(list());
-    //    console.log(viewUser);
-    // },[]); 
+    
 
     return (
         <ThemeProvider theme={mdTheme} >
@@ -107,7 +104,7 @@ function UserManage() {
                             </TableHead>
                             <TableBody>
                             {/* 가져온 data mapping ?절 사용(map 뒤의 u는 아무거나 가능)*/}
-                            {userList.data ? userList.data.map((u) => (
+                            {userList.data ? userList.data.map((u, index) => (
                                 <TableRow
                                 key={u.userName}
                                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -119,13 +116,14 @@ function UserManage() {
                                     <TableCell align="center">{u.userNickname}</TableCell>
                                     <TableCell align="center">{u.userTel}</TableCell>
                                     <TableCell align="center">{u.userJoinYmd}</TableCell>
-                                    <TableCell align="center">   
-                                        <Button onClick={handleOpen}
+                                    <TableCell align="center">    
+                                        <Button onClick={() => handleOpen(index)} 
+                                                id={`detailBtn${index}`}
                                             sx={{ border: "1px solid lightgray",
                                                 backgroundColor: "#fff",
                                                 borderRadius: "5px",
                                                 width: "70px",
-                                                height: "45px",                                           
+                                                height: "45px",                                          
                                                 alignItems:"center",}}>
                                             <img className="AdminEdit" src="images/edit.png"/>
                                             수정
@@ -142,6 +140,7 @@ function UserManage() {
                         open={open}
                         onClose={handleClose}
                         aria-labelledby="modal-modal-title"
+                        userInfo={userInfo}
                      >
                         <form>
                         <Box sx={style}>
@@ -165,7 +164,7 @@ function UserManage() {
                                     </TableCell>
                                     <TableCell>
                                         <input type="text" style={{border: "none"}} 
-                                               placeholder="userName"  />
+                                               placeholder="userName" value={userInfo.userName} />
                                     </TableCell>
                                  </TableRow>
 
@@ -176,7 +175,7 @@ function UserManage() {
                                     </TableCell>
                                     <TableCell>
                                         <input type="text" style={{border: "none"}} 
-                                               placeholder="userId" />
+                                               placeholder="userId" value={userInfo.userId}/>
                                     </TableCell>
                                  </TableRow>
 
@@ -187,7 +186,7 @@ function UserManage() {
                                     </TableCell>
                                     <TableCell>
                                         <input type="text" style={{border: "none"}} 
-                                               placeholder="usernickname" />
+                                               placeholder="usernickname" value={userInfo.userNickname}/>
                                     </TableCell>
                                  </TableRow>
 
@@ -197,8 +196,8 @@ function UserManage() {
                                         주소
                                     </TableCell>
                                     <TableCell>
-                                        <input type="text" style={{border: "none"}} 
-                                               placeholder="useraddr" />
+                                        <input type="text" style={{border: "none", width: "500px"}} 
+                                               placeholder="useraddr" value={userInfo.userAddr}/>
                                     </TableCell>
                                  </TableRow>
 
@@ -209,7 +208,7 @@ function UserManage() {
                                     </TableCell>
                                     <TableCell>
                                         <input type="text" style={{border: "none"}} 
-                                               placeholder="user_addr_detail" />
+                                               placeholder="user_addr_detail" value={userInfo.userAddrDetail}/>
                                     </TableCell>
                                  </TableRow>
 
@@ -220,7 +219,7 @@ function UserManage() {
                                     </TableCell>
                                     <TableCell>
                                         <input type="text" style={{border: "none"}} 
-                                               placeholder="userzipcode" />
+                                               placeholder="userzipcode" value={userInfo.userZip}/>
                                     </TableCell>
                                  </TableRow>
 
@@ -231,7 +230,7 @@ function UserManage() {
                                     </TableCell>
                                     <TableCell>
                                         <input type="email" style={{border: "none"}} 
-                                               placeholder="usermail" />
+                                               placeholder="usermail" value={userInfo.userMail}/>
                                     </TableCell>
                                  </TableRow>
 
@@ -242,7 +241,7 @@ function UserManage() {
                                     </TableCell>
                                     <TableCell>
                                         <input type="tel" style={{border: "none"}} 
-                                               placeholder="usertel" />
+                                               placeholder="usertel" value={userInfo.userTel}/>
                                     </TableCell>
                                  </TableRow>
 
@@ -253,7 +252,7 @@ function UserManage() {
                                     </TableCell>
                                     <TableCell>
                                         <input type="datetime" style={{border: "none"}} 
-                                               placeholder="userjoinymd" />
+                                               placeholder="userjoinymd" value={userInfo.userJoinYmd}/>
                                     </TableCell>
                                  </TableRow>
 
@@ -264,7 +263,7 @@ function UserManage() {
                                     </TableCell>
                                     <TableCell>
                                         <input type="number" style={{border: "none"}} 
-                                               placeholder="userpoint" />
+                                               placeholder="userpoint" value={userInfo.userPoint}/>
                                     </TableCell>
                                  </TableRow>
 
@@ -275,7 +274,7 @@ function UserManage() {
                                     </TableCell>
                                     <TableCell>
                                         <input type="text" style={{border: "none"}} 
-                                               placeholder="y" />
+                                               placeholder="y" value={userInfo.userMarketing}/>
                                     </TableCell>
                                  </TableRow>                                  
                                </Table>

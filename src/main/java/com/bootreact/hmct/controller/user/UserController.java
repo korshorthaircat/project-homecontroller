@@ -304,7 +304,7 @@ public class UserController {
 		}
 	}
 	
-//
+//r
 //	//로그아웃
 //	void logout() {}
 }
