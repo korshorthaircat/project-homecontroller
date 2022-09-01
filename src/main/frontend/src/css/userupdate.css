@@ -89,3 +89,20 @@
   .active-content {
     display: block;
   }
+
+  /* 조회시 기간선택하는 부분 */
+  .Date {
+    font-family: sans-serif;
+    text-align: center;
+    width: 500px;
+    display: flex;
+    padding: 10px;
+    margin-left: 30px;
+  }
+
+  .DataP {
+    font-weight: bold;
+    /* vertical-align:text-bottom; */
+  }
+
+  
