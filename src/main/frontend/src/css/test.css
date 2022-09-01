@@ -28,13 +28,12 @@ input[type=range]{
     background: #ccc;
   }
   .carousel-container-with-scrollbar {
-    padding-left: 100px;
-    padding-bottom: 20px;
-    overflow: visible !important;
+    
+    padding-bottom: 40px;
   }
   .custom-slider {
     position: absolute;
-    bottom: -20px;
+    bottom: 0;
     width: 100%;
     padding: 0 20px;
   }
@@ -42,5 +41,9 @@ input[type=range]{
     width: 100%;
   }
   .image-item {
-    padding: 20px 0 20px 20px;
+   
   }
+
+.react-multi-carousel-track {
+  overflow: hidden;
+}
