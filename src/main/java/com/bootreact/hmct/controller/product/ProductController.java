@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.bootreact.hmct.entity.Common;
 import com.bootreact.hmct.entity.Product;
 import com.bootreact.hmct.entity.ProductImage;
 import com.bootreact.hmct.entity.ProductOption;
@@ -32,7 +33,7 @@ public class ProductController {
 	//제품등록하기
 	@PostMapping(value = "/insertProduct", consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
 	public void product(MultipartHttpServletRequest mphsRequest, Product product, 
-			HttpServletRequest request, ProductOption productOption) throws IllegalStateException, IOException {
+			HttpServletRequest request, ProductOption productOption, Common common) throws IllegalStateException, IOException {
 		/*상품정보 등록 시작*/
 		int prNo = productService.insertProduct(product);
 		/*상품정보 등록 끝*/
@@ -89,7 +90,13 @@ public class ProductController {
 		productService.insertProductFiles(fileList);
 		/*업로드 파일정보 저장 끝*/
 		
-		/*색상 및 수량 등록 시작*/
+		/*색상 및 수량 등록 시작*/ 
+		System.out.println(productOption.toString());
+		Product pr2 = new Product();
+		pr2.setProductNo(prNo);
+		productOption.setProduct(pr2);
+		productOption.setCommon(common);
+		System.out.println(productOption.toString());
 		productService.insertProductOption(productOption);
 		/*색상 및 수량 등록 끝*/
 	}
