@@ -82,4 +82,6 @@ public class UserServiceImpl implements UserService {
 	public User findbyUserId(String userId) { 
 		return userRepository.findByUserId(userId);
 	}
+
+
 }
