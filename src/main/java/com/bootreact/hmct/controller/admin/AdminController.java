@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bootreact.hmct.dto.ProductDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.entity.Product;
+import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.service.product.ProductService;
 
 @RestController
@@ -73,7 +75,7 @@ public class AdminController {
 
    
 //
-////	상품 조회(리스트/상세)
+////	상품 조회(리스트)
     @GetMapping("/admin2")
     public ResponseEntity<?> getProductList(){
     	try {
@@ -116,7 +118,27 @@ public class AdminController {
     		return ResponseEntity.badRequest().body(response);		
     	}
     };
-
+    
+//	상품 조회(상세)
+    @PostMapping("/admin3")
+    public ResponseEntity<?> getProduct(@RequestBody Product product) {
+    	try {
+    		Product prod = productService.findbyProductNo(product.getProductNo());
+    		  	
+    		List<Product> productList = new ArrayList<Product>();
+    		productList.add(prod);
+    		
+    		ResponseDTO<Product> response = new ResponseDTO<>(); 
+    		response.setData(productList);
+    		return ResponseEntity.ok().body(response);
+    		
+    	}catch(Exception e){
+    		System.out.println(e.getMessage());
+    		ResponseDTO<Product> response = new ResponseDTO<>();
+    		response.setError(e.getMessage());
+    		return ResponseEntity.badRequest().body(response);		
+    	}
+    }
     
     //상품수정
     @PutMapping("/admin3")
