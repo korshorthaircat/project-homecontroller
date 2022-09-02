@@ -1,6 +1,6 @@
 package com.bootreact.hmct.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import lombok.Data;
 
@@ -18,7 +18,7 @@ public class UserDTO {
 	private String userAddr;
 	private String userAddrDetail;
 	private int userPoint;
-	private LocalDateTime userJoinYmd;
+	private LocalDate userJoinYmd;
 	private String userMarketing;
 	
 	private String token;

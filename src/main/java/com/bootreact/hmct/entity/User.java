@@ -1,6 +1,6 @@
 package com.bootreact.hmct.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.Data;
 
@@ -16,6 +17,7 @@ import lombok.Data;
 @Table(name="T_HMCT_USER")
 @Data
 @DynamicInsert //@DynamicInsert는 컬럼의 지정된 default 값을 적용시키며 INSERT할 때 사용
+@DynamicUpdate
 public class User {
 	
 	//아이디
@@ -64,7 +66,7 @@ public class User {
 	
 	//가입일
 	@Column(nullable = false)
-	private LocalDateTime userJoinYmd = LocalDateTime.now();
+	private LocalDate userJoinYmd = LocalDate.now();
 	
 	//마케팅 동의
 	@Column(nullable = false)

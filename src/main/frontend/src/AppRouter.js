@@ -25,8 +25,7 @@ import ProductList from "./components/admin/ProductList";
 import Cart from "./components/cart/Cart";
 import AdminOrderDetail from "./components/admin/AdminOrderDetail";
 import ProductUpdate from "./components/admin/ProductUpdate";
-import ColorBox from "./components/order/ColorBox";
-import ContextTest from "./components/order/ContextTest";
+import ProductCategoryList from "./components/list/ProductCategoryList";
 
 function Copyright() {
   return (
@@ -63,9 +62,8 @@ const AppRouter = () => {
           <Route path="/AdminOrderDetail" element={<AdminOrderDetail />} />
           <Route path="/productDetail" element={<ImageThumb />} />
           <Route path="/showroom" element={<InteriorShowroom />} />
-          <Route path="/list" element={<ProductList />} />
+          <Route path="/list" element={<ProductCategoryList />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/contextTest" element={<ContextTest />} />
           <Route path="/kakaopayReady" element={<KakaoPayReady />} />
           <Route path="/kakaopayResult" element={<KakaoPayResult />} />
         </Routes>

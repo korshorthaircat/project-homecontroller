@@ -57,7 +57,7 @@
 
     align-items: center;
     height: 90px;
-    width: 1640px;
+    width: 1600px;
     border-bottom: 1px solid darkgray;
   } 
   
@@ -84,8 +84,4 @@
     width: 200px;
   }
 
-  .searchBar {
-    margin-left: 0;
-  }
-  
   
