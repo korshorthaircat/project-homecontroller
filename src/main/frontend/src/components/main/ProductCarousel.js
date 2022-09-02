@@ -126,8 +126,7 @@ const ProductCarousel = () => {
       
       
       
-      >        
-        <ProductCard />
+      >
         {stateText.map((data) => (
           <ProductCard
           image={data.image}

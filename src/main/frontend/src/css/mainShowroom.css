@@ -2,7 +2,7 @@
     width: 50px;
     height: 50px;
     border-radius: 100%;
-    margin: 0 53px;
+    margin: 30px 50px;
 }
 
 .red {
@@ -60,6 +60,24 @@
     
 }
 
+.showroomBox_1 {
+    width: 760px;
+    height: 900px;
+    border: 1px solid black;
+    margin-right: 20px;
+}
+
+.showroomBox {
+    display: flex;
+    justify-content: center;
+}
+
+.showroomBox_2 {
+    width: 740px;
+    height: 900px;
+    border: 1px solid black;
+    margin-left: 20px;
+}
 
 
 

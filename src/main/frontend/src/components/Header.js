@@ -42,8 +42,8 @@ const Search = styled("div")(({ theme }) => ({
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "1125px",
+    marginLeft: theme.spacing(2),
+    width: "1100px",
   },
 }));
 
@@ -109,6 +109,7 @@ const Header = () => {
     setOpen(false);
   };
 
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }} >
@@ -164,7 +165,7 @@ const Header = () => {
             <div className="logoSearchbarLogin">
             <img className="logo" src="images/logo_2.png" />
 
-            <Search className="searchBar">
+            <Search>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
