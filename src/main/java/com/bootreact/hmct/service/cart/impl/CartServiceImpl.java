@@ -21,6 +21,8 @@ public class CartServiceImpl implements CartService{
 	
 	@Override
 	public List<Cart> getCartList(String userId) {
+		List<Cart> list = cartRepository.findByUserUserId(userId);
+		System.out.println(list.size());
 		return cartRepository.findByUserUserId(userId);
 	}
 	

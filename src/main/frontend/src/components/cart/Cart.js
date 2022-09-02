@@ -30,7 +30,7 @@ const Cart = () => {
     //   });
 
     axios({
-      method: "get",
+      method: "post",
       url: listUrl,
       data: { userId: "gogo" },
     }).then((response) => {
