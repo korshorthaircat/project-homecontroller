@@ -32,6 +32,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import "../../css/ad_productList.css";
 import { data } from "jquery";
+import { Link } from "react-router-dom";
 
 function createData(
   productNo,
@@ -44,7 +45,8 @@ function createData(
   productType,
   productInvntry,
   productRemark,
-  productUpdate
+  productUpdate,
+  productDelete
 ) {
   return {
     productNo,
@@ -58,6 +60,7 @@ function createData(
     productInvntry,
     productRemark,
     productUpdate,
+    productDelete,
   };
 }
 const productData = [
@@ -96,7 +99,6 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -106,7 +108,6 @@ export default function EnhancedTable() {
     setPage(0);
   };
 
-  
   const [productList, setProductList] = React.useState([]);
 
   let listUrl = "http://localhost:8080/api/admin/admin2";
@@ -129,20 +130,20 @@ export default function EnhancedTable() {
   return (
     <ThemeProvider theme={mdTheme}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <Box sx={{ display: "flex" }} style={{ maxWidth: "1900px" }}>
+        <Box sx={{ display: "flex" }} style={{ maxWidth: "1300px" }}>
           <Box>
             <List>
               <AdminItemList />
             </List>
           </Box>
 
-          <Container style={{ margin: "100px 0px 0px 150px" }}>
-            <h1 style={{ marginBottom: "40px" }}>상품 조회</h1>
+          <Container style={{ margin: "50px 0px 0px 100px" }}>
+            <h1 style={{ marginBottom: "30px" }}>상품 조회</h1>
             <Box
               component="form"
               sx={{
                 "& .MuiTextField-root": { m: 1, width: "30ch" },
-                width: "1700px",
+                width: "1300px",
               }}
               noValidate
               autoComplete="off"
@@ -163,6 +164,7 @@ export default function EnhancedTable() {
                       <TableCell align="center">수정일</TableCell>
                       <TableCell align="center">비고</TableCell>
                       <TableCell align="center">수정하기</TableCell>
+                      <TableCell align="center">삭제하기</TableCell>
                     </TableRow>
                   </TableHead>
 
@@ -179,41 +181,98 @@ export default function EnhancedTable() {
                             component="th"
                             scope="row"
                             align="center"
-                            sx={{ width: "10%" }}
+                            sx={{ width: "3%", padding: "0px" }}
                           >
                             {r.productNo}
                           </TableCell>
-                          <TableCell align="center" sx={{ width: "20%" }}>
+                          <TableCell
+                            align="center"
+                            sx={{ width: "10%", padding: "0px" }}
+                          >
                             {r.productName}
                           </TableCell>
-                          <TableCell align="center" sx={{ width: "10%" }}>
+                          <TableCell
+                            align="center"
+                            sx={{ width: "3%", padding: "0px" }}
+                          >
                             {r.productState}
                           </TableCell>
-                          <TableCell align="center" sx={{ width: "20%" }}>
+                          <TableCell
+                            align="center"
+                            sx={{ width: "10%", padding: "0px" }}
+                          >
                             {r.productState}
                           </TableCell>
-                          <TableCell align="center" sx={{ width: "10%" }}>
+                          <TableCell
+                            align="center"
+                            sx={{ width: "3%", padding: "0px" }}
+                          >
                             {r.productState}
                           </TableCell>
-                          <TableCell align="center" sx={{ width: "10%" }}>
+                          <TableCell
+                            align="center"
+                            sx={{ width: "10%", padding: "0px" }}
+                          >
                             {r.productState}
                           </TableCell>
-                          <TableCell align="center" sx={{ width: "10%" }}>
+                          <TableCell
+                            align="center"
+                            sx={{ width: "3%", padding: "0px" }}
+                          >
                             {r.productPrice}
                           </TableCell>
-                          <TableCell align="center" sx={{ width: "10%" }}>
+                          <TableCell
+                            align="center"
+                            sx={{ width: "3%", padding: "0px" }}
+                          >
                             {r.productState}
                           </TableCell>
-                          <TableCell align="center" sx={{ width: "10%" }}>
+                          <TableCell
+                            align="center"
+                            sx={{ width: "3%", padding: "0px" }}
+                          >
                             {r.productRgsde}
                           </TableCell>
-                          <TableCell align="center" sx={{ width: "10%" }}>
+                          <TableCell
+                            align="center"
+                            sx={{ width: "3%", padding: "0px" }}
+                          >
                             {r.productUpdde}
                           </TableCell>
-                          <TableCell align="center" sx={{ width: "10%" }}>
+                          <TableCell
+                            align="center"
+                            sx={{ width: "3%", padding: "0px" }}
+                          >
                             {}
                           </TableCell>
-                          <TableCell align="center" sx={{ width: "10%" }}>
+                          <TableCell
+                            align="center"
+                            sx={{ width: "3%", padding: "0px" }}
+                          >
+                            <Button
+                              sx={{
+                                border: "1px solid lightgray",
+                                backgroundColor: "#fff",
+                                borderRadius: "5px",
+                                width: "70px",
+                                height: "45px",
+                                alignItems: "center",
+                              }}
+                            >
+                              {" "}
+                              <Link to={"/admin3"}>
+                                <img
+                                  className="AdminEdit"
+                                  src="images/edit.png"
+                                />
+                                수정
+                              </Link>
+                            </Button>
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            sx={{ width: "3%", padding: "0px" }}
+                          >
                             <Button
                               sx={{
                                 border: "1px solid lightgray",
@@ -228,7 +287,7 @@ export default function EnhancedTable() {
                                 className="AdminEdit"
                                 src="images/edit.png"
                               />
-                              수정
+                              삭제
                             </Button>
                           </TableCell>
                         </TableRow>
@@ -241,7 +300,6 @@ export default function EnhancedTable() {
               </TableContainer>
             </Box>
           </Container>
-          
         </Box>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
@@ -251,7 +309,7 @@ export default function EnhancedTable() {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          sx={{alignItems:"center"}}
+          sx={{ alignItems: "center" }}
         />
       </Paper>
     </ThemeProvider>

@@ -2,6 +2,7 @@ import React from 'react';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import EventCard from './EventCard';
+import "../../css/carousel.css";
 
 const responsive = {
     superLargeDesktop: {
@@ -25,13 +26,13 @@ const responsive = {
 
 const EventCarousel = () => {
     return (
-        <div>
+        <div className='carousel_container'>
             <Carousel responsive={responsive}>
                 <EventCard />
                 <EventCard />
                 <EventCard />
                 <EventCard />
-            </Carousel>;
+            </Carousel>
         </div>
     );
 };

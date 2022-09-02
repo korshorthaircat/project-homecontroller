@@ -75,9 +75,6 @@ function InteriorShowroom() {
         <hr />
       </div>
       <div className="wrapper">
-        <SplitButton></SplitButton>
-        <SplitButton></SplitButton>
-        <SplitButton></SplitButton>
         <Chip></Chip>
       </div>
     </Container>
