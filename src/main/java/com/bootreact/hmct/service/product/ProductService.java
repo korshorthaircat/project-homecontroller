@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.bootreact.hmct.entity.Product;
 import com.bootreact.hmct.entity.ProductImage;
 import com.bootreact.hmct.entity.ProductOption;
+import com.bootreact.hmct.entity.User;
 
 
 @Service
@@ -22,5 +23,7 @@ public interface ProductService {
 //	void deleteProduct(Product product);
 //	
 	void updateProduct(Product product);
+	
+	Product findbyProductNo(int productNo);
 
 }

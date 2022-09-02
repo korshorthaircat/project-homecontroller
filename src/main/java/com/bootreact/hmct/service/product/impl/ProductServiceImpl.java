@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.bootreact.hmct.entity.Product;
 import com.bootreact.hmct.entity.ProductImage;
 import com.bootreact.hmct.entity.ProductOption;
+import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.mapper.ProductMapper;
 import com.bootreact.hmct.repository.ProductImageRepository;
 import com.bootreact.hmct.repository.ProductOptionRepository;
@@ -60,5 +61,10 @@ public class ProductServiceImpl implements ProductService {
 public void updateProduct(Product product) {
 	productRepository.save(product);
 	
+}
+
+@Override
+public Product findbyProductNo (int productNo) {
+	return productRepository.findByProductNo(productNo);
 }
 }
