@@ -112,6 +112,12 @@ export default function EnhancedTable() {
 
   let listUrl = "http://localhost:8080/api/admin/admin2";
 
+  const [update, setUpdate] = React.useState(false);
+  const handleUpdate = (index) => {
+    setUpdate(true);
+    setProductInfo(productList.data[index]);
+  };
+  const [productInfo, setProductInfo] = React.useState({});
   const list = () => {
     axios
       .get(listUrl, {})
@@ -170,7 +176,7 @@ export default function EnhancedTable() {
 
                   <TableBody>
                     {productList.data ? (
-                      productList.data.map((r) => (
+                      productList.data.map((r, index) => (
                         <TableRow
                           key={r.productNo}
                           sx={{
@@ -249,31 +255,28 @@ export default function EnhancedTable() {
                             align="center"
                             sx={{ width: "3%", padding: "0px" }}
                           >
-                            <Button
-                              sx={{
-                                border: "1px solid lightgray",
-                                backgroundColor: "#fff",
-                                borderRadius: "5px",
-                                width: "70px",
-                                height: "45px",
-                                alignItems: "center",
+                            {/* {productList.map((productInfo) => ( */}
+                            <Link
+                              // to={`/admin3/${productList.productNo}`}
+                              to={"/admin3"}
+                              // key={productList.productNo}
+                              state={{
+                                obj: {
+                                  data: r.productNo,
+                                },
                               }}
                             >
-                              {" "}
-                              <Link to={"/admin3"}>
-                                <img
-                                  className="AdminEdit"
-                                  src="images/edit.png"
-                                />
-                                수정
-                              </Link>
-                            </Button>
+                              수정
+                            </Link>
+                            {/* ))} */}
                           </TableCell>
                           <TableCell
                             align="center"
                             sx={{ width: "3%", padding: "0px" }}
                           >
                             <Button
+                              onClick={() => handleUpdate(index)}
+                              id={`Btn${index}`}
                               sx={{
                                 border: "1px solid lightgray",
                                 backgroundColor: "#fff",

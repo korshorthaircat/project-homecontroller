@@ -57,6 +57,9 @@ const AppRouter = () => {
           <Route path="/admin1" element={<ProductAdd />} />
           <Route path="/admin2" element={<ProductList />} />
           <Route path="/admin3" element={<ProductUpdate />} />
+
+          <Route path="/admin3/{productNo}" element={<ProductUpdate />} />
+          
           <Route path="/UserManage" element={<UserManage />} />
           <Route path="/OrderManage" element={<OrderManage />} />
           <Route path="/AdminOrderDetail" element={<AdminOrderDetail />} />
@@ -64,7 +67,6 @@ const AppRouter = () => {
           <Route path="/showroom" element={<InteriorShowroom />} />
           <Route path="/list" element={<ProductCategoryList />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/contextTest" element={<ContextTest />} />
           <Route path="/kakaopayReady" element={<KakaoPayReady />} />
           <Route path="/kakaopayResult" element={<KakaoPayResult />} />
         </Routes>
