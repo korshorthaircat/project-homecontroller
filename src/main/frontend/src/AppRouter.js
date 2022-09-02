@@ -64,6 +64,7 @@ const AppRouter = () => {
           <Route path="/showroom" element={<InteriorShowroom />} />
           <Route path="/list" element={<ProductCategoryList />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/contextTest" element={<ContextTest />} />
           <Route path="/kakaopayReady" element={<KakaoPayReady />} />
           <Route path="/kakaopayResult" element={<KakaoPayResult />} />
         </Routes>

@@ -19,4 +19,5 @@ public interface UserService {
 
 	User checkId(String userId);
           
+	User findbyUserId(String userId);
 }

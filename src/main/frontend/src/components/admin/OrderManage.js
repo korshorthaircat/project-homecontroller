@@ -13,6 +13,8 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "@mui/material/Link";
+import axios from 'axios';
+import { unstable_generateUtilityClass } from "@mui/utils";
 
 const mdTheme = createTheme();
 
@@ -28,11 +30,27 @@ const rows = [
     createData('1', '입금 대기', '2022-08-24', "제품1", '홍길동1', '12,500', '부재시 경비실에.. ', ''),
     createData('2', '입금 완료', '2022-08-24', '제품 2', '홍길동2', '25,000', '부재시... ', ''),
     createData('3', '입금 대기', '2022-08-24', '제품 3', '홍길동3', '50,000', '부재시... ', ''),
-    
     ];
 
 function OrderManage() {
-    
+  const [orderList, setOrderList] = React.useState([]);
+  
+  let listUrl = 'http://localhost:8080/api/order/getOrderList';
+
+  const list = () => {
+     axios.get(listUrl).then(response => {
+        setOrderList(response.data);
+        //오류나면 오류메세지
+        
+    }).catch(e => {
+        console.log(e);
+    });
+  };
+
+  React.useEffect(() => {
+    list();
+    console.log(orderList);
+  },[]);
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }} style={{ maxWidth: "1750px" }}>

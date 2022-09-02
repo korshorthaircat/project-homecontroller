@@ -2,7 +2,6 @@ import { Typography } from "@mui/material";
 import React, { useEffect, useReducer, useState } from "react";
 import ProductInCart from "./ProductInCart";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
@@ -52,6 +51,17 @@ const Cart = () => {
     setCoupon(event.target.value);
   };
 
+  //초기 주문금액
+  let initialAmount = 0;
+  const getInitialAmount = (amount) => {
+    initialAmount += amount;
+  };
+
+  useEffect(() => {
+    console.log(initialAmount);
+    setOrderAmount(initialAmount);
+  }, [initialAmount]);
+
   //주문금액 가져오기
   const getOrderAmount = (amount) => {
     setOrderAmount(amount);
@@ -86,6 +96,7 @@ const Cart = () => {
               paymentAmount={paymentAmount}
               getPaymentAmount={getPaymentAmount}
               coupon={coupon}
+              getInitialAmount={getInitialAmount}
             ></ProductInCart>
           ))}
         </Grid>
@@ -134,10 +145,6 @@ const Cart = () => {
                 <Typography>₩ {paymentAmount}</Typography>
               </Grid>
               <Grid>
-                {/* <Button variant="contained" onClick={onClickHandler}>
-                  상품 주문하기
-                </Button> */}
-
                 <Link
                   to={"/order"}
                   state={{

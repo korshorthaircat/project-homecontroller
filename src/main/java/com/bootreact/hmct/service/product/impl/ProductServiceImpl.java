@@ -43,7 +43,6 @@ public class ProductServiceImpl implements ProductService {
 			productImageRepository.save(pi);
 		}
 	}
-
 	
 	@Override
 	public void insertProductOption(ProductOption productOption) {
@@ -56,4 +55,10 @@ public class ProductServiceImpl implements ProductService {
 		
 		return productRepository.findAll();
 	}
+
+@Override
+public void updateProduct(Product product) {
+	productRepository.save(product);
+	
+}
 }
