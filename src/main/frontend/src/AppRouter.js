@@ -42,6 +42,7 @@ const AppRouter = () => {
           <Route path="/userupdate" element={<UserUpdate />} />
           <Route path="/reviewlist" element={<ReviewList />} />
           <Route path="/orderlist" element={<OrderList />} />
+          <Route path="/order" element={<Checkout />} /> 
           <Route path="/order" element={<Order />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin1" element={<ProductAdd />} />
