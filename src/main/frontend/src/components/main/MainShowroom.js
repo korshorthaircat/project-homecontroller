@@ -4,6 +4,7 @@ import "../../css/mainShowroom.css";
 
 const MainShowroom = () => {
     return (
+        <>
         <div className='mainShowroomColor'>
             <MainShowroomColor color="red" />
             <MainShowroomColor color="yellow" />
@@ -16,6 +17,11 @@ const MainShowroom = () => {
             <MainShowroomColor color="beige" />
             <MainShowroomColor color="gray" />    
         </div>
+        <div className='showroomBox'>
+        <div className='showroomBox_1'></div>
+        <div className='showroomBox_2'></div>
+        </div>
+        </>
     );
 };
 
