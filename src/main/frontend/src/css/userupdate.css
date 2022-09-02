@@ -90,6 +90,23 @@
     display: block;
   }
 
+
+  /* CONTENT */
+  .updateInput {
+    display: flex;
+  flex-direction: column;
+  justify-content:flex-start;
+  width: 50%;
+  margin-top: 50px;
+  align-items:center;
+  /* text-align: center; */
+  /* min-height: 100vh; */
+  }
+
+  #basic-addon1 {
+    margin-left: 20px;
+  }
+
   /* 조회시 기간선택하는 부분 */
   .Date {
     font-family: sans-serif;
