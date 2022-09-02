@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.dto.UserDTO;
 import com.bootreact.hmct.entity.User;
@@ -71,7 +71,7 @@ public class UserController {
 		}
 	}
 	
-	//회원 정보 리스트  
+	//회원 정보 리스트 조회  
     @GetMapping("/getUserList")
     public ResponseEntity<?> getUserList(){
     	try {
@@ -111,6 +111,28 @@ public class UserController {
     		return ResponseEntity.badRequest().body(response);		
     	}
     };
+    
+    //회원 정보 조회
+    @PostMapping("/getUser")
+    public ResponseEntity<?> getUser(@RequestBody User user) {
+    	try {
+    		User u = userService.findbyUserId(user.getUserId());
+    		  	
+    		List<User> userList = new ArrayList<User>();
+    		userList.add(u);
+    		
+    		ResponseDTO<User> response = new ResponseDTO<>(); 
+    		response.setData(userList);
+    		return ResponseEntity.ok().body(response);
+    		
+    	}catch(Exception e){
+    		System.out.println(e.getMessage());
+    		ResponseDTO<User> response = new ResponseDTO<>();
+    		response.setError(e.getMessage());
+    		return ResponseEntity.badRequest().body(response);		
+    	}
+    }
+    
     
 //    //회원 정보 조회
 //    @GetMapping("/viewUser")

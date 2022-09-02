@@ -10,11 +10,9 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
-import { join } from "../../service/ApiService"
+import { join } from "../../service/ApiService";
 import { useDaumPostcodePopup } from "react-daum-postcode";
-
-
-
+import axios from "axios";
 
 function UserUpdate() {
   const [userId, setUserId] = useState("");
@@ -27,6 +25,23 @@ function UserUpdate() {
 
   const [isPassword, setIsPassword] = useState(false);
   const [isCheckedPassword, setIsCheckedPassword] = useState(false);
+
+  //db에서 회원정보 데이터 받아오기
+  let url = "http://localhost:8080/api/user/getUser";
+
+  const getUser = () => {
+    axios({
+      method: "post",
+      url: url,
+      data: { userId: "gogo" },
+    }).then((response) => {
+      console.log(response);
+    });
+  };
+
+  React.useEffect(() => {
+    getUser();
+  }, []);
 
   useEffect(() => {
     //userPw 텍스트필드의 헬퍼텍스트 컬러 변경
@@ -170,196 +185,207 @@ function UserUpdate() {
     open({ onComplete: handleComplete });
   };
 
-    const [toggleState, setToggleState] = useState(1);
+  const [toggleState, setToggleState] = useState(1);
 
-    const toggleTab = (index) => {
-        setToggleState(index);
-    }
+  const toggleTab = (index) => {
+    setToggleState(index);
+  };
 
-    return (
-        <div className="container">
-            <div className="bloc-tabs">
-                <div className={toggleState === 1 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(1)}>나의정보 수정</div>
-                <div className={toggleState === 2 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(2)}>회원 탈퇴</div>
-                {/* <div className={toggleState === 3 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(3)}>Tab 1</div> */}
-            </div>
+  return (
+    <div className="container">
+      <div className="bloc-tabs">
+        <div
+          className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
+          onClick={() => toggleTab(1)}
+        >
+          나의정보 수정
+        </div>
+        <div
+          className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
+          onClick={() => toggleTab(2)}
+        >
+          회원 탈퇴
+        </div>
+        {/* <div className={toggleState === 3 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(3)}>Tab 1</div> */}
+      </div>
 
-
-            {/* CONTENT 부분 */}
-            <div className="content-tabs">
-                <div className={toggleState === 1 ? "content active-content" : "content"}>
-                <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
-      <form noValidate onSubmit={onSubmitHandler} id="joinForm">
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            {/* <img
+      {/* CONTENT 부분 */}
+      <div className="content-tabs">
+        <div
+          className={toggleState === 1 ? "content active-content" : "content"}
+        >
+          <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
+            <form noValidate onSubmit={onSubmitHandler} id="joinForm">
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  {/* <img
               className="logo"
               src="images/logo.png"
               style={{ width: "400px" }}
               alt="로고"
             /> */}
-            <Typography component="h1" variant="h5">
-              나의 정보 수정
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={8}>
-            <TextField
-              name="userId"
-              variant="outlined"
-              required
-              fullWidth
-              id="userId"
-              label="아이디"
-              autoFocus
-              value={userId}
-              onChange={onIdHandler}
-            />
-          </Grid>
+                  <Typography component="h1" variant="h5">
+                    나의 정보 수정
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={8}>
+                  <TextField
+                    name="userId"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="userId"
+                    label="아이디"
+                    autoFocus
+                    value={userId}
+                    onChange={onIdHandler}
+                  />
+                </Grid>
 
-          <Grid item xs={12} sm={4}>
-            <Button
-              id="btnIdCheck"
-              variant="contained"
-              color="success"
-              style={{ width: "111px", height: "56px" }}
-            >
-              중복체크
-            </Button>
-          </Grid>
+                <Grid item xs={12} sm={4}>
+                  <Button
+                    id="btnIdCheck"
+                    variant="contained"
+                    color="success"
+                    style={{ width: "111px", height: "56px" }}
+                  >
+                    중복체크
+                  </Button>
+                </Grid>
 
-          <Grid item xs={12}>
-            <TextField
-              name="userPw"
-              variant="outlined"
-              required
-              fullWidth
-              id="userPw"
-              label="비밀번호"
-              type="password"
-              value={userPw}
-              onChange={onChangePassword}
-              helperText={
-                isPassword
-                  ? "안전한 비밀번호입니다."
-                  : "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
-              }
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              name="userPwCheck"
-              variant="outlined"
-              required
-              fullWidth
-              id="userPwCheck"
-              label="비밀번호 확인"
-              type="password"
-              value={userPwCheck}
-              onChange={onPwCheckHandler}
-              error={hasNotSameError("userPwCheck")}
-              helperText={
-                hasNotSameError("userPwCheck")
-                  ? "입력한 비밀번호와 일치하지 않습니다."
-                  : null
-              }
-            />
-          </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    name="userPw"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="userPw"
+                    label="비밀번호"
+                    type="password"
+                    value={userPw}
+                    onChange={onChangePassword}
+                    helperText={
+                      isPassword
+                        ? "안전한 비밀번호입니다."
+                        : "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
+                    }
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    name="userPwCheck"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="userPwCheck"
+                    label="비밀번호 확인"
+                    type="password"
+                    value={userPwCheck}
+                    onChange={onPwCheckHandler}
+                    error={hasNotSameError("userPwCheck")}
+                    helperText={
+                      hasNotSameError("userPwCheck")
+                        ? "입력한 비밀번호와 일치하지 않습니다."
+                        : null
+                    }
+                  />
+                </Grid>
 
-          <Grid item xs={12}>
-            <TextField
-              name="userName"
-              variant="outlined"
-              required
-              fullWidth
-              id="userName"
-              label="이름"
-              value={userName}
-              onChange={onNameHandler}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              name="userNickname"
-              variant="outlined"
-              required
-              fullWidth
-              id="userNickname"
-              label="닉네임"
-              value={userNickname}
-              onChange={onNicknameHandler}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              name="userTel"
-              variant="outlined"
-              required
-              fullWidth
-              id="userTel"
-              label="전화번호"
-              helperText="숫자만 입력해주세요. 예) 01012345678"
-              value={userTel}
-              onChange={onTelHandler}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              name="userMail"
-              variant="outlined"
-              required
-              fullWidth
-              id="userMail"
-              label="이메일"
-              type="email"
-              value={userMail}
-              onChange={onMailHandler}
-            />
-          </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    name="userName"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="userName"
+                    label="이름"
+                    value={userName}
+                    onChange={onNameHandler}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    name="userNickname"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="userNickname"
+                    label="닉네임"
+                    value={userNickname}
+                    onChange={onNicknameHandler}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    name="userTel"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="userTel"
+                    label="전화번호"
+                    helperText="숫자만 입력해주세요. 예) 01012345678"
+                    value={userTel}
+                    onChange={onTelHandler}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    name="userMail"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="userMail"
+                    label="이메일"
+                    type="email"
+                    value={userMail}
+                    onChange={onMailHandler}
+                  />
+                </Grid>
 
-          <Grid item xs={12} sm={4}>
-            <Button
-              id="userZipSearch"
-              variant="contained"
-              color="success"
-              style={{ height: "56px" }}
-              onClick={handleClick}
-            >
-              우편번호 검색
-            </Button>
-          </Grid>
-          <Grid item xs={12} sm={8}>
-            <TextField
-              name="userZip"
-              variant="outlined"
-              required
-              fullWidth
-              id="userZip"
-              label="우편번호"
-              value={zipCode}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              name="userAddr"
-              variant="outlined"
-              required
-              fullWidth
-              id="userAddr"
-              label="주소"
-              value={fullAddress}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              name="userAddrDetail"
-              variant="outlined"
-              required
-              fullWidth
-              id="userAddrDetail"
-              label="세부 주소"
-            />
-          </Grid>
-          {/* <Grid item xs={12}>
+                <Grid item xs={12} sm={4}>
+                  <Button
+                    id="userZipSearch"
+                    variant="contained"
+                    color="success"
+                    style={{ height: "56px" }}
+                    onClick={handleClick}
+                  >
+                    우편번호 검색
+                  </Button>
+                </Grid>
+                <Grid item xs={12} sm={8}>
+                  <TextField
+                    name="userZip"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="userZip"
+                    label="우편번호"
+                    value={zipCode}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    name="userAddr"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="userAddr"
+                    label="주소"
+                    value={fullAddress}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    name="userAddrDetail"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="userAddrDetail"
+                    label="세부 주소"
+                  />
+                </Grid>
+                {/* <Grid item xs={12}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -373,41 +399,41 @@ function UserUpdate() {
             />
           </Grid> */}
 
-          <Grid item xs={12}>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="success"
-              style={{ height: "56px" }}
-              onSubmit={onSubmitHandler}
-            >
-              나의정보 수정 제출하기
-            </Button>
-          </Grid>
-        </Grid>
-        
-      </form>
-    </Container>
-                    
-                </div>
-
-                <div className={toggleState === 2 ? "content active-content" : "content"}>
-                    <h2>두번째 내용입니다</h2>
-                    {/* <hr></hr> */}
-                    <p>world</p>
-                </div>
-
-                <div className={toggleState === 3 ? "content active-content" : "content"}>
-                    <h2>세번째 내용입니다</h2>
-                    {/* <hr></hr> */}
-                    <p>t</p>
-                </div>
-
-            </div>
-
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="success"
+                    style={{ height: "56px" }}
+                    onSubmit={onSubmitHandler}
+                  >
+                    나의정보 수정 제출하기
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </Container>
         </div>
-    )
+
+        <div
+          className={toggleState === 2 ? "content active-content" : "content"}
+        >
+          <h2>두번째 내용입니다</h2>
+          {/* <hr></hr> */}
+          <p>world</p>
+        </div>
+
+        <div
+          className={toggleState === 3 ? "content active-content" : "content"}
+        >
+          <h2>세번째 내용입니다</h2>
+          {/* <hr></hr> */}
+          <p>t</p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default UserUpdate;
