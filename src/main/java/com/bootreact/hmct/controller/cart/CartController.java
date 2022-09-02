@@ -40,19 +40,20 @@ public class CartController {
 //	void updateCart(Product product) {}
 //
 	//장바구니 제품리스트 조회 (GET)
+	//JPA로 테이블 쪼인&셀렉트
 	@GetMapping("/getCartList")
     public ResponseEntity<?> getCartList(@AuthenticationPrincipal String userId){
 		try {
     		List<Cart> cartList = cartService.getCartList(userId);
     		
-    		//JPA로 조인하기 안 될 경우 DTO에 맵 담아서 하는 식으로 시도하기
-//    		Map<Cart> cartList = cartService.getCartList(userId);
-//    		ResponseDTO<Map<String, Object>> response = new ResponseDTO<>();
-//    		response.setData(cartList);
-    		
     		ResponseDTO<Cart> response = new ResponseDTO<>();
     		response.setData(cartList);
     		return ResponseEntity.ok().body(response);
+    		
+//  		JPA로 조인하기 안 될 경우 DTO에 맵 담아서 하는 식으로 시도하기
+//    		Map<Cart> cartList = cartService.getCartList(userId);
+//    		ResponseDTO<Map<String, Object>> response = new ResponseDTO<>();
+//    		response.setData(cartList);
     		
     	}catch(Exception e){
     		System.out.println(e.getMessage());

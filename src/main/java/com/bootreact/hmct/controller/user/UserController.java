@@ -73,7 +73,7 @@ public class UserController {
 	
 	//회원 정보 리스트  
     @GetMapping("/getUserList")
-    public ResponseEntity<?> getUserList(@AuthenticationPrincipal String userName){
+    public ResponseEntity<?> getUserList(){
     	try {
     		List<User> userList = userService.getUserList();
     		
