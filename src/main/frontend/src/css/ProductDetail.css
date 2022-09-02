@@ -10,8 +10,8 @@
 }
 
   .item-img{
-    width: 830px;
-    height: 550px;
+    width: 60%;
+    height: 20%;
 
   }
   
@@ -187,6 +187,10 @@
 
   .ReviewPage {
     margin: 40px;
+  }
+
+  .MuiRating-root .MuiRating-sizeMedium .MuiRating-root {
+    color: #b5c95a;
   }
 
   .gradeNo {

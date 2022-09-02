@@ -26,8 +26,6 @@ const Order = () => {
   //Cart.js에서 Link를 통해 보낸 state를 이용함
   const location = useLocation();
   React.useEffect(() => {
-    // console.log(location.state);
-    // console.log(location.state.obj.cart);
     setPayInfo(location.state.obj);
     setCartInfo(location.state.obj.cart);
     // setOrderName(cartInfo[0].productName);
@@ -73,152 +71,167 @@ const Order = () => {
         alignItems="flex-start"
         marginTop={"20px"}
       >
-        <Grid className="delivery">
-          <Typography variant="h4">
-            <LooksOneOutlinedIcon />
-            배송 정보 입력
-          </Typography>
+        <Grid>
+          <Grid className="delivery">
+            <Typography variant="h4">
+              <LooksOneOutlinedIcon />
+              배송 정보 입력
+            </Typography>
 
-          <Grid
-            container
-            spacing={3}
-            justifyContent="center"
-            alignItems="flex-start"
-            width={"600px"}
-          >
-            <Grid item xs={8} sm={6}>
-              <TextField
-                required
-                id="deliveryName"
-                name="deliveryName"
-                label="수령인 이름"
-                fullWidth
-                autoComplete="given-name"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                id="deliveryTel"
-                name="deliveryTel"
-                label="수령인 연락처"
-                fullWidth
-                autoComplete="shipping address-line1"
-                variant="standard"
-              />
-            </Grid>
+            <Grid
+              container
+              spacing={3}
+              justifyContent="center"
+              alignItems="flex-start"
+              width={"600px"}
+            >
+              <Grid item xs={8} sm={6}>
+                <TextField
+                  required
+                  id="deliveryName"
+                  name="deliveryName"
+                  label="수령인 이름"
+                  fullWidth
+                  autoComplete="given-name"
+                  variant="standard"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  id="deliveryTel"
+                  name="deliveryTel"
+                  label="수령인 연락처"
+                  fullWidth
+                  autoComplete="shipping address-line1"
+                  variant="standard"
+                />
+              </Grid>
 
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                id="deliveryZipcode"
-                name="deliveryZipcode"
-                label="우편번호"
-                fullWidth
-                autoComplete="shipping postal-code"
-                variant="standard"
-                value={zipCode}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Button
-                id="userZipSearch"
-                variant="contained"
-                color="success"
-                style={{ height: "56px" }}
-                onClick={handleZipBtnClick}
-              >
-                우편번호 검색
-              </Button>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                id="deliveryAddress"
-                name="deliveryAddress"
-                label="주소(시, 구, 동)"
-                fullWidth
-                autoComplete="shipping address-line1"
-                variant="standard"
-                value={fullAddress}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id="deliveryDetailAddress"
-                name="deliveryDetailAddress"
-                label="상세 주소"
-                fullWidth
-                autoComplete="shipping address-line2"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id="deliveryMessage"
-                name="deliveryMessage"
-                label="배송 메세지"
-                fullWidth
-                helperText="예) 경비실에 맡겨 주세요."
-                variant="standard"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox color="success" name="saveAddress" value="yes" />
-                }
-                label="이 주소 정보를 결제를 위해 사용합니다. "
-              />
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  id="deliveryZipcode"
+                  name="deliveryZipcode"
+                  label="우편번호"
+                  fullWidth
+                  autoComplete="shipping postal-code"
+                  variant="standard"
+                  value={zipCode}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Button
+                  id="userZipSearch"
+                  variant="contained"
+                  color="success"
+                  style={{ height: "56px" }}
+                  onClick={handleZipBtnClick}
+                >
+                  우편번호 검색
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  id="deliveryAddress"
+                  name="deliveryAddress"
+                  label="주소(시, 구, 동)"
+                  fullWidth
+                  autoComplete="shipping address-line1"
+                  variant="standard"
+                  value={fullAddress}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="deliveryDetailAddress"
+                  name="deliveryDetailAddress"
+                  label="상세 주소"
+                  fullWidth
+                  autoComplete="shipping address-line2"
+                  variant="standard"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="deliveryMessage"
+                  name="deliveryMessage"
+                  label="배송 메세지"
+                  fullWidth
+                  helperText="예) 경비실에 맡겨 주세요."
+                  variant="standard"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox color="success" name="saveAddress" value="yes" />
+                  }
+                  label="이 주소 정보를 결제를 위해 사용합니다. "
+                />
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
 
-        <Grid className="paymentMethod">
-          <Typography variant="h4">
-            <LooksTwoOutlinedIcon />
-            결제 수단 선택
-          </Typography>
-          <Grid container spacing={3}>
-            <FormControl>
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-              >
-                <FormControlLabel
-                  value="disabled"
-                  disabled
-                  control={<Radio />}
-                  label="신용카드"
-                />
-                <FormControlLabel
-                  value="disabled"
-                  disabled
-                  control={<Radio />}
-                  label="무통장입금"
-                />
-                <FormControlLabel
-                  value="disabled"
-                  disabled
-                  control={<Radio />}
-                  label="계좌이체"
-                />
-                <FormControlLabel
-                  value="카카오페이"
-                  control={<Radio />}
-                  label="카카오페이"
-                />
-                <FormControlLabel
-                  value="disabled"
-                  disabled
-                  control={<Radio />}
-                  label="네이버페이"
-                />
-              </RadioGroup>
-            </FormControl>
+          <Grid className="paymentMethod">
+            <Typography variant="h4">
+              <LooksTwoOutlinedIcon />
+              결제 수단 선택
+            </Typography>
+            <Grid container spacing={3} marginTop={"5px"} marginLeft={"5px"}>
+              <FormControl>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="row-radio-buttons-group"
+                >
+                  <FormControlLabel
+                    value="disabled"
+                    disabled
+                    control={<Radio />}
+                    label="신용카드"
+                  />
+                  <FormControlLabel
+                    value="disabled"
+                    disabled
+                    control={<Radio />}
+                    label="무통장입금"
+                  />
+                  <FormControlLabel
+                    value="disabled"
+                    disabled
+                    control={<Radio />}
+                    label="계좌이체"
+                  />
+                  <FormControlLabel
+                    value="카카오페이"
+                    control={<Radio />}
+                    label="카카오페이"
+                  />
+                  <FormControlLabel
+                    value="disabled"
+                    disabled
+                    control={<Radio />}
+                    label="네이버페이"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
           </Grid>
+          <Grid className="orderReview">
+            <Typography variant="h4">
+              <Looks3OutlinedIcon />
+              주문 확인
+            </Typography>
+            <Typography>주문자: {payInfo.userId}</Typography>
+            <Typography>주문번호: {payInfo.orderNo}</Typography>
+            {/* <Typography>주문금액: {payInfo.orderAmount}</Typography> */}
+            <Typography>결제금액: {payInfo.paymentAmount}</Typography>
+          </Grid>
+          {cartInfo.map((product) => (
+            <OrderReview cartInfo={cartInfo}></OrderReview>
+          ))}
         </Grid>
 
         <Grid className="orderReview">
@@ -233,18 +246,7 @@ const Order = () => {
             }}
           >
             <Grid>
-              <Typography variant="h5">
-                <Looks3OutlinedIcon />
-                주문 확인
-              </Typography>
-              <Typography>주문자: {payInfo.userId}</Typography>
-              <Typography>주문번호: {payInfo.orderNo}</Typography>
-              <Typography>결제금액: {payInfo.paymentAmount}</Typography>
-
-              {cartInfo.map((product) => (
-                <OrderReview cartInfo={cartInfo}></OrderReview>
-              ))}
-
+              결제하기
               <Link
                 to={"/kakaopayReady"}
                 state={{

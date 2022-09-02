@@ -25,17 +25,8 @@ import ProductList from "./components/admin/ProductList";
 import Cart from "./components/cart/Cart";
 import AdminOrderDetail from "./components/admin/AdminOrderDetail";
 import ProductUpdate from "./components/admin/ProductUpdate";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright"}
-      <i className="fa-brands fa-github" style={{ fontSize: "1.7rem" }}></i>
-      &nbsp; bitcamp &nbsp;
-      {new Date().getFullYear()}
-    </Typography>
-  );
-}
+import ColorBox from "./components/order/ColorBox";
+import ContextTest from "./components/order/ContextTest";
 
 const AppRouter = () => {
   // 경로에 따라 실행되는 컴포넌트가 다르므로, 그 정보를 갖고있는 AppRouter를 가장 먼저 렌더링해야 한다.(Index.js에서)
@@ -63,6 +54,7 @@ const AppRouter = () => {
           <Route path="/showroom" element={<InteriorShowroom />} />
           <Route path="/list" element={<ProductList />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/contextTest" element={<ContextTest />} />
           <Route path="/kakaopayReady" element={<KakaoPayReady />} />
           <Route path="/kakaopayResult" element={<KakaoPayResult />} />
         </Routes>
