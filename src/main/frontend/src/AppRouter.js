@@ -26,6 +26,7 @@ import Cart from "./components/cart/Cart";
 import AdminOrderDetail from "./components/admin/AdminOrderDetail";
 import ProductUpdate from "./components/admin/ProductUpdate";
 import ProductCategoryList from "./components/list/ProductCategoryList";
+import FixedBar from "./components/list/FixedBar";
 
 function Copyright() {
   return (
@@ -64,9 +65,9 @@ const AppRouter = () => {
           <Route path="/showroom" element={<InteriorShowroom />} />
           <Route path="/list" element={<ProductCategoryList />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/contextTest" element={<ContextTest />} />
           <Route path="/kakaopayReady" element={<KakaoPayReady />} />
           <Route path="/kakaopayResult" element={<KakaoPayResult />} />
+          <Route path="/bartest" element={<FixedBar />} />
         </Routes>
       </BrowserRouter>
       <Footer />
