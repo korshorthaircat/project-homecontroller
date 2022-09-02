@@ -9,8 +9,40 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Cart = () => {
+  //db에서 받아온 장바구니 데이터를 담을 state
+  const [cartList, setCartList] = React.useState([]);
+
+  //db로부터 장바구니의 데이터 받아오기
+  let listUrl = "http://localhost:8080/api/cart/getCartList";
+
+  const list = () => {
+    // axios
+    //   .get(listUrl, { userId: "gogo" })
+    //   .then((response) => {
+    //     setCartList(response.data);
+    //     console.log(cartList);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
+
+    axios({
+      method: "post",
+      url: listUrl,
+      data: { userId: "gogo" },
+    }).then((response) => {
+      console.log(response);
+      setCartList(response.data);
+    });
+  };
+
+  React.useEffect(() => {
+    list();
+  }, []);
+
   //장바구니의 제품들
   const products = [
     {
