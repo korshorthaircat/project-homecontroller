@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import { useLocation } from "react-router-dom";
 import LooksOneOutlinedIcon from "@mui/icons-material/LooksOneOutlined";
@@ -16,6 +16,7 @@ import FormControl from "@mui/material/FormControl";
 import { Link } from "react-router-dom";
 import OrderReview from "./OrderReview";
 import Paper from "@mui/material/Paper";
+import axios from "axios";
 
 const Order = () => {
   //결제정보 - KakaoPayReady.js에 전달해야 할 스테이트
@@ -61,6 +62,30 @@ const Order = () => {
   const handleZipBtnClick = () => {
     open({ onComplete: handleComplete });
   }; //onComplete - 우편번호 검색이 끝났을 때 사용자가 선택한 정보를 받아올 콜백함수. 주소 데이터의 구성은 Daum 가이드를 참고.
+
+  //db에서 받아온 장바구니 데이터를 담을 state
+  const [cartList, setCartList] = useState([]);
+
+  //db로부터 장바구니의 데이터 받아오기
+  let listUrl = "http://localhost:8080/api/cart/getCartList";
+
+  const getCartList = () => {
+    axios({
+      method: "post",
+      url: listUrl,
+      data: { userId: "gogo" },
+      //data: { userId: userId },
+    }).then((response) => {
+      console.log(response.data.data);
+      setCartList(response.data.data);
+    });
+  };
+
+  useEffect(() => {
+    // setLoginUser(JSON.parse(sessionStorage.getItem("USER_INFO")));
+    // setUserId(loginUser.userId);
+    getCartList();
+  }, []);
 
   return (
     <div>
@@ -229,8 +254,9 @@ const Order = () => {
             {/* <Typography>주문금액: {payInfo.orderAmount}</Typography> */}
             <Typography>결제금액: {payInfo.paymentAmount}</Typography>
           </Grid>
-          {cartInfo.map((product) => (
-            <OrderReview cartInfo={cartInfo}></OrderReview>
+
+          {cartList.map((cart) => (
+            <OrderReview cart={cart}></OrderReview>
           ))}
         </Grid>
 

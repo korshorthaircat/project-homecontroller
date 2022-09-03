@@ -1,6 +1,5 @@
 import { Typography } from "@mui/material";
 import React, { useEffect, useReducer, useState } from "react";
-//import * as React from "react";
 import ProductInCart from "./ProductInCart";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -13,17 +12,27 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Cart = () => {
+  //로그인한 사용자의 아이디로 액시오스 조회 요청 보내야 함
+  const [loginUser, setLoginUser] = useState();
+  const [userId, setUserId] = useState("");
+
+  // useEffect(() => {
+  //   setLoginUser(JSON.parse(sessionStorage.getItem("USER_INFO")));
+  //   setUserId(loginUser.userId);
+  // }, []);
+
   //db에서 받아온 장바구니 데이터를 담을 state
   const [cartList, setCartList] = useState([]);
 
   //db로부터 장바구니의 데이터 받아오기
   let listUrl = "http://localhost:8080/api/cart/getCartList";
 
-  const list = () => {
+  const getCartList = () => {
     axios({
       method: "post",
       url: listUrl,
       data: { userId: "gogo" },
+      //data: { userId: userId },
     }).then((response) => {
       console.log(response.data.data);
       setCartList(response.data.data);
@@ -31,7 +40,9 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    list();
+    // setLoginUser(JSON.parse(sessionStorage.getItem("USER_INFO")));
+    // setUserId(loginUser.userId);
+    getCartList();
   }, []);
 
   //초기 주문금액 지정
