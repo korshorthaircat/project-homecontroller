@@ -68,16 +68,11 @@ public class UserServiceImpl implements UserService {
 	public User checkId(String userId) {
 		if(userRepository.findById(userId).isPresent()) {
 			return userRepository.findById(userId).get();
-			
 		} else {
 			return null;
 		}
 	}
 	
-//	@Override
-//	public void viewUser(String userName) {
-//		userRepository.findByUserName( userName);
-//	}
 	@Override
 	public User findbyUserId(String userId) { 
 		return userRepository.findByUserId(userId);
