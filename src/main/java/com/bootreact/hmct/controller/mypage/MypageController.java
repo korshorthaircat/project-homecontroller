@@ -2,16 +2,22 @@ package com.bootreact.hmct.controller.mypage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.catalina.User;
+import javax.persistence.Column;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootreact.hmct.dto.UserDTO;
+import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.jwt.JwtTokenProvider;
 import com.bootreact.hmct.service.cart.CartService;
 import com.bootreact.hmct.service.inquiry.InquiryService;
@@ -23,17 +29,32 @@ import com.bootreact.hmct.service.user.UserService;
 import com.bootreact.hmct.service.wish.WishService;
 
 @RestController
+@RequestMapping("/api/mypage")
 public class MypageController {
 
+//	@Autowired
+//	OrderService orderService;
+
 	@Autowired
-	OrderService orderService;
 	UserService userService;
-	ProductService productService;
-	CartService cartService;
-	ReviewService reviewService;
-	InquiryService inquiryService;
-	MypageService mypageService;
-	WishService wishService;
+
+//	@Autowired
+//	ProductService productService;
+
+//	@Autowired
+//	CartService cartService;
+
+//	@Autowired
+//	ReviewService reviewService;
+
+//	@Autowired
+//	InquiryService inquiryService;
+
+//	@Autowired
+//	MypageService mypageService;
+
+//	@Autowired
+//	WishService wishService;
 	
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
@@ -41,35 +62,35 @@ public class MypageController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	
-////	주문내역 조회
-//	void getOrderList() {} //주문목록 조회
-//	void getOrderItemList() {} //주문아이템 조회
-//	
-////	포인트 및 쿠폰
-//	void getUserPoint() {} //적립된 포인트 조회
-//	void getUserCouponList() {} //보유한 쿠폰 리스트 조회
-//	
-////	게시글 관리(1:1문의)
-//	void insertInquiryBoard(Inquiry inquiry, User user) {}
-//	void getInquiryBoard(User user) {}
-//	void getInquiryBoardList(User user) {}
-//	void deleteInquiryBoard(Inquiry inquiry, User user) {}
-//	void updateInquiryBoard(Inquiry inquiry, User user) {}
-//	
-////  리뷰 관리
-//	void getReviewList(User user) {}
-//	void getReview(User user) {}
-//	void insertReview(Review review, User user) {}
-//	void updateReview(Review review, User user) {}
-//	void deleteReview(Review review, User user) {}
-//
-////	회원정보 가져오기 
-	
-//	void updateUser() {}
-//	void deleteUser() {}
-//	void getUser() {}
+	/** TO-DO Mypage 사용자 정보 조회
+	 * 마일리지 정보
+	 * 위시리스트 정보
+	 * 구매내역 정보
+	 * 댓글 정보
+	 */
 
+	/**
+	 * Mypage 사용자 정보 변경
+	 */
+	@PostMapping("updateUserInfo")
+	public ResponseEntity<?> updateUserInfo(
+		@RequestBody User user
+	){
+		// 등록된 사용자 정보를 조회한다 
+		User oldUser = userService.findbyUserId(user.getUserId());
 
+		// 화면 input 항목에서 받아온 값들을 변경한다 
+		oldUser.setUserName(user.getUserName());
+		oldUser.setUserNickname(user.getUserNickname());
+		oldUser.setUserTel(user.getUserTel());
+		oldUser.setUserMail(user.getUserMail());
+		oldUser.setUserZip(user.getUserZip());
+		oldUser.setUserAddr(user.getUserAddr());
+		oldUser.setUserAddrDetail(user.getUserAddrDetail());
 
+		// 실제 DB 저장 
+		userService.updateUser(oldUser);
+
+		return ResponseEntity.ok().body("success");
+	}
 }
