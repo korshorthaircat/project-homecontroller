@@ -23,7 +23,7 @@ const Order = () => {
   const [cartInfo, setCartInfo] = useState([]);
   const [orderName, setOrderName] = useState("");
 
-  //Cart.js에서 Link를 통해 보낸 state를 이용함
+  //Cart.js에서 Link를 통해 보낸 state를 이용함? / db에서 Cart 조회
   const location = useLocation();
   React.useEffect(() => {
     setPayInfo(location.state.obj);

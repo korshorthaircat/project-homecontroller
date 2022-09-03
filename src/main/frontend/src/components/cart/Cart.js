@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import React, { useEffect, useReducer, useState } from "react";
+//import * as React from "react";
 import ProductInCart from "./ProductInCart";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -13,63 +14,36 @@ import axios from "axios";
 
 const Cart = () => {
   //db에서 받아온 장바구니 데이터를 담을 state
-  const [cartList, setCartList] = React.useState([]);
+  const [cartList, setCartList] = useState([]);
 
   //db로부터 장바구니의 데이터 받아오기
   let listUrl = "http://localhost:8080/api/cart/getCartList";
 
   const list = () => {
-    // axios
-    //   .get(listUrl, { userId: "gogo" })
-    //   .then((response) => {
-    //     setCartList(response.data);
-    //     console.log(cartList);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
-
     axios({
       method: "post",
       url: listUrl,
       data: { userId: "gogo" },
     }).then((response) => {
-      console.log(response);
-      setCartList(response.data);
+      console.log(response.data.data);
+      setCartList(response.data.data);
     });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     list();
   }, []);
 
-  //장바구니의 제품들
-  const products = [
-    {
-      prooductNo: 1,
-      productCategory: "C13",
-      productName: "ANNAKAJSA 안나카이사",
-      productDetail: "반암막 커튼 한쌍, 베이지",
-      productPrice: 5000,
-      productDeliveryInfo: "배송 가능",
-    },
-    {
-      prooductNo: 2,
-      productCategory: "C01",
-      productName: "MALM 말름",
-      productDetail: "오토만침대, 화이트, 150x200 cm",
-      productPrice: 10000,
-      productDeliveryInfo: "배송 가능",
-    },
-    {
-      prooductNo: 3,
-      productCategory: "C02",
-      productName: "LAMPAN 람판",
-      productDetail: "탁상스탠드, 화이트, 29 cm",
-      productPrice: 7000,
-      productDeliveryInfo: "배송 가능",
-    },
-  ];
+  //초기 주문금액 지정
+  useEffect(() => {
+    const result = cartList.reduce((sum, cart) => {
+      return (
+        sum +
+        cart.productOption.product.productPrice * parseInt(cart.productCount)
+      );
+    }, 0);
+    setOrderAmount(result);
+  }, [cartList]);
 
   //주문금액
   const [orderAmount, setOrderAmount] = useState(0);
@@ -85,14 +59,6 @@ const Cart = () => {
 
   //초기 주문금액
   let initialAmount = 0;
-  const getInitialAmount = (amount) => {
-    initialAmount += amount;
-  };
-
-  useEffect(() => {
-    console.log(initialAmount);
-    setOrderAmount(initialAmount);
-  }, [initialAmount]);
 
   //주문금액 가져오기
   const getOrderAmount = (amount) => {
@@ -120,15 +86,15 @@ const Cart = () => {
       >
         <Grid className="productsInCart">
           <Typography variant="h4">장바구니</Typography>
-          {products.map((product) => (
+
+          {cartList.map((cart) => (
             <ProductInCart
-              product={product}
+              cart={cart}
               orderAmount={orderAmount}
               getOrderAmount={getOrderAmount}
               paymentAmount={paymentAmount}
               getPaymentAmount={getPaymentAmount}
               coupon={coupon}
-              getInitialAmount={getInitialAmount}
             ></ProductInCart>
           ))}
         </Grid>
@@ -184,7 +150,7 @@ const Cart = () => {
                       orderNo: 1,
                       userId: "gogo",
                       paymentAmount: paymentAmount,
-                      cart: products,
+                      cart: cartList,
                     },
                   }}
                 >

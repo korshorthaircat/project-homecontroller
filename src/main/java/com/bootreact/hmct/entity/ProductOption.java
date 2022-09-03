@@ -33,5 +33,5 @@ public class ProductOption {
 	
 	//재품 재고량
 	@Column(nullable = false)
-	private String productInventory;
+	private int productInventory;
 }

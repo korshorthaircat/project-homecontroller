@@ -124,7 +124,6 @@ public class UserController {
     		ResponseDTO<User> response = new ResponseDTO<>(); 
     		response.setData(userList);
     		return ResponseEntity.ok().body(response);
-    		
     	}catch(Exception e){
     		System.out.println(e.getMessage());
     		ResponseDTO<User> response = new ResponseDTO<>();
