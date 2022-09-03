@@ -26,10 +26,29 @@ function ProductUpdate() {
 
   const location = useLocation({});
   React.useEffect(() => {
-    //console.log(location.state.obj);
-    setProNo(location.state.obj);
-    console.log(proNo);
+    console.log(location.state.obj.data);
+    setProNo(location.state.obj.data);
   }, []);
+
+  //db에서 받아온 정보를 저장할 state 선언
+
+  //db에서 데이터 받아오기
+  let url = "http://localhost:8080/api/admin/admin3";
+
+  const getProduct = () => {
+    axios({
+      method: "post",
+      url: url,
+      data: { productNo: proNo },
+    }).then((response) => {
+      console.log(response.data.data[0]);
+      setProductInfo(response.data.data[0]);
+    });
+  };
+
+  React.useEffect(() => {
+    getProduct();
+  }, [proNo]);
 
   //제품 판매상태
   const states = [
@@ -119,11 +138,12 @@ function ProductUpdate() {
   };
 
   const handleChange = (e) => {
-    const updateUser = {
+    const updateProduct = {
       ...productInfo,
       [e.target.name]: e.target.value,
     };
-    setProductInfo(updateUser);
+    console.log("난" + productInfo);
+    setProductInfo(updateProduct);
   };
 
   //제품소재 공통코드
@@ -186,7 +206,6 @@ function ProductUpdate() {
   const handleColorChange = (event) => {
     setProductstate(event.target.value);
   };
-
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }} style={{ maxWidth: "1750px" }}>
@@ -202,7 +221,7 @@ function ProductUpdate() {
             id="ProductCreateForm"
             encType="multipart/form-data"
           >
-            <h1>제품 수정폼</h1>
+            <h2 style={{ marginBottom: "30px" }}>제품 수정</h2>
             <Box
               sx={{
                 "& .MuiTextField-root": { m: 1, width: "30ch" },
@@ -215,7 +234,9 @@ function ProductUpdate() {
                   id="outlined-required"
                   name="productName"
                   label="제품명"
-                  value={productInfo.productNo}
+                  type="text"
+                  value={productInfo.productName}
+                  onChange={handleChange}
                 />
                 <TextField
                   id="outlined-select-state-native"
@@ -257,6 +278,7 @@ function ProductUpdate() {
                   label="제품 가격"
                   name="productPrice"
                   id="outlined-start-adornment"
+                  onChange={handleChange}
                   sx={{ m: 1, width: "25ch" }}
                   InputProps={{
                     startAdornment: (

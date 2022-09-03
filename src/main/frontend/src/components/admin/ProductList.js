@@ -155,7 +155,7 @@ export default function EnhancedTable() {
               autoComplete="off"
             >
               <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 1500 }} aria-label="simple table">
+                <Table sx={{ minWidth: 1300 }} aria-label="simple table">
                   <TableHead>
                     <TableRow>
                       <TableCell align="center">제품번호</TableCell>
@@ -187,93 +187,73 @@ export default function EnhancedTable() {
                             component="th"
                             scope="row"
                             align="center"
-                            sx={{ width: "3%", padding: "0px" }}
+                            sx={{ padding: "0px" }}
                           >
                             {r.productNo}
                           </TableCell>
-                          <TableCell
-                            align="center"
-                            sx={{ width: "10%", padding: "0px" }}
-                          >
+                          <TableCell align="center" sx={{ padding: "0px" }}>
                             {r.productName}
                           </TableCell>
-                          <TableCell
-                            align="center"
-                            sx={{ width: "3%", padding: "0px" }}
-                          >
+                          <TableCell align="center" sx={{ padding: "0px" }}>
                             {r.productState}
                           </TableCell>
-                          <TableCell
-                            align="center"
-                            sx={{ width: "10%", padding: "0px" }}
-                          >
+                          <TableCell align="center" sx={{ padding: "0px" }}>
                             {r.productState}
                           </TableCell>
-                          <TableCell
-                            align="center"
-                            sx={{ width: "3%", padding: "0px" }}
-                          >
+                          <TableCell align="center" sx={{ padding: "0px" }}>
                             {r.productState}
                           </TableCell>
-                          <TableCell
-                            align="center"
-                            sx={{ width: "10%", padding: "0px" }}
-                          >
+                          <TableCell align="center" sx={{ padding: "0px" }}>
                             {r.productState}
                           </TableCell>
-                          <TableCell
-                            align="center"
-                            sx={{ width: "3%", padding: "0px" }}
-                          >
+                          <TableCell align="center" sx={{ padding: "0px" }}>
                             {r.productPrice}
                           </TableCell>
-                          <TableCell
-                            align="center"
-                            sx={{ width: "3%", padding: "0px" }}
-                          >
+                          <TableCell align="center" sx={{ padding: "0px" }}>
                             {r.productState}
                           </TableCell>
-                          <TableCell
-                            align="center"
-                            sx={{ width: "3%", padding: "0px" }}
-                          >
+                          <TableCell align="center" sx={{ padding: "0px" }}>
                             {r.productRgsde}
                           </TableCell>
-                          <TableCell
-                            align="center"
-                            sx={{ width: "3%", padding: "0px" }}
-                          >
+                          <TableCell align="center" sx={{ padding: "0px" }}>
                             {r.productUpdde}
                           </TableCell>
-                          <TableCell
-                            align="center"
-                            sx={{ width: "3%", padding: "0px" }}
-                          >
+                          <TableCell align="center" sx={{ padding: "0px" }}>
                             {}
                           </TableCell>
-                          <TableCell
-                            align="center"
-                            sx={{ width: "3%", padding: "0px" }}
-                          >
+                          <TableCell align="center" sx={{ padding: "0px" }}>
                             {/* {productList.map((productInfo) => ( */}
+
                             <Link
-                              // to={`/admin3/${productList.productNo}`}
                               to={"/admin3"}
-                              // key={productList.productNo}
                               state={{
                                 obj: {
                                   data: r.productNo,
                                 },
                               }}
+                              type="submit"
+                              sx={{
+                                marginTop: "20px",
+                                border: "1px solid lightgray",
+                                backgroundColor: "#fff",
+                                borderRadius: "5px",
+                                width: "70px",
+                                height: "45px",
+                                alignItems: "center",
+                              }}
+                              value="update"
                             >
+                              {" "}
+                              <img
+                                className="AdminEdit"
+                                src="images/edit.png"
+                              />
                               수정
                             </Link>
+
                             {/* ))} */}
                           </TableCell>
-                          <TableCell
-                            align="center"
-                            sx={{ width: "3%", padding: "0px" }}
-                          >
+                          <TableCell align="center" sx={{ padding: "0px" }}>
                             <Button
                               onClick={() => handleUpdate(index)}
                               id={`Btn${index}`}
