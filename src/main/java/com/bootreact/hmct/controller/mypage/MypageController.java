@@ -1,7 +1,18 @@
 package com.bootreact.hmct.controller.mypage;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.bootreact.hmct.dto.UserDTO;
+import com.bootreact.hmct.jwt.JwtTokenProvider;
 import com.bootreact.hmct.service.cart.CartService;
 import com.bootreact.hmct.service.inquiry.InquiryService;
 import com.bootreact.hmct.service.mypage.MypageService;
@@ -11,6 +22,7 @@ import com.bootreact.hmct.service.review.ReviewService;
 import com.bootreact.hmct.service.user.UserService;
 import com.bootreact.hmct.service.wish.WishService;
 
+@RestController
 public class MypageController {
 
 	@Autowired
@@ -22,6 +34,12 @@ public class MypageController {
 	InquiryService inquiryService;
 	MypageService mypageService;
 	WishService wishService;
+	
+	@Autowired
+	private JwtTokenProvider jwtTokenProvider;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	
 ////	주문내역 조회
@@ -46,7 +64,7 @@ public class MypageController {
 //	void updateReview(Review review, User user) {}
 //	void deleteReview(Review review, User user) {}
 //
-////	회원정보관리
+////	회원정보 가져오기 
 	
 //	void updateUser() {}
 //	void deleteUser() {}
