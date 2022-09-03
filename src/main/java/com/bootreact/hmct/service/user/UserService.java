@@ -15,11 +15,8 @@ public interface UserService {
 	
 	void updateUser(User user);
 	
-//	void viewUser(String userName);
-
 	User checkId(String userId);
           
 	User findbyUserId(String userId);
-
 
 }
