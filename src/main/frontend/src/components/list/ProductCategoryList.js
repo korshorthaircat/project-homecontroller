@@ -3,6 +3,14 @@ import "react-multi-carousel/lib/styles.css";
 import ProductCard from "../main/ProductCard";
 import "../../css/productCategory.css";
 import { Container } from "react-bootstrap";
+import FixedBar from "./FixedBar";
+import Button from "@mui/material/Button";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import ColorChip from "./ColorChip";
+import MaterialChip from "./MaterialChip";
+import PriceChip from "./PriceChip";
 
 const responsive = {
   superLargeDesktop: {
@@ -58,9 +66,26 @@ const stateText = [
 const ProductCategoryList = () => {
   return (
     <div className="cute">
-      <div className="title">
-        <h1>침대</h1>
+      <div className="ptitle">
+        <h1 style={{ fontWeight: "bold" }}>침대</h1>
       </div>
+      <div className="pdetail">
+        많은 침대 제품이 있지만 기분 좋은 아침을 맞이하려면 자신에게 꼭 맞는
+        제품을 고르셔야 해요. 몸을 쭉 펴도 될 만큼 크고 폭신하게 몸을 감싸주어
+        편안한 디자인을 찾아보세요. HOME CONTROLLER의 침대와 침대프레임은
+        오랫동안 사용할 수 있으며 그동안에도 질리지 않을 디자인을 갖추고
+        있습니다.
+      </div>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar sx={{ backgroundColor: "lightgray" }}>
+            <Button color="inherit">필터</Button>
+            <ColorChip></ColorChip>
+            <MaterialChip></MaterialChip>
+            <PriceChip></PriceChip>
+          </Toolbar>
+        </AppBar>
+      </Box>
       <div className="productcategory_container">
         {stateText.map((data) => (
           <ProductCard
@@ -71,6 +96,23 @@ const ProductCategoryList = () => {
           />
         ))}
       </div>
+      <br />
+      <div className="productcategory_container">
+        {stateText.map((data) => (
+          <ProductCard
+            image={data.image}
+            category={data.category}
+            title={data.title}
+            price={data.price}
+          />
+        ))}
+      </div>
+      <div className="seemore">
+        <Button variant="contained" color="success" sx={{ borderRadius: 12.5 }}>
+          더 보기
+        </Button>
+      </div>
+      <div className=""></div>
     </div>
   );
 };
