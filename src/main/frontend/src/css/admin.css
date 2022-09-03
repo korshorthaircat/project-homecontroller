@@ -11,3 +11,12 @@
     width: 19px;
     height: 19px;
 }
+
+.OrderEdit{
+    width: 30px;
+    height: 30px;
+}
+
+.OrderBtn{
+   justify-content: center;
+}

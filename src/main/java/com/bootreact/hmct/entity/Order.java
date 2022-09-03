@@ -10,9 +10,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.bootreact.hmct.repository.UserRepository;
 
 import lombok.Data;
 
