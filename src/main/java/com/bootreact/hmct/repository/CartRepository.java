@@ -10,4 +10,5 @@ import com.bootreact.hmct.entity.CartId;
 
 public interface CartRepository extends JpaRepository<Cart, CartId>{
 	List<Cart> findByUserUserId(String userId);
+
 }

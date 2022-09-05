@@ -30,4 +30,10 @@ public class CartServiceImpl implements CartService{
 	public List<Map<String, Object>> getCartMapList(String userId) {
 		return cartMapper.getCartList(userId);
 	}
+
+
+	@Override
+	public void deleteCart(String userId, String productNo, String commonCode) {
+		cartMapper.deleteCart(userId, Integer.parseInt(productNo), commonCode);		
+	}
 }

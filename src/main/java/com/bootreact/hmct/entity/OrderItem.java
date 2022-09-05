@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -25,10 +26,19 @@ public class OrderItem {
 	private Order order;
 
 	//제품 번호(PK, FK)
+//	@Id
+//	@ManyToOne
+//	@JoinColumn(name="PRODUCT_NO")
+//	private Product product;		
+	
+	//제품옵션(PK, FK)
 	@Id
 	@ManyToOne
-	@JoinColumn(name="PRODUCT_NO")
-	private Product product;			 
+	@JoinColumns({
+		@JoinColumn(name = "PRODUCT_NO", referencedColumnName="PRODUCT_NO"),
+		@JoinColumn(name = "COMMON_CODE", referencedColumnName="COMMON_CODE")
+	})
+	private ProductOption productOption;
 		
 	//제품 수량
 	@Column
