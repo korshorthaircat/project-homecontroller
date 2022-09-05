@@ -5,5 +5,6 @@ import java.io.Serializable;
 public class OrderItemId implements Serializable{
 	
 	private int order;
-	private int product;
+	//private int product;
+	private ProductOptionId productOption;
 }
