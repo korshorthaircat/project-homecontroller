@@ -4,17 +4,13 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import styled from 'styled-components';
-
-const CardContainer = styled.div`
-  
-`
 
 
 const EventCard = ({title, content}) => {
+  
   return (
     <div>
-      <CardContainer>
+      
       <Card sx={{ maxWidth: 493, height: 350, margin: "0 auto"}}>
       <CardActionArea>
         
@@ -25,7 +21,7 @@ const EventCard = ({title, content}) => {
           alt="green iguana"
           
         />
-        <CardContent sx={{backgroundColor: "red"}}>
+        <CardContent sx={{backgroundColor: "lightgray"}}>
           <Typography gutterBottom variant="h5" component="div"
           sx={{fontWeight: "bold"}}>
             {title}
@@ -37,7 +33,7 @@ const EventCard = ({title, content}) => {
         
       </CardActionArea>
     </Card>
-    </CardContainer>
+
     </div>
   );
 };

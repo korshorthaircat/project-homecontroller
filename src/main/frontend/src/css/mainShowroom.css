@@ -7,49 +7,45 @@
 
 .red {
    
-    background-color: red;
+    background-color: #FF0000;
 }
 
 .yellow {
-    background-color: yellow;
+    background-color: #FFDB00;
 }
 
 .green {
-    background-color: green;
+    background-color: #3B7D22;
 }
 
 .blue {
-    background-color: blue;
+    background-color: #0058A3;
 }
 
 .purple {
-    background-color: purple;
+    background-color: #A96ECC;
 }
 
 .white {
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid darkgray;
 }
 
 .black {
     background-color: black;
 }
 
-.beige {
-    background-color: beige;
-}
-
 .pink {
-    background-color: pink;
+    background-color: #FFB8C3;
 }
 
 .beige {
-    background-color: beige;
+    background-color: #F4F3D7;
 }
 
 .gray {
     
-    background-color: gray;
+    background-color: #959595;
 }
 
 .mainShowroomColor {

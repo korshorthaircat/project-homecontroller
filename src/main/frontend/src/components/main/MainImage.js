@@ -9,7 +9,7 @@ function MainImage() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="/images/main_images/mainImage_1.jpg"
+          src="https://www.maatila.co.kr/design/maatila/phps/main/main_img_04.jpg"
           alt="First slide"
         />
         <Carousel.Caption>
@@ -20,7 +20,7 @@ function MainImage() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="/images/main_images/mainImage_2.jpg"
+          src="https://www.maatila.co.kr/design/maatila/phps/main/main_img_02.jpg"
           alt="Second slide"
         />
 
@@ -32,7 +32,7 @@ function MainImage() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="/images/main_images/mainImage_4.jpg"
+          src="https://www.maatila.co.kr/design/maatila/phps/main/main_img_03.jpg"
           alt="Third slide"
         />
 

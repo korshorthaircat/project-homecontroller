@@ -8,11 +8,12 @@ import org.springframework.stereotype.Service;
 import com.bootreact.hmct.entity.Product;
 import com.bootreact.hmct.entity.ProductImage;
 import com.bootreact.hmct.entity.ProductOption;
-import com.bootreact.hmct.entity.User;
+import com.bootreact.hmct.entity.Showroom;
 import com.bootreact.hmct.mapper.ProductMapper;
 import com.bootreact.hmct.repository.ProductImageRepository;
 import com.bootreact.hmct.repository.ProductOptionRepository;
 import com.bootreact.hmct.repository.ProductRepository;
+import com.bootreact.hmct.repository.ShowroomRepository;
 import com.bootreact.hmct.service.product.ProductService;
 
 @Service
@@ -28,6 +29,9 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	private ProductOptionRepository productOptionRepository;
+	
+	@Autowired
+	private ShowroomRepository showroomRepository;
 	
 	@Override
 	public int insertProduct(Product product){
@@ -66,5 +70,10 @@ public void updateProduct(Product product) {
 @Override
 public Product findbyProductNo (int productNo) {
 	return productRepository.findByProductNo(productNo);
+}
+
+@Override
+public List<Showroom> getShowroomList() {
+	return showroomRepository.findAll();
 }
 }

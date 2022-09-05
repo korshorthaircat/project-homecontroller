@@ -24,10 +24,10 @@ const MainShowroom = () => {
             <MainShowroomColor color="blue" />
             <MainShowroomColor color="purple" />
             <MainShowroomColor color="white" />
-            <MainShowroomColor color="black" />
-            <MainShowroomColor color="pink" />
             <MainShowroomColor color="beige" />
-            <MainShowroomColor color="gray" />    
+            <MainShowroomColor color="black" />
+            <MainShowroomColor color="gray" />   
+            <MainShowroomColor color="pink" /> 
         </div>
 
 
