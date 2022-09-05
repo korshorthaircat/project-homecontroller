@@ -235,22 +235,22 @@ public class UserController {
 		}
 	}
 	
-	//이메일 인증
-	@PostMapping("/validateMail")
-	public ResponseEntity<?> validateMail(@RequestBody String data) throws Exception {
-		System.out.println("////이메일/////" + data);
-		
-		JSONParser parser = new JSONParser();
-		Object obj = parser.parse(data);
-		JSONObject jsonObj = (JSONObject) obj;
-		String email = (String) jsonObj.get("userMail");
-		System.out.println("이메일 파싱 : {} " + email);
-
-		String confirm = mailService.sendSimpleMessage(email);
-		System.out.println("confirm: {}" + confirm);
-
-		return ResponseEntity.ok().body(confirm);
-	}
+//	//이메일 인증
+//	@PostMapping("/validateMail")
+//	public ResponseEntity<?> validateMail(@RequestBody String data) throws Exception {
+//		System.out.println("////이메일/////" + data);
+//		
+//		JSONParser parser = new JSONParser();
+//		Object obj = parser.parse(data);
+//		JSONObject jsonObj = (JSONObject) obj;
+//		String email = (String) jsonObj.get("userMail");
+//		System.out.println("이메일 파싱 : {} " + email);
+//
+//		String confirm = mailService.sendSimpleMessage(email);
+//		System.out.println("confirm: {}" + confirm);
+//
+//		return ResponseEntity.ok().body(confirm);
+//	}
 	
 //	//휴대전화 인증
 //	void validateTel() {}
