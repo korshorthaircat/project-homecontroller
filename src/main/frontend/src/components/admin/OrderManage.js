@@ -18,28 +18,14 @@ import { unstable_generateUtilityClass } from "@mui/utils";
 
 const mdTheme = createTheme();
 
-function createData(orderNo, orderStatus, orderDate, productName,
-       userName, orderAmount, orderMemo, orderDiscount, orderFee,
-    ) {
-    return { orderNo, orderStatus, orderDate, productName,
-      userName, orderAmount, orderMemo, orderDiscount, orderFee,
-   };
-}
-
-const rows = [
-    createData('1', '입금 대기', '2022-08-24', "제품1", '홍길동1', '12,500', '부재시 경비실에.. ', ''),
-    createData('2', '입금 완료', '2022-08-24', '제품 2', '홍길동2', '25,000', '부재시... ', ''),
-    createData('3', '입금 대기', '2022-08-24', '제품 3', '홍길동3', '50,000', '부재시... ', ''),
-    ];
-
 function OrderManage() {
   const [orderList, setOrderList] = React.useState([]);
   
   let listUrl = 'http://localhost:8080/api/order/getOrderList';
 
-  const list = () => {
+  const ordList = () => {
      axios.get(listUrl).then(response => {
-        setOrderList(response.data);
+        setOrderList( response.data );
         //오류나면 오류메세지
         
     }).catch(e => {
@@ -48,8 +34,7 @@ function OrderManage() {
   };
 
   React.useEffect(() => {
-    list();
-    console.log(orderList);
+    ordList();
   },[]);
   return (
     <ThemeProvider theme={mdTheme}>
@@ -85,20 +70,21 @@ function OrderManage() {
                         </TableHead>
                        
                         <TableBody>
-                        {rows.map((row) => (
+                        {orderList.data ? (
+                            orderList.data.map((o) => (
                             <TableRow
-                            key={row.orderNo}
+                            key={o.orderNo}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row" >
-                                    {row.orderNo}
+                                    {o.orderNo}
                                 </TableCell>
-                                <TableCell align="center">{row.orderStatus}</TableCell>
-                                <TableCell align="center">{row.orderDate}</TableCell>
-                                <TableCell align="center">{row.productName}</TableCell>
-                                <TableCell align="center">{row.userName}</TableCell>
-                                <TableCell align="center">{row.orderAmount}</TableCell>
-                                <TableCell align="center">{row.orderMemo}</TableCell>
+                                <TableCell align="center">{o.orderStatus}</TableCell>
+                                <TableCell align="center">{o.orderDate}</TableCell>
+                                <TableCell align="center">{o.productName}</TableCell>
+                                <TableCell align="center">{o.userId}</TableCell>
+                                <TableCell align="center">{o.orderAmount}</TableCell>
+                                <TableCell align="center">{o.orderMemo}</TableCell>
                                 <TableCell align="center">
                                   <Link href="/AdminOrderDetail">
                                     <Button sx={{ border: "1px solid lightgray",
@@ -113,7 +99,12 @@ function OrderManage() {
                                   </Link>
                                 </TableCell>
                             </TableRow>
-                         ))}
+                         ))
+                         ) : (
+                           <TableRow>
+                             <TableCell>조회된 데이터가 없습니다.</TableCell>
+                           </TableRow>
+                         )}
                         </TableBody>
                     </Table>
             </TableContainer>

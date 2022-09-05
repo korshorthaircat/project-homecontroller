@@ -6,13 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootreact.hmct.dto.OrderDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.entity.Order;
+import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.service.order.OrderService;
 import com.bootreact.hmct.service.user.UserService;
 
@@ -32,7 +32,7 @@ public class OrderController {
     public ResponseEntity<?> getOrderList(){
     	try {
     		List<Order> orderList = orderService.getOrderList();
-    		
+    	
     		List<OrderDTO> orderDTOList = new ArrayList<OrderDTO>();
     		
     		//내가 가져오고싶은 정보들 
@@ -40,7 +40,7 @@ public class OrderController {
     			OrderDTO orderDTO = new OrderDTO();
     			
     			orderDTO.setOrderNo(t.getOrderNo());
-//    			orderDTO.setUserId(t.getUserId());
+//    			orderDTO.setUserId(t.getUser());  
     			orderDTO.setOrderStatus(t.getOrderStatus());
     			orderDTO.setOrderDate(t.getOrderDate());
     			orderDTO.setOrderMemo(t.getOrderMemo());

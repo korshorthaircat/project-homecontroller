@@ -22,38 +22,45 @@ const Join = () => {
   const [userNickname, setUserNickname] = useState("");
   const [userTel, setUserTel] = useState("");
   const [userMail, setUserMail] = useState("");
+  const [userMailCheck, setUserMailCheck] = useState(""); //메일 인증코드(user입력)
+  const [userMailConfirm, setUserMailConfirm] = useState(""); //메일 인증코드(백단에서 받아옴)
 
-  //비밀번호가 형식에 부합하는 경우
+  //비밀번호가 형식에 부합하는 경우(true)
   const [isPassword, setIsPassword] = useState(false);
-  //비빌번호와 비밀번호체크가 서로 일치하는 경우
+  //비빌번호와 비밀번호체크가 서로 일치하는 경우(true)
   const [isCheckedPassword, setIsCheckedPassword] = useState(false);
-  //아이디가 중복되지 않은 경우
+  //아이디가 중복되지 않은 경우(true)
   const [isValidId, setIsValidId] = useState(false);
+  //이메일 인증을 완료한 경우(true)
+  const [isValidMail, setIsValidMail] = useState(false);
 
-  useEffect(() => {
-    //userPw 텍스트필드의 헬퍼텍스트 컬러 변경
-    if (isPassword) {
-      document.getElementById("userPw-helper-text").style.color = "green";
-    } else {
-      document.getElementById("userPw-helper-text").style.color = "red";
-    }
-  }, [userPw]);
+  //에러 메시지
+  const [userPwMessage, setUserPwMessage] = useState("");
+  const [userEmailCheckMessage, setUserEmailCheckMessage] = useState("");
+  const [userPwCheckMessage, setUserPwCheckMessage] = useState("");
 
+  //state의 변화 감지
   const onIdHandler = (event) => {
     setUserId(event.currentTarget.value);
   };
 
-  const onChangePassword = useCallback(
+  const onPwHandler = useCallback(
     (event) => {
       const passwordRegex = new RegExp(
         "^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$"
       );
+
       setUserPw(event.currentTarget.value);
 
+      //비밀번호 형식 검사
       if (!passwordRegex.test(userPw)) {
         setIsPassword(false);
+        setUserPwMessage(
+          "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요."
+        );
       } else {
         setIsPassword(true);
+        setUserPwMessage("");
       }
     },
     [userPw]
@@ -66,10 +73,13 @@ const Join = () => {
   useEffect(() => {
     setUserPwCheck((currentValue) => currentValue);
 
+    //비밀번호 일치 여부 검사
     if (userPw !== userPwCheck) {
       setIsCheckedPassword(false);
+      setUserPwCheckMessage("비밀번호가 일치하지 않습니다.");
     } else {
       setIsCheckedPassword(true);
+      setUserPwCheckMessage("비밀번호가 일치합니다.");
     }
   }, [userPwCheck]);
 
@@ -96,6 +106,28 @@ const Join = () => {
     setUserMail(event.currentTarget.value);
   };
 
+  const onMailCheckHandler = (event) => {
+    setUserMailCheck(event.currentTarget.value);
+
+    //이메일 인증코드 검사
+    if (userMailConfirm === event.target.value) {
+      setUserEmailCheckMessage("인증코드가 일치합니다.");
+      setIsValidMail(true);
+    } else {
+      setUserEmailCheckMessage("인증코드가 일치하지 않습니다.");
+      setIsValidMail(false);
+    }
+  };
+
+  //userPw 텍스트필드의 헬퍼텍스트 컬러 변경
+  // useEffect(() => {
+  //   if (isPassword) {
+  //     document.getElementById("userPw-helper-text").style.color = "green";
+  //   } else {
+  //     document.getElementById("userPw-helper-text").style.color = "red";
+  //   }
+  // }, [userPw]);
+
   //아이디 중복 조회 버튼 클릭시
   const checkId = () => {
     if (userId == null) {
@@ -107,18 +139,34 @@ const Join = () => {
       url: API_BASE_URL + "/api/user/checkId",
       data: { userId: userId },
     }).then((response) => {
-      console.log(response);
+      //console.log(response);
       if (response.data == "") {
-        //아이디 사용가능
         alert("사용할 수 있는 아이디입니다.");
         setIsValidId(true);
       } else {
-        //아이디 사용 불가능
         alert("중복 아이디입니다. 다른 아이디를 사용해주세요.");
         setIsValidId(false);
       }
     });
   };
+
+  //이메일 인증코드 전송 버튼 클릭시
+  const validateMail = () => {
+    alert("인증코드를 발송했습니다. 메일을 확인해주세요.");
+    axios({
+      method: "post",
+      url: API_BASE_URL + "/api/user/validateMail",
+      data: { userMail: userMail },
+    }).then((response) => {
+      //console.log(response.data);
+      setUserMailConfirm(response.data);
+    });
+  };
+
+  //우편번호 검색 버튼 클릭시
+  const handleZipBtnClick = () => {
+    open({ onComplete: handleComplete });
+  }; //onComplete - 우편번호 검색이 끝났을 때 사용자가 선택한 정보를 받아올 콜백함수. 주소 데이터의 구성은 Daum 가이드를 참고.
 
   //우편번호 및 주소 조회(다음 우편번호 검색 서비스 사용)
   const open = useDaumPostcodePopup(
@@ -146,11 +194,6 @@ const Join = () => {
     }
   };
 
-  //우편번호 검색 버튼 클릭시
-  const handleZipBtnClick = () => {
-    open({ onComplete: handleComplete });
-  }; //onComplete - 우편번호 검색이 끝났을 때 사용자가 선택한 정보를 받아올 콜백함수. 주소 데이터의 구성은 Daum 가이드를 참고.
-
   //회원가입 버튼 클릭시
   const onSubmitHandler = (event) => {
     event.preventDefault(); // 아무 동작 안하고 버튼만 눌러도 리프레쉬 되는 것을 막음
@@ -175,6 +218,9 @@ const Join = () => {
       return;
     } else if (!isValidId) {
       alert("아이디 중복체크를 진행해주세요.");
+      return;
+    } else if (!isValidMail) {
+      alert("이메일 인증을 진행해주세요.");
       return;
     } else {
       join({
@@ -210,6 +256,7 @@ const Join = () => {
               회원가입
             </Typography>
           </Grid>
+
           <Grid item xs={12} sm={8}>
             <TextField
               name="userId"
@@ -246,13 +293,13 @@ const Join = () => {
               label="비밀번호"
               type="password"
               value={userPw}
-              onChange={onChangePassword}
-              helperText={
-                isPassword
-                  ? "안전한 비밀번호입니다."
-                  : "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
-              }
+              onChange={onPwHandler}
             />
+            {userPw.length > 0 && (
+              <span className={`message ${isPassword ? "success" : "error"}`}>
+                {userPwMessage}
+              </span>
+            )}
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -265,13 +312,14 @@ const Join = () => {
               type="password"
               value={userPwCheck}
               onChange={onPwCheckHandler}
-              error={hasNotSameError("userPwCheck")}
-              helperText={
-                hasNotSameError("userPwCheck")
-                  ? "입력한 비밀번호와 일치하지 않습니다."
-                  : null
-              }
             />
+            {userPwCheck.length > 0 && (
+              <span
+                className={`message ${isCheckedPassword ? "success" : "error"}`}
+              >
+                {userPwCheckMessage}
+              </span>
+            )}
           </Grid>
 
           <Grid item xs={12}>
@@ -311,7 +359,8 @@ const Join = () => {
               onChange={onTelHandler}
             />
           </Grid>
-          <Grid item xs={12}>
+
+          <Grid item xs={12} sm={8}>
             <TextField
               name="userMail"
               variant="outlined"
@@ -320,9 +369,40 @@ const Join = () => {
               id="userMail"
               label="이메일"
               type="email"
+              helperText="예) homecontroller@gmail.com"
               value={userMail}
               onChange={onMailHandler}
             />
+          </Grid>
+
+          <Grid item xs={12} sm={4}>
+            <Button
+              id="btnMailCheck"
+              variant="contained"
+              color="success"
+              style={{ width: "115px", height: "56px" }}
+              onClick={validateMail}
+            >
+              인증코드 전송
+            </Button>
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              id="userMailCheck"
+              name="userMailCheck"
+              label="메일 인증코드"
+              variant="outlined"
+              required
+              value={userMailCheck}
+              onChange={onMailCheckHandler}
+            />
+            {userMailCheck.length > 0 && (
+              <span className={`message ${isValidMail ? "success" : "error"}`}>
+                {userEmailCheckMessage}
+              </span>
+            )}
           </Grid>
 
           <Grid item xs={12} sm={4}>

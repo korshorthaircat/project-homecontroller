@@ -15,32 +15,29 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
 const ProductInCart = ({
-  product,
+  cart,
   orderAmount,
   getOrderAmount,
   paymentAmount,
   getPaymentAmount,
   coupon,
-  getInitialAmount,
 }) => {
   //제품 수량관리를 위해 useReducer 사용
-  const [number, dispatch] = useReducer(reducer, 1);
-
-  useEffect(() => {
-    if (number === 1) {
-      getInitialAmount(parseInt(product.productPrice));
-    }
-  }, []);
+  const [number, dispatch] = useReducer(reducer, parseInt(cart.productCount));
 
   //수량 변경 버튼 클릭시 수량과 주문금액에 영향
   function reducer(state, action) {
     switch (action.type) {
       case "INCREMENT":
-        getOrderAmount(orderAmount + parseInt(product.productPrice));
+        getOrderAmount(
+          orderAmount + parseInt(cart.productOption.product.productPrice)
+        );
         return state + 1;
       case "DECREMENT":
         if (state > 1) {
-          getOrderAmount(orderAmount - parseInt(product.productPrice));
+          getOrderAmount(
+            orderAmount - parseInt(cart.productOption.product.productPrice)
+          );
           return state - 1;
         } else {
           return state;
@@ -104,9 +101,12 @@ const ProductInCart = ({
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
               <Typography gutterBottom variant="subtitle1" component="div">
-                {product.productName}
+                {cart.productOption.product.productName}
               </Typography>
-              <Typography>{product.productDetail}</Typography>
+              <Typography>
+                옵션: {cart.productOption.common.commonCodeName},{" "}
+                {cart.productOption.product.productSize}
+              </Typography>
 
               <Typography>
                 수량:
@@ -123,7 +123,7 @@ const ProductInCart = ({
           </Grid>
           <Grid item>
             <Typography variant="subtitle1" component="div">
-              ₩ {product.productPrice}
+              ₩ {cart.productOption.product.productPrice}
             </Typography>
           </Grid>
         </Grid>

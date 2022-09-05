@@ -1,10 +1,10 @@
 package com.bootreact.hmct.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -25,21 +25,18 @@ public class Cart {
 	@ManyToOne
     @JoinColumn(name="USER_ID")
     private User user;
-    
-    //제품 번호(PK, FK)
-	@Id
-	@ManyToOne
-	@JoinColumn(name="PRODUCT_NO")
-	private Product product;
 	
-	//코드(PK, FK)
+	//제품옵션(PK, FK)
 	@Id
 	@ManyToOne
-	@JoinColumn(name="COMMON_CODE")
-	private Common common;
+	@JoinColumns({
+		@JoinColumn(name = "PRODUCT_NO", referencedColumnName="PRODUCT_NO"),
+		@JoinColumn(name = "COMMON_CODE", referencedColumnName="COMMON_CODE")
+	})
+	private ProductOption productOption;
 	
 	//제품 수량
-	@ColumnDefault("'1'")
-	private String productCount;
+	@ColumnDefault("1")
+	private int productCount;
     
 }

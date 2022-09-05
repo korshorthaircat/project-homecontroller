@@ -7,6 +7,5 @@ import lombok.Data;
 @Data
 public class CartId implements Serializable{
      private String user;
-     private int product;
-     private String common;
+     private ProductOptionId productOption;
 }

@@ -6,6 +6,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
+// import "./styles.css";
+import Form from "react-bootstrap/Form";
+import { Bloodtype } from "@mui/icons-material";
+// import { DateRangePicker } from 'rsuite';
 
 
 function ReviewList() {
@@ -28,8 +32,15 @@ function ReviewList() {
             {/* CONTENT 부분 */}
             <div className="content-tabs">
                 <div className={toggleState === 1 ? "content active-content" : "content"}>
+                
+                <div className="Date">
+                    <p className="DataP">조회기간 선택</p>
+                    <Form.Control type="date"></Form.Control>
+                    <Form.Control type="date"></Form.Control>
+                </div>
+
                 <div>
-                <Paper component="form" sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, marginLeft: 105, marginBottom: 5}}>
+                <Paper component="form" sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, marginLeft: 100, marginBottom: 5}}>
                     {/* <IconButton sx={{ p: '10px' }} aria-label="menu">
                       <MenuIcon />
                     </IconButton> */}

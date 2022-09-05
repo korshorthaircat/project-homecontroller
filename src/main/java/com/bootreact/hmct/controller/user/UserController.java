@@ -3,9 +3,10 @@ package com.bootreact.hmct.controller.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.dto.UserDTO;
 import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.jwt.JwtTokenProvider;
+import com.bootreact.hmct.service.user.MailService;
 import com.bootreact.hmct.service.user.UserService;
 
 @RestController //@Controller와 @ResponseBody 두 어노테이션의 조합.
@@ -27,14 +30,10 @@ import com.bootreact.hmct.service.user.UserService;
 @RequestMapping("/api/user")
 public class UserController {
 	
-	@Autowired
-	UserService userService;
-	
-	@Autowired
-	private JwtTokenProvider jwtTokenProvider;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	@Autowired UserService userService;
+	@Autowired MailService mailService;
+	@Autowired private JwtTokenProvider jwtTokenProvider;
+	@Autowired private PasswordEncoder passwordEncoder;
 	
 	//회원 등록  (회원가입)
 	@PostMapping("/join")
@@ -71,7 +70,7 @@ public class UserController {
 		}
 	}
 	
-	//회원 정보 리스트  
+	//회원정보 리스트 조회  
     @GetMapping("/getUserList")
     public ResponseEntity<?> getUserList(){
     	try {
@@ -112,42 +111,27 @@ public class UserController {
     	}
     };
     
-//    //회원 정보 조회
-//    @GetMapping("/viewUser")
-//    public ResponseEntity<?> viewUser(@RequestBody User user, String userName){
-//    	try {
-//			user.setUserName(userName);
-//    		
-//    		userService.viewUser(userName);
-//    		  		  		
-//			UserDTO userDTO = new UserDTO();
-//			
-//			userDTO.setUserId(user.getUserId());
-//			userDTO.setUserName(user.getUserName());
-//			userDTO.setUserNickname(user.getUserNickname());
-//			userDTO.setUserTel(user.getUserTel());
-//			userDTO.setUserMail(user.getUserMail());
-//			userDTO.setUserRole(user.getUserRole());
-//			userDTO.setUserZip(user.getUserZip());
-//			userDTO.setUserAddr(user.getUserAddr());
-//			userDTO.setUserAddrDetail(user.getUserAddrDetail());
-//			userDTO.setUserPoint(user.getUserPoint());
-//			userDTO.setUserMarketing(user.getUserMarketing());
-//			userDTO.setUserJoinYmd(user.getUserJoinYmd());
-//				
-//    		ResponseDTO<UserDTO> response = new ResponseDTO<>();    		
-//    		
-//    		return ResponseEntity.ok().body(response);
-//    		
-//    	}catch(Exception e){
-//    		System.out.println(e.getMessage());
-//    		ResponseDTO<UserDTO> response = new ResponseDTO<>();
-//    		response.setError(e.getMessage());
-//    		return ResponseEntity.badRequest().body(response);		
-//    	}
-//    };
-//    
-    //회원 삭제  
+    //회원정보 조회
+    @PostMapping("/getUser")
+    public ResponseEntity<?> getUser(@RequestBody User user) {
+    	try {
+    		User u = userService.findbyUserId(user.getUserId());
+    		  	
+    		List<User> userList = new ArrayList<User>();
+    		userList.add(u);
+    		
+    		ResponseDTO<User> response = new ResponseDTO<>(); 
+    		response.setData(userList);
+    		return ResponseEntity.ok().body(response);
+    	}catch(Exception e){
+    		System.out.println(e.getMessage());
+    		ResponseDTO<User> response = new ResponseDTO<>();
+    		response.setError(e.getMessage());
+    		return ResponseEntity.badRequest().body(response);		
+    	}
+    }
+    
+    //회원정보 삭제  
     @DeleteMapping("/deleteUser")
     public ResponseEntity<?> deleteUser(@RequestBody User user){
     	try {
@@ -188,7 +172,6 @@ public class UserController {
     		return ResponseEntity.badRequest().body(response);		
     	}
     };
-    
     
     //회원정보 수정
     @PutMapping("/updateUser")
@@ -233,13 +216,7 @@ public class UserController {
     		return ResponseEntity.badRequest().body(response);		
     	}
     };
-	
-//	//휴대전화 인증
-//	void validateTel() {}
-//
-//	//이메일 인증
-//	void validateEmail() {}
-//
+
 	//아이디 중복체크
 	@PostMapping("/checkId")
 	public ResponseEntity<?> checkId(@RequestBody User user) {
@@ -257,18 +234,26 @@ public class UserController {
 			return ResponseEntity.ok().body(response);
 		}
 	}
-//
-//	//닉네임 중복체크
-//	void checkNickname() {}
-//
-//	//회원 수정 (회원정보수정)
-//	void updateUser() {}
-//
-//	//회원 삭제 (회원탈퇴)
-//	void deleteUser() {}
-//
-//	//회원 조회 (회원정보 조회)
-//	void getUser() {}
+	
+	//이메일 인증
+	@PostMapping("/validateMail")
+	public ResponseEntity<?> validateMail(@RequestBody String data) throws Exception {
+		System.out.println("////이메일/////" + data);
+		
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(data);
+		JSONObject jsonObj = (JSONObject) obj;
+		String email = (String) jsonObj.get("userMail");
+		System.out.println("이메일 파싱 : {} " + email);
+
+		String confirm = mailService.sendSimpleMessage(email);
+		System.out.println("confirm: {}" + confirm);
+
+		return ResponseEntity.ok().body(confirm);
+	}
+	
+//	//휴대전화 인증
+//	void validateTel() {}
 //
 //	//아이디 찾기
 //	void findById() {}
@@ -309,7 +294,6 @@ public class UserController {
 			return ResponseEntity.badRequest().body(response);
 		}
 	}
-
 
 //	//로그아웃
 //	void logout() {}
