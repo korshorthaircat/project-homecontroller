@@ -3,6 +3,7 @@ import "../../css/topButton.css"
 import { useState, useEffect } from 'react'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
+
 const TopButton = () => {
   const [showButton, setShowButton] = useState(false);
 
@@ -30,11 +31,12 @@ const TopButton = () => {
     <>
       {showButton &&
           <div>
-            <KeyboardArrowUpIcon
-            sx= {{fontSize: 50, backgroundColor: "#003319", borderRadius:100, color: "white"}}
+            <button
             className='topButton'
-            onClick={scrollToTop}
+            onClick={scrollToTop}>
+            <KeyboardArrowUpIcon
             />
+            </button>
           </div>
       }
     </>

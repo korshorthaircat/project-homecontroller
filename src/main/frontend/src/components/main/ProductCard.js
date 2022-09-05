@@ -7,12 +7,10 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 const ProductCard = ({ image, title, category, price }) => {
   return (
     <div className="card">
-      <img className="imageArea" src={image} alt=""></img>
-
+      <img className="imageArea" src={image} alt="" />
       <div className="textArea">
         <p className="title_text">{title}</p>
         <p className="category_text">{category}</p>
-
         <div className="priceArea">
           <p>PRICE</p>
           <div className="last">
