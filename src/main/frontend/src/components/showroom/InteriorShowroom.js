@@ -8,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SplitButton from "../list/SplitButton";
-import Chip from "../list/Chip";
+import ColorChip from "../list/ColorChip";
 
 function InteriorShowroom() {
   return (
@@ -61,7 +61,7 @@ function InteriorShowroom() {
             <p>상품설명</p>
           </div>
         </div>
-        <div className="wrapper">
+        <div className="seemore">
           <Button
             variant="contained"
             color="success"
@@ -75,7 +75,7 @@ function InteriorShowroom() {
         <hr />
       </div>
       <div className="wrapper">
-        <Chip></Chip>
+        <ColorChip></ColorChip>
       </div>
     </Container>
   );
