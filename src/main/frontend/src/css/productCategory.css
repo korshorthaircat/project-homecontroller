@@ -12,7 +12,19 @@
     margin-top: 3%;
 }
 
- .title{
+ .ptitle{
     display: flex;
     flex-direction: row;
+    padding: 1%;
 } 
+
+.pdetail{
+    padding: 1%;
+    margin-bottom: 2%;
+}
+
+.seemore{
+    text-align: center;
+    justify-content: center;
+    padding: 2%;
+}

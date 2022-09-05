@@ -172,7 +172,7 @@ function ProductAdd() {
   const [ProductColor, setProductColor] = React.useState("");
 
   const handleColorChange = (event) => {
-    setProductstate(event.target.value);
+    setProductColor(event.target.value);
   };
 
   return (
