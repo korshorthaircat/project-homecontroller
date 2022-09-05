@@ -42,6 +42,6 @@ public interface CartMapper {
 			+ " WHERE user_id = #{userId}"
 			+ " and common_code = #{commonCode}"
 			+ " and product_no = #{productNo}")
-	void deleteCart(@Param("userId") String userId, @Param("productNo") int productNo, @Param("commonCode") String commonCode);
+	void deleteCart(@Param("userId") String userId, @Param("productNo") int productNo, @Param("commonCode")String commonCode);
 	
 }

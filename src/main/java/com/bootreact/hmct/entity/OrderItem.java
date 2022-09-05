@@ -25,12 +25,6 @@ public class OrderItem {
 	@JoinColumn(name="ORDER_NO")
 	private Order order;
 
-	//제품 번호(PK, FK)
-//	@Id
-//	@ManyToOne
-//	@JoinColumn(name="PRODUCT_NO")
-//	private Product product;		
-	
 	//제품옵션(PK, FK)
 	@Id
 	@ManyToOne
