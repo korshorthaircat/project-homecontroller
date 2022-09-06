@@ -15,12 +15,15 @@ import { Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import "../../css/admin.css";
+import axios from "axios";
+
 
 const mdTheme = createTheme();
 
 const AdminOrderDetail = () => {
+  
     return (
-        <ThemeProvider theme={mdTheme}>
+        <ThemeProvider theme={mdTheme} >
             <Box sx={{ display: "flex" }} style={{ maxWidth: "1750px" }}>
                 <Box>
                     <List>
@@ -196,12 +199,12 @@ const AdminOrderDetail = () => {
                                 </TableRow>
 
                                 <TableRow>
-                                    <TableCell component={"th"}>
+                                    <TableCell component={"th"} sx={{backgroundColor: "#DCDCDC", borderBottom: "1px solid white"}}>
                                         주소
                                     </TableCell>
                                     <TableCell>
                                         <input
-                                            type="text"
+                                            type="text"                      
                                             style={{ border: "none" }}
                                             name="userId"
                                             placeholder="주소"
@@ -210,7 +213,7 @@ const AdminOrderDetail = () => {
                                 </TableRow>
 
                                 <TableRow>
-                                    <TableCell component={"th"} >
+                                    <TableCell component={"th"} sx={{backgroundColor: "#DCDCDC"}}>
                                         배송 메모
                                     </TableCell>
                                     <TableCell>
