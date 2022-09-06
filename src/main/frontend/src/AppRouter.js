@@ -10,6 +10,7 @@ import Dashboard from "./components/admin/Dashboard";
 import Mypage from "./components/mypage/Mypage";
 import UserUpdate from "./components/mypage/UserUpdate";
 import ReviewList from "./components/mypage/ReviewList";
+import WishList from "./components/mypage/WishList";
 import OrderList from "./components/mypage/OrderList";
 import ImageThumb from "./components/productDetail/ImageThumb";
 import ProductMainInfo from "./components/productDetail/ProductMainInfo";
@@ -53,6 +54,7 @@ const AppRouter = () => {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/userupdate" element={<UserUpdate />} />
           <Route path="/reviewlist" element={<ReviewList />} />
+          <Route path="/wishlist" element={<WishList />} />
           <Route path="/orderlist" element={<OrderList />} />
           <Route path="/order" element={<Order />} />
           <Route path="/admin" element={<Dashboard />} />

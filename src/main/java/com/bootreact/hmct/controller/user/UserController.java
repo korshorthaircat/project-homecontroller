@@ -132,43 +132,7 @@ public class UserController {
     		return ResponseEntity.badRequest().body(response);		
     	}
     }
-    
-    
-//    //회원 정보 조회
-//    @GetMapping("/viewUser")
-//    public ResponseEntity<?> viewUser(@RequestBody User user, String userName){
-//    	try {
-//			user.setUserName(userName);
-//    		
-//    		userService.viewUser(userName);
-//    		  		  		
-//			UserDTO userDTO = new UserDTO();
-//			
-//			userDTO.setUserId(user.getUserId());
-//			userDTO.setUserName(user.getUserName());
-//			userDTO.setUserNickname(user.getUserNickname());
-//			userDTO.setUserTel(user.getUserTel());
-//			userDTO.setUserMail(user.getUserMail());
-//			userDTO.setUserRole(user.getUserRole());
-//			userDTO.setUserZip(user.getUserZip());
-//			userDTO.setUserAddr(user.getUserAddr());
-//			userDTO.setUserAddrDetail(user.getUserAddrDetail());
-//			userDTO.setUserPoint(user.getUserPoint());
-//			userDTO.setUserMarketing(user.getUserMarketing());
-//			userDTO.setUserJoinYmd(user.getUserJoinYmd());
-//				
-//    		ResponseDTO<UserDTO> response = new ResponseDTO<>();    		
-//    		
-//    		return ResponseEntity.ok().body(response);
-//    		
-//    	}catch(Exception e){
-//    		System.out.println(e.getMessage());
-//    		ResponseDTO<UserDTO> response = new ResponseDTO<>();
-//    		response.setError(e.getMessage());
-//    		return ResponseEntity.badRequest().body(response);		
-//    	}
-//    };
-//    
+   
     //회원 삭제  
     @DeleteMapping("/deleteUser")
     public ResponseEntity<?> deleteUser(@RequestBody User user){
@@ -279,25 +243,23 @@ public class UserController {
 			return ResponseEntity.ok().body(response);
 		}
 	}
-//
-//	//닉네임 중복체크
-//	void checkNickname() {}
-//
-//	//회원 수정 (회원정보수정)
-//	void updateUser() {}
-//
-//	//회원 삭제 (회원탈퇴)
-//	void deleteUser() {}
-//
-//	//회원 조회 (회원정보 조회)
-//	void getUser() {}
-//
-//	//아이디 찾기
-//	void findById() {}
-//
-//	//비번 찾기
-//	void findByPassword() {}
-//
+	
+	//이메일 인증
+	@PostMapping("/validateMail")
+	public ResponseEntity<?> validateMail(@RequestBody String data) throws Exception {
+		System.out.println("////이메일/////" + data);
+		
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(data);
+		JSONObject jsonObj = (JSONObject) obj;
+		String email = (String) jsonObj.get("userMail");
+		System.out.println("이메일 파싱 : {} " + email);
+
+		String confirm = mailService.sendSimpleMessage(email);
+		System.out.println("confirm: {}" + confirm);
+
+		return ResponseEntity.ok().body(confirm);
+}
 	
 	//로그인
 	@PostMapping("/login")
