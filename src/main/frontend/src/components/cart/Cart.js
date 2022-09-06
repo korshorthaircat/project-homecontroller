@@ -29,7 +29,7 @@ const Cart = () => {
     });
   };
 
-  //장바구니 아이템 삭제후 db로부터 장바구니의 데이터 받아오기
+  //장바구니 아이템 삭제 후 db로부터 장바구니의 데이터 받아오기
   const deleteCart = useCallback((productNo, commonCode) => {
     axios({
       method: "delete",
@@ -38,6 +38,23 @@ const Cart = () => {
         userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId,
         productNo: productNo,
         commonCode: commonCode,
+      },
+    }).then((response) => {
+      //console.log(response.data.data);
+      setCartList(response.data.data);
+    });
+  }, []);
+
+  //장바구니 아이템 수정(수량 수정) 후 db로부터 장바구니의 데이터 받아오기
+  const updateCart = useCallback((productNo, commonCode, productCount) => {
+    axios({
+      method: "put",
+      url: url + "/updateCart",
+      data: {
+        userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId,
+        productNo: productNo,
+        commonCode: commonCode,
+        productCount: productCount,
       },
     }).then((response) => {
       //console.log(response.data.data);
@@ -111,6 +128,7 @@ const Cart = () => {
               getPaymentAmount={getPaymentAmount}
               coupon={coupon}
               deleteCart={deleteCart}
+              updateCart={updateCart}
             ></ProductInCart>
           ))}
         </Grid>

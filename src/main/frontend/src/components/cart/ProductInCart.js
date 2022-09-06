@@ -15,6 +15,7 @@ const ProductInCart = ({
   getPaymentAmount,
   coupon,
   deleteCart,
+  updateCart,
 }) => {
   //제품 수량관리를 위해 useReducer 사용
   const [number, dispatch] = useReducer(reducer, parseInt(cart.productCount));
@@ -26,12 +27,28 @@ const ProductInCart = ({
         getOrderAmount(
           orderAmount + parseInt(cart.productOption.product.productPrice)
         );
+
+        updateCart(
+          cart.productOption.product.productNo,
+          cart.productOption.common.commonCode,
+          //parseInt(cart.productCount) + 1
+          state + 1
+        );
+
         return state + 1;
       case "DECREMENT":
         if (state > 1) {
           getOrderAmount(
             orderAmount - parseInt(cart.productOption.product.productPrice)
           );
+
+          updateCart(
+            cart.productOption.product.productNo,
+            cart.productOption.common.commonCode,
+            //parseInt(cart.productCount) - 1
+            state - 1
+          );
+
           return state - 1;
         } else {
           return state;

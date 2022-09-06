@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,15 +34,64 @@ public class CartController {
 	private PasswordEncoder passwordEncoder;
 
 //	//장바구니 제품추가 (POST)
-//	void addCart(Product product) {}
+//	@PostMapping("/addCart")
+//	public ResponseEntity<?>addCart(@RequestBody Map<String, String> paramMap) {
+//		try {
+//			System.out.println(paramMap.get("userId"));
+//			System.out.println(paramMap.get("productNo"));
+//			System.out.println(paramMap.get("commonCode"));
+//			
+//			//추가 처리하기
+//			cartService.addCart(paramMap.get("userId"), 
+//								paramMap.get("productNo"),
+//								paramMap.get("commonCode"));
+//			
+//			//추가 후 장바구니리스트 다시 받아오기
+//    		List<Cart> cartList = cartService.getCartList(paramMap.get("userId"));
+//    		ResponseDTO<Cart> response = new ResponseDTO<>();
+//    		response.setData(cartList);
+//    		return ResponseEntity.ok().body(response);
+//    		
+//    	}catch(Exception e){
+//    		System.out.println(e.getMessage());
+//    		ResponseDTO<Cart> response = new ResponseDTO<>();
+//    		response.setError(e.getMessage());
+//    		return ResponseEntity.badRequest().body(response);		
+//    	}
+//	}
 	
-//	//장바구니 제품수정(수량 등) (GET, POST)
-//	void updateCart(Product product) {}
+//	//장바구니 제품수정(수량 변경) (POST)
+	@PutMapping("/updateCart")
+	public ResponseEntity<?>updateCart(@RequestBody Map<String, String> paramMap) {
+		try {
+			System.out.println(paramMap.get("userId"));
+			System.out.println(paramMap.get("productNo"));
+			System.out.println(paramMap.get("commonCode"));
+			System.out.println(paramMap.get("productCount"));
+			
+			//수정 처리하기
+			cartService.updateCart(paramMap.get("userId"), 
+								paramMap.get("productNo"),
+								paramMap.get("commonCode"),
+								paramMap.get("productCount"));
+			
+			//수정 후 장바구니리스트 다시 받아오기
+    		List<Cart> cartList = cartService.getCartList(paramMap.get("userId"));
+    		ResponseDTO<Cart> response = new ResponseDTO<>();
+    		response.setData(cartList);
+    		return ResponseEntity.ok().body(response);
+    		
+    	}catch(Exception e){
+    		System.out.println(e.getMessage());
+    		ResponseDTO<Cart> response = new ResponseDTO<>();
+    		response.setError(e.getMessage());
+    		return ResponseEntity.badRequest().body(response);		
+    	}
+	}
 	
 	//장바구니 제품삭제 (DELETE)
 	@DeleteMapping("/deleteCart")
 	public ResponseEntity<?> deleteCart(@RequestBody Map<String, String> paramMap) {
-
 		try {
 //			System.out.println(paramMap.get("userId"));
 //			System.out.println(paramMap.get("productNo"));
