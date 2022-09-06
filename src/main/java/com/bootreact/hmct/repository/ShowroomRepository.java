@@ -6,4 +6,5 @@ import com.bootreact.hmct.entity.Showroom;
 
 public interface ShowroomRepository extends JpaRepository<Showroom, Integer>{
 
+	Showroom findByShowroomNo(int showroomNo);
 }
