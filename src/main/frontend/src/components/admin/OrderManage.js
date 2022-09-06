@@ -14,7 +14,7 @@ import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "@mui/material/Link";
 import axios from 'axios';
-import { unstable_generateUtilityClass } from "@mui/utils";
+
 
 const mdTheme = createTheme();
 
@@ -25,7 +25,8 @@ function OrderManage() {
 
   const ordList = () => {
      axios.get(listUrl).then(response => {
-        setOrderList( response.data );
+        setOrderList( response.data.data );
+        console.log(response.data.data)
         //오류나면 오류메세지
         
     }).catch(e => {
@@ -61,7 +62,6 @@ function OrderManage() {
                                 <TableCell>주문 번호</TableCell>
                                 <TableCell align="center">주문 상태</TableCell>
                                 <TableCell align="center">주문 날짜</TableCell>
-                                <TableCell align="center">상품명</TableCell>
                                 <TableCell align="center">주문자</TableCell>
                                 <TableCell align="center">주문 금액</TableCell>
                                 <TableCell align="center">비고</TableCell>
@@ -70,8 +70,8 @@ function OrderManage() {
                         </TableHead>
                        
                         <TableBody>
-                        {orderList.data ? (
-                            orderList.data.map((o) => (
+                        {orderList ? (
+                            orderList.map((o) => (
                             <TableRow
                             key={o.orderNo}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -81,8 +81,7 @@ function OrderManage() {
                                 </TableCell>
                                 <TableCell align="center">{o.orderStatus}</TableCell>
                                 <TableCell align="center">{o.orderDate}</TableCell>
-                                <TableCell align="center">{o.productName}</TableCell>
-                                <TableCell align="center">{o.userId}</TableCell>
+                                <TableCell align="center">{o.user.userId}</TableCell>
                                 <TableCell align="center">{o.orderAmount}</TableCell>
                                 <TableCell align="center">{o.orderMemo}</TableCell>
                                 <TableCell align="center">

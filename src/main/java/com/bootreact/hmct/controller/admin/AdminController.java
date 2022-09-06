@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +28,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bootreact.hmct.dto.ProductDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
+import com.bootreact.hmct.dto.UserDTO;
 import com.bootreact.hmct.entity.Product;
 import com.bootreact.hmct.entity.Showroom;
 import com.bootreact.hmct.service.product.ProductService;
@@ -198,6 +202,7 @@ public class AdminController {
     		response.setError(e.getMessage());
     		return ResponseEntity.badRequest().body(response);		
     	}
+
     }
     
     
@@ -218,9 +223,7 @@ public class AdminController {
     	 * List<ShowroomItem> showroomItemList = new ArrayList<ShowroomItem>();
     	 * ShowroomItem show
     	 * */
-    	
-    	
-    	
+
     	//쇼룸 등록 시작
     	/*int srNo = productService.insertShowroom(showroom);
     	
@@ -278,6 +281,54 @@ public class AdminController {
     
     
     //인테리어 쇼룸 삭제
+   
+    };
     
-    
+    //상품삭제
+    @DeleteMapping("/deleteProduct")
+    public ResponseEntity<?> deleteProduct(@RequestBody Product product){
+    	try {
+
+    		productService.deleteProduct(product);
+    		
+    		List<Product> productList = productService.getProductList();
+    		
+    		List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
+    		
+    		for(Product t: productList) {
+    			ProductDTO productDTO = new ProductDTO();
+    			
+    			productDTO.setProductNo(t.getProductNo());
+    			productDTO.setProductName(t.getProductName());
+    			productDTO.setProductState(t.getProductState());
+    			productDTO.setProductSize(t.getProductSize());
+    			productDTO.setProductRgsde(t.getProductRgsde());
+    			productDTO.setProductUpdde(t.getProductUpdde());
+    			productDTO.setProductPrice(t.getProductPrice());
+    			productDTO.setProductSummary(t.getProductSummary());
+    			productDTO.setProductDetail(t.getProductDetail());
+    			productDTO.setProductRef(t.getProductRef());
+    			productDTO.setProductMng(t.getProductMng());
+    			productDTO.setProductSafe(t.getProductSafe());
+    			productDTO.setProductDeliveryinfo(t.getProductDeliveryInfo());
+    			productDTO.setProductGauge(t.getProductGauge());
+    			productDTO.setProductMaterial(t.getProductMaterial());
+    			productDTO.setProductCategory(t.getProductCategory());
+    			
+    			
+    			productDTOList.add(productDTO);	
+    		}
+    		ResponseDTO<ProductDTO> response = new ResponseDTO<>();
+    		
+    		response.setData(productDTOList);
+    		
+    		return ResponseEntity.ok().body(response);
+    		
+    	}catch(Exception e){
+    		System.out.println(e.getMessage());
+    		ResponseDTO<ProductDTO> response = new ResponseDTO<>();
+    		response.setError(e.getMessage());
+    		return ResponseEntity.badRequest().body(response);		
+    	}
+    };
 }

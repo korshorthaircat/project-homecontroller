@@ -32,4 +32,6 @@ public interface ProductService {
 	
 	Showroom findbyShowroomNo (int showroomNo);
 
+	void deleteProduct(Product product);
+
 }

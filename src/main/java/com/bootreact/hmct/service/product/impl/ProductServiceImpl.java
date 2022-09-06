@@ -90,7 +90,9 @@ public void insertShowroomFiles(List<Showroom> showroomFileList) {
 	
 }
 
-
+@Override
+public void deleteProduct(Product product) {
+	productRepository.delete(product);
 	
-
+}
 }
