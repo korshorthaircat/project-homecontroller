@@ -4,9 +4,6 @@ import 'react-multi-carousel/lib/styles.css';
 import ProductCard from './ProductCard';
 import "../../css/carousel.css";
 
-
-
-
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -103,29 +100,15 @@ const stateText = [
 
 //
 
-
-
-
-
-
 const ProductCarousel = () => {
   return (
-    
     <div className='carousel_container'>
-     
       <Carousel
-     
       responsive={responsive}
-      swipeable={true}
-                draggable={true}
-                showDots={true}
+      showDots={true}
       dotListClass="custom-dot-list-style"
       containerClass="carousel-container"
       itemClass="carousel-item-padding-40-px"
-
-      
-      
-      
       >
         {stateText.map((data) => (
           <ProductCard
@@ -136,7 +119,6 @@ const ProductCarousel = () => {
 
         ))}
       </Carousel>
-      
     </div>
   );
 };

@@ -11,27 +11,30 @@ const CardContainer = styled.div`
 `
 
 
-const EventCard = () => {
+const EventCard = ({title, content}) => {
   return (
     <div>
       <CardContainer>
-      <Card sx={{ maxWidth: 493, height: 300, margin: "0 auto"}}>
+      <Card sx={{ maxWidth: 493, height: 350, margin: "0 auto"}}>
       <CardActionArea>
+        
         <CardMedia
           component="img"
-          height="200"
+          height="250"
           image="images/inter (1).png"
           alt="green iguana"
+          
         />
-        <CardContent sx={{backgroundColor: "gray"}}>
-          <Typography gutterBottom variant="h5" component="div">
-            Lizard
+        <CardContent sx={{backgroundColor: "red"}}>
+          <Typography gutterBottom variant="h5" component="div"
+          sx={{fontWeight: "bold"}}>
+            {title}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {content}
           </Typography>
         </CardContent>
+        
       </CardActionArea>
     </Card>
     </CardContainer>

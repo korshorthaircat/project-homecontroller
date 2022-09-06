@@ -24,14 +24,34 @@ const responsive = {
     }
   };
 
+  const stateText = [
+    {
+      title : "일상을 바꾸는 패브릭",
+      content: "HOME CONTROLLER EXCLUSIVE"
+    },
+    {
+      title : "#가을캠핑 & 인테리어",
+      content: "가을 인기 키워드 초특가 쇼핑!"
+    },
+    {
+      title : "홈카페 BEST 아이템 모아보기",
+      content: "레트로 컵부터 SNS대란 와플팬까지!"
+    }
+  ]
+
 const EventCarousel = () => {
     return (
         <div className='carousel_container'>
             <Carousel responsive={responsive}>
-                <EventCard />
-                <EventCard />
-                <EventCard />
-                <EventCard />
+                
+                {stateText.map((data) => (
+                  <EventCard 
+                  title={data.title}
+                  content={data.content}/>
+                ))}
+                
+                
+                
             </Carousel>
         </div>
     );

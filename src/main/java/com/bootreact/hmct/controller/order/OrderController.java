@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootreact.hmct.dto.OrderDTO;
+import com.bootreact.hmct.dto.OrderDetailDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
+import com.bootreact.hmct.entity.Delivery;
 import com.bootreact.hmct.entity.Order;
+import com.bootreact.hmct.entity.OrderItem;
 import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.service.order.OrderService;
 import com.bootreact.hmct.service.user.UserService;
@@ -40,7 +43,7 @@ public class OrderController {
     			OrderDTO orderDTO = new OrderDTO();
     			
     			orderDTO.setOrderNo(t.getOrderNo());
-//    			orderDTO.setUserId(t.getUser());  
+    			orderDTO.setUser(t.getUser());  
     			orderDTO.setOrderStatus(t.getOrderStatus());
     			orderDTO.setOrderDate(t.getOrderDate());
     			orderDTO.setOrderMemo(t.getOrderMemo());
@@ -64,10 +67,36 @@ public class OrderController {
     	}
     }
     
-//	//주문아이템 조회
-//	ResponseEntity<?> getOrderItemList(Order order, String userId) {
-//		return null;
-//	}
+    @GetMapping("/viewOrder")
+    public ResponseEntity<?> viewOrder(User user, Order order, Delivery delivery, OrderItem orderItem){
+    	try {
+    		 	
+    		List<OrderDetailDTO> orderDeatailDTOList = new ArrayList<OrderDetailDTO>();
+    				
+			OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
+			
+			orderDetailDTO.setOrder(order);
+			orderDetailDTO.setUser(user);  
+			orderDetailDTO.setDelivery(delivery);
+			orderDetailDTO.setOrderItem(orderItem);			
+			
+			orderDeatailDTOList.add(orderDetailDTO);	
+    		
+    		ResponseDTO<OrderDetailDTO> response = new ResponseDTO<>();
+    		
+    		response.setData(orderDeatailDTOList);
+    		
+    		return ResponseEntity.ok().body(response);
+    		
+    		
+    	}catch(Exception e){
+    		System.out.println(e.getMessage());
+    		ResponseDTO<OrderDetailDTO> response = new ResponseDTO<>();
+    		response.setError(e.getMessage());
+    		return ResponseEntity.badRequest().body(response);		
+    	}
+    }
+    
 //
 //	//주문 생성
 //	ResponseEntity<?> createOrder(Order order, String userId) {

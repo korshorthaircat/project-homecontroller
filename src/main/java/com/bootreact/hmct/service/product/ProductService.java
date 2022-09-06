@@ -26,4 +26,6 @@ public interface ProductService {
 	
 	Product findbyProductNo(int productNo);
 
+	void deleteProduct(Product product);
+
 }

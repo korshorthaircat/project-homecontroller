@@ -46,5 +46,7 @@ public class Order {
 	
 	//배송료
 	private String orderFee;
+
+	
 		
 }
