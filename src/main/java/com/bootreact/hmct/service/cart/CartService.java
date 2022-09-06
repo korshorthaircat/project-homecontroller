@@ -11,4 +11,8 @@ public interface CartService {
 	List<Map<String, Object>> getCartMapList(String userId);
 
 	void deleteCart(String userId, String productNo, String commonCode);
+
+	void addCart(String userId, String productNo, String commonCode);
+
+	void updateCart(String userId, String productNo, String commonCode, String productCount);
 }
