@@ -105,10 +105,10 @@ const ProductCarousel = () => {
     <div className='carousel_container'>
       <Carousel
       responsive={responsive}
-      showDots={true}
-      dotListClass="custom-dot-list-style"
-      containerClass="carousel-container"
-      itemClass="carousel-item-padding-40-px"
+      // showDots={true}
+      // dotListClass="custom-dot-list-style"
+      // containerClass="carousel-container"
+      // itemClass="carousel-item-padding-40-px"
       >
         {stateText.map((data) => (
           <ProductCard

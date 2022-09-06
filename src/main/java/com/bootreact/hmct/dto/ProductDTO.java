@@ -25,5 +25,10 @@ public class ProductDTO {
 		private String productMaterial;
 		private String productCategory;
 
-
+		private int showroomNo;
+		private String showroomColor;
+		private String showroomImgName;
+		private String showroomImgOriginalName;
+		
+		
 }

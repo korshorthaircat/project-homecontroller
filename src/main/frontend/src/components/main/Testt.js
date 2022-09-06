@@ -1,26 +1,35 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Unstable_Grid2';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
+import React from 'react';
+import "../../css/testt.css";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
-
-const Testt = (props) => {
+const testt = () => {
     return (
-        <div className='col-md-4'>
-           <img src={props.box.image} />
-            
-           
-      
+        <div className='wrap '>
+    
+        <Row>
+            <Col className="cardBox" >
+                <div className="cardImg">
+                <img src='https://www.ikea.com/ext/ingkadam/m/61778d2a4441edd9/original/PH184645-crop001.jpg?f=xs'/>
+                </div>
+
+               <div className='cardText'>
+                <p className='cardMainText'>
+                    일상을 바꾸는 패브릭
+                </p>
+                <p>
+                    HOME CONTROLLER EXCLUSIVE
+                </p>
+                </div>
+                
+            </Col>
+            <Col className="cardBox">2 of 3</Col>
+            <Col className="cardBox">3 of 3</Col>
+        </Row>
+    
         </div>
     );
 };
 
-export default Testt;
+export default testt;

@@ -1,0 +1,45 @@
+.wrap {
+    
+    width: 1580px;
+    margin: 0 auto;
+}
+
+
+.cardBox {
+    width: 493px;
+    height: 350px;
+    margin: 20px;
+    padding: 0px;  
+}
+
+.cardImg {
+    width: 493px;
+    height: 250px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+    
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+
+    
+}
+
+.cardText {
+    width: 493px;
+    height: 100px;
+    background-color: lightgray;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+
+   
+    
+}
+
+
+.cardMainText {
+    font-size: 22px;
+}
+

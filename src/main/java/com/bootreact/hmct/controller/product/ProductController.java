@@ -11,16 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.bootreact.hmct.dto.ProductDTO;
+import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.entity.Common;
 import com.bootreact.hmct.entity.Product;
 import com.bootreact.hmct.entity.ProductImage;
 import com.bootreact.hmct.entity.ProductOption;
+import com.bootreact.hmct.entity.Showroom;
 import com.bootreact.hmct.service.product.ProductService;
 
 @RestController
@@ -151,10 +156,37 @@ public class ProductController {
 //	
 //	//인테리어 쇼룸
 //
-//	//색상 선택시 해당 색상 인테리어 쇼룸 이미지 조회(더보기 클릭시 추가)
-//	ResponseEntity<?> getShowroomList(String code) {
-//		return null;
-//	}
+	//색상 선택시 해당 색상 인테리어 쇼룸 이미지 조회(더보기 클릭시 추가)
+	@GetMapping("/getShowroomList")
+	public ResponseEntity<?> getShowroomList(String code) {
+		try {
+			List<Showroom> showroomList = productService.getShowroomList();
+			
+			List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
+	
+			for(Showroom s: showroomList) {
+				ProductDTO productDTO = new ProductDTO();
+				
+				productDTO.setShowroomNo(s.getShowroomNo());
+				productDTO.setShowroomColor(s.getShowroomColor());
+				productDTO.setShowroomImgName(s.getShowroomImgName());
+				productDTO.setShowroomImgOriginalName(s.getShowroomImgOriginalName());
+				
+				productDTOList.add(productDTO);				
+			}
+			ResponseDTO<ProductDTO> response = new ResponseDTO<>();
+			
+			response.setData(productDTOList);
+			
+			return ResponseEntity.ok().body(response);
+			
+			}catch(Exception e) {
+				System.out.println(e.getMessage());
+				ResponseDTO<ProductDTO> response = new ResponseDTO<> ();
+				response.setError(e.getMessage());
+				return ResponseEntity.badRequest().body(response);
+			}
+	};
 //
 //	// 하트 클릭 시 온라인쇼룸 위시리스트 추가
 //	ResponseEntity<?> addWishShowroom(Product product) {

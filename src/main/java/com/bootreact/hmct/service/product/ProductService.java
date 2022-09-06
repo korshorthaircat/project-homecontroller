@@ -26,6 +26,9 @@ public interface ProductService {
 	
 	Product findbyProductNo(int productNo);
 	
+
+	List<Showroom> getShowroomList();
+
 	int insertShowroom (Showroom showroom);
 	
 	void insertShowroomFiles(List<Showroom> showroomFileList);
@@ -35,3 +38,5 @@ public interface ProductService {
 	void deleteProduct(Product product);
 
 }
+
+
