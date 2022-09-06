@@ -21,12 +21,22 @@ public interface ProductService {
 	void insertProductOption(ProductOption productOption);
 	
 //	void deleteProduct(Product product);
-//	
+
 	void updateProduct(Product product);
 	
 	Product findbyProductNo(int productNo);
 	
+
 	List<Showroom> getShowroomList();
+
+	int insertShowroom (Showroom showroom);
+	
+	void insertShowroomFiles(List<Showroom> showroomFileList);
+	
+	Showroom findbyShowroomNo (int showroomNo);
+
+	void deleteProduct(Product product);
+
 }
 
 

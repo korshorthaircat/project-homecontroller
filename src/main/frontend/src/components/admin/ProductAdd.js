@@ -15,6 +15,7 @@ import List from "@mui/material/List";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { Select } from "@mui/material";
+import Modal from "react-bootstrap/Modal";
 
 const mdTheme = createTheme();
 
@@ -174,6 +175,12 @@ function ProductAdd() {
   const handleColorChange = (event) => {
     setProductColor(event.target.value);
   };
+
+  //상품등록 완료시 모달창 띄우기
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -399,9 +406,27 @@ function ProductAdd() {
                       color="success"
                       type="submit"
                       onSubmit={onProductSubmitHandler}
+                      onClick={handleShow}
                     >
                       등록하기
                     </Button>
+                    <Modal show={show} onHide={handleClose}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>상품 등록완료</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        ㅊㅋㅊㅋ상품 등록이 완료 됐습니다.(◍ᐡ₃ᐡ◍)
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button
+                          variant="contained"
+                          color="success"
+                          onClick={handleClose}
+                        >
+                          닫기
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
                   </Stack>
                 </Box>
               </div>

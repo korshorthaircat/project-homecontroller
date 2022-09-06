@@ -3,7 +3,9 @@ package com.bootreact.hmct.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
@@ -34,5 +36,12 @@ public interface CartMapper {
 				+ " and C.product_category = F.common_code"
 				+ " and A.USER_ID = #{userId}")
 	List<Map<String, Object>> getCartList(String userId);
+
+	
+	@Delete("DELETE FROM t_hmct_cart "
+			+ " WHERE user_id = #{userId}"
+			+ " and common_code = #{commonCode}"
+			+ " and product_no = #{productNo}")
+	void deleteCart(@Param("userId") String userId, @Param("productNo") int productNo, @Param("commonCode") String commonCode);
 	
 }

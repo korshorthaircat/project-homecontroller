@@ -4,6 +4,7 @@ import ListSubheader from "@mui/material/ListSubheader";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import ImagesearchRollerIcon from "@mui/icons-material/ImagesearchRoller";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -17,6 +18,7 @@ import Link from "@mui/material/Link";
 export default function AdminItemList() {
   const [openProduct, setOpenProduct] = React.useState(false);
   const [openOrder, setOpenOrder] = React.useState(false);
+  const [openShowroom, setOpenShowroom] = React.useState(false);
 
   const handleProductClick = (e) => {
     setOpenProduct(!openProduct);
@@ -24,6 +26,10 @@ export default function AdminItemList() {
 
   const handleOrderClick = (e) => {
     setOpenOrder(!openOrder);
+  };
+
+  const handleShowroomClick = (e) => {
+    setOpenShowroom(!openShowroom);
   };
 
   return (
@@ -117,6 +123,45 @@ export default function AdminItemList() {
               </ListItemIcon>
               <ListItemText primary="주문 상세" />
             </ListItemButton> */}
+          </List>
+        </Collapse>
+
+        <ListItemButton onClick={handleShowroomClick}>
+          <ListItemIcon>
+            <ImagesearchRollerIcon />
+          </ListItemIcon>
+          <ListItemText primary="쇼룸 관리" />
+          {openShowroom ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+
+        <Collapse in={openShowroom} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <EventNote />
+              </ListItemIcon>
+              <Link href="/showroomAdmin1">
+                <ListItemText primary="쇼룸 등록" />
+              </Link>
+            </ListItemButton>
+
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <EventNote />
+              </ListItemIcon>
+              <Link href="/showroomAdmin2">
+                <ListItemText primary="쇼룸 조회" />
+              </Link>
+            </ListItemButton>
+
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <EventNote />
+              </ListItemIcon>
+              <Link href="/showroomAdmin3">
+                <ListItemText primary="쇼룸 수정" />
+              </Link>
+            </ListItemButton>
           </List>
         </Collapse>
         <Divider sx={{ my: 1 }} />
