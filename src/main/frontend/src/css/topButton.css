@@ -1,5 +1,14 @@
 .topButton {
     position: fixed;
     bottom: 2rem;
-    right: 2rem;
+    left: 2rem;
+    background-color: #003319;
+    border-radius: 100px;
+    color: white;
+    width: 45px;
+    height: 45px;
+    margin: 0 auto;
+    
 }
+
+

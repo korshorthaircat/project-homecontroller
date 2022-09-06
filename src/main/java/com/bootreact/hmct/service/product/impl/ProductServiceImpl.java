@@ -67,4 +67,10 @@ public void updateProduct(Product product) {
 public Product findbyProductNo (int productNo) {
 	return productRepository.findByProductNo(productNo);
 }
+
+@Override
+public void deleteProduct(Product product) {
+	productRepository.delete(product);
+	
+}
 }

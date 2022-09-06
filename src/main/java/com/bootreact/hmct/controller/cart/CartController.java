@@ -1,10 +1,13 @@
 package com.bootreact.hmct.controller.cart;
 
+
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,13 +34,38 @@ public class CartController {
 
 //	//장바구니 제품추가 (POST)
 //	void addCart(Product product) {}
-//
-//	//장바구니 제품삭제 (DELETE)
-//	void deleteCart(Product product) {}
-//
+	
 //	//장바구니 제품수정(수량 등) (GET, POST)
 //	void updateCart(Product product) {}
-//
+	
+	//장바구니 제품삭제 (DELETE)
+	@DeleteMapping("/deleteCart")
+	public ResponseEntity<?> deleteCart(@RequestBody Map<String, String> paramMap) {
+
+		try {
+//			System.out.println(paramMap.get("userId"));
+//			System.out.println(paramMap.get("productNo"));
+//			System.out.println(paramMap.get("commonCode"));
+			
+			//삭제 처리하기
+			cartService.deleteCart(paramMap.get("userId"), 
+								   paramMap.get("productNo"),
+								   paramMap.get("commonCode"));
+			
+			//삭제 후 장바구니리스트 다시 받아오기
+    		List<Cart> cartList = cartService.getCartList(paramMap.get("userId"));
+    		ResponseDTO<Cart> response = new ResponseDTO<>();
+    		response.setData(cartList);
+    		return ResponseEntity.ok().body(response);
+    		
+    	}catch(Exception e){
+    		System.out.println(e.getMessage());
+    		ResponseDTO<Cart> response = new ResponseDTO<>();
+    		response.setError(e.getMessage());
+    		return ResponseEntity.badRequest().body(response);		
+    	}
+	}	
+
 	//장바구니 제품리스트 조회 (POST)
 	@PostMapping("/getCartList")
     public ResponseEntity<?> getCartList(@RequestBody User user){

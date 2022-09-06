@@ -65,19 +65,18 @@
     height: 900px;
     border: 1px solid black;
     margin-right: 20px;
+    
 }
 
 .showroomBox {
     display: flex;
     justify-content: center;
-}
-
-.showroomBox_2 {
-    width: 740px;
-    height: 900px;
-    border: 1px solid black;
-    margin-left: 20px;
+   
 }
 
 
+.mainShowroom_MoreBtn {
+    width: 1560px;
+    margin: 0 auto;
+}
 

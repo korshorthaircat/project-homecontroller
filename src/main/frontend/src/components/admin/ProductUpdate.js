@@ -16,13 +16,24 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { Select } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const mdTheme = createTheme();
 
-const fileList = []; // 업로드한 파일들을 저장하는 배열
+function moveClick(e) {
+  window.location.replace("/admin2");
+}
+
+const fileList = [];
+// 업로드한 파일들을 저장하는 배열
 
 function ProductUpdate() {
   const [proNo, setProNo] = useState({});
+  const [productInfo, setProductInfo] = React.useState({});
+
+  let upproductUrl = "http://localhost:8080/api/admin/admin3";
+
+  const [productList, setProductList] = React.useState([]);
 
   const location = useLocation({});
   React.useEffect(() => {
@@ -112,16 +123,7 @@ function ProductUpdate() {
     f.forEach((value, key) => (fObj[key] = value));
 
     fObj.uploadFiles = fileList;
-  };
 
-  const [productInfo, setProductInfo] = React.useState({});
-
-  let upproductUrl = "http://localhost:8080/api/admin/admin3";
-
-  const [productList, setProductList] = React.useState([]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
     if (document.activeElement.value === "update") {
       axios({
         url: upproductUrl,
@@ -244,7 +246,7 @@ function ProductUpdate() {
                   name="productState"
                   label="제품 판매상태"
                   value={productInfo.productState}
-                  onChange={handleChange}
+                  onChange={handleStateChange}
                   SelectProps={{
                     native: true,
                   }}
@@ -262,7 +264,7 @@ function ProductUpdate() {
                   name="productSize"
                   label="제품 사이즈"
                   value={productInfo.productSize}
-                  onChange={handleChange}
+                  onChange={handleSizeChange}
                   SelectProps={{
                     native: true,
                   }}
@@ -280,6 +282,7 @@ function ProductUpdate() {
                   id="outlined-start-adornment"
                   onChange={handleChange}
                   sx={{ m: 1, width: "25ch" }}
+                  value={productInfo.productPrice}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">₩</InputAdornment>
@@ -303,7 +306,7 @@ function ProductUpdate() {
                   name="commonCode"
                   label="제품 컬러(공통코드)"
                   value={productInfo.productColor}
-                  onChange={handleChange}
+                  onChange={handleColorChange}
                   SelectProps={{
                     native: true,
                   }}
@@ -418,14 +421,27 @@ function ProductUpdate() {
                     sx={{ display: "flex", justifyContent: "center" }}
                     style={{ marginTop: "2%" }}
                   >
+                    <div>
+                      <Button
+                        variant="contained"
+                        color="success"
+                        type="submit"
+                        value="update"
+                        onClick={() => {
+                          moveClick();
+                          alert("수정이 완료되었습니다.");
+                        }}
+                      >
+                        수정하기
+                      </Button>
+                    </div>
                     <Button
-                      onSubmit={handleSubmit}
                       variant="contained"
                       color="success"
                       type="submit"
-                      value="update"
+                      onClick={moveClick}
                     >
-                      수정하기
+                      뒤로가기
                     </Button>
                   </Stack>
                 </Box>
