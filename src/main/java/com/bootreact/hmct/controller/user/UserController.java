@@ -112,7 +112,7 @@ public class UserController {
     	}
     };
     
-    //회원 정보 조회
+    //회원 정보 조회(마이페이지)
     @PostMapping("/getUser")
     public ResponseEntity<?> getUser(@RequestBody User user) {
     	try {
