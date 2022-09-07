@@ -76,6 +76,7 @@ public Product findbyProductNo (int productNo) {
 @Override
 public List<Showroom> getShowroomList() {
 	return showroomRepository.findAll();
+}
 
 //쇼룸 등록
 @Override
