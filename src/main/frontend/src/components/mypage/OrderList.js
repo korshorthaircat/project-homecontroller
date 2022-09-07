@@ -4,9 +4,11 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
-import Paper from '@mui/material/Paper';
+
 import InputBase from '@mui/material/InputBase';
-import { Bloodtype } from "@mui/icons-material";
+import Paper from '@mui/material/Paper';
+import Form from "react-bootstrap/Form";
+
 
 
 function Orderlist() {
@@ -29,6 +31,13 @@ function Orderlist() {
             {/* CONTENT 부분 */}
             <div className="content-tabs">
                 <div className={toggleState === 1 ? "content active-content" : "content"}>
+
+                <div className="Date">
+                    <p className="DataP">조회기간 선택</p>
+                    <Form.Control type="date"></Form.Control>
+                    <Form.Control type="date"></Form.Control>
+                </div>
+                  
                 <Paper component="form" sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, marginLeft: 105, marginBottom: 5}}>
                     {/* <IconButton sx={{ p: '10px' }} aria-label="menu">
                       <MenuIcon />
@@ -79,6 +88,13 @@ function Orderlist() {
                     
 
                 <div className={toggleState === 2 ? "content active-content" : "content"}>
+
+                <div className="Date">
+                    <p className="DataP">조회기간 선택</p>
+                    <Form.Control type="date"></Form.Control>
+                    <Form.Control type="date"></Form.Control>
+                </div>
+
                 <Paper component="form" sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, marginLeft: 105, marginBottom: 5}}>
                     {/* <IconButton sx={{ p: '10px' }} aria-label="menu">
                       <MenuIcon />
@@ -130,6 +146,13 @@ function Orderlist() {
                 </div>
 
                 <div className={toggleState === 3 ? "content active-content" : "content"}>
+
+                <div className="Date">
+                    <p className="DataP">조회기간 선택</p>
+                    <Form.Control type="date"></Form.Control>
+                    <Form.Control type="date"></Form.Control>
+                </div>
+
                 <Paper component="form" sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, marginLeft: 105, marginBottom: 5}}>
                     {/* <IconButton sx={{ p: '10px' }} aria-label="menu">
                       <MenuIcon />
