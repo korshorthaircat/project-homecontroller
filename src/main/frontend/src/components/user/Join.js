@@ -211,7 +211,7 @@ const Join = () => {
     const userMarketing = data.get("userMarketing");
 
     if (!isPassword) {
-      alert("숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요.");
+      alert("숫자+영문자+특수문자 조합으로 10자리 이상 입력해주세요.");
       return;
     } else if (!isCheckedPassword) {
       alert("입력한 비밀번호와 일치하지 않습니다.");
