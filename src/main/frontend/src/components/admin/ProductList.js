@@ -33,6 +33,8 @@ import { visuallyHidden } from "@mui/utils";
 import "../../css/ad_productList.css";
 import { data } from "jquery";
 import { Link } from "react-router-dom";
+import { useCallback } from "react";
+import { useState } from "react";
 
 function createData(
   productNo,
@@ -43,10 +45,11 @@ function createData(
   productUpdde,
   productPrice,
   productType,
-  productInvntry,
+  productInventory,
   productRemark,
   productUpdate,
-  productDelete
+  productDelete,
+  commonCodeName
 ) {
   return {
     productNo,
@@ -57,10 +60,11 @@ function createData(
     productUpdde,
     productPrice,
     productType,
-    productInvntry,
+    productInventory,
     productRemark,
     productUpdate,
     productDelete,
+    commonCodeName,
   };
 }
 const productData = [
@@ -94,8 +98,6 @@ const style = {
   margin: 0,
   padding: 0,
 };
-
-
 
 export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
@@ -135,26 +137,38 @@ export default function EnhancedTable() {
     list();
   }, []);
 
-
   const useConfirm = (message = null, onConfirm, onCancel) => {
     if (!onConfirm || typeof onConfirm !== "function") {
       return;
     }
-  
+
     const confirmAction = () => {
       if (window.confirm(message)) {
         onConfirm();
-      } 
+      }
     };
-  
+
     return confirmAction;
   };
   const deleteConfirm = () => console.log("삭제했습니다.");
-  const confirmDelete = useConfirm(
-    "삭제하시겠습니까?",
-    deleteConfirm,
-  );
+  const confirmDelete = useConfirm("삭제하시겠습니까?", deleteConfirm);
 
+  //DELETE 요청으로
+  const [product, setProduct] = useState([]);
+
+  const onRemove = useCallback((productNo) => {
+    // const productList = {
+    //   id: product,
+    // };
+
+    axios({
+      method: "delete",
+      url: API_BASE_URL + "/api/admin/deleteProduct",
+      data: { productNo: productNo },
+    }).then((response) => {
+      setProduct(response.data.data);
+    });
+  }, []);
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -221,19 +235,19 @@ export default function EnhancedTable() {
                             {r.productState}
                           </TableCell>
                           <TableCell align="center" sx={{ padding: "0px" }}>
-                            {r.productState}
+                            {r.productCategoryName}
                           </TableCell>
                           <TableCell align="center" sx={{ padding: "0px" }}>
-                            {r.productState}
+                            {r.commonCodeName}
                           </TableCell>
                           <TableCell align="center" sx={{ padding: "0px" }}>
-                            {r.productState}
+                            {r.productSize}
                           </TableCell>
                           <TableCell align="center" sx={{ padding: "0px" }}>
-                            {r.productPrice}
+                            {r.productPrice}원
                           </TableCell>
                           <TableCell align="center" sx={{ padding: "0px" }}>
-                            {r.productState}
+                            {r.productInventory}
                           </TableCell>
                           <TableCell align="center" sx={{ padding: "0px" }}>
                             {r.productRgsde}
@@ -281,8 +295,11 @@ export default function EnhancedTable() {
                           <TableCell align="center" sx={{ padding: "0px" }}>
                             <Button
                               onClick={() => {
-                                handleUpdate(index);
-                                confirmDelete();}}
+                                onRemove(r.productNo);
+                                confirmDelete();
+
+                                window.location.replace("/admin2");
+                              }}
                               id={`Btn${index}`}
                               sx={{
                                 border: "1px solid lightgray",
@@ -296,7 +313,6 @@ export default function EnhancedTable() {
                               <img
                                 className="AdminEdit"
                                 src="images/edit.png"
-                                
                               />
                               삭제
                             </Button>
