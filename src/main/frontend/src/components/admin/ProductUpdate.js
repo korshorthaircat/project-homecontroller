@@ -17,6 +17,7 @@ import axios from "axios";
 import { Select } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import "../../css/ad_productList.css";
 
 const mdTheme = createTheme();
 
@@ -206,7 +207,7 @@ function ProductUpdate() {
   const [ProductColor, setProductColor] = React.useState("");
 
   const handleColorChange = (event) => {
-    setProductstate(event.target.value);
+    setProductColor(event.target.value);
   };
   return (
     <ThemeProvider theme={mdTheme}>
@@ -223,7 +224,7 @@ function ProductUpdate() {
             id="ProductCreateForm"
             encType="multipart/form-data"
           >
-            <h2 style={{ marginBottom: "30px" }}>제품 수정</h2>
+            <h2 style={{ marginBottom: "20px" }}>제품 수정</h2>
             <Box
               sx={{
                 "& .MuiTextField-root": { m: 1, width: "30ch" },
@@ -233,19 +234,23 @@ function ProductUpdate() {
             >
               <div>
                 <TextField
-                  id="outlined-required"
+                  id="outlined-start-adornment"
                   name="productName"
                   label="제품명"
-                  type="text"
                   value={productInfo.productName}
                   onChange={handleChange}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start"></InputAdornment>
+                    ),
+                  }}
                 />
                 <TextField
                   id="outlined-select-state-native"
                   select
                   name="productState"
                   label="제품 판매상태"
-                  value={productInfo.productState}
+                  value={productInfo.Productstate}
                   onChange={handleStateChange}
                   SelectProps={{
                     native: true,
@@ -263,7 +268,7 @@ function ProductUpdate() {
                   select
                   name="productSize"
                   label="제품 사이즈"
-                  value={productInfo.productSize}
+                  value={productInfo.ProductSize}
                   onChange={handleSizeChange}
                   SelectProps={{
                     native: true,
@@ -298,7 +303,7 @@ function ProductUpdate() {
                     shrink: true,
                   }}
                   onChange={handleChange}
-                  value={productInfo.productInventory}
+                  value={productInfo.ProductInventory}
                 />
                 <TextField
                   id="outlined-select-color-native"
@@ -311,6 +316,11 @@ function ProductUpdate() {
                     native: true,
                   }}
                   helperText="제품 색상 선택"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start"></InputAdornment>
+                    ),
+                  }}
                 >
                   {color.map((c) => (
                     <option key={c.value} value={c.value}>
@@ -325,6 +335,11 @@ function ProductUpdate() {
                   value={productInfo.productMaterial}
                   name="productMaterial"
                   onChange={handleChange}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start"></InputAdornment>
+                    ),
+                  }}
                 />
                 <TextField
                   id="outlined-required"
@@ -332,22 +347,35 @@ function ProductUpdate() {
                   label="제품 카테고리(공통코드)"
                   onChange={handleChange}
                   value={productInfo.productCategory}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start"></InputAdornment>
+                    ),
+                  }}
                 />
-                <FormControl sx={{ m: 1, width: "93%" }}>
-                  <InputLabel htmlFor="outlined-adornment-amount">
-                    제품설명 - 요약
-                  </InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-amount"
-                    label="Amount"
-                    name="productSummary"
-                    onChange={handleChange}
-                    value={productInfo.productSummary}
-                  />
-                </FormControl>
+
                 <Box
                   sx={{
-                    "& .MuiTextField-root": { m: 1, width: "46%" },
+                    "& .MuiTextField-root": { m: 1, width: "96%" },
+                  }}
+                >
+                  <TextField
+                    id="outlined-adornment-amount"
+                    name="productSummary"
+                    label="제품설명 - 요약"
+                    onChange={handleChange}
+                    value={productInfo.productSummary}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start"></InputAdornment>
+                      ),
+                    }}
+                  />
+                </Box>
+
+                <Box
+                  sx={{
+                    "& .MuiTextField-root": { m: 1, width: "48%" },
                   }}
                 >
                   <TextField
@@ -358,6 +386,11 @@ function ProductUpdate() {
                     rows={4}
                     onChange={handleChange}
                     value={productInfo.productDetail}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start"></InputAdornment>
+                      ),
+                    }}
                   />
                   <TextField
                     id="outlined-multiline-static"
@@ -367,6 +400,11 @@ function ProductUpdate() {
                     rows={4}
                     onChange={handleChange}
                     value={productInfo.productRef}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start"></InputAdornment>
+                      ),
+                    }}
                   />
                   <TextField
                     id="outlined-multiline-static"
@@ -376,6 +414,11 @@ function ProductUpdate() {
                     rows={4}
                     onChange={handleChange}
                     value={productInfo.productMng}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start"></InputAdornment>
+                      ),
+                    }}
                   />
                   <TextField
                     id="outlined-multiline-static"
@@ -385,6 +428,11 @@ function ProductUpdate() {
                     rows={4}
                     onChange={handleChange}
                     value={productInfo.productSafe}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start"></InputAdornment>
+                      ),
+                    }}
                   />
                   <TextField
                     id="outlined-multiline-static"
@@ -394,6 +442,11 @@ function ProductUpdate() {
                     rows={4}
                     onChange={handleChange}
                     value={productInfo.productDeliveryInfo}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start"></InputAdornment>
+                      ),
+                    }}
                   />
                   <TextField
                     id="outlined-multiline-static"
@@ -403,6 +456,11 @@ function ProductUpdate() {
                     rows={4}
                     onChange={handleChange}
                     value={productInfo.productGauge}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start"></InputAdornment>
+                      ),
+                    }}
                   />
 
                   <label htmlFor="profile-upload" />

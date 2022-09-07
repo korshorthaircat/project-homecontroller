@@ -1,12 +1,9 @@
 package com.bootreact.hmct.controller.admin;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,15 +18,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bootreact.hmct.dto.ProductDTO;
+import com.bootreact.hmct.dto.ProductOptionDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.entity.Product;
 import com.bootreact.hmct.entity.Showroom;
 import com.bootreact.hmct.entity.ShowroomItem;
 import com.bootreact.hmct.entity.ShowroomItemId;
+import com.bootreact.hmct.entity.ProductOption;
 import com.bootreact.hmct.service.product.ProductService;
 
 @RestController
@@ -89,49 +87,25 @@ public class AdminController {
    
 //
 ////	상품 조회(리스트)
-    @GetMapping("/admin2")
-    public ResponseEntity<?> getProductList(){
-    	try {
-    		List<Product> productList = productService.getProductList();
-    		
-    		List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
-    		
-    		for(Product t: productList) {
-    			ProductDTO productDTO = new ProductDTO();
-    			
-    			productDTO.setProductNo(t.getProductNo());
-    			productDTO.setProductName(t.getProductName());
-    			productDTO.setProductState(t.getProductState());
-    			productDTO.setProductSize(t.getProductSize());
-    			productDTO.setProductRgsde(t.getProductRgsde());
-    			productDTO.setProductUpdde(t.getProductUpdde());
-    			productDTO.setProductPrice(t.getProductPrice());
-    			productDTO.setProductSummary(t.getProductSummary());
-    			productDTO.setProductDetail(t.getProductDetail());
-    			productDTO.setProductRef(t.getProductRef());
-    			productDTO.setProductMng(t.getProductMng());
-    			productDTO.setProductSafe(t.getProductSafe());
-    			productDTO.setProductDeliveryinfo(t.getProductDeliveryInfo());
-    			productDTO.setProductGauge(t.getProductGauge());
-    			productDTO.setProductMaterial(t.getProductMaterial());
-    			productDTO.setProductCategory(t.getProductCategory());
-    			
-    			productDTOList.add(productDTO);	
-    		}
-    		ResponseDTO<ProductDTO> response = new ResponseDTO<>();
-    		
-    		response.setData(productDTOList);
-    		
-    		return ResponseEntity.ok().body(response);
-    		
-    	}catch(Exception e){
-    		System.out.println(e.getMessage());
-    		ResponseDTO<ProductDTO> response = new ResponseDTO<>();
-    		response.setError(e.getMessage());
-    		return ResponseEntity.badRequest().body(response);		
-    	}
-    }
-    
+	  @GetMapping("/admin2")
+	  public ResponseEntity<?> getMainProductList() {
+			try {
+				List<Map<String, Object>> productList = productService.getMainProductList();
+			
+				
+				ResponseDTO<Map<String, Object>> response = new ResponseDTO<>();
+				
+				response.setData(productList);
+				
+				return ResponseEntity.ok().body(response);
+				
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+				ResponseDTO<ProductDTO> response = new ResponseDTO<>();
+				response.setError(e.getMessage());
+				return ResponseEntity.badRequest().body(response);
+			}
+		};
 //	상품 조회(상세)
     @PostMapping("/admin3")
     public ResponseEntity<?> getProduct(@RequestBody Product product) {
