@@ -31,7 +31,8 @@ const OrderReview = ({ cart }) => {
                 color="text.primary"
               >
                 옵션: {cart.productOption.common.commonCodeName},{" "}
-                {cart.productOption.product.productSize}, 수량:
+                {cart.productOption.product.productSize} <br />
+                수량: {cart.productCount}
               </Typography>
               <br /> ₩ {cart.productOption.product.productPrice}
             </React.Fragment>
