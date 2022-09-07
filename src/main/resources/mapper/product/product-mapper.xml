@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/dtd/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.bootreact.hmct.mapper.ProductMapper">
+	<select id="getMainProductList" resultType="camelHashMap">
+	<![CDATA[
+		SELECT AA.*
+			,  BB.COMMON_CODE_NAME AS PRODUCT_MATERIAL_NAME
+			,  CC.COMMON_CODE_NAME AS PRODUCT_CATEGORY_NAME
+			FROM (
+					SELECT A.*
+						 , B.COMMON_CODE
+						 , C.COMMON_CODE_NAME
+						FROM T_HMCT_PRODUCT A
+						   , T_HMCT_PRODUCT_OPTN B
+						   , T_HMCT_COMMON C
+						WHERE A.PRODUCT_NO = B.PRODUCT_NO
+						  AND B.COMMON_CODE = C.COMMON_CODE
+				) AA
+		        , (
+					SELECT * 
+						FROM T_HMCT_COMMON
+		                WHERE COMMON_TYPE = 'B' 
+				  ) BB
+				, (
+					SELECT * 
+						FROM T_HMCT_COMMON
+		                WHERE COMMON_TYPE = 'C' 
+				  ) CC
+			WHERE AA.PRODUCT_MATERIAL = BB.COMMON_CODE
+		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE
+	]]>
+	</select>
+</mapper>
+
+

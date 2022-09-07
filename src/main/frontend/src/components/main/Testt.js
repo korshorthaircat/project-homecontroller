@@ -11,7 +11,7 @@ const testt = () => {
         <Row>
             <Col className="cardBox" >
                 <div className="cardImg">
-                <img src='https://www.ikea.com/ext/ingkadam/m/61778d2a4441edd9/original/PH184645-crop001.jpg?f=xs'/>
+                <img src='https://www.ikea.com/ext/ingkadam/m/61778d2a4441edd9/original/PH184645-crop001.jpg?f=xs' alt="사진"/>
                 </div>
 
                <div className='cardText'>

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import ProductCard from './ProductCard';
 import "../../css/carousel.css";
+
+
 
 const responsive = {
   superLargeDesktop: {
@@ -24,102 +26,123 @@ const responsive = {
   }
 };
 
-const stateText = [
-  {
+// const stateText = [
+//   {
     
-    title: "JUSTINA 유스티나",
-    category: "의자",
-    image: "https://www.ikea.com/kr/ko/images/products/odger-swivel-chair-anthracite__0939545_ph171072_s5.jpg?f=s",
-    price: "￦99,900",
-  },
-  {
+//     title: "JUSTINA 유스티나",
+//     category: "의자",
+//     image: "https://www.ikea.com/kr/ko/images/products/odger-swivel-chair-anthracite__0939545_ph171072_s5.jpg?f=s",
+//     price: "￦99,900",
+//   },
+//   {
    
-    title: "JUSTINA 유스티나",
-    category: "테이블",
-    image:
-      "https://www.ikea.com/kr/ko/images/products/odger-swivel-chair-anthracite__0939545_ph171072_s5.jpg?f=s",
-    price: "￦99,900",
+//     title: "JUSTINA 유스티나",
+//     category: "테이블",
+//     image:
+//       "https://www.ikea.com/kr/ko/images/products/odger-swivel-chair-anthracite__0939545_ph171072_s5.jpg?f=s",
+//     price: "￦99,900",
     
-  },
-  {
+//   },
+//   {
     
-    title: "JUSTINA 유스티나",
-    category: "의자",
-    image:
-      "https://www.ikea.com/kr/ko/images/products/karljan-chair-dark-grey-kabusa-dark-grey__1053139_pe846732_s5.jpg?f=s",
-    price: "￦99,900",
+//     title: "JUSTINA 유스티나",
+//     category: "의자",
+//     image:
+//       "https://www.ikea.com/kr/ko/images/products/karljan-chair-dark-grey-kabusa-dark-grey__1053139_pe846732_s5.jpg?f=s",
+//     price: "￦99,900",
    
-  },
-  {
+//   },
+//   {
     
-    title: "JUSTINA 유스티나",
-    category: "테이블",
-    image:
-      "https://www.ikea.com/kr/ko/images/products/karljan-chair-dark-grey-kabusa-dark-grey__1053140_pe846733_s5.jpg?f=s",
-    price: "￦99,900",
+//     title: "JUSTINA 유스티나",
+//     category: "테이블",
+//     image:
+//       "https://www.ikea.com/kr/ko/images/products/karljan-chair-dark-grey-kabusa-dark-grey__1053140_pe846733_s5.jpg?f=s",
+//     price: "￦99,900",
     
-  },
-  {
+//   },
+//   {
     
-    title: "JUSTINA 유스티나",
-    category: "의자",
-    image:
-      "https://www.ikea.com/kr/ko/images/products/justina-chair-pad-grey__0891594_pe658492_s5.jpg?f=s",
-    price: "￦99,900",
+//     title: "JUSTINA 유스티나",
+//     category: "의자",
+//     image:
+//       "https://www.ikea.com/kr/ko/images/products/justina-chair-pad-grey__0891594_pe658492_s5.jpg?f=s",
+//     price: "￦99,900",
     
-  },
-  {
+//   },
+//   {
     
-    title: "JUSTINA 유스티나",
-    category: "테이블",
-    image:
-      "https://www.ikea.com/kr/ko/images/products/justina-chair-pad-grey__0891586_pe566913_s5.jpg?f=s",
-    price: "￦99,900",
+//     title: "JUSTINA 유스티나",
+//     category: "테이블",
+//     image:
+//       "https://www.ikea.com/kr/ko/images/products/justina-chair-pad-grey__0891586_pe566913_s5.jpg?f=s",
+//     price: "￦99,900",
     
-  },
-  {
+//   },
+//   {
     
-    title: "JUSTINA 유스티나",
-    category: "의자",
-    image:
-      "https://www.ikea.com/kr/ko/images/products/justina-chair-pad-grey__0891588_pe567158_s5.jpg?f=s",
-    price: "￦99,900",
+//     title: "JUSTINA 유스티나",
+//     category: "의자",
+//     image:
+//       "https://www.ikea.com/kr/ko/images/products/justina-chair-pad-grey__0891588_pe567158_s5.jpg?f=s",
+//     price: "￦99,900",
     
-  },
+//   },
 
-  {
+//   {
     
-    title: "JUSTINA 유스티나",
-    category: "의자",
-    image:
-      "https://www.ikea.com/kr/ko/images/products/justina-chair-pad-grey__0891588_pe567158_s5.jpg?f=s",
-    price: "￦99,900",
+//     title: "JUSTINA 유스티나",
+//     category: "의자",
+//     image:
+//       "https://www.ikea.com/kr/ko/images/products/justina-chair-pad-grey__0891588_pe567158_s5.jpg?f=s",
+//     price: "￦99,900",
     
-  }
-];
+//   }
+// ];
 
 //
 
+
 const ProductCarousel = () => {
+  let [productList, setProductList] = useState([]);
+
+  
+
+  const getProducts=async()=>{
+    let url = `http://localhost:8080/api/main/getMainProductList`;
+    let response = await fetch(url);
+    let data = await response.json();
+    console.log(data);
+    setProductList(data);
+  };
+
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
-    <div className='carousel_container'>
+   <div className='carousel_container'>
       <Carousel
       responsive={responsive}
       // showDots={true}
       // dotListClass="custom-dot-list-style"
       // containerClass="carousel-container"
       // itemClass="carousel-item-padding-40-px"
-      >
-        {stateText.map((data) => (
+      > 
+      
+        {productList.data? (
+          productList.data.map((a) => (
           <ProductCard
-          image={data.image}
-          category={data.category}
-          title={data.title}
-          price={data.price} />
+          item={a} />)
+          
+          
+        
 
-        ))}
-      </Carousel>
-    </div>
+        )) : (<p>조회된 데이터가 없습니다.</p>)}
+        
+       </Carousel>
+     </div>
   );
 };
 
