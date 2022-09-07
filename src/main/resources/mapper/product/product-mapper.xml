@@ -6,34 +6,38 @@
 	<select id="getMainProductList" resultType="camelHashMap">
 	<![CDATA[
 		SELECT AA.*
-			,  BB.COMMON_CODE_NAME AS PRODUCT_MATERIAL_NAME
-			,  CC.COMMON_CODE_NAME AS PRODUCT_CATEGORY_NAME
-			FROM (
-					SELECT A.*
-						 , B.COMMON_CODE
-		                 , B.PRODUCT_INVENTORY
-						 , C.COMMON_CODE_NAME
-		                 , D.PRODUCT_IMAGE_NAME
-						FROM T_HMCT_PRODUCT A
-						   , T_HMCT_PRODUCT_OPTN B
-						   , T_HMCT_COMMON C
-		                   , T_HMCT_PRODUCT_IMAGE D
-						WHERE A.PRODUCT_NO = B.PRODUCT_NO
-						  AND B.COMMON_CODE = C.COMMON_CODE
-		                  AND A.PRODUCT_NO = B.PRODUCT_NO
-				) AA
-		        , (
-					SELECT * 
-						FROM T_HMCT_COMMON
-		                WHERE COMMON_TYPE = 'B' 
-				  ) BB
-				, (
-					SELECT * 
-						FROM T_HMCT_COMMON
-		                WHERE COMMON_TYPE = 'C' 
-				  ) CC
-			WHERE AA.PRODUCT_MATERIAL = BB.COMMON_CODE
-		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE;
+	,  BB.COMMON_CODE_NAME AS PRODUCT_MATERIAL_NAME
+	,  CC.COMMON_CODE_NAME AS PRODUCT_CATEGORY_NAME
+    , DD.PRODUCT_IMAGE_NAME
+	FROM (
+			SELECT A.*
+				 , B.COMMON_CODE
+                 , B.PRODUCT_INVENTORY
+				 , C.COMMON_CODE_NAME
+				FROM T_HMCT_PRODUCT A
+				   , T_HMCT_PRODUCT_OPTN B
+				   , T_HMCT_COMMON C
+				WHERE A.PRODUCT_NO = B.PRODUCT_NO
+				  AND B.COMMON_CODE = C.COMMON_CODE
+		) AA
+        , (
+			SELECT * 
+				FROM T_HMCT_COMMON
+                WHERE COMMON_TYPE = 'B' 
+		  ) BB
+		, (
+			SELECT * 
+				FROM T_HMCT_COMMON
+                WHERE COMMON_TYPE = 'C' 
+		  ) CC
+		, (
+			SELECT *
+				FROM T_HMCT_PRODUCT_IMAGE 
+				WHERE PRODUCT_IMAGE_NO = '1'
+          ) DD
+	WHERE AA.PRODUCT_MATERIAL = BB.COMMON_CODE
+      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE
+      AND AA.PRODUCT_NO = DD.PRODUCT_NO;
 	]]>
 	</select>
 </mapper>

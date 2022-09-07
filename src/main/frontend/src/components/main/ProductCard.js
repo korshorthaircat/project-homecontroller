@@ -8,13 +8,13 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 
 const ProductCard = ({ item }) => {  
 
-
+console.log(item);
     
    
 
   return (
     <div className="card">
-      <img className="imageArea" src="https://www.ikea.com/ext/ingkadam/m/61778d2a4441edd9/original/PH184645-crop001.jpg?f=xs" alt="사진" />
+      <img className="imageArea" src= {item.productImageName} alt="사진" />
       <div className="textArea">
         <p className="title_text">{item?.productName}</p>
 
