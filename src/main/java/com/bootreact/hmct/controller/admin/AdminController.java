@@ -24,6 +24,9 @@ import com.bootreact.hmct.dto.ProductDTO;
 import com.bootreact.hmct.dto.ProductOptionDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.entity.Product;
+import com.bootreact.hmct.entity.Showroom;
+import com.bootreact.hmct.entity.ShowroomItem;
+import com.bootreact.hmct.entity.ShowroomItemId;
 import com.bootreact.hmct.entity.ProductOption;
 import com.bootreact.hmct.service.product.ProductService;
 
@@ -177,8 +180,9 @@ public class AdminController {
     
     
     //인테리어 쇼룸 등록
-    @PostMapping(value= "/isnertshowroom",consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void insertShowroom(HttpServletRequest request,MultipartHttpServletRequest mphsRequest, @RequestParam Map<String, String> paramMap) throws IOException {
+    @PostMapping(value= "/insertshowroom",consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void insertShowroom(HttpServletRequest request,MultipartHttpServletRequest mphsRequest, ShowroomItem showroomItem,
+    		@RequestParam Map<String, String> paramMap, ShowroomItemId showroomItemId, Showroom showroom) throws IOException {
     	//paramMap 형태
     	/*
     	 * {
@@ -195,7 +199,7 @@ public class AdminController {
     	 * */
 
     	//쇼룸 등록 시작
-    	/*int srNo = productService.insertShowroom(showroom);
+    	int srNo = productService.insertShowroom(showroom);
     	
     	//파일 서버에 업로드 시작
     	List<Showroom> showroomFileList = new ArrayList<Showroom>();
@@ -223,7 +227,7 @@ public class AdminController {
 					Showroom sr = new Showroom();
 					sr.setShowroomNo(srNo);
 					
-					//showroomImage.setShowroomImgName(sr);
+					showroomImage.setShowroomImgName(sr);
 					
 					//고유 파일명 생성 
 					//실제 서버에 저장되는 파일명
@@ -242,7 +246,7 @@ public class AdminController {
 			}
     	}
     	productService.insertShowroomFiles(showroomFileList);
-    	*/
+    	
     }
     
     
