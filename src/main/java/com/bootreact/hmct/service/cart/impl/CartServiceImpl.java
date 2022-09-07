@@ -26,10 +26,10 @@ public class CartServiceImpl implements CartService{
 		return cartRepository.findByUserUserId(userId);
 	}
 	
-	@Override
-	public List<Map<String, Object>> getCartMapList(String userId) {
-		return cartMapper.getCartList(userId);
-	}
+//	@Override
+//	public List<Map<String, Object>> getCartMapList(String userId) {
+//		return cartMapper.getCartList(userId);
+//	}
 
 
 	@Override

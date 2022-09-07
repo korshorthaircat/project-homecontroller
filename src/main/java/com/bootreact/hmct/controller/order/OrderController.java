@@ -97,17 +97,16 @@ public class OrderController {
     	}
     }
     
-//
-//	//주문 생성
-//	ResponseEntity<?> createOrder(Order order, String userId) {
-//		orderService.createDelivery;
+	//주문 생성
+//	public void createOrder(Order order, String userId) {
+//		orderService.createDelivery();
 //		//쿠폰처리하여 할인액을 계산한 뒤, 
-//		orderService.createOrder;
-//		orderService.createOrderItem;
-//		orderService.createPayment;
+//		orderService.createOrder();
+//		orderService.createOrderItem();
+//		orderService.createPayment();
 //		return null;
 //	}
-//
+
 //	//주문취소 요청
 //	ResponseEntity<?> cancelOrder(Order order, String userId) {
 //		orderService.updateOrder(Order order); //orderStatus 필드의 값이 ‘주문취소'로 업데이트됨 

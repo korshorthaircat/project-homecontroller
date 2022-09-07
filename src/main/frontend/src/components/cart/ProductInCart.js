@@ -24,31 +24,19 @@ const ProductInCart = ({
   function reducer(state, action) {
     switch (action.type) {
       case "INCREMENT":
-        getOrderAmount(
-          orderAmount + parseInt(cart.productOption.product.productPrice)
-        );
-
         updateCart(
           cart.productOption.product.productNo,
           cart.productOption.common.commonCode,
-          //parseInt(cart.productCount) + 1
           state + 1
         );
-
         return state + 1;
       case "DECREMENT":
         if (state > 1) {
-          getOrderAmount(
-            orderAmount - parseInt(cart.productOption.product.productPrice)
-          );
-
           updateCart(
             cart.productOption.product.productNo,
             cart.productOption.common.commonCode,
-            //parseInt(cart.productCount) - 1
             state - 1
           );
-
           return state - 1;
         } else {
           return state;

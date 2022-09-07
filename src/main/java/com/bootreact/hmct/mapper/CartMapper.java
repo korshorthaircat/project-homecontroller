@@ -52,21 +52,22 @@ public interface CartMapper {
 	@Insert("INSERT into t_hmct_cart ("
 			+ " common_code, product_no, user_id, product_count"
 			+ " ) VALUE ("
-			+ "\"#{commonCode}\", #{productNo}, \"#{userId}\", 1"
+			+ "#{commonCode}, #{productNo}, #{userId}, 1"
 			+ ")")
 	void addCart(@Param("userId") String userId, 
 				 @Param("productNo") int productNo, 
 				 @Param("commonCode") String commonCode);
 
 	
-	@Update("update t_hmct_cart "
-			+ " set product_count = \"#{productCount}\" "
-			+ " where user_id =\"#{userId}\" "
-			+ " and product_no = #{productNo} "
-			+ " and common_code = \"#{commonCode}\" ")
+	@Update("update t_hmct_cart \n"
+			+ "set product_count = #{productCount} \n"
+			+ "where user_id =#{userId} \n"
+			+ "and product_no = #{productNo}\n"
+			+ "and common_code = #{commonCode};")
 	void updateCart(@Param("userId") String userId, 
 					@Param("productNo") int productNo, 
 					@Param("commonCode") String commonCode, 
 					@Param("productCount") int productCount);
+	
 	
 }
