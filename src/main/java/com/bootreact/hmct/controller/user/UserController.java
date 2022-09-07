@@ -3,6 +3,8 @@ package com.bootreact.hmct.controller.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +20,7 @@ import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.dto.UserDTO;
 import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.jwt.JwtTokenProvider;
+import com.bootreact.hmct.service.user.MailService;
 import com.bootreact.hmct.service.user.UserService;
 
 @RestController //@Controller와 @ResponseBody 두 어노테이션의 조합.
@@ -29,6 +32,9 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	MailService mailService;
 	
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;

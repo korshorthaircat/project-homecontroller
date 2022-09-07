@@ -282,7 +282,7 @@ public class AdminController {
     
     //인테리어 쇼룸 삭제
    
-    };
+    
     
     //상품삭제
     @DeleteMapping("/deleteProduct")
