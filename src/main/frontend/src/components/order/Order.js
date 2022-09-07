@@ -24,12 +24,11 @@ const Order = () => {
   const [cartInfo, setCartInfo] = useState([]);
   const [orderName, setOrderName] = useState("");
 
-  //Cart.js에서 Link를 통해 보낸 state를 이용함? / db에서 Cart 조회
+  //Cart.js에서 Link를 통해 보낸 state를 이용
   const location = useLocation();
   React.useEffect(() => {
     setPayInfo(location.state.obj);
     setCartInfo(location.state.obj.cart);
-    // setOrderName(cartInfo[0].productName);
   }, []);
 
   //우편번호 및 주소 조회(다음 우편번호 검색 서비스 사용)
@@ -66,24 +65,33 @@ const Order = () => {
   //db에서 받아온 장바구니 데이터를 담을 state
   const [cartList, setCartList] = useState([]);
 
-  //db로부터 장바구니의 데이터 받아오기
-  let listUrl = "http://localhost:8080/api/cart/getCartList";
+  let url = "http://localhost:8080/api/cart";
 
+  //db로부터 장바구니의 데이터 받아오기
   const getCartList = () => {
     axios({
       method: "post",
-      url: listUrl,
-      data: { userId: "gogo" },
-      //data: { userId: userId },
+      url: url + "/getCartList",
+      data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
     }).then((response) => {
       console.log(response.data.data);
       setCartList(response.data.data);
     });
   };
 
+  //결제하기 버튼 클릭시 db에 주문 데이터 저장하기
+  const createOrder = () => {
+    axios({
+      // method: "post",
+      // url: url + "/getCartList",
+      data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
+    }).then((response) => {
+      // console.log(response.data.data);
+      // setCartList(response.data.data);
+    });
+  };
+
   useEffect(() => {
-    // setLoginUser(JSON.parse(sessionStorage.getItem("USER_INFO")));
-    // setUserId(loginUser.userId);
     getCartList();
   }, []);
 
@@ -199,7 +207,7 @@ const Order = () => {
             </Grid>
           </Grid>
 
-          <Grid className="paymentMethod">
+          <Grid className="paymentMethod" marginTop={"50px"}>
             <Typography variant="h4">
               <LooksTwoOutlinedIcon />
               결제 수단 선택
@@ -221,13 +229,12 @@ const Order = () => {
                     value="disabled"
                     disabled
                     control={<Radio />}
-                    label="무통장입금"
+                    label="계좌이체"
                   />
                   <FormControlLabel
-                    value="disabled"
-                    disabled
+                    value="무통장입금"
                     control={<Radio />}
-                    label="계좌이체"
+                    label="무통장입금"
                   />
                   <FormControlLabel
                     value="카카오페이"
@@ -244,7 +251,7 @@ const Order = () => {
               </FormControl>
             </Grid>
           </Grid>
-          <Grid className="orderReview">
+          <Grid className="orderReview" marginTop={"50px"}>
             <Typography variant="h4">
               <Looks3OutlinedIcon />
               주문 확인
@@ -260,7 +267,7 @@ const Order = () => {
           ))}
         </Grid>
 
-        <Grid className="orderReview">
+        <Grid className="orderConfirm">
           <Paper
             elevation={24}
             sx={{
@@ -271,8 +278,11 @@ const Order = () => {
               backgroundColor: "#F0F0F0",
             }}
           >
+            <Typography>주문자: {payInfo.userId}</Typography>
+            <Typography>주문번호: {payInfo.orderNo}</Typography>
+            <Typography>결제금액: {payInfo.paymentAmount}</Typography>
+
             <Grid>
-              결제하기
               <Link
                 to={"/kakaopayReady"}
                 state={{
