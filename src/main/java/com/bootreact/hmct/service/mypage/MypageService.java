@@ -1,5 +1,6 @@
 package com.bootreact.hmct.service.mypage;
 
-public interface MypageService {
 
+public interface MypageService {
+	
 }

@@ -119,7 +119,7 @@ function UserUpdate() {
       },
       data: inputs, // 화면 input 항목에 대한 정보
     }).then((response) => {
-      console.log(response); // 결과
+      window.location.href = "/userupdate";
     });
   };
 
@@ -143,10 +143,10 @@ function UserUpdate() {
   
     return confirmAction;
   };
-  const deleteConfirm = () => console.log("삭제했습니다.");
+  const deleteConfirm = () => console.log("탈퇴 처리가 완료되었습니다.");
   const cancelConfirm = () => console.log("취소했습니다.");
   const confirmDelete = useConfirm(
-    "삭제하시겠습니까?",
+    "탈퇴하시겠습니까?",
     deleteConfirm,
     cancelConfirm
   );
@@ -227,7 +227,7 @@ function UserUpdate() {
             </Box>
           </Modal>
           <div className="outBtn">
-          <button className="outButton" onClick={updateUserInfo}>멤버십 탈퇴하기</button>
+          <button className="outButton" onClick={updateUserInfo}>정보 수정하기</button>
           </div>
           </div>
           </div>
