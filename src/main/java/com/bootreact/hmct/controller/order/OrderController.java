@@ -2,16 +2,20 @@ package com.bootreact.hmct.controller.order;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootreact.hmct.dto.OrderDTO;
 import com.bootreact.hmct.dto.OrderDetailDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
+import com.bootreact.hmct.entity.Cart;
 import com.bootreact.hmct.entity.Delivery;
 import com.bootreact.hmct.entity.Order;
 import com.bootreact.hmct.entity.OrderItem;
@@ -97,15 +101,34 @@ public class OrderController {
     	}
     }
     
+
+	
 	//주문 생성
-//	public void createOrder(Order order, String userId) {
-//		orderService.createDelivery();
-//		//쿠폰처리하여 할인액을 계산한 뒤, 
-//		orderService.createOrder();
-//		orderService.createOrderItem();
-//		orderService.createPayment();
-//		return null;
-//	}
+	@PostMapping("/createOrder")
+	public void createOrder(@RequestBody Map<String, String> paramMap) {
+		try {
+			System.out.println(paramMap.get("userId"));
+			System.out.println(paramMap.get("productNo"));
+			System.out.println(paramMap.get("commonCode"));
+			
+//			//Order 테이블에 주문 정보 인서트
+//			//orderNo, orderDate는 자동생성
+//			orderService.addOrder(paramMap.get("userId"),
+//								  paramMap.get("orderAmount"), 
+//								  paramMap.get("orderDiscount"),
+//								  paramMap.get("orderFee"));
+//			//OrderItem 테이블에 주문아이템 정보 인서트
+//			orderService.addOrderItem();
+//			//Dlvy 테이블에 배송정보 인서트
+//			orderService.addDelibery();
+//			//Pmt 테이블에 결제정보 인서트
+//			orderService.addPayment();
+		
+
+    	}catch(Exception e){
+    		System.out.println(e.getMessage());
+    	}
+	}
 
 //	//주문취소 요청
 //	ResponseEntity<?> cancelOrder(Order order, String userId) {

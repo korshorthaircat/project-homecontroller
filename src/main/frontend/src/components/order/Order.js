@@ -19,14 +19,14 @@ import Paper from "@mui/material/Paper";
 import axios from "axios";
 
 const Order = () => {
-  //결제정보 - KakaoPayReady.js에 전달해야 할 스테이트
-  const [payInfo, setPayInfo] = useState({});
-  const [cartInfo, setCartInfo] = useState([]);
+  const [payInfo, setPayInfo] = useState({}); //결제정보 - KakaoPayReady.js에 전달해야 할 스테이트
   const [orderName, setOrderName] = useState("");
+  const [cartInfo, setCartInfo] = useState([]);
 
   //Cart.js에서 Link를 통해 보낸 state를 이용
   const location = useLocation();
   React.useEffect(() => {
+    console.log(location.state.obj);
     setPayInfo(location.state.obj);
     setCartInfo(location.state.obj.cart);
   }, []);
@@ -82,9 +82,19 @@ const Order = () => {
   //결제하기 버튼 클릭시 db에 주문 데이터 저장하기
   const createOrder = () => {
     axios({
-      // method: "post",
-      // url: url + "/getCartList",
-      data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
+      method: "post",
+      url: url + "/createOrder",
+      data: {
+        userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId,
+        orderAmount: payInfo.orderAmount,
+        orderDiscount:
+          parseInt(payInfo.orderAmount) - parseInt(payInfo.paymentAmount),
+        orderFee: 5000,
+        paymentAmount: payInfo.paymentAmount,
+        paymentMean: "카카오페이",
+        dlvyInfo: {},
+        orderItem: [],
+      },
     }).then((response) => {
       // console.log(response.data.data);
       // setCartList(response.data.data);
@@ -258,8 +268,11 @@ const Order = () => {
             </Typography>
             <Typography>주문자: {payInfo.userId}</Typography>
             <Typography>주문번호: {payInfo.orderNo}</Typography>
-            {/* <Typography>주문금액: {payInfo.orderAmount}</Typography> */}
-            <Typography>결제금액: {payInfo.paymentAmount}</Typography>
+            <Typography>주문 금액(+): {payInfo.orderAmount}</Typography>
+            <Typography>
+              할인 금액(-):{" "}
+              {parseInt(payInfo.orderAmount) - parseInt(payInfo.paymentAmount)}
+            </Typography>
           </Grid>
 
           {cartList.map((cart) => (
@@ -278,10 +291,16 @@ const Order = () => {
               backgroundColor: "#F0F0F0",
             }}
           >
-            <Typography>주문자: {payInfo.userId}</Typography>
-            <Typography>주문번호: {payInfo.orderNo}</Typography>
-            <Typography>결제금액: {payInfo.paymentAmount}</Typography>
-
+            <Typography>주문 금액(+): ₩ {payInfo.orderAmount}</Typography>
+            <Typography>
+              할인 금액(-): ₩{" "}
+              {parseInt(payInfo.orderAmount) - parseInt(payInfo.paymentAmount)}
+            </Typography>
+            <Typography>배송료(+): ₩ 5000</Typography>
+            <Typography>
+              총 결제 금액(주문금액 - 할인금액 + 배송료): ₩{" "}
+              {parseInt(payInfo.paymentAmount + 5000)}
+            </Typography>
             <Grid>
               <Link
                 to={"/kakaopayReady"}
@@ -290,7 +309,7 @@ const Order = () => {
                     orderNo: payInfo.orderNo,
                     userId: payInfo.userId,
                     itemName: orderName,
-                    paymentAmount: payInfo.paymentAmount,
+                    paymentAmount: parseInt(payInfo.paymentAmount + 5000),
                   },
                 }}
               >
