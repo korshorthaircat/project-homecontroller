@@ -8,9 +8,11 @@ import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import ColorChip from "./ColorChip";
-import MaterialChip from "./MaterialChip";
-import PriceChip from "./PriceChip";
+
+//import ColorChip from "./ColorChip";
+//import MaterialChip from "./MaterialChip";
+//import PriceChip from "./PriceChip";
+
 
 const responsive = {
   superLargeDesktop: {
@@ -80,9 +82,9 @@ const ProductCategoryList = () => {
         <AppBar position="static">
           <Toolbar sx={{ backgroundColor: "lightgray" }}>
             <Button color="inherit">필터</Button>
-            <ColorChip></ColorChip>
+            {/* <ColorChip></ColorChip>
             <MaterialChip></MaterialChip>
-            <PriceChip></PriceChip>
+            <PriceChip></PriceChip> */}
           </Toolbar>
         </AppBar>
       </Box>

@@ -30,4 +30,20 @@ public class CartServiceImpl implements CartService{
 	public List<Map<String, Object>> getCartMapList(String userId) {
 		return cartMapper.getCartList(userId);
 	}
+
+
+	@Override
+	public void deleteCart(String userId, String productNo, String commonCode) {
+		cartMapper.deleteCart(userId, Integer.parseInt(productNo), commonCode);		
+	}
+
+	@Override
+	public void addCart(String userId, String productNo, String commonCode) {
+		cartMapper.addCart(userId, Integer.parseInt(productNo), commonCode);	
+	}
+
+	@Override
+	public void updateCart(String userId, String productNo, String commonCode, String productCount) {
+		cartMapper.updateCart(userId, Integer.parseInt(productNo), commonCode, Integer.parseInt(productCount));
+	}
 }

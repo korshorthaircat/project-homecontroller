@@ -15,6 +15,7 @@ import {
 import { join } from "../../service/ApiService";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import axios from "axios";
+import { margin } from "@mui/system";
 
 function UserUpdate() {
   // 화면 input 항목들 상태 관리 시작
@@ -122,6 +123,34 @@ function UserUpdate() {
     });
   };
 
+
+  //회원탈퇴버튼 클릭시 재확인하는 부분
+  const useConfirm = (message = null, onConfirm, onCancel) => {
+    if (!onConfirm || typeof onConfirm !== "function") {
+      return;
+    }
+    if (onCancel && typeof onCancel !== "function") {
+      return;
+    }
+  
+    const confirmAction = () => {
+      if (window.confirm(message)) {
+        onConfirm();
+      } else {
+        onCancel();
+      }
+    };
+  
+    return confirmAction;
+  };
+  const deleteConfirm = () => console.log("삭제했습니다.");
+  const cancelConfirm = () => console.log("취소했습니다.");
+  const confirmDelete = useConfirm(
+    "삭제하시겠습니까?",
+    deleteConfirm,
+    cancelConfirm
+  );
+
   return (
     <div className="container">
       <div className="bloc-tabs">
@@ -137,6 +166,14 @@ function UserUpdate() {
       {/* CONTENT 부분 */}
       <div className="content-tabs">
         <div className={toggleState === 1 ? "content active-content" : "content"} >
+
+        <div  className="outCard">
+          <div class="card text-center">
+            <div class="card-header">
+              <h5 class="card-title">{inputs.userNickname} 님의 회원정보는 아래와 같습니다. </h5>
+            </div>
+            <div class="card-body"></div>
+
           <div className="updateInput">    
             <div className="input-group mb-3">
               <span className="input-group-text" id="basic-addon1">ID</span>
@@ -189,14 +226,41 @@ function UserUpdate() {
               </p>
             </Box>
           </Modal>
-
-          <Button type="button" variant="contained" color="success" onClick={updateUserInfo}>수정</Button>
-        </div>
+          <div className="outBtn">
+          <button className="outButton" onClick={updateUserInfo}>멤버십 탈퇴하기</button>
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
 
         <div className={toggleState === 2 ? "content active-content" : "content"} >
+          <div  className="outCard">
+          <div class="card text-center">
+            <div class="card-header">
+              <h5 class="card-title">HomeController 멤버십을 탈퇴하면 {inputs.userNickname} 님께 발행된 할인 쿠폰과 적립된 포인트를 모두 사용할 수 없게 됩니다.</h5>
+            </div>
+            <div class="card-body">
+              
+              
+              <div className="pointPart">
+              <h5>{inputs.userNickname} 님의 현재까지 누적 포인트 : {inputs.userPoint} POINT</h5>
+              <h5>지금 바로 사용 가능한 쿠폰</h5>
+              <img src="https://i.pinimg.com/564x/84/ab/ab/84abab661b1bab887559f001d80bc1f5.jpg"></img>
+              </div>
+              
+              <div className="outBtn">
+              <button className="outButton" onClick={confirmDelete}>멤버십 탈퇴하기</button>
+              </div>
+            </div>
+            <div class="card-footer text-muted">
+              HomeController 이용에 관한 불편함이나 건의사항이 있으시다면 문의 게시판에 언제든지 작성해주세요.  
+            </div>
         </div>
-      </div>
-    </div>
+        </div>
+        </div>
+        </div>
+      
   );
 }
 

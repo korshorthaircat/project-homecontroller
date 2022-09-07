@@ -1,0 +1,47 @@
+.wishCard {
+    margin: 0 auto;
+}
+
+
+/* .wishBtnWhite {
+    width: 100px;
+    margin-left: 10px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    font-weight: bold;
+} */
+
+.wishBtnBlack {
+    width: 70px;
+    height: 30px;
+    margin-left: 10px;
+    margin-right: 50px;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    font-weight: bold;
+}
+
+img {
+    height: 400px;
+}
+
+.wish {
+    /* padding: 20px; */
+    max-width: 1300px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+h2 {
+    padding: 40px;
+    font-weight: bold;
+}
+
+.cartButton {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0);
+    /* margin-left: 30px; */
+}

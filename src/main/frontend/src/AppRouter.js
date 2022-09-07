@@ -10,6 +10,7 @@ import Dashboard from "./components/admin/Dashboard";
 import Mypage from "./components/mypage/Mypage";
 import UserUpdate from "./components/mypage/UserUpdate";
 import ReviewList from "./components/mypage/ReviewList";
+import WishList from "./components/mypage/WishList";
 import OrderList from "./components/mypage/OrderList";
 import ImageThumb from "./components/productDetail/ImageThumb";
 import ProductMainInfo from "./components/productDetail/ProductMainInfo";
@@ -27,6 +28,7 @@ import AdminOrderDetail from "./components/admin/AdminOrderDetail";
 import ProductUpdate from "./components/admin/ProductUpdate";
 import ProductCategoryList from "./components/list/ProductCategoryList";
 import FixedBar from "./components/list/FixedBar";
+import ShowroomAdd from "./components/admin/ShowroomAdd";
 
 function Copyright() {
   return (
@@ -52,6 +54,7 @@ const AppRouter = () => {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/userupdate" element={<UserUpdate />} />
           <Route path="/reviewlist" element={<ReviewList />} />
+          <Route path="/wishlist" element={<WishList />} />
           <Route path="/orderlist" element={<OrderList />} />
           <Route path="/order" element={<Order />} />
           <Route path="/admin" element={<Dashboard />} />
@@ -60,7 +63,7 @@ const AppRouter = () => {
           <Route path="/admin3" element={<ProductUpdate />} />
 
           <Route path="/admin3/{productNo}" element={<ProductUpdate />} />
-          
+
           <Route path="/UserManage" element={<UserManage />} />
           <Route path="/OrderManage" element={<OrderManage />} />
           <Route path="/AdminOrderDetail" element={<AdminOrderDetail />} />
@@ -71,6 +74,7 @@ const AppRouter = () => {
           <Route path="/kakaopayReady" element={<KakaoPayReady />} />
           <Route path="/kakaopayResult" element={<KakaoPayResult />} />
           <Route path="/bartest" element={<FixedBar />} />
+          <Route path="/showroomAdmin1" element={<ShowroomAdd />} />
         </Routes>
       </BrowserRouter>
       <Footer />

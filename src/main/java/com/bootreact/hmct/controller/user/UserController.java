@@ -30,10 +30,17 @@ import com.bootreact.hmct.service.user.UserService;
 @RequestMapping("/api/user")
 public class UserController {
 	
-	@Autowired UserService userService;
-	@Autowired MailService mailService;
-	@Autowired private JwtTokenProvider jwtTokenProvider;
-	@Autowired private PasswordEncoder passwordEncoder;
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	MailService mailService;
+	
+	@Autowired
+	private JwtTokenProvider jwtTokenProvider;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	//회원 등록  (회원가입)
 	@PostMapping("/join")
@@ -70,7 +77,7 @@ public class UserController {
 		}
 	}
 	
-	//회원정보 리스트 조회  
+	//회원 정보 리스트 조회  
     @GetMapping("/getUserList")
     public ResponseEntity<?> getUserList(){
     	try {
@@ -111,7 +118,7 @@ public class UserController {
     	}
     };
     
-    //회원정보 조회
+    //회원 정보 조회(마이페이지)
     @PostMapping("/getUser")
     public ResponseEntity<?> getUser(@RequestBody User user) {
     	try {
@@ -123,6 +130,7 @@ public class UserController {
     		ResponseDTO<User> response = new ResponseDTO<>(); 
     		response.setData(userList);
     		return ResponseEntity.ok().body(response);
+    		
     	}catch(Exception e){
     		System.out.println(e.getMessage());
     		ResponseDTO<User> response = new ResponseDTO<>();
@@ -130,8 +138,8 @@ public class UserController {
     		return ResponseEntity.badRequest().body(response);		
     	}
     }
-    
-    //회원정보 삭제  
+   
+    //회원 삭제  
     @DeleteMapping("/deleteUser")
     public ResponseEntity<?> deleteUser(@RequestBody User user){
     	try {
@@ -172,6 +180,7 @@ public class UserController {
     		return ResponseEntity.badRequest().body(response);		
     	}
     };
+    
     
     //회원정보 수정
     @PutMapping("/updateUser")
@@ -216,7 +225,13 @@ public class UserController {
     		return ResponseEntity.badRequest().body(response);		
     	}
     };
-
+	
+//	//휴대전화 인증
+//	void validateTel() {}
+//
+//	//이메일 인증
+//	void validateEmail() {}
+//
 	//아이디 중복체크
 	@PostMapping("/checkId")
 	public ResponseEntity<?> checkId(@RequestBody User user) {
@@ -250,17 +265,7 @@ public class UserController {
 		System.out.println("confirm: {}" + confirm);
 
 		return ResponseEntity.ok().body(confirm);
-	}
-	
-//	//휴대전화 인증
-//	void validateTel() {}
-//
-//	//아이디 찾기
-//	void findById() {}
-//
-//	//비번 찾기
-//	void findByPassword() {}
-//
+}
 	
 	//로그인
 	@PostMapping("/login")
@@ -294,6 +299,7 @@ public class UserController {
 			return ResponseEntity.badRequest().body(response);
 		}
 	}
+
 
 //	//로그아웃
 //	void logout() {}

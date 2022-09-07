@@ -37,7 +37,7 @@ public class ProductController {
 	
 	//제품등록하기
 	@PostMapping(value = "/insertProduct", consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
-	public void product(MultipartHttpServletRequest mphsRequest, Product product, 
+	public void insertProduct(MultipartHttpServletRequest mphsRequest, Product product, 
 			HttpServletRequest request, ProductOption productOption, Common common) throws IllegalStateException, IOException {
 		/*상품정보 등록 시작*/
 		int prNo = productService.insertProduct(product);

@@ -1,16 +1,9 @@
 import React, { useReducer, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import Stack from "@mui/material/Stack";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import { useScrollTrigger } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
@@ -21,6 +14,8 @@ const ProductInCart = ({
   paymentAmount,
   getPaymentAmount,
   coupon,
+  deleteCart,
+  updateCart,
 }) => {
   //제품 수량관리를 위해 useReducer 사용
   const [number, dispatch] = useReducer(reducer, parseInt(cart.productCount));
@@ -32,12 +27,28 @@ const ProductInCart = ({
         getOrderAmount(
           orderAmount + parseInt(cart.productOption.product.productPrice)
         );
+
+        updateCart(
+          cart.productOption.product.productNo,
+          cart.productOption.common.commonCode,
+          //parseInt(cart.productCount) + 1
+          state + 1
+        );
+
         return state + 1;
       case "DECREMENT":
         if (state > 1) {
           getOrderAmount(
             orderAmount - parseInt(cart.productOption.product.productPrice)
           );
+
+          updateCart(
+            cart.productOption.product.productNo,
+            cart.productOption.common.commonCode,
+            //parseInt(cart.productCount) - 1
+            state - 1
+          );
+
           return state - 1;
         } else {
           return state;
@@ -116,9 +127,18 @@ const ProductInCart = ({
               </Typography>
             </Grid>
             <Grid item>
-              <Typography sx={{ cursor: "pointer" }} variant="body2">
-                삭제하기
-              </Typography>
+              <div
+                onClick={() =>
+                  deleteCart(
+                    cart.productOption.product.productNo,
+                    cart.productOption.common.commonCode
+                  )
+                }
+              >
+                <Typography sx={{ cursor: "pointer" }} variant="body2">
+                  삭제하기
+                </Typography>
+              </div>
             </Grid>
           </Grid>
           <Grid item>

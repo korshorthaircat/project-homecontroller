@@ -95,6 +95,8 @@ const style = {
   padding: 0,
 };
 
+
+
 export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -132,6 +134,27 @@ export default function EnhancedTable() {
   React.useEffect(() => {
     list();
   }, []);
+
+
+  const useConfirm = (message = null, onConfirm, onCancel) => {
+    if (!onConfirm || typeof onConfirm !== "function") {
+      return;
+    }
+  
+    const confirmAction = () => {
+      if (window.confirm(message)) {
+        onConfirm();
+      } 
+    };
+  
+    return confirmAction;
+  };
+  const deleteConfirm = () => console.log("삭제했습니다.");
+  const confirmDelete = useConfirm(
+    "삭제하시겠습니까?",
+    deleteConfirm,
+  );
+
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -221,19 +244,12 @@ export default function EnhancedTable() {
                           <TableCell align="center" sx={{ padding: "0px" }}>
                             {}
                           </TableCell>
+
                           <TableCell align="center" sx={{ padding: "0px" }}>
                             {/* {productList.map((productInfo) => ( */}
 
-                            <Link
-                              to={"/admin3"}
-                              state={{
-                                obj: {
-                                  data: r.productNo,
-                                },
-                              }}
-                              type="submit"
+                            <Button
                               sx={{
-                                marginTop: "20px",
                                 border: "1px solid lightgray",
                                 backgroundColor: "#fff",
                                 borderRadius: "5px",
@@ -241,21 +257,32 @@ export default function EnhancedTable() {
                                 height: "45px",
                                 alignItems: "center",
                               }}
-                              value="update"
                             >
-                              {" "}
-                              <img
-                                className="AdminEdit"
-                                src="images/edit.png"
-                              />
-                              수정
-                            </Link>
+                              <Link
+                                to={"/admin3"}
+                                state={{
+                                  obj: {
+                                    data: r.productNo,
+                                  },
+                                }}
+                                value="update"
+                              >
+                                {" "}
+                                <img
+                                  className="AdminEdit"
+                                  src="images/edit.png"
+                                />
+                                수정
+                              </Link>
+                            </Button>
 
                             {/* ))} */}
                           </TableCell>
                           <TableCell align="center" sx={{ padding: "0px" }}>
                             <Button
-                              onClick={() => handleUpdate(index)}
+                              onClick={() => {
+                                handleUpdate(index);
+                                confirmDelete();}}
                               id={`Btn${index}`}
                               sx={{
                                 border: "1px solid lightgray",
@@ -269,6 +296,7 @@ export default function EnhancedTable() {
                               <img
                                 className="AdminEdit"
                                 src="images/edit.png"
+                                
                               />
                               삭제
                             </Button>
@@ -276,7 +304,9 @@ export default function EnhancedTable() {
                         </TableRow>
                       ))
                     ) : (
-                      <TableRow>조회된 데이터가 없습니다.</TableRow>
+                      <TableRow>
+                        <TableCell>조회된 데이터가 없습니다.</TableCell>
+                      </TableRow>
                     )}
                   </TableBody>
                 </Table>

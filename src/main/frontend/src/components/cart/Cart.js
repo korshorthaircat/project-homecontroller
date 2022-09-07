@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import ProductInCart from "./ProductInCart";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -12,36 +12,57 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Cart = () => {
-  //로그인한 사용자의 아이디로 액시오스 조회 요청 보내야 함
-  const [loginUser, setLoginUser] = useState();
-  const [userId, setUserId] = useState("");
-
-  // useEffect(() => {
-  //   setLoginUser(JSON.parse(sessionStorage.getItem("USER_INFO")));
-  //   setUserId(loginUser.userId);
-  // }, []);
-
   //db에서 받아온 장바구니 데이터를 담을 state
   const [cartList, setCartList] = useState([]);
 
-  //db로부터 장바구니의 데이터 받아오기
-  let listUrl = "http://localhost:8080/api/cart/getCartList";
+  let url = "http://localhost:8080/api/cart";
 
+  //db로부터 장바구니의 데이터 받아오기
   const getCartList = () => {
     axios({
       method: "post",
-      url: listUrl,
-      data: { userId: "gogo" },
-      //data: { userId: userId },
+      url: url + "/getCartList",
+      data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
     }).then((response) => {
       console.log(response.data.data);
       setCartList(response.data.data);
     });
   };
 
+  //장바구니 아이템 삭제 후 db로부터 장바구니의 데이터 받아오기
+  const deleteCart = useCallback((productNo, commonCode) => {
+    axios({
+      method: "delete",
+      url: url + "/deleteCart",
+      data: {
+        userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId,
+        productNo: productNo,
+        commonCode: commonCode,
+      },
+    }).then((response) => {
+      //console.log(response.data.data);
+      setCartList(response.data.data);
+    });
+  }, []);
+
+  //장바구니 아이템 수정(수량 수정) 후 db로부터 장바구니의 데이터 받아오기
+  const updateCart = useCallback((productNo, commonCode, productCount) => {
+    axios({
+      method: "put",
+      url: url + "/updateCart",
+      data: {
+        userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId,
+        productNo: productNo,
+        commonCode: commonCode,
+        productCount: productCount,
+      },
+    }).then((response) => {
+      //console.log(response.data.data);
+      setCartList(response.data.data);
+    });
+  }, []);
+
   useEffect(() => {
-    // setLoginUser(JSON.parse(sessionStorage.getItem("USER_INFO")));
-    // setUserId(loginUser.userId);
     getCartList();
   }, []);
 
@@ -106,6 +127,8 @@ const Cart = () => {
               paymentAmount={paymentAmount}
               getPaymentAmount={getPaymentAmount}
               coupon={coupon}
+              deleteCart={deleteCart}
+              updateCart={updateCart}
             ></ProductInCart>
           ))}
         </Grid>
