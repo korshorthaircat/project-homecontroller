@@ -11,12 +11,16 @@
 			FROM (
 					SELECT A.*
 						 , B.COMMON_CODE
+		                 , B.PRODUCT_INVENTORY
 						 , C.COMMON_CODE_NAME
+		                 , D.PRODUCT_IMAGE_NAME
 						FROM T_HMCT_PRODUCT A
 						   , T_HMCT_PRODUCT_OPTN B
 						   , T_HMCT_COMMON C
+		                   , T_HMCT_PRODUCT_IMAGE D
 						WHERE A.PRODUCT_NO = B.PRODUCT_NO
 						  AND B.COMMON_CODE = C.COMMON_CODE
+		                  AND A.PRODUCT_NO = B.PRODUCT_NO
 				) AA
 		        , (
 					SELECT * 
@@ -29,7 +33,7 @@
 		                WHERE COMMON_TYPE = 'C' 
 				  ) CC
 			WHERE AA.PRODUCT_MATERIAL = BB.COMMON_CODE
-		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE
+		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE;
 	]]>
 	</select>
 </mapper>

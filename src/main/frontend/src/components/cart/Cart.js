@@ -80,7 +80,7 @@ const Cart = () => {
   //주문금액
   const [orderAmount, setOrderAmount] = useState(0);
 
-  //결제금액
+  //주문금액 - 할인금액
   const [paymentAmount, setPaymentAmount] = useState(0);
 
   //쿠폰 선택
@@ -89,8 +89,8 @@ const Cart = () => {
     setCoupon(event.target.value);
   };
 
-  //초기 주문금액
-  let initialAmount = 0;
+  // //초기 주문금액
+  // let initialAmount = 0;
 
   //주문금액 가져오기
   const getOrderAmount = (amount) => {
@@ -100,11 +100,6 @@ const Cart = () => {
   //결제금액 가져오기
   const getPaymentAmount = (payment) => {
     setPaymentAmount(payment);
-  };
-
-  //주문하기 버튼 클릭시 실행될 함수
-  const onClickHandler = () => {
-    window.location.href = "/order";
   };
 
   return (
@@ -173,7 +168,7 @@ const Cart = () => {
                 </FormControl>
               </Grid>
               <Grid sx={{ paddingBottom: "20px" }}>
-                <Typography variant="h4">총 결제금액</Typography>
+                <Typography variant="h4">주문금액 - 할인금액</Typography>
                 <Typography>₩ {paymentAmount}</Typography>
               </Grid>
               <Grid>
@@ -182,7 +177,9 @@ const Cart = () => {
                   state={{
                     obj: {
                       orderNo: 1,
-                      userId: "gogo",
+                      userId: JSON.parse(sessionStorage.getItem("USER_INFO"))
+                        .userId,
+                      orderAmount: orderAmount,
                       paymentAmount: paymentAmount,
                       cart: cartList,
                     },

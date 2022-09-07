@@ -40,30 +40,30 @@ function ProductAdd() {
   };
 
   //제품 사이즈
-  const psize = [
-    {
-      value: "단일",
-      label: "단일",
-    },
-    {
-      value: "S",
-      label: "S",
-    },
-    {
-      value: "M",
-      label: "M",
-    },
-    {
-      value: "L",
-      label: "L",
-    },
-  ];
+  // const psize = [
+  //   {
+  //     value: "단일",
+  //     label: "단일",
+  //   },
+  //   {
+  //     value: "S",
+  //     label: "S",
+  //   },
+  //   {
+  //     value: "M",
+  //     label: "M",
+  //   },
+  //   {
+  //     value: "L",
+  //     label: "L",
+  //   },
+  // ];
 
-  const [ProductSize, setProductSize] = React.useState("단일");
+  // const [ProductSize, setProductSize] = React.useState("단일");
 
-  const handleSizeChange = (event) => {
-    setProductSize(event.target.value);
-  };
+  // const handleSizeChange = (event) => {
+  //   setProductSize(event.target.value);
+  // };
 
   //이미지 업로드
   const onChangeImg = (e) => {
@@ -230,6 +230,11 @@ function ProductAdd() {
                   ))}
                 </TextField>
                 <TextField
+                  id="outlined-required"
+                  name="productSize"
+                  label="제품사이즈"
+                />
+                {/* <TextField
                   id="outlined-select-size-native"
                   select
                   name="productSize"
@@ -246,8 +251,8 @@ function ProductAdd() {
                       {option.label}
                     </option>
                   ))}
-                </TextField>
-                <TextField
+                </TextField> */}
+                {/* <TextField
                   id="date"
                   label="제품등록일"
                   name=""
@@ -268,7 +273,7 @@ function ProductAdd() {
                   InputLabelProps={{
                     shrink: true,
                   }}
-                />
+                /> */}
                 <TextField
                   label="제품 가격"
                   name="productPrice"

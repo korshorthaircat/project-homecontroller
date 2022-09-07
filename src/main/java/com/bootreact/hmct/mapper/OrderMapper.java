@@ -15,4 +15,5 @@ public interface OrderMapper {
 	Map<String, Object> viewOrder(int orderNo);
 	
 	List<Map<String, Object>> getOrderItemList(int orderNo);
+
 }
