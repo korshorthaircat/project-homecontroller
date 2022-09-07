@@ -109,7 +109,7 @@ const ProductCarousel = () => {
   
 
   const getProducts=async()=>{
-    let url = `http://localhost:8080/api/main/getProductList`;
+    let url = `http://localhost:8080/api/main/getMainProductList`;
     let response = await fetch(url);
     let data = await response.json();
     console.log(data);

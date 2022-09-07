@@ -1,6 +1,7 @@
 package com.bootreact.hmct.service.product.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,44 +62,49 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findAll();
 	}
 
-@Override
-public void updateProduct(Product product) {
-	productRepository.save(product);
+	@Override
+	public void updateProduct(Product product) {
+		productRepository.save(product);
+		
+	}
 	
-}
-
-@Override
-public Product findbyProductNo (int productNo) {
-	return productRepository.findByProductNo(productNo);
-}
-
-
-@Override
-public List<Showroom> getShowroomList() {
-	return showroomRepository.findAll();
-}
-
-//쇼룸 등록
-@Override
-public Showroom findbyShowroomNo(int showroomNo) {
-	return showroomRepository.findByShowroomNo(showroomNo);
-}
-
-@Override
-public int insertShowroom(Showroom showroom) {
-	// TODO Auto-generated method stub
-	return 0;
-}
-
-@Override
-public void insertShowroomFiles(List<Showroom> showroomFileList) {
-	// TODO Auto-generated method stub
+	@Override
+	public Product findbyProductNo (int productNo) {
+		return productRepository.findByProductNo(productNo);
+	}
 	
-}
-
-@Override
-public void deleteProduct(Product product) {
-	productRepository.delete(product);
 	
-}
+	@Override
+	public List<Showroom> getShowroomList() {
+		return showroomRepository.findAll();
+	}
+	
+	//쇼룸 등록
+	@Override
+	public Showroom findbyShowroomNo(int showroomNo) {
+		return showroomRepository.findByShowroomNo(showroomNo);
+	}
+	
+	@Override
+	public int insertShowroom(Showroom showroom) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public void insertShowroomFiles(List<Showroom> showroomFileList) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void deleteProduct(Product product) {
+		productRepository.delete(product);
+		
+	}
+	
+	@Override
+	public List<Map<String, Object>> getMainProductList() {		
+		return productMapper.getMainProductList();
+	}
 }

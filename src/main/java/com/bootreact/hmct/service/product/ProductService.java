@@ -1,6 +1,7 @@
 package com.bootreact.hmct.service.product;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,8 @@ public interface ProductService {
 	Showroom findbyShowroomNo (int showroomNo);
 
 	void deleteProduct(Product product);
-
+	
+	List<Map<String, Object>> getMainProductList();
 }
 
 
