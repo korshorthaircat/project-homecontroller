@@ -11,6 +11,7 @@ import Toolbar from "@mui/material/Toolbar";
 import ColorChip from "./ColorChip";
 import MaterialChip from "./MaterialChip";
 import PriceChip from "./PriceChip";
+import Categoryinfo from "./Categoryinfo";
 
 const responsive = {
   superLargeDesktop: {
@@ -35,30 +36,30 @@ const responsive = {
 const stateText = [
   {
     title: "JUSTINA 유스티나",
+    category: "의자",
+    image:
+      "https://www.ikea.com/kr/ko/images/products/odger-swivel-chair-anthracite__0939545_ph171072_s5.jpg?f=s",
+    price: "￦99,900",
+  },
+  {
+    title: "JUSTINA 유스티나",
+    category: "테이블",
+    image:
+      "https://www.ikea.com/kr/ko/images/products/odger-swivel-chair-anthracite__0939545_ph171072_s5.jpg?f=s",
+    price: "￦99,900",
+  },
+  {
+    title: "JUSTINA 유스티나",
+    category: "의자",
+    image:
+      "https://www.ikea.com/kr/ko/images/products/karljan-chair-dark-grey-kabusa-dark-grey__1053139_pe846732_s5.jpg?f=s",
+    price: "￦99,900",
+  },
+  {
+    title: "JUSTINA 유스티나",
     category: "테이블",
     image:
       "https://www.ikea.com/kr/ko/images/products/karljan-chair-dark-grey-kabusa-dark-grey__1053140_pe846733_s5.jpg?f=s",
-    price: "￦99,900",
-  },
-  {
-    title: "JUSTINA 유스티나",
-    category: "의자",
-    image:
-      "https://www.ikea.com/kr/ko/images/products/justina-chair-pad-grey__0891594_pe658492_s5.jpg?f=s",
-    price: "￦99,900",
-  },
-  {
-    title: "JUSTINA 유스티나",
-    category: "테이블",
-    image:
-      "https://www.ikea.com/kr/ko/images/products/justina-chair-pad-grey__0891586_pe566913_s5.jpg?f=s",
-    price: "￦99,900",
-  },
-  {
-    title: "JUSTINA 유스티나",
-    category: "의자",
-    image:
-      "https://www.ikea.com/kr/ko/images/products/justina-chair-pad-grey__0891588_pe567158_s5.jpg?f=s",
     price: "￦99,900",
   },
 ];
@@ -66,8 +67,8 @@ const stateText = [
 const ProductCategoryList = () => {
   return (
     <div className="cute">
-      <div className="ptitle">
-        <h1 style={{ fontWeight: "bold" }}>침대</h1>
+      {/* <div className="ptitle"> */}
+      {/* <h1 style={{ fontWeight: "bold" }}>침대</h1>
       </div>
       <div className="pdetail">
         많은 침대 제품이 있지만 기분 좋은 아침을 맞이하려면 자신에게 꼭 맞는
@@ -75,7 +76,10 @@ const ProductCategoryList = () => {
         편안한 디자인을 찾아보세요. HOME CONTROLLER의 침대와 침대프레임은
         오랫동안 사용할 수 있으며 그동안에도 질리지 않을 디자인을 갖추고
         있습니다.
-      </div>
+      </div> */}
+      <Categoryinfo title="침대" content="라라라랄" />
+      <Categoryinfo title="소파" content="라라라랄" />
+
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar sx={{ backgroundColor: "lightgray" }}>
