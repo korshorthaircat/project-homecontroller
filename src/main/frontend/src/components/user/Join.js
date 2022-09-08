@@ -219,9 +219,9 @@ const Join = () => {
     } else if (!isValidId) {
       alert("아이디 중복체크를 진행해주세요.");
       return;
-    } else if (!isValidMail) {
-      alert("이메일 인증을 진행해주세요.");
-      return;
+      // } else if (!isValidMail) {
+      //   alert("이메일 인증을 진행해주세요.");
+      //   return;
     } else {
       join({
         userId: userId,
