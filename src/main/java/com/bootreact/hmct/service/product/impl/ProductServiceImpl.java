@@ -73,30 +73,6 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findByProductNo(productNo);
 	}
 	
-	
-	@Override
-	public List<Showroom> getShowroomList() {
-		return showroomRepository.findAll();
-	}
-	
-	//쇼룸 등록
-	@Override
-	public Showroom findbyShowroomNo(int showroomNo) {
-		return showroomRepository.findByShowroomNo(showroomNo);
-	}
-	
-	@Override
-	public int insertShowroom(Showroom showroom) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	@Override
-	public void insertShowroomFiles(List<Showroom> showroomFileList) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	@Override
 	public void deleteProduct(Product product) {
 		productRepository.delete(product);
