@@ -10,4 +10,8 @@ public interface ShowroomService {
 	void insertShowroom(Showroom showroom);
 	
 	void insertShowroomItems(int showroomNo, List<Integer> productNos);
+	
+	List<Showroom> getShowroomList();
+	
+	
 }
