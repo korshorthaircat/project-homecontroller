@@ -12,8 +12,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Link from "@mui/material/Link";
+
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 
 const mdTheme = createTheme();
@@ -25,7 +26,7 @@ function OrderManage() {
 
   const ordList = () => {
      axios.get(listUrl).then(response => {
-        setOrderList( response.data.data );
+        setOrderList( response.data.data);
         console.log(response.data.data)
         //오류나면 오류메세지
         
@@ -71,7 +72,7 @@ function OrderManage() {
                        
                         <TableBody>
                         {orderList ? (
-                            orderList.map((o) => (
+                            orderList.map((o, index) => (
                             <TableRow
                             key={o.orderNo}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -84,18 +85,22 @@ function OrderManage() {
                                 <TableCell align="center">{o.user.userId}</TableCell>
                                 <TableCell align="center">{o.orderAmount}</TableCell>
                                 <TableCell align="center">{o.orderMemo}</TableCell>
-                                <TableCell align="center">
-                                  <Link href="/AdminOrderDetail">
-                                    <Button sx={{ border: "1px solid lightgray",
+                                <TableCell align="center">  
+                                  <Button
+                                          id={`detailBtn${index}`}
+                                          sx={{ border: "1px solid lightgray",
                                             backgroundColor: "#fff",
                                             borderRadius: "5px",
                                             width: "70px",
                                             height: "45px",                                           
                                             alignItems:"center",}}>
+                                      <Link to ={"/AdminOrderDetail"}
+                                            state={o.orderNo}
+                                        >
                                         <img className="AdminEdit" src="images/edit.png"/>
-                                         수정
-                                    </Button>
-                                  </Link>
+                                          수정
+                                        </Link>
+                                  </Button>
                                 </TableCell>
                             </TableRow>
                          ))

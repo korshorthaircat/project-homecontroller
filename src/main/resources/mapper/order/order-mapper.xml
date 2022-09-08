@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/dtd/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.bootreact.hmct.mapper.OrderMapper">
+	<select id="viewOrder" parameterType="int" resultType="camelHashMap">
+	<![CDATA[
+		SELECT A.*
+			 , B.USER_NAME
+		     , C.DELIVERY_NO
+		     , C.DELIVERY_ADDRESS
+		     , C.DELIVERY_DETAIL_ADDRESS
+		     , C.DELIVERY_MESSAGE
+		     , C.DELIVERY_NAME
+		     , C.DELIVERY_TEL
+		     , C.DELIVERY_TRACKING_NO
+		     , C.DELIVERY_ZIPCODE
+		     , D.PAYMENT_NO
+		     , D.PAYMENT_AMOUNT
+		     , D.PAYMENT_DATE
+		     , D.PAYMENT_WAY
+		     , D.PAYMENT_NAME
+			FROM T_HMCT_ORDR A
+		       , T_HMCT_USER B
+		       , T_HMCT_DLVY C
+		       , T_HMCT_PMT D
+			WHERE A.ORDER_NO = #{orderNo}
+			  AND A.USER_ID = B.USER_ID
+		      AND A.ORDER_NO = C.ORDER_NO
+		      AND A.ORDER_NO = D.ORDER_NO
+	]]>
+	</select>
+	
+	<select id="getOrderItemList" parameterType="int" resultType="camelHashMap">
+	<![CDATA[
+		SELECT *
+			FROM T_HMCT_ORDRITEM
+		    WHERE ORDER_NO = #{orderNo}
+	]]>
+	</select>
+</mapper>
+
+
