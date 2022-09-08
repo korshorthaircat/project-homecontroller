@@ -46,6 +46,41 @@ const AdminOrderDetail = () => {
         }
     }, [orderNo]);
 
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        if (document.activeElement.value === "update") {
+        axios({
+            url: "http://localhost:8080/api/order/updateOrder",
+            method: "put",
+            data: {orderNo: orderNo,
+                     orderStatus: orderDetail.orderStatus,
+                     orderMemo: orderDetail.orderMemo,
+                     deliveryAddress: orderDetail.deliveryAddress,
+                     deliveryDetailAddress: orderDetail.orderStatus,
+                     deliveryMessage: orderDetail.deliveryMessage,
+                     deliveryName: orderDetail.deliveryName,
+                     deliveryTel: orderDetail.orderStatus,
+                     deliveryTrackingNo: orderDetail.deliveryTrackingNo,
+                     paymentName: orderDetail.paymentName,}
+            })
+            .then((response) => {
+            //   setOrderNo(response.data);
+              console.log("123" + response);
+            })
+            .catch((e) => {
+              console.log("update오류" + e);
+            });
+        }
+    }
+
+    const handleChange = (e) => {
+        const updateOrder = {
+          ...orderDetail,
+          [e.target.name]: e.target.value,
+        };
+        setOrderDetail(updateOrder);
+      };
+
     return (
         <ThemeProvider theme={mdTheme} >
             <Box sx={{ display: "flex" }} style={{ maxWidth: "1750px" }}>
@@ -56,7 +91,7 @@ const AdminOrderDetail = () => {
                 </Box>
                 
                 <Container style={{ marginTop: "5%" }}>
-                    <form>                  
+                    <form onSubmit={handleSubmit}>                  
                     <Box
                         component="form"
                         sx={{
@@ -108,7 +143,15 @@ const AdminOrderDetail = () => {
                                                 <TableCell align="center">{orderItem.productAmount}</TableCell>
                                                 {index === 0 ? (
                                                 <>
-                                                    <TableCell  rowSpan={orderItemList.length + 1} align="center">{orderDetail.orderStatus}</TableCell>
+                                                    <TableCell  rowSpan={orderItemList.length + 1} alignItem="center">
+                                                    <input
+                                                        type="text"
+                                                        style={{ border: "none", }}
+                                                        value={orderDetail.orderStatus}
+                                                        name = "orderStatus"
+                                                        onChange={handleChange}
+                                                    />
+                                                    </TableCell>
                                                     <TableCell  rowSpan={orderItemList.length + 1} align="center">{orderDetail.orderFee}</TableCell>
                                                     <TableCell  rowSpan={orderItemList.length + 1} align="center">{orderDetail.deliveryTrackingNo}</TableCell>
                                                 </>
@@ -214,7 +257,7 @@ const AdminOrderDetail = () => {
                                             type="text"                      
                                             style={{ border: "none", width: "700px"}}
                                             value = {(orderDetail.deliveryAddress) + (orderDetail.deliveryDetailAddress)}
-                                            placeholder="주소rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr123"
+                                            placeholder="주소"
                                         />
                                     </TableCell>
                                 </TableRow>
