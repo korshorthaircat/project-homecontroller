@@ -16,6 +16,7 @@ const KakaoPayResult = () => {
       ...rcParams,
       tid: tid,
       pg_token: pgToken,
+      approval_url: "http://localhost:3000/",
     });
     console.log(params);
   }, [rcParams, tid]);
