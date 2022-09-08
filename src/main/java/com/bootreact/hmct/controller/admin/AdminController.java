@@ -176,6 +176,76 @@ public class AdminController {
     
     
     //인테리어 쇼룸 등록
+
+//    @PostMapping(value= "/insertshowroom",consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public void insertShowroom(HttpServletRequest request,MultipartHttpServletRequest mphsRequest, ShowroomItem showroomItem,
+//    		@RequestParam Map<String, String> paramMap, ShowroomItemId showroomItemId, Showroom showroom) throws IOException {
+//    	//paramMap 형태
+//    	/*
+//    	 * {
+//    	 * 		"showroomImgOriginalName": "ㅁㅁㅁ.jpg",
+//    	 * 		"showroomColor": "red",
+//    	 * 		"productName1": "232"
+//    	 * 
+//    	 * }
+//    	 * Showroom showroom = new Showroom();
+//    	 * showroom.setshowroomColor(paramMap.get("showroomColor"));
+//    	 * 
+//    	 * List<ShowroomItem> showroomItemList = new ArrayList<ShowroomItem>();
+//    	 * ShowroomItem show
+//    	 * */
+
+//    	//쇼룸 등록 시작
+//    	int srNo = productService.insertShowroom(showroom);
+//    	
+//    	//파일 서버에 업로드 시작
+//    	List<Showroom> showroomFileList = new ArrayList<Showroom>();
+//    	
+//    	//서버의 루트 경로 가져오기
+//    	String rootPath = request.getSession().getServletContext().getRealPath("/");
+//		
+//		String attachPath = "/upload/";
+//    	
+//    	File directory = new File(rootPath + attachPath);
+//    	
+//    	if(directory.exists() == false) {
+//    		directory.mkdir();
+//    	}
+    	
+    	//첨부파일 목록 꺼내오기 
+//    	Iterator<String> iterator = mphsRequest.getFileNames();
+//    	
+//    	while(iterator.hasNext()) {
+//    		List<MultipartFile> list = mphsRequest.getFiles(iterator.next());
+//			
+//			for(MultipartFile multipartFile : list) {
+//				if(!multipartFile.isEmpty()) {
+//					Showroom showroomImage = new Showroom();
+//					Showroom sr = new Showroom();
+//					sr.setShowroomNo(srNo);
+//					
+//					showroomImage.setShowroomImgName(sr);
+//					
+//					//고유 파일명 생성 
+//					//실제 서버에 저장되는 파일명
+//					String uuid = UUID.randomUUID().toString();
+//					showroomImage.setShowroomImgName(uuid + multipartFile.getOriginalFilename());
+//					
+//					showroomImage.setShowroomImgName(rootPath + attachPath);
+//					
+//					showroomFileList.add(showroomImage);
+//					
+//					//파일 업로드 처리 
+//					File file = new File(rootPath + attachPath + uuid + multipartFile.getOriginalFilename());
+//					
+//					multipartFile.transferTo(file);
+//				}		
+//			}
+//    	}
+//    	productService.insertShowroomFiles(showroomFileList);
+//    	
+//    }
+
     @PostMapping(value= "/isnertshowroom",consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
     public void insertShowroom(HttpServletRequest request,MultipartHttpServletRequest mphsRequest, @RequestParam Map<String, String> paramMap) throws IOException {
        //paramMap 형태
@@ -243,7 +313,7 @@ public class AdminController {
        productService.insertShowroomFiles(showroomFileList);
        */
     }
-    
+
     
     //인테리어 쇼룸 수정
     
