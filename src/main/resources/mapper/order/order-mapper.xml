@@ -38,6 +38,26 @@
 		    WHERE ORDER_NO = #{orderNo}
 	]]>
 	</select>
+	
+	<select id="updateOrder" parameterType="int" resultType="camelHashMap">
+	<![CDATA[		
+		UPDATE T_HMCT_ORDR A
+		     , T_HMCT_DLVY B
+		     , T_HMCT_PMT C
+		   SET A.ORDER_STATUS = ORDER_STATUS
+		     , A.ORDER_MEMO = ORDER_MEMO
+		     , B.DELIVERY_ADDRESS = DELIVERY_ADDRESS
+		     , B.DELIVERY_DETAIL_ADDRESS = DELIVERY_DETAIL_ADDRESS
+		     , B.DELIVERY_MESSAGE = DELIVERY_MESSAGE
+		     , B.DELIVERY_NAME = DELIVERY_NAME
+		     , B.DELIVERY_TEL = DELIVERY_TEL
+		     , B.DELIVERY_TRACKING_NO = DELIVERY_TRACKING_NO
+		     , C.PAYMENT_NAME = PAYMENT_NAME
+		   WHERE ORDER_NO = #{orderNo}
+			   AND A.ORDER_NO = B.ORDER_NO
+		       AND A.ORDER_NO = C.ORDER_NO		       
+	]]>
+	</select>
 </mapper>
 
 

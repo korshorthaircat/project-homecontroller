@@ -9,4 +9,6 @@ public interface OrderService {
    List<Order> getOrderList();
    
    Map<String, Object> viewOrder(int orderNo);
+   
+   Map<String, Object> updateOrder(int orderNo);
 }
