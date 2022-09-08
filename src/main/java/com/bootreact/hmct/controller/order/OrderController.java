@@ -88,7 +88,7 @@ public class OrderController {
 
 	//주문 생성
 	@PostMapping("/createOrder")
-	public void createOrder(@RequestBody Map<String, String> paramMap) {
+	public void createOrder(@RequestBody Map<String, Object> paramMap) {
 		try {
 
 //			System.out.println(paramMap.get("userId"));

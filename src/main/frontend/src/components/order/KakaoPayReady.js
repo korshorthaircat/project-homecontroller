@@ -7,26 +7,38 @@ const KakaoPayReady = () => {
   //결제정보
   const [payInfo, setPayInfo] = useState({});
 
-  //Order.js에서 Link를 통해 보낸 state에서 결제정보를 꺼냄
-  const location = useLocation();
-  React.useEffect(() => {
-    setPayInfo(location.state.obj);
-    console.log(payInfo);
-  }, []);
-
   const [params, setParams] = useState({
     cid: "TC0ONETIME",
-    partner_order_id: payInfo.orderNo,
-    partner_user_id: payInfo.userId,
-    item_name: payInfo.orderName,
+    partner_order_id: "partner_order_id",
+    partner_user_id: "partner_user_id",
+    item_name: "item_name",
     quantity: 1,
-    total_amount: payInfo.paymentAmount,
+    total_amount: 0,
     vat_amount: 0,
     tax_free_amount: 0,
     approval_url: "http://localhost:3000/kakaopayResult/",
     fail_url: "http://localhost:3000/kakaopayResult",
     cancel_url: "http://localhost:3000/kakaopayResult",
   });
+
+  //Order.js에서 Link를 통해 보낸 state에서 결제정보를 꺼냄
+  const location = useLocation();
+  React.useEffect(() => {
+    setPayInfo(location.state.obj);
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(payInfo).length !== 0) {
+      const newParams = {
+        ...params,
+        partner_order_id: payInfo.orderNo,
+        artner_user_id: payInfo.userId,
+        item_name: payInfo.itemName,
+        total_amount: payInfo.paymentAmount,
+      };
+      setParams(newParams);
+    }
+  }, [payInfo]);
 
   const [responseData, setResponseData] = useState({
     // 응답에서 가져올 값들

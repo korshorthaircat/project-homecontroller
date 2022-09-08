@@ -44,6 +44,17 @@ const Order = () => {
     setOrderItemInfo(location.state.obj.cart); //배열
   }, []);
 
+  useEffect(() => {
+    if (orderItemInfo.length !== 0) {
+      setOrderName(
+        `${orderItemInfo[0].productOption.product.productName} 외 ${
+          orderItemInfo.length - 1
+        }개`
+      );
+      console.log(orderItemInfo[0].productOption.product.productName);
+    }
+  }, [orderItemInfo]);
+
   //우편번호 및 주소 조회(다음 우편번호 검색 서비스 사용)
   const open = useDaumPostcodePopup(
     "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
@@ -95,7 +106,7 @@ const Order = () => {
   const createOrder = () => {
     axios({
       method: "post",
-      url: url + "/createOrder",
+      url: "http://localhost:8080/api/order/createOrder",
       data: {
         userId: payInfo.userId,
         orderNo: payInfo.orderNo,
@@ -114,7 +125,8 @@ const Order = () => {
           parseInt(payInfo.orderAmount) - parseInt(payInfo.paymentAmount), //할인금액
         orderFee: 5000, //배송료
         paymentAmount: payInfo.paymentAmount, //결제금액
-        paymentMean: "카카오페이", //결제방식
+        paymentWay: "카카오페이", //결제방식
+        paymentName: "gogo", //결제자 이름
 
         //주문아이템 정보
         orderItemInfo: orderItemInfo,
@@ -357,8 +369,7 @@ const Order = () => {
                   obj: {
                     orderNo: payInfo.orderNo,
                     userId: payInfo.userId,
-                    itemName:
-                      orderItemInfo[0] + " 외 " + orderItemInfo.length + "개",
+                    itemName: orderName,
                     paymentAmount: parseInt(payInfo.paymentAmount + 5000),
                   },
                 }}
