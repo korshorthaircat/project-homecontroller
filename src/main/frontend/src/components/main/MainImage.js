@@ -43,6 +43,7 @@ function MainImage() {
           </p>
         </Carousel.Caption>
       </Carousel.Item>
+      
     </Carousel>
     
     </div>
