@@ -31,7 +31,6 @@ public class Showroom {
 	private String showroomImgName;
 	
 	//쇼룸 이미지명 원본명
-	@Column(nullable = false)
 	private String showroomImgOriginalName;
 	
 }

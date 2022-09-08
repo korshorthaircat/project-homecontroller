@@ -17,6 +17,9 @@ const mdTheme = createTheme();
 const showroomFileList = []; // 업로드한 파일들을 저장하는 배열
 
 function ShowroomAdd() {
+  //완료시 모달창 띄우기
+  const [show, setShow] = useState(false);
+
   //이미지 업로드
   const onshowroomChangeImg = (e) => {
     console.log(e.target.files);
@@ -37,6 +40,16 @@ function ShowroomAdd() {
 
     fObj.uploadFiles = showroomFileList;
 
+    const showroomItems = [];
+    console.log(fObj[`productNo1`]);
+    for (let i = 1; i < 6; i++) {
+      if (fObj[`productNo${i}`] !== "" && fObj[`productNo${i}`] !== null) {
+        showroomItems.push(fObj[`productNo${i}`]);
+      }
+    }
+
+    fObj.showroomItems = showroomItems;
+    fObj.showroomItemsLength = showroomItems.length;
     // const formData = new FormData();
 
     // formData.append(
@@ -54,14 +67,16 @@ function ShowroomAdd() {
     console.log(fObj.uploadFiles);
 
     axios({
-      url: "http://localhost:8080/api/showroom/insertShowroom",
+      url: "http://localhost:8080/api/admin/insertShowroom",
       method: "POST",
       data: fObj,
       headers: {
         "Content-Type": "multipart/form-data",
       },
     })
-      .then((response) => {})
+      .then((response) => {
+        setShow(true);
+      })
       .catch((e) => {
         console.log(e);
       });
@@ -116,11 +131,7 @@ function ShowroomAdd() {
     setShowroomColor(event.target.value);
   };
 
-  //완료시 모달창 띄우기
-  const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -147,13 +158,6 @@ function ShowroomAdd() {
             >
               <div>
                 <TextField
-                  id="outlined-required"
-                  name="showroomImgOriginalName"
-                  label="쇼룸이미지 원본명"
-                  helperText="등록해라 요놈아 ୧| ⁰ ᴥ ⁰ |୨"
-                />
-
-                <TextField
                   id="outlined-select-color-native"
                   select
                   name="showroomColor"
@@ -173,28 +177,33 @@ function ShowroomAdd() {
                 </TextField>
                 <TextField
                   id="outlined-required"
-                  name="productName1"
+                  name="productNo1"
                   label="제품번호1"
+                  type="number"
                 />
                 <TextField
                   id="outlined-required"
-                  name="productName2"
+                  name="productNo2"
                   label="제품번호2"
+                  type="number"
                 />
                 <TextField
                   id="outlined-required"
-                  name="productName3"
+                  name="productNo3"
                   label="제품번호3"
+                  type="number"
                 />
                 <TextField
                   id="outlined-required"
-                  name="productName4"
+                  name="productNo4"
                   label="제품번호4"
+                  type="number"
                 />
                 <TextField
                   id="outlined-required"
-                  name="productName5"
+                  name="productNo5"
                   label="제품번호5"
+                  type="number"
                 />
 
                 <Box
@@ -217,13 +226,7 @@ function ShowroomAdd() {
                     sx={{ display: "flex", justifyContent: "center" }}
                     style={{ marginTop: "2%" }}
                   >
-                    <Button
-                      variant="contained"
-                      color="success"
-                      type="submit"
-                      onSubmit={onShowroomSubmitHandler}
-                      onClick={handleShow}
-                    >
+                    <Button variant="contained" color="success" type="submit">
                       등록하기
                     </Button>
                     <Modal show={show} onHide={handleClose}>
