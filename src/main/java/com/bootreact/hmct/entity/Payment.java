@@ -9,11 +9,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import lombok.Data;
 
 @Entity
 @Table(name="T_HMCT_PMT")
 @Data
+@DynamicInsert //@DynamicInsert는 컬럼의 지정된 default 값을 적용시키며 INSERT할 때 사용
+@DynamicUpdate
 public class Payment {
 	
 	//결제 번호(PK)
@@ -33,10 +38,15 @@ public class Payment {
 	@Column(nullable = false)
 	private LocalDateTime paymentDate = LocalDateTime.now();
 	
-	//결제 수단
-//	@Column(nullable = false)
-//	private String paymentMean;
+	//결제 방식
+	@Column(nullable = false)
+	private String paymentWay;
 	
+	//입금자 
+	@Column(nullable = false)
+	private String paymentName;
+	
+	//입금 계좌
 	
 
 }

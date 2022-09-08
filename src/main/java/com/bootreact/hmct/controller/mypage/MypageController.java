@@ -62,35 +62,4 @@ public class MypageController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	/** TO-DO Mypage 사용자 정보 조회
-	 * 마일리지 정보
-	 * 위시리스트 정보
-	 * 구매내역 정보
-	 * 댓글 정보
-	 */
-
-	/**
-	 * Mypage 사용자 정보 변경
-	 */
-	@PostMapping("updateUserInfo")
-	public ResponseEntity<?> updateUserInfo(
-		@RequestBody User user
-	){
-		// 등록된 사용자 정보를 조회한다 
-		User oldUser = userService.findbyUserId(user.getUserId());
-
-		// 화면 input 항목에서 받아온 값들을 변경한다 
-		oldUser.setUserName(user.getUserName());
-		oldUser.setUserNickname(user.getUserNickname());
-		oldUser.setUserTel(user.getUserTel());
-		oldUser.setUserMail(user.getUserMail());
-		oldUser.setUserZip(user.getUserZip());
-		oldUser.setUserAddr(user.getUserAddr());
-		oldUser.setUserAddrDetail(user.getUserAddrDetail());
-
-		// 실제 DB 저장 
-		userService.updateUser(oldUser);
-
-		return ResponseEntity.ok().body("success");
-	}
 }
