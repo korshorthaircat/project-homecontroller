@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bootreact.hmct.dto.OrderDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
-
-import com.bootreact.hmct.entity.Cart;
-import com.bootreact.hmct.entity.Delivery;
 import com.bootreact.hmct.entity.Order;
 import com.bootreact.hmct.service.order.OrderService;
 import com.bootreact.hmct.service.user.UserService;
@@ -92,17 +89,21 @@ public class OrderController {
 		try {
 
 //			System.out.println(paramMap.get("userId"));
-			System.out.println(paramMap.toString());
-
+//			System.out.println(paramMap.toString());
 			
-			//Order 테이블에 주문 정보 인서트(orderNo, orderDate는 자동생성)
-//			orderService.addOrder(paramMap.get("userId"),
-//								  paramMap.get("orderAmount"), 
-//								  paramMap.get("orderDiscount"),
-//								  paramMap.get("orderFee"));
+			int orderNo = orderService.createOrderNo();
+			
+			//Order 테이블에 주문 정보 인서트(, orderDate는 자동생성)
+			orderService.addOrder(paramMap.get("userId").toString(),
+								  paramMap.get("orderAmount").toString(), 
+								  paramMap.get("orderDiscount").toString(),
+								  paramMap.get("orderFee").toString());
 			
 			//OrderItem 테이블에 주문아이템 정보 인서트
-//			orderService.addOrderItem(paramMap.get("orderItemInfo"));
+			List<Map<String, Object>> orderItemList = (List<Map<String, Object>>) paramMap.get("orderItemInfo");
+//			System.out.println(orderItemList.get(0));
+			orderService.addOrderItem(orderItemList);
+			
 			
 			//Dlvy 테이블에 배송정보 인서트
 //			orderService.addDelivery(paramMap.get("deliveryName"),

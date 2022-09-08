@@ -90,11 +90,10 @@ const Order = () => {
   const [cartList, setCartList] = useState([]);
 
   //db로부터 장바구니의 데이터 받아오기
-  let url = "http://localhost:8080/api/cart";
   const getCartList = () => {
     axios({
       method: "post",
-      url: url + "/getCartList",
+      url: "http://localhost:8080/api/cart/getCartList",
       data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
     }).then((response) => {
       //console.log(response.data.data);
@@ -104,6 +103,17 @@ const Order = () => {
 
   //결제하기 버튼 클릭시 db에 주문 데이터 저장하기
   const createOrder = () => {
+    const productItems = [];
+    for (let i = 0; i < orderItemInfo.length; i++) {
+      const productItem = {
+        productNo: orderItemInfo[i].productOption.product.productNo,
+        productAmount: orderItemInfo[i].productOption.product.productPrice,
+        productCount: orderItemInfo[i].productCount,
+        commonCode: orderItemInfo[i].productOption.common.commonCode,
+      };
+
+      productItems.push(productItem);
+    }
     axios({
       method: "post",
       url: "http://localhost:8080/api/order/createOrder",
@@ -129,7 +139,8 @@ const Order = () => {
         paymentName: "gogo", //결제자 이름
 
         //주문아이템 정보
-        orderItemInfo: orderItemInfo,
+        //productNo, commonCode, productCount, productPrice
+        orderItemInfo: productItems,
       },
     }).then((response) => {
       // console.log(response.data.data);

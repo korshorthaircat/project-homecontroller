@@ -1,5 +1,6 @@
 package com.bootreact.hmct.service.order.impl;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,4 +35,41 @@ public class OrderServiceImpl implements OrderService{
     	
     	return resultMap;
     }
+
+	@Override
+	public int createOrderNo() {
+		return 0;
+	}
+    
+	@Override
+	public void addOrder(String userId, String orderAmount, String orderDiscount, String orderFee) {
+		orderMapper.addOrder(userId, orderAmount, orderDiscount, orderFee);
+	}
+
+	@Override
+	public void addOrderItem(List orderItemList) {
+		
+		Map orderItem = new HashMap();
+		
+		for(int i = 0; i < orderItemList.size(); i++) {
+			orderItem = (Map) orderItemList.get(i);
+			
+//			System.out.println(orderItem.get("productNo").toString() +  
+//								 orderItem.get("productAmount").toString() +
+//								 orderItem.get("productCount").toString() +  
+//								 orderItem.get("commonCode").toString());
+			
+			orderMapper.addOrder(orderItem.get("productNo").toString(), 
+								 orderItem.get("productAmount").toString(), 
+								 orderItem.get("productCount").toString(), 
+								 orderItem.get("commonCode").toString());
+		}
+		
+	}
+
+
+	
+	
+    
+    
 }
