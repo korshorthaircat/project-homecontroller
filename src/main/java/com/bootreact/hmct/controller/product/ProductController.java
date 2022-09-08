@@ -27,6 +27,7 @@ import com.bootreact.hmct.entity.ProductImage;
 import com.bootreact.hmct.entity.ProductOption;
 import com.bootreact.hmct.entity.Showroom;
 import com.bootreact.hmct.service.product.ProductService;
+import com.bootreact.hmct.service.showroom.ShowroomService;
 
 @RestController
 @RequestMapping("/api/product")
@@ -34,6 +35,9 @@ public class ProductController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	ShowroomService showroomService;
 	
 	//제품등록하기
 	@PostMapping(value = "/insertProduct", consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -160,7 +164,7 @@ public class ProductController {
 	@GetMapping("/getShowroomList")
 	public ResponseEntity<?> getShowroomList(String code) {
 		try {
-			List<Showroom> showroomList = productService.getShowroomList();
+			List<Showroom> showroomList = showroomService.getShowroomList();
 			
 			List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
 	

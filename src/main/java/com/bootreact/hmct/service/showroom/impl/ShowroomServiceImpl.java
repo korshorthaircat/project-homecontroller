@@ -34,4 +34,9 @@ public class ShowroomServiceImpl implements ShowroomService{
 			showroomMapper.insertShowroomItems(showroomNo, productNo);
 		}
 	}
+	
+	@Override
+	   public List<Showroom> getShowroomList() {
+	      return showroomRepository.findAll();
+	   } 
 }
