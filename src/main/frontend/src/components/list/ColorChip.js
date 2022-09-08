@@ -7,6 +7,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import "../../css/Chip.css";
+import { autocompleteClasses } from "@mui/material";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -65,6 +66,14 @@ export default function MultipleSelectCheckmarks() {
             <MenuItem key={name} value={name}>
               <Checkbox checked={personName.indexOf(name) > -1} />
               <ListItemText primary={name} />
+              <div
+                style={{
+                  borderRadius: "50%",
+                  background: "green",
+                  width: "30px",
+                  height: "30px",
+                }}
+              />
             </MenuItem>
           ))}
         </Select>

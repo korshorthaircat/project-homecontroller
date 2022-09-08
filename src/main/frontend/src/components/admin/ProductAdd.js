@@ -23,6 +23,16 @@ const fileList = []; // 업로드한 파일들을 저장하는 배열
 
 function ProductAdd() {
   //제품 판매상태
+  const [Productstate, setProductstate] = React.useState("Y");
+  //상품등록 완료시 모달창 띄우기
+  const [show, setShow] = useState(false);
+  //제품 공통코드-컬러
+  const [ProductColor, setProductColor] = React.useState("");
+  //제품 공통코드-소재
+  const [productMaterial, setProductMaterial] = React.useState("");
+  //제품 공통코드-카테고리
+  const [productCategory, setProductCategory] = React.useState("");
+
   const states = [
     {
       value: "Y",
@@ -33,31 +43,141 @@ function ProductAdd() {
       label: "N",
     },
   ];
-  const [Productstate, setProductstate] = React.useState("Y");
 
   const handleStateChange = (event) => {
     setProductstate(event.target.value);
   };
 
-  //제품 사이즈
-  // const psize = [
-  //   {
-  //     value: "단일",
-  //     label: "단일",
-  //   },
-  //   {
-  //     value: "S",
-  //     label: "S",
-  //   },
-  //   {
-  //     value: "M",
-  //     label: "M",
-  //   },
-  //   {
-  //     value: "L",
-  //     label: "L",
-  //   },
-  // ];
+  //제품 소재
+  const pmaterial = [
+    {
+      value: "B01",
+      label: "메탈",
+    },
+    {
+      value: "B02",
+      label: "플라스틱",
+    },
+    {
+      value: "B03",
+      label: "원목",
+    },
+    {
+      value: "B04",
+      label: "가공목",
+    },
+    {
+      value: "B05",
+      label: "패브릭",
+    },
+    {
+      value: "B06",
+      label: "라탄",
+    },
+    {
+      value: "B07",
+      label: "알루미늄",
+    },
+    {
+      value: "B08",
+      label: "스테인리스스틸",
+    },
+    {
+      value: "B09",
+      label: "대리석",
+    },
+    {
+      value: "B10",
+      label: "유리",
+    },
+    {
+      value: "B11",
+      label: "벨벳",
+    },
+    {
+      value: "B12",
+      label: "가죽",
+    },
+  ];
+
+  const handleMaterialChange = (event) => {
+    setProductMaterial(event.target.value);
+  };
+
+  //제품 카테고리
+  const pcategory = [
+    {
+      value: "C01",
+      label: "침대",
+    },
+    {
+      value: "C02",
+      label: "소파",
+    },
+    {
+      value: "C03",
+      label: "테이블/식탁/책상",
+    },
+    {
+      value: "C04",
+      label: "거실장/tv장",
+    },
+    {
+      value: "C05",
+      label: "서랍/수납장",
+    },
+    {
+      value: "C06",
+      label: "진열장/책상",
+    },
+    {
+      value: "C07",
+      label: "선반",
+    },
+    {
+      value: "C08",
+      label: "행거/옷장",
+    },
+    {
+      value: "C09",
+      label: "의자",
+    },
+    {
+      value: "C10",
+      label: "화장대/콘솔",
+    },
+    {
+      value: "C11",
+      label: "조명",
+    },
+    {
+      value: "C12",
+      label: "가전",
+    },
+    {
+      value: "C13",
+      label: "패브릭",
+    },
+    {
+      value: "C14",
+      label: "생필품",
+    },
+    {
+      value: "C15",
+      label: "야외가구/캠핑용품",
+    },
+    {
+      value: "C16",
+      label: "주방용품",
+    },
+    {
+      value: "C17",
+      label: "인테리어소품",
+    },
+  ];
+  const handleCategoryChange = (event) => {
+    setProductCategory(event.target.value);
+  };
 
   // const [ProductSize, setProductSize] = React.useState("단일");
 
@@ -115,7 +235,7 @@ function ProductAdd() {
       });
   };
 
-  //제품소재 공통코드
+  //제품 공통코드-컬러
   const color = [
     {
       value: "A01",
@@ -170,15 +290,12 @@ function ProductAdd() {
       label: "갈색",
     },
   ];
-  const [ProductColor, setProductColor] = React.useState("");
 
   const handleColorChange = (event) => {
     setProductColor(event.target.value);
   };
 
   //상품등록 완료시 모달창 띄우기
-  const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -312,27 +429,42 @@ function ProductAdd() {
                     </option>
                   ))}
                 </TextField>
-                {/* <TextField
+                <TextField
                   id="outlined-select-color-native"
                   select
-                  name="commonCode"
-                  label="제품 컬러(공통코드)"
-                  value={ProductColor}
-                  onChange={handleColorChange}
+                  name="productMaterial"
+                  label="제품 소재(공통코드)"
+                  value={productMaterial}
+                  onChange={handleMaterialChange}
                   SelectProps={{
                     native: true,
                   }}
-                ></TextField> */}
+                  helperText="제품 소재 선택"
+                >
+                  {pmaterial.map((c) => (
+                    <option key={c.value} value={c.value}>
+                      {c.label}
+                    </option>
+                  ))}
+                </TextField>
                 <TextField
-                  id="outlined-required"
-                  label="제품소재(공통코드)"
-                  name="productMaterial"
-                />
-                <TextField
-                  id="outlined-required"
+                  id="outlined-select-color-native"
+                  select
                   name="productCategory"
                   label="제품 카테고리(공통코드)"
-                />
+                  value={productCategory}
+                  onChange={handleCategoryChange}
+                  SelectProps={{
+                    native: true,
+                  }}
+                  helperText="제품 카테고리 선택"
+                >
+                  {pcategory.map((c) => (
+                    <option key={c.value} value={c.value}>
+                      {c.label}
+                    </option>
+                  ))}
+                </TextField>
                 <FormControl sx={{ m: 1, width: "93%" }}>
                   <InputLabel htmlFor="outlined-adornment-amount">
                     제품설명 - 요약

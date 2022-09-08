@@ -108,6 +108,9 @@ public class ProductController {
 		System.out.println(productOption.toString());
 		productService.insertProductOption(productOption);
 		/*색상 및 수량 등록 끝*/
+		
+		/*제품 소재 등록 시작*/
+		
 	}
 
 //	//제품상세
