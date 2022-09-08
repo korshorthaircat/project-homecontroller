@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../css/productCard.css";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -6,15 +6,31 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 
 
 
-const ProductCard = ({ item }) => {  
 
-console.log(item);
+
+
+const ProductCard = ({ item, productImageList }) => { 
+  const [thumbnail, setThumbnail] = useState("");
+  const [hoverImage, setHoverImage] = useState("");
+
+  useEffect(() => {
+    if(Object.keys(item).length !== 0 && productImageList.length !== 0) {
+      productImageList.map(productImage => {
+        if(item.productNo === productImage.productNo && productImage.productImageNo === 1)
+          setThumbnail(productImage.productImageName);
+        else if(item.productNo === productImage.productNo && productImage.productImageNo === 2)
+          setHoverImage(productImage.productImageName); 
+
+        return productImage;
+      });
+    }
+  }, [item, productImageList]);
     
    
 
   return (
     <div className="card">
-      <img className="imageArea" src= {item.productImageName} alt="사진" />
+      <img className="imageArea" src= {`http://localhost:8080/upload/${thumbnail}`} alt="사진" />
       <div className="textArea">
         <p className="title_text">{item?.productName}</p>
 

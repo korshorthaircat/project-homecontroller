@@ -30,6 +30,8 @@ public interface ProductService {
 	void deleteProduct(Product product);
 	
 	List<Map<String, Object>> getMainProductList();
+	
+	List<Map<String, Object>> getMainProductImageList();
 }
 
 

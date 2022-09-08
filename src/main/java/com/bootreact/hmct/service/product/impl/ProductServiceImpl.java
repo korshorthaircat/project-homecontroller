@@ -83,4 +83,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<Map<String, Object>> getMainProductList() {		
 		return productMapper.getMainProductList();
 	}
+	
+	@Override
+	public List<Map<String, Object>> getMainProductImageList() {
+		return productMapper.getMainProductImageList();
+	}
 }
