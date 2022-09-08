@@ -105,7 +105,7 @@ const responsive = {
 
 const ProductCarousel = () => {
   let [productList, setProductList] = useState([]);
-
+  const [productImageList, setProductImageList] = useState([]);
   
 
   const getProducts=async()=>{
@@ -113,7 +113,8 @@ const ProductCarousel = () => {
     let response = await fetch(url);
     let data = await response.json();
     console.log(data);
-    setProductList(data);
+    setProductList(data.productList);
+    setProductImageList(data.productImageList);
   };
 
 
@@ -131,10 +132,11 @@ const ProductCarousel = () => {
       // itemClass="carousel-item-padding-40-px"
       > 
       
-        {productList.data? (
-          productList.data.map((a) => (
+        {productList? (
+          productList.map((a) => (
           <ProductCard
-          item={a} />)
+          item={a} 
+          productImageList={productImageList}/>)
           
           
         

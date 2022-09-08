@@ -1,5 +1,6 @@
 package com.bootreact.hmct.controller.main;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,22 +32,22 @@ public class MainController {
 //
 //	//기획전 - 구체적 아이템(카테고리1)
 	@GetMapping("/getMainProductList")
-	public ResponseEntity<?> getMainProductList() {
+	public Map<String, Object> getMainProductList() {
 		try {
 			List<Map<String, Object>> productList = productService.getMainProductList();
-		
+			List<Map<String, Object>> productImageList = productService.getMainProductImageList();
 			
-			ResponseDTO<Map<String, Object>> response = new ResponseDTO<>();
+			Map<String, Object> returnMap = new HashMap<String, Object>();
 			
-			response.setData(productList);
+			returnMap.put("productList", productList);
+			returnMap.put("productImageList", productImageList);
 			
-			return ResponseEntity.ok().body(response);
+			return returnMap;
 			
 		} catch(Exception e) {
-			System.out.println(e.getMessage());
-			ResponseDTO<ProductDTO> response = new ResponseDTO<>();
-			response.setError(e.getMessage());
-			return ResponseEntity.badRequest().body(response);
+			Map<String, Object> errorMap = new HashMap<String, Object>();
+			errorMap.put("error", e.getMessage());
+			return errorMap;
 		}
 	};
 //
