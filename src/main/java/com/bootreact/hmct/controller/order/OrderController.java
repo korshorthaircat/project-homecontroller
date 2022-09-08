@@ -90,22 +90,31 @@ public class OrderController {
 	@PostMapping("/createOrder")
 	public void createOrder(@RequestBody Map<String, String> paramMap) {
 		try {
-			System.out.println(paramMap.get("userId"));
-			System.out.println(paramMap.get("productNo"));
-			System.out.println(paramMap.get("commonCode"));
+
+//			System.out.println(paramMap.get("userId"));
+			System.out.println(paramMap.toString());
+
 			
-//			//Order 테이블에 주문 정보 인서트
-//			//orderNo, orderDate는 자동생성
+			//Order 테이블에 주문 정보 인서트(orderNo, orderDate는 자동생성)
 //			orderService.addOrder(paramMap.get("userId"),
 //								  paramMap.get("orderAmount"), 
 //								  paramMap.get("orderDiscount"),
 //								  paramMap.get("orderFee"));
-//			//OrderItem 테이블에 주문아이템 정보 인서트
-//			orderService.addOrderItem();
-//			//Dlvy 테이블에 배송정보 인서트
-//			orderService.addDelibery();
-//			//Pmt 테이블에 결제정보 인서트
-//			orderService.addPayment();
+			
+			//OrderItem 테이블에 주문아이템 정보 인서트
+//			orderService.addOrderItem(paramMap.get("orderItemInfo"));
+			
+			//Dlvy 테이블에 배송정보 인서트
+//			orderService.addDelivery(paramMap.get("deliveryName"),
+//									 paramMap.get("deliveryTel"),
+//									 paramMap.get("deliveryZipcode"),
+//									 paramMap.get("deliveryAddress"),
+//									 paramMap.get("deliveryDetailAddress"),
+//									 paramMap.get("deliveryMessage"));
+			
+			//Pmt 테이블에 결제정보 인서트
+//			orderService.addPayment(paramMap.get("paymentAmount"),
+//									paramMap.get("paymentMean"));
 		
 
     	}catch(Exception e){

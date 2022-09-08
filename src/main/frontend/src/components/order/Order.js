@@ -19,16 +19,29 @@ import Paper from "@mui/material/Paper";
 import axios from "axios";
 
 const Order = () => {
-  const [payInfo, setPayInfo] = useState({}); //결제정보 - KakaoPayReady.js에 전달해야 할 스테이트
-  const [orderName, setOrderName] = useState("");
-  const [cartInfo, setCartInfo] = useState([]);
+  const [orderName, setOrderName] = useState(""); //"조명 외 2개"식으로 만들어서 KakaoPayReady.js에 전달하기
+
+  //[1]배송정보 -> db에 저장하기
+  const [deliveryName, setDeliveryName] = useState("");
+  const [deliveryTel, setDeliveryTel] = useState("");
+  const [deliveryZipcode, setDeliveryZipcode] = useState("");
+  const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [deliveryDetailAddress, setDeliveryDetailAddress] = useState("");
+  const [deliveryMessage, setDeliveryMessage] = useState("");
+
+  //[2]결제정보 -> KakaoPayReady.js에 전달하기 & db에 저장하기
+  const [payInfo, setPayInfo] = useState({});
+
+  //[3]주문아이템 정보 -> db에 저장하기
+  const [orderItemInfo, setOrderItemInfo] = useState([]);
 
   //Cart.js에서 Link를 통해 보낸 state를 이용
   const location = useLocation();
-  React.useEffect(() => {
-    console.log(location.state.obj);
+  useEffect(() => {
+    // console.log(location.state.obj);
+    // console.log(location.state.obj.cart);
     setPayInfo(location.state.obj);
-    setCartInfo(location.state.obj.cart);
+    setOrderItemInfo(location.state.obj.cart); //배열
   }, []);
 
   //우편번호 및 주소 조회(다음 우편번호 검색 서비스 사용)
@@ -65,16 +78,15 @@ const Order = () => {
   //db에서 받아온 장바구니 데이터를 담을 state
   const [cartList, setCartList] = useState([]);
 
-  let url = "http://localhost:8080/api/cart";
-
   //db로부터 장바구니의 데이터 받아오기
+  let url = "http://localhost:8080/api/cart";
   const getCartList = () => {
     axios({
       method: "post",
       url: url + "/getCartList",
       data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
     }).then((response) => {
-      console.log(response.data.data);
+      //console.log(response.data.data);
       setCartList(response.data.data);
     });
   };
@@ -85,15 +97,27 @@ const Order = () => {
       method: "post",
       url: url + "/createOrder",
       data: {
-        userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId,
-        orderAmount: payInfo.orderAmount,
+        userId: payInfo.userId,
+        orderNo: payInfo.orderNo,
+
+        //배송 정보
+        deliveryName: deliveryName,
+        deliveryTel: deliveryTel,
+        deliveryZipcode: deliveryZipcode,
+        deliveryAddress: deliveryAddress,
+        deliveryDetailAddress: deliveryDetailAddress,
+        deliveryMessage: deliveryMessage,
+
+        //결제 정보
+        orderAmount: payInfo.orderAmount, //주문금액
         orderDiscount:
-          parseInt(payInfo.orderAmount) - parseInt(payInfo.paymentAmount),
-        orderFee: 5000,
-        paymentAmount: payInfo.paymentAmount,
-        paymentMean: "카카오페이",
-        dlvyInfo: {},
-        orderItem: [],
+          parseInt(payInfo.orderAmount) - parseInt(payInfo.paymentAmount), //할인금액
+        orderFee: 5000, //배송료
+        paymentAmount: payInfo.paymentAmount, //결제금액
+        paymentMean: "카카오페이", //결제방식
+
+        //주문아이템 정보
+        orderItemInfo: orderItemInfo,
       },
     }).then((response) => {
       // console.log(response.data.data);
@@ -104,6 +128,25 @@ const Order = () => {
   useEffect(() => {
     getCartList();
   }, []);
+
+  const onDlvyNameHandler = (event) => {
+    setDeliveryName(event.currentTarget.value);
+  };
+  const onDlvyTelHandler = (event) => {
+    setDeliveryTel(event.currentTarget.value);
+  };
+  const onDlvyZipcodeHandler = (event) => {
+    setDeliveryZipcode(event.currentTarget.value);
+  };
+  const onDlvyAddressHandler = (event) => {
+    setDeliveryAddress(event.currentTarget.value);
+  };
+  const onDlvyDetailAddressHandler = (event) => {
+    setDeliveryDetailAddress(event.currentTarget.value);
+  };
+  const onDlvyMessageHandler = (event) => {
+    setDeliveryMessage(event.currentTarget.value);
+  };
 
   return (
     <div>
@@ -135,8 +178,9 @@ const Order = () => {
                   name="deliveryName"
                   label="수령인 이름"
                   fullWidth
-                  autoComplete="given-name"
+                  // autoComplete="given-name"
                   variant="standard"
+                  onChange={onDlvyNameHandler}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -146,8 +190,9 @@ const Order = () => {
                   name="deliveryTel"
                   label="수령인 연락처"
                   fullWidth
-                  autoComplete="shipping address-line1"
+                  // autoComplete="shipping address-line1"
                   variant="standard"
+                  onChange={onDlvyTelHandler}
                 />
               </Grid>
 
@@ -158,9 +203,10 @@ const Order = () => {
                   name="deliveryZipcode"
                   label="우편번호"
                   fullWidth
-                  autoComplete="shipping postal-code"
+                  // autoComplete="shipping postal-code"
                   variant="standard"
                   value={zipCode}
+                  onChange={onDlvyZipcodeHandler}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -181,9 +227,10 @@ const Order = () => {
                   name="deliveryAddress"
                   label="주소(시, 구, 동)"
                   fullWidth
-                  autoComplete="shipping address-line1"
+                  // autoComplete="shipping address-line1"
                   variant="standard"
                   value={fullAddress}
+                  onChange={onDlvyAddressHandler}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -194,6 +241,7 @@ const Order = () => {
                   fullWidth
                   autoComplete="shipping address-line2"
                   variant="standard"
+                  onChange={onDlvyDetailAddressHandler}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -204,6 +252,7 @@ const Order = () => {
                   fullWidth
                   helperText="예) 경비실에 맡겨 주세요."
                   variant="standard"
+                  onChange={onDlvyMessageHandler}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -308,12 +357,18 @@ const Order = () => {
                   obj: {
                     orderNo: payInfo.orderNo,
                     userId: payInfo.userId,
-                    itemName: orderName,
+                    itemName:
+                      orderItemInfo[0] + " 외 " + orderItemInfo.length + "개",
                     paymentAmount: parseInt(payInfo.paymentAmount + 5000),
                   },
                 }}
               >
-                <Button variant="contained" color="success" fullWidth>
+                <Button
+                  variant="contained"
+                  color="success"
+                  fullWidth
+                  onClick={createOrder}
+                >
                   결제하기
                 </Button>
               </Link>
