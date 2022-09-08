@@ -66,10 +66,18 @@ public class OrderServiceImpl implements OrderService{
 		}
 		
 	}
-
-
-	
-	
+   
     
+    @Override
+    public Map<String, Object> updateOrder(int orderNo){
+    	Map<String, Object> resultMap = new HashMap<String, Object>();
+    	
+    	resultMap.put("orderDetail", orderMapper.viewOrder(orderNo));
+    	resultMap.put("orderItemList", orderMapper.getOrderItemList(orderNo));
+    	
+    	return resultMap;
+    	
+    }
+
     
 }

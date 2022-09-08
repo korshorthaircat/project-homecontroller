@@ -9,13 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootreact.hmct.dto.OrderDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
+import com.bootreact.hmct.entity.Delivery;
 import com.bootreact.hmct.entity.Order;
+import com.bootreact.hmct.entity.Payment;
 import com.bootreact.hmct.service.order.OrderService;
 import com.bootreact.hmct.service.user.UserService;
 
@@ -82,6 +85,19 @@ public class OrderController {
     	}
     }
     
+    //주문 상태 변경(업데이트)
+    @PutMapping
+    public Map<String, Object> updateOrder(Order order, Payment payment, Delivery delivery){
+    	try {
+    		Map<String, Object> orderUpdate = orderService.updateOrder(order.getOrderNo());
+    		
+    		return orderUpdate;
+    	}catch(Exception e){
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+    		errorMap.put("error", e.getMessage());
+    		return errorMap;		
+    	}
+    }
 
 	//주문 생성
 	@PostMapping("/createOrder")

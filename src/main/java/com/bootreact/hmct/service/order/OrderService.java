@@ -16,7 +16,7 @@ public interface OrderService {
    void addOrder(String userId, String orderAmount, String orderDiscount, String orderFee);
    
    void addOrderItem(List orderItemList);
-
-
+   
+   Map<String, Object> updateOrder(int orderNo);
 
 }

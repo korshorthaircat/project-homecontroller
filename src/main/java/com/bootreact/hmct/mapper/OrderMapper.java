@@ -16,6 +16,7 @@ public interface OrderMapper {
 	
 	List<Map<String, Object>> getOrderItemList(int orderNo);
 
+
 	@Insert("INSERT into t_hmct_ordr ("
 			+ "order_no, order_amount, order_date, order_discount, order_fee, order_memo, order_status, user_id"
 			+ ") VALUE ("
@@ -30,6 +31,7 @@ public interface OrderMapper {
 					  @Param("productCount") String productCount, 
 					  @Param("commonCode") String commonCode);
 
-	
-	
+    
+	Map<String, Object> updateOrder(int orderNo);
+
 }
