@@ -9,16 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootreact.hmct.dto.OrderDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
-
-import com.bootreact.hmct.entity.Cart;
 import com.bootreact.hmct.entity.Delivery;
 import com.bootreact.hmct.entity.Order;
+import com.bootreact.hmct.entity.Payment;
 import com.bootreact.hmct.service.order.OrderService;
 import com.bootreact.hmct.service.user.UserService;
 
@@ -85,27 +85,53 @@ public class OrderController {
     	}
     }
     
+    //주문 상태 변경(업데이트)
+    @PutMapping
+    public Map<String, Object> updateOrder(Order order, Payment payment, Delivery delivery){
+    	try {
+    		Map<String, Object> orderUpdate = orderService.updateOrder(order.getOrderNo());
+    		
+    		return orderUpdate;
+    	}catch(Exception e){
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+    		errorMap.put("error", e.getMessage());
+    		return errorMap;		
+    	}
+    }
 
 	//주문 생성
 	@PostMapping("/createOrder")
-	public void createOrder(@RequestBody Map<String, String> paramMap) {
+	public void createOrder(@RequestBody Map<String, Object> paramMap) {
 		try {
-			System.out.println(paramMap.get("userId"));
-			System.out.println(paramMap.get("productNo"));
-			System.out.println(paramMap.get("commonCode"));
+
+//			System.out.println(paramMap.get("userId"));
+//			System.out.println(paramMap.toString());
 			
-//			//Order 테이블에 주문 정보 인서트
-//			//orderNo, orderDate는 자동생성
-//			orderService.addOrder(paramMap.get("userId"),
-//								  paramMap.get("orderAmount"), 
-//								  paramMap.get("orderDiscount"),
-//								  paramMap.get("orderFee"));
-//			//OrderItem 테이블에 주문아이템 정보 인서트
-//			orderService.addOrderItem();
-//			//Dlvy 테이블에 배송정보 인서트
-//			orderService.addDelibery();
-//			//Pmt 테이블에 결제정보 인서트
-//			orderService.addPayment();
+			int orderNo = orderService.createOrderNo();
+			
+			//Order 테이블에 주문 정보 인서트(, orderDate는 자동생성)
+			orderService.addOrder(paramMap.get("userId").toString(),
+								  paramMap.get("orderAmount").toString(), 
+								  paramMap.get("orderDiscount").toString(),
+								  paramMap.get("orderFee").toString());
+			
+			//OrderItem 테이블에 주문아이템 정보 인서트
+			List<Map<String, Object>> orderItemList = (List<Map<String, Object>>) paramMap.get("orderItemInfo");
+//			System.out.println(orderItemList.get(0));
+			orderService.addOrderItem(orderItemList);
+			
+			
+			//Dlvy 테이블에 배송정보 인서트
+//			orderService.addDelivery(paramMap.get("deliveryName"),
+//									 paramMap.get("deliveryTel"),
+//									 paramMap.get("deliveryZipcode"),
+//									 paramMap.get("deliveryAddress"),
+//									 paramMap.get("deliveryDetailAddress"),
+//									 paramMap.get("deliveryMessage"));
+			
+			//Pmt 테이블에 결제정보 인서트
+//			orderService.addPayment(paramMap.get("paymentAmount"),
+//									paramMap.get("paymentMean"));
 		
 
     	}catch(Exception e){

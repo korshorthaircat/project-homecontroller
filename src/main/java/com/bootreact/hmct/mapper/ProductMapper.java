@@ -12,4 +12,6 @@ public interface ProductMapper {
 	int getNextProductImageNo(int productNo);
 	
 	List<Map<String, Object>> getMainProductList();
+	
+	List<Map<String, Object>> getMainProductImageList();
 }

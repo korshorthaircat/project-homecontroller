@@ -27,18 +27,11 @@ public interface ProductService {
 	
 	Product findbyProductNo(int productNo);
 	
-
-	List<Showroom> getShowroomList();
-
-	int insertShowroom (Showroom showroom);
-	
-	void insertShowroomFiles(List<Showroom> showroomFileList);
-	
-	Showroom findbyShowroomNo (int showroomNo);
-
 	void deleteProduct(Product product);
 	
 	List<Map<String, Object>> getMainProductList();
+	
+	List<Map<String, Object>> getMainProductImageList();
 }
 
 
