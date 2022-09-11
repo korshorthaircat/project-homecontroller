@@ -118,9 +118,30 @@ public class UserController {
     	}
     };
     
-    //회원 정보 조회(마이페이지)
+    //회원 정보 조회/수정 (마이페이지)
     @PostMapping("/getUser")
     public ResponseEntity<?> getUser(@RequestBody User user) {
+    	try {
+    		User u = userService.findbyUserId(user.getUserId());
+    		  	
+    		List<User> userList = new ArrayList<User>();
+    		userList.add(u);
+    		
+    		ResponseDTO<User> response = new ResponseDTO<>(); 
+    		response.setData(userList);
+    		return ResponseEntity.ok().body(response);
+    		
+    	}catch(Exception e){
+    		System.out.println(e.getMessage());
+    		ResponseDTO<User> response = new ResponseDTO<>();
+    		response.setError(e.getMessage());
+    		return ResponseEntity.badRequest().body(response);		
+    	}
+    }
+    
+  //회원 정보 삭제 (마이페이지)
+    @PostMapping("/delUser")
+    public ResponseEntity<?> delUser(@RequestBody User user) {
     	try {
     		User u = userService.findbyUserId(user.getUserId());
     		  	

@@ -1,43 +1,43 @@
-//package com.bootreact.hmct.controller.wish;
-//
+package com.bootreact.hmct.controller.wish;
+
 //import java.util.List;
 //import java.util.Map;
 //
 //import javax.servlet.http.HttpServletRequest;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.ResponseEntity;
 //import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.bind.annotation.ResponseBody;
-//import org.springframework.web.bind.annotation.RestController;
-//
+import org.springframework.web.bind.annotation.RestController;
+
 //import com.bootreact.hmct.dto.ResponseDTO;
 //import com.bootreact.hmct.entity.Cart;
-//import com.bootreact.hmct.entity.Product;
+import com.bootreact.hmct.entity.Product;
 //import com.bootreact.hmct.entity.User;
-//import com.bootreact.hmct.service.mypage.MypageService;
-//import com.bootreact.hmct.service.product.ProductService;
-//import com.bootreact.hmct.service.user.UserService;
-//import com.bootreact.hmct.service.wish.impl.WishServiceImpl;
-//
-//@RestController
-//@RequestMapping("/wish")
-//public class WishController {
-//
-//	@Autowired
-//    WishServiceImpl wishService;
-//
-//	@Autowired
-//	UserService userService;
-//
-//	@Autowired
-//	ProductService productService;
-//	
-//	@Autowired	
-//	MypageService mypageService;
+import com.bootreact.hmct.service.mypage.MypageService;
+import com.bootreact.hmct.service.product.ProductService;
+import com.bootreact.hmct.service.user.UserService;
+import com.bootreact.hmct.service.wish.impl.WishServiceImpl;
+
+@RestController
+@RequestMapping("/wish")
+public class WishController {
+
+	@Autowired
+    WishServiceImpl wishServiceImpl;
+
+	@Autowired
+	UserService userService;
+
+	@Autowired
+	ProductService productService;
+	
+	@Autowired	
+	MypageService mypageService;
 //	
 //  //위시아이템 조 
 //  //위시컨트롤러에 상세페이지 url을 설정
@@ -82,18 +82,18 @@
 ////	}
 //
 ////    
-////    //위시아이템 삭제 
-////    void deleteWishItem(Product product) {}
-////    
-////    //위시아이템 조회 
-////    void getWishItemList(Product product) {}
-////    
-////    //위시쇼룸 추가 
-////    void addWishShowroom(Product product) {}
-////    
-////    //위시쇼룸 삭제 
-////    void deleteWishShowroom(Product product){}
-////    
-//    //위시쇼룸 조회 
-//    //void getWishShowroomList(Product product) {}
-//}
+    //위시아이템 삭제 
+    void deleteWishItem(Product product) {}
+    
+    //위시아이템 조회 
+    void getWishItemList(Product product) {}
+    
+    //위시쇼룸 추가 
+    void addWishShowroom(Product product) {}
+    
+    //위시쇼룸 삭제 
+    void deleteWishShowroom(Product product){}
+    
+    //위시쇼룸 조회 
+    void getWishShowroomList(Product product) {}
+}
