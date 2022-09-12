@@ -77,4 +77,23 @@ public class MypageController {
 
 		return ResponseEntity.ok().body("success");
 	}
+	
+	/**
+	 * Mypage 사용자 탈퇴 
+	 */
+	@PostMapping("deleteUserInfo")
+	public ResponseEntity<?> deleteUserInfo(
+		@RequestBody User user){
+		// 등록된 사용자 정보를 조회한다 
+		User oldUser = userService.findbyUserId(user.getUserId());
+		
+		if(oldUser == null) {
+			return ResponseEntity.ok().body("이미 탈퇴한 회원입니다");
+		}else {
+			// DB에서 삭제 
+			userService.deleteUser(oldUser);
+			return ResponseEntity.ok().body("탈퇴 성공!");
+			
+		}
+	}
 }
