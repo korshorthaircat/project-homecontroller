@@ -125,6 +125,28 @@ function UserUpdate() {
     });
   };
 
+  //회원탈퇴 버튼 클릭시 
+  const deleteUserInfo = (e) => {
+    // 화면 유효성 검사
+    // 화면의 값들이 정상적인 값인지 체크해야한다
+    // ex:) 아래 조건들이 충족되지 않으면 정보 변경은 할 수 없다
+    // 비어있으면 안되는 값들이 비어있는지 체크 해야한다
+    // 휴대폰 번호는 숫자만 들어갈 수 있게 한다
+    console.log('탈퇴버튼 클릭');
+    let url = 'http://localhost:8080/api/mypage/deleteUserInfo';
+    axios({
+      method: "post",
+      url: url,
+      headers: {
+        Authorization : "Bearer " + sessionStorage.getItem("ACCESS_TOKEN")
+      },
+      data: inputs, // 화면 input 항목에 대한 정보
+    }).then((response) => {
+      console.log('잘되나');
+      window.location.href = "/Join";
+    });
+  };
+
 
   //회원탈퇴버튼 클릭시 재확인하는 부분
   const useConfirm = (message = null, onConfirm, onCancel) => {
@@ -252,7 +274,7 @@ function UserUpdate() {
               </div>
               
               <div className="outBtn">
-              <button className="outButton" onClick={confirmDelete}>멤버십 탈퇴하기</button>
+              <button className="outButton" onClick={deleteUserInfo}>멤버십 탈퇴하기</button>
               </div>
             </div>
             <div class="card-footer text-muted">
