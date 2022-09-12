@@ -1,5 +1,7 @@
 import "../../css/userupdate.css";
 import React, { useRef, useState, useCallback, useEffect } from "react";
+import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
 import {
   Button,
   TextField,
@@ -10,12 +12,12 @@ import {
   FormControlLabel,
   Checkbox,
   Modal,
-  Box,
+ 
 } from "@mui/material";
-import { join } from "../../service/ApiService";
-import { useDaumPostcodePopup } from "react-daum-postcode";
+
 import axios from "axios";
-import { margin } from "@mui/system";
+
+const ariaLabel = { 'aria-label': 'description' };
 
 function UserUpdate() {
   
@@ -198,44 +200,46 @@ function UserUpdate() {
             </div>
             <div class="card-body"></div>
 
-          <div className="updateInput">    
-            <div className="input-group mb-3">
-              <span className="input-group-text" id="basic-addon1">ID</span>
-              <input type="text" className="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon" name='userId' value={inputs.userId} readOnly />
-            </div>
+            <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 5 },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+      <Input name='userId' value={inputs.userId} inputProps={ariaLabel} onChange={onChange}/>
+      </div>
+      <div>
+      <Input name='userNickname' value={inputs.userNickname} inputProps={ariaLabel} onChange={onChange} />
+      </div>
+      <div>
+      <Input name='userName' value={inputs.userName} inputProps={ariaLabel} onChange={onChange} />
+      </div>
+      <div>
+      <Input name='userMail' value={inputs.userMail} inputProps={ariaLabel} onChange={onChange} />
+      </div>
+      <div>
+      <Input name='userTel' value={inputs.userTel} inputProps={ariaLabel} onChange={onChange} />
+      </div>
+      <div>
+      <Input name='userPoint' value={inputs.userPoint} inputProps={ariaLabel} onChange={onChange} />
+      </div>
+      <div>
+      <Input name='userZip' value={inputs.userZip} inputProps={ariaLabel} onChange={onChange} />
+      </div>
+      <div>
+      <Input name='userAddr' value={inputs.userAddr} inputProps={ariaLabel} onChange={onChange} />
+      </div>
+      <div>
+      <Input name='userAddrDetail' value={inputs.userAddrDetail} inputProps={ariaLabel} onChange={onChange} />
+      </div>
+    </Box>
 
-            <div className="input-group mb-3">
-              <span className="input-group-text" id="basic-addon1">이름</span>
-              <input type="text" className="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" name='userName' value={inputs.userName} onChange={onChange} />
-              <span className="input-group-text" id="basic-addon1">닉네임</span>
-              <input type="text" className="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" name='userNickname' value={inputs.userNickname} onChange={onChange} />
-            </div>
-
-            <div className="input-group mb-3">
-              <span className="input-group-text" id="basic-addon1">이메일</span>
-              <input type="text" className="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2" name='userMail' value={inputs.userMail} onChange={onChange} />
-            </div>
-
-            <div className="input-group mb-3">
-              <span className="input-group-text" id="basic-addon1">전화번호</span>
-              <input type="text" className="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2" name='userTel' value={inputs.userTel} onChange={onChange} />
-            </div>
-
-            <div className="input-group mb-3">
-              <span className="input-group-text" id="basic-addon1">POINT</span>
-              <input type="text" className="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2" name='userPoint' value={inputs.userPoint} readOnly />
-            </div>
-
-            <div className="input-group mb-3">
-              {/* 주소변경하기버튼 추가해야함 주소변경하는 기능 띄워줘야함 */}
-              <span className="input-group-text" id="basic-addon1">주소</span>
-              <input type="text" className="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2" name='userZip' value={inputs.userZip} readOnly />
-              <input type="text" className="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2" name='userAddr' value={inputs.userAddr} readOnly />
-              <input type="text" className="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2" name='userAddrDetail' value={inputs.userAddrDetail} onChange={onChange} />
-            </div>
+          <div className="outBtn">
+            <Button type="button" className="pwChange" variant="contained" color="success" onClick={handlePwdOpen} >비밀번호변경</Button>
           </div>
-
-          <Button type="button" variant="contained" color="success" onClick={handlePwdOpen} >비밀번호변경</Button>
 
           <Modal
             open={pwdOpen}
@@ -250,9 +254,11 @@ function UserUpdate() {
               </p>
             </Box>
           </Modal>
+
           <div className="outBtn">
-          <Button type="button" variant="contained" color="success" onClick={updateUserInfo}>수정</Button>
+            <Button type="button" className="updateBtn" variant="contained" color="success" onClick={updateUserInfo}>수정</Button>
           </div>
+
           </div>
           </div>
           </div>

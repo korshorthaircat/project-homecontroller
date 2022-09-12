@@ -134,8 +134,19 @@
   }
 
   .outBtn {
-    padding: 50px;
-    margin-top: 40px;
+    padding: 20px;
+    
+    /* margin-top: 40px; */
+  }
+
+  .pwChange {
+    width: 200px;
+    margin: 0 auto;
+  }
+
+  .updateBtn {
+    width: 200px;
+    margin: 0 auto;
   }
 
   .pointPart {
@@ -146,7 +157,10 @@
     margin: 0 auto;
   }
 
-
+  .form-control {
+    border: none;
+    border-bottom: 1px solid black;
+  }
 
   
 
