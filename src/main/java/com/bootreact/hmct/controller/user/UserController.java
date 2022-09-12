@@ -129,6 +129,7 @@ public class UserController {
     		
     		ResponseDTO<User> response = new ResponseDTO<>(); 
     		response.setData(userList);
+    		System.out.println("!!!!!!!");
     		return ResponseEntity.ok().body(response);
     		
     	}catch(Exception e){
@@ -138,27 +139,30 @@ public class UserController {
     		return ResponseEntity.badRequest().body(response);		
     	}
     }
+
     
-  //회원 정보 삭제 (마이페이지)
-    @PostMapping("/delUser")
-    public ResponseEntity<?> delUser(@RequestBody User user) {
-    	try {
-    		User u = userService.findbyUserId(user.getUserId());
-    		  	
-    		List<User> userList = new ArrayList<User>();
-    		userList.add(u);
-    		
-    		ResponseDTO<User> response = new ResponseDTO<>(); 
-    		response.setData(userList);
-    		return ResponseEntity.ok().body(response);
-    		
-    	}catch(Exception e){
-    		System.out.println(e.getMessage());
-    		ResponseDTO<User> response = new ResponseDTO<>();
-    		response.setError(e.getMessage());
-    		return ResponseEntity.badRequest().body(response);		
-    	}
-    }
+    
+    
+//  //회원 정보 삭제 (마이페이지)
+//    @PostMapping("/delUser")
+//    public ResponseEntity<?> delUser(@RequestBody User user) {
+//    	try {
+//    		User u = userService.findbyUserId(user.getUserId());
+//    		  	
+//    		List<User> userList = new ArrayList<User>();
+//    		userList.add(u);
+//    		
+//    		ResponseDTO<User> response = new ResponseDTO<>(); 
+//    		response.setData(userList);
+//    		return ResponseEntity.ok().body(response);
+//    		
+//    	}catch(Exception e){
+//    		System.out.println(e.getMessage());
+//    		ResponseDTO<User> response = new ResponseDTO<>();
+//    		response.setError(e.getMessage());
+//    		return ResponseEntity.badRequest().body(response);		
+//    	}
+//    }
    
     //회원 삭제  
     @DeleteMapping("/deleteUser")

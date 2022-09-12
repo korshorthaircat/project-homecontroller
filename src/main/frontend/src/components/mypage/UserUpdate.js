@@ -18,6 +18,7 @@ import axios from "axios";
 import { margin } from "@mui/system";
 
 function UserUpdate() {
+  
   // 화면 input 항목들 상태 관리 시작
   // 화면 input 항목 = DB 정보
   const [inputs, setInputs] = useState({
@@ -119,6 +120,7 @@ function UserUpdate() {
       },
       data: inputs, // 화면 input 항목에 대한 정보
     }).then((response) => {
+      console.log('잘되나');
       window.location.href = "/userupdate";
     });
   };
@@ -227,7 +229,7 @@ function UserUpdate() {
             </Box>
           </Modal>
           <div className="outBtn">
-          <button className="outButton" onClick={updateUserInfo}>정보 수정하기</button>
+          <Button type="button" variant="contained" color="success" onClick={updateUserInfo}>수정</Button>
           </div>
           </div>
           </div>
