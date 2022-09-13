@@ -14,8 +14,7 @@ import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import TablePagination from '@mui/material/TablePagination';
-
+import Paging from "./Paging"
 
 const mdTheme = createTheme();
 
@@ -38,19 +37,6 @@ function OrderManage() {
   React.useEffect(() => {
     ordList();
   },[]);
-
-  //페이지네이션
-   const [page, setPage] = React.useState(2);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -126,6 +112,7 @@ function OrderManage() {
                         </TableBody>
                     </Table>
             </TableContainer>
+            <Paging/>
           </Box>
         </Container>
       </Box>
