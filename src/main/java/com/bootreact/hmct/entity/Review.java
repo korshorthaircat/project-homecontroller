@@ -2,12 +2,13 @@ package com.bootreact.hmct.entity;
 
 import java.time.LocalDateTime;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,17 +20,27 @@ import lombok.Data;
 @Table(name="T_HMCT_REVIEW")
 @Data
 @DynamicInsert
-@IdClass(ReviewId.class)
 public class Review {
     //리뷰 번호(PK)
 	@Id
 	private int reviewNo;
 	
 	//주문 번호(PK, FK)
-	@Id
-	@JoinColumn(name="ORDER_NO")
+//	@JoinColumn(name="ORDER_NO")
+//	@OneToOne
+//	private Order order;
+//
+//	@Id
+//	@ManyToOne
+//	@JoinColumn(name="PRODUCT_NO")
+//	private Product product;
 	@OneToOne
-	private Order order;
+	@JoinColumns({
+		@JoinColumn(name = "ORDER_NO", referencedColumnName="ORDER_NO"),
+		@JoinColumn(name = "PRODUCT_NO", referencedColumnName="PRODUCT_NO"),
+		@JoinColumn(name = "COMMON_CODE", referencedColumnName="COMMON_CODE")
+	}) 
+	private OrderItem orderItem;
 	
 	//리뷰 제목
 	@Column(nullable=false)
