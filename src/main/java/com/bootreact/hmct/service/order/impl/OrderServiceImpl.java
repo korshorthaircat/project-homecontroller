@@ -69,11 +69,15 @@ public class OrderServiceImpl implements OrderService{
    
     
     @Override
-    public Map<String, Object> updateOrder(int orderNo){
+    public Map<String, Object> updateOrder(Map<String, Object> paramMap){
+    	orderMapper.updateOrder(paramMap);
+    	orderMapper.updatePayment(paramMap);
+    	orderMapper.updateDelivery(paramMap);
+    	
     	Map<String, Object> resultMap = new HashMap<String, Object>();
     	
-    	resultMap.put("orderDetail", orderMapper.viewOrder(orderNo));
-    	resultMap.put("orderItemList", orderMapper.getOrderItemList(orderNo));
+    	resultMap.put("orderDetail", orderMapper.viewOrder(Integer.parseInt(paramMap.get("orderNo").toString())));
+    	resultMap.put("orderItemList", orderMapper.getOrderItemList(Integer.parseInt(paramMap.get("orderNo").toString())));
     	
     	return resultMap;
     	

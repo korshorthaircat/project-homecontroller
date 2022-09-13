@@ -32,6 +32,9 @@ public interface OrderMapper {
 					  @Param("commonCode") String commonCode);
 
     
-	Map<String, Object> updateOrder(int orderNo);
-
+	void updateOrder(Map<String, Object> paramMap);
+	
+	void updatePayment(Map<String, Object> paramMap);
+	
+	void updateDelivery(Map<String, Object> paramMap);
 }

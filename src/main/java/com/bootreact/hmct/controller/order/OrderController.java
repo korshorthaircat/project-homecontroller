@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootreact.hmct.dto.OrderDTO;
@@ -86,10 +87,12 @@ public class OrderController {
     }
     
     //주문 상태 변경(업데이트)
-    @PutMapping
-    public Map<String, Object> updateOrder(Order order, Payment payment, Delivery delivery){
+    @PutMapping("/updateOrder")
+    public Map<String, Object> updateOrder(@RequestBody Map<String, Object> paramMap){
     	try {
-    		Map<String, Object> orderUpdate = orderService.updateOrder(order.getOrderNo());
+    		System.out.println(paramMap.toString());
+    		//Map<String, Object> orderUpdate = new HashMap<String, Object>();
+    		Map<String, Object> orderUpdate = orderService.updateOrder(paramMap);
     		
     		return orderUpdate;
     	}catch(Exception e){

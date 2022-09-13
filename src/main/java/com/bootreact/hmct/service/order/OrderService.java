@@ -17,6 +17,6 @@ public interface OrderService {
    
    void addOrderItem(List orderItemList);
    
-   Map<String, Object> updateOrder(int orderNo);
+   Map<String, Object> updateOrder(Map<String, Object> paramMap);
 
 }
