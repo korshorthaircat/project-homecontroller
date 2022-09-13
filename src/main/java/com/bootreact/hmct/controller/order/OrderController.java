@@ -134,7 +134,7 @@ public class OrderController {
 			
 			//Pmt 테이블에 결제정보 인서트(paymentNo는 자동 생성)
 			orderService.addPayment(orderNo,
-									paramMap.get("userId").toString(),
+									paramMap.get("paymentName").toString(),
 									paramMap.get("paymentAmount").toString(),
 									paramMap.get("paymentWay").toString());
 		
