@@ -87,8 +87,8 @@ public class OrderController {
     }
     
     //주문 수정(상태 업데이트)
-    @PutMapping
-    public Map<String, Object> updateOrder(Order order, Payment payment, Delivery delivery){
+    @PutMapping("/updateOrder")
+    public Map<String, Object> updateOrder(@RequestBody Map<String, Object> paramMap){
     	try {
     		System.out.println(paramMap.toString());
     		//Map<String, Object> orderUpdate = new HashMap<String, Object>();
