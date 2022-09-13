@@ -48,7 +48,7 @@ public class MainController {
 			returnMap.put("productList", productList);
 			returnMap.put("productImageList", productImageList);
 			
-			return returnMap;
+			return returnMap; 
 			
 		} catch(Exception e) {
 			Map<String, Object> errorMap = new HashMap<String, Object>();
