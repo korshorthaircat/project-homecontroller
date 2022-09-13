@@ -1,4 +1,4 @@
-.image_box{
+/* .image_box{
     width: 1560px;
     margin: 0 auto;
     display: flex;
@@ -6,9 +6,16 @@
 
 .image_box1 {
     width: 780px;
-    height: 900px;
+    height: 450px;
     border: 1px solid black;
     margin-right: 20px;
+    grid-row: 1 / 3;
+}
+
+.image_box4 {
+    width: 780px;
+    height: 450px;
+    border: 1px solid black;
 }
 
 .image_box2 {
@@ -16,5 +23,41 @@
     height: 300px;
     border: 1px solid black;
     margin-left: 20px;
+}
+
+.image_box3 {
+    width: 740px;
+    height: 600px;
+    border: 1px solid black;
+    margin-left: 20px;
+}
+
+.image_subBox {
+    display: flex;
+    flex-direction: column;
+} */
+
+.ttt {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    width: 1600px;
+    height: 900px;
+    margin: 0 auto;
+}
+
+.aaa {
+    grid-row: 1 / 3;
+    background-color: red;
+    margin-right: 20px;
+    
+}
+
+.bbb {
+    background-color: blue;
+}    
+
+.ccc {
+    background-color: yellow;
 }
 

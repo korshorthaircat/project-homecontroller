@@ -26,9 +26,9 @@ const MainShowroom = () => {
       .then((response) => {
         
         setShowroomImg(response.data.data);
-        setShowroomImgData(response.data.data.slice(0, 2));
+        setShowroomImgData(response.data.data.slice(0, 4));
 
-        console.log(response.data.data.slice(0, 2));
+        console.log(response.data.data.slice(0, 4));
       })
       .catch((e) => {
         console.log(e);
@@ -54,7 +54,7 @@ const MainShowroom = () => {
     return (
         <div>
         <div className='mainShowroomColor'>
-            <MainShowroomColor color="red" />
+            <MainShowroomColor color="red" />         
             <MainShowroomColor color="yellow" />
             <MainShowroomColor color="green" />
             <MainShowroomColor color="blue" />
@@ -89,10 +89,6 @@ const MainShowroom = () => {
               item={a} />)
             )}
           
-       
-
-
-
         </div>
 
         </div>
@@ -100,21 +96,10 @@ const MainShowroom = () => {
  
         <div className='mainShowroom_MoreBtn'>
           <Button
-            // variant="contained"
-            // color="success"
-            // sx={{ borderRadius: 12.5}}
-            // onClick = {() => {
-            //   axios.get('http://localhost:8080/api/main/getShowroomList')
-            //   .then((data)=>{console.log(data.data)
-            //     let copy = [...showroomImg, ...data.data]
-            //     setShowroomImg(copy)
-            //   })
-            //   .catch(()=> {
-            //     console.log('실패다')
-            //   })
-
-            // }}
-
+            variant="contained"
+            color="success"
+            sx={{ borderRadius: 12.5}}
+           
             onClick={() => {
               setCnt(cnt+1);
               console.log("cnt",cnt);

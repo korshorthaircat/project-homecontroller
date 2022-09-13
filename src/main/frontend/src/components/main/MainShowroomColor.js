@@ -4,8 +4,8 @@ import "../../css/mainShowroom.css";
 const MainShowroomColor = (props) => {
     return (
         <div>
-            <div className= {`showroomColor ${props.color}`}>
-                </div>
+            <button className= {`showroomColor ${props.color}`}/>
+            
         </div>
     );
 };

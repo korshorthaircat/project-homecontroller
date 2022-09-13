@@ -4,31 +4,31 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-const testt = () => {
+const testt = ({title, content, image}) => {
     return (
-        <div className='wrap '>
+        
+       
     
-        <Row>
+        
             <Col className="cardBox" >
-                <div className="cardImg">
-                <img src='https://www.ikea.com/ext/ingkadam/m/61778d2a4441edd9/original/PH184645-crop001.jpg?f=xs' alt="사진"/>
+                <div className="eventCardImg">
+                <img src={image} alt="사진"/>
                 </div>
 
                <div className='cardText'>
                 <p className='cardMainText'>
-                    일상을 바꾸는 패브릭
+                    {title}
                 </p>
-                <p>
-                    HOME CONTROLLER EXCLUSIVE
+                <p className='cardSubText'>
+                    {content}
                 </p>
                 </div>
                 
             </Col>
-            <Col className="cardBox">2 of 3</Col>
-            <Col className="cardBox">3 of 3</Col>
-        </Row>
+            
+        
     
-        </div>
+        
     );
 };
 

@@ -137,12 +137,7 @@ const ProductCarousel = () => {
           <ProductCard
           item={a} 
           productImageList={productImageList}/>)
-          
-          
-        
-
         )) : (<p>조회된 데이터가 없습니다.</p>)}
-        
        </Carousel>
      </div>
   );
