@@ -15,7 +15,7 @@ public interface OrderService {
 
    //주문 생성
    int createOrderNo();
-   void addOrder(int orderNo, String userId, String orderAmount, String orderDiscount, String orderFee);
+   void addOrder(int orderNo, String orderStatus, String userId, String orderAmount, String orderDiscount, String orderFee);
    void addOrderItem(int orderNo, List orderItemList);
    void addDelivery(int orderNo, String deliveryName, String deliveryTel, String deliveryZipcode, String deliveryAddress, String deliveryDetailAddress, String deliveryMessage);
    void addPayment(int orderNo, String paymentName, String paymentAmount, String paymentWay);
