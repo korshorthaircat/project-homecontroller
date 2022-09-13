@@ -26,7 +26,7 @@ public class MainController {
 	ProductService productService;
 	
 	@Autowired
-	ShowroomService showroomService;  
+	ShowroomService showroomService;
 	
 	
 //	//헤더의 검색바 관련 메서드
