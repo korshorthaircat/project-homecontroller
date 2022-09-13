@@ -5,16 +5,24 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.bootreact.hmct.entity.WishItem;
+import com.bootreact.hmct.entity.WishShowroom;
 
 @Service
 public interface WishService {
-
-	List<WishItem> getCartList(String userId);
 	
-	void addWish(String userId, int productNo);
-	
-	void deleteWish(String userId, int productNo);
-
+	//위시아이템 
+			List<WishItem> getWishItemList(String userId);
+			
+			
+			void addWishItem(String userId, String productNo);
+			
+			void deleteWishItem(String userId, String productNo);
+			
+			
+			//위시쇼룸 
+			List<WishShowroom> getWishShowroomList(String userId);
+			
+			void addWishShowroom(String userId, String showroomNo);
+			
+			void deleteWishShowroom(String userId, String showroomNo);
 }
-
- 
