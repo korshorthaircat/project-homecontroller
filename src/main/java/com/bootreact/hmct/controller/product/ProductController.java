@@ -165,7 +165,7 @@ public class ProductController {
 //
 	//색상 선택시 해당 색상 인테리어 쇼룸 이미지 조회(더보기 클릭시 추가)
 	@GetMapping("/getShowroomList")
-	public ResponseEntity<?> getShowroomList(String code) {
+	public ResponseEntity<?> getShowroomList() {
 		try {
 			List<Showroom> showroomList = showroomService.getShowroomList();
 			

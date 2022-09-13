@@ -12,6 +12,16 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 const ProductCard = ({ item, productImageList }) => { 
   const [thumbnail, setThumbnail] = useState("");
   const [hoverImage, setHoverImage] = useState("");
+  const [isHover, setIsHover] = useState(false);
+
+ const handleMouseOver = () => {
+  setIsHover(true);
+ }
+
+ const handleMouseOut = () => {
+  setIsHover(false);
+ }
+  
 
   useEffect(() => {
     if(Object.keys(item).length !== 0 && productImageList.length !== 0) {
@@ -20,17 +30,23 @@ const ProductCard = ({ item, productImageList }) => {
           setThumbnail(productImage.productImageName);
         else if(item.productNo === productImage.productNo && productImage.productImageNo === 2)
           setHoverImage(productImage.productImageName); 
-
+          
         return productImage;
       });
     }
   }, [item, productImageList]);
     
-   
+ 
+
+  
 
   return (
     <div className="card">
-      <img className="imageArea" src= {`http://localhost:8080/upload/${thumbnail}`} alt="사진" />
+      <img className="imageArea" src= {isHover ? `http://localhost:8080/upload/${hoverImage}` : `http://localhost:8080/upload/${thumbnail}`}
+      onMouseOver= {handleMouseOver}
+      onMouseOut= {handleMouseOut}
+      alt="사진" 
+      /> 
       <div className="textArea">
         <p className="title_text">{item?.productName}</p>
 

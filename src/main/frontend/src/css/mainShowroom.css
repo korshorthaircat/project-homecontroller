@@ -56,23 +56,40 @@
     
 }
 
-.showroomBox_1 {
+/* .showroomBox_1 {
     width: 760px;
     height: 900px;
     border: 1px solid black;
     margin-right: 20px;
     
-}
+} */
 
-.showroomBox {
+/* .showroomBox {
     display: flex;
     justify-content: center;
    
-}
+} */
 
 
-.mainShowroom_MoreBtn {
+/* .mainShowroom_MoreBtn {
     width: 1560px;
     margin: 0 auto;
+} */
+
+.col {
+    width: 760px;
+    height: 900px;
+    
 }
 
+.col img {
+    width: 730px;
+    height: 900px;
+    background-size: cover;
+}
+
+.row {
+    margin: 0 auto;
+    width: 1560px;
+    
+}
