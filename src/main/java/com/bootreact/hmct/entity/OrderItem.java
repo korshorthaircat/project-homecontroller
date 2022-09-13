@@ -42,7 +42,7 @@ public class OrderItem {
 	@Column
 	private String productAmount;
 	
-	//할인율
+	//제품당 개별 할인액
 	@Column
 	private String productDiscount;
 	

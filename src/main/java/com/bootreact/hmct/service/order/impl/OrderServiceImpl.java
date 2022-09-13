@@ -21,11 +21,13 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private OrderMapper orderMapper;
     
+    //주문목록 조회
     @Override
     public List<Order> getOrderList(){
     	return orderRepository.findAll();
     }
     
+    //주문 조회
     @Override
     public Map<String, Object> viewOrder(int orderNo) {
     	Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -36,38 +38,47 @@ public class OrderServiceImpl implements OrderService{
     	return resultMap;
     }
 
+    //주문번호 생성
 	@Override
 	public int createOrderNo() {
-		return 0;
+		return orderMapper.createOrderNo();
 	}
     
+	//주문 추가
 	@Override
-	public void addOrder(String userId, String orderAmount, String orderDiscount, String orderFee) {
-		orderMapper.addOrder(userId, orderAmount, orderDiscount, orderFee);
+	public void addOrder(int orderNo, String userId, String orderAmount, String orderDiscount, String orderFee) {
+		orderMapper.addOrder(orderNo, userId, orderAmount, orderDiscount, orderFee);
 	}
 
+	//주문아이템 추가
 	@Override
-	public void addOrderItem(List orderItemList) {
-		
+	public void addOrderItem(int orderNo, List orderItemList) {
 		Map orderItem = new HashMap();
 		
 		for(int i = 0; i < orderItemList.size(); i++) {
 			orderItem = (Map) orderItemList.get(i);
-			
-//			System.out.println(orderItem.get("productNo").toString() +  
-//								 orderItem.get("productAmount").toString() +
-//								 orderItem.get("productCount").toString() +  
-//								 orderItem.get("commonCode").toString());
-			
-			orderMapper.addOrder(orderItem.get("productNo").toString(), 
-								 orderItem.get("productAmount").toString(), 
-								 orderItem.get("productCount").toString(), 
-								 orderItem.get("commonCode").toString());
-		}
-		
+			orderMapper.addOrderItem(orderNo,
+									 orderItem.get("productNo").toString(), 
+								 	 orderItem.get("productAmount").toString(), 
+								 	 orderItem.get("productCount").toString(), 
+								 	 orderItem.get("commonCode").toString());
+		}	
 	}
+	
+	//배송정보 추가
+	@Override
+	public void addDelivery(int orderNo, String deliveryName, String deliveryTel, String deliveryZipcode, String deliveryAddress, String deliveryDetailAddress, String deliveryMessage) {
+		orderMapper.addDelivery(orderNo, deliveryName, deliveryTel, deliveryZipcode, deliveryAddress, deliveryDetailAddress, deliveryMessage);
+	}
+	
+	//결제정보 추가
+	@Override
+	public void addPayment(int orderNo, String paymentName, String paymentAmount, String paymentWay) {
+		orderMapper.addPayment(orderNo, paymentName, paymentAmount, paymentWay);		
+	}
+	
    
-    
+	//주문 수정
     @Override
     public Map<String, Object> updateOrder(int orderNo){
     	Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -78,6 +89,16 @@ public class OrderServiceImpl implements OrderService{
     	return resultMap;
     	
     }
+
+	
+
+
+
+	
+
+	
+
+	
 
     
 }
