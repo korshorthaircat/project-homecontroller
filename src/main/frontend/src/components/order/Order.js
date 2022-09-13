@@ -24,13 +24,15 @@ const Order = () => {
   //[1]배송정보 -> db에 저장하기
   const [deliveryName, setDeliveryName] = useState("");
   const [deliveryTel, setDeliveryTel] = useState("");
-  const [deliveryZipcode, setDeliveryZipcode] = useState("");
-  const [deliveryAddress, setDeliveryAddress] = useState("");
   const [deliveryDetailAddress, setDeliveryDetailAddress] = useState("");
   const [deliveryMessage, setDeliveryMessage] = useState("");
+  let [zipCode, setZipCode] = useState("");
+  let [fullAddress, setFullAddress] = useState("");
 
   //[2]결제정보 -> KakaoPayReady.js에 전달하기 & db에 저장하기
   const [payInfo, setPayInfo] = useState({});
+  const [paymentWay, setPaymentWay] = useState(""); //입금방식
+  const [paymentName, setPaymentName] = useState(""); //결제자 성명 or 입금자 성명
 
   //[3]주문아이템 정보 -> db에 저장하기
   const [orderItemInfo, setOrderItemInfo] = useState([]);
@@ -55,13 +57,14 @@ const Order = () => {
     }
   }, [orderItemInfo]);
 
+  useEffect(() => {
+    setPaymentName(payInfo.userId);
+  }, [payInfo]);
+
   //우편번호 및 주소 조회(다음 우편번호 검색 서비스 사용)
   const open = useDaumPostcodePopup(
     "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
   );
-
-  let [zipCode, setZipCode] = useState("");
-  let [fullAddress, setFullAddress] = useState("");
 
   const handleComplete = (data) => {
     fullAddress = data.address;
@@ -124,8 +127,8 @@ const Order = () => {
         //배송 정보
         deliveryName: deliveryName,
         deliveryTel: deliveryTel,
-        deliveryZipcode: deliveryZipcode,
-        deliveryAddress: deliveryAddress,
+        deliveryZipcode: zipCode,
+        deliveryAddress: fullAddress,
         deliveryDetailAddress: deliveryDetailAddress,
         deliveryMessage: deliveryMessage,
 
@@ -134,9 +137,9 @@ const Order = () => {
         orderDiscount:
           parseInt(payInfo.orderAmount) - parseInt(payInfo.paymentAmount), //할인금액
         orderFee: 5000, //배송료
-        paymentAmount: payInfo.paymentAmount, //결제금액
-        paymentWay: "카카오페이", //결제방식
-        paymentName: "gogo", //결제자 이름
+        paymentAmount: parseInt(payInfo.paymentAmount + 5000), //결제금액
+        paymentWay: paymentWay, //결제방식
+        paymentName: paymentName, //입금자명
 
         //주문아이템 정보
         //productNo, commonCode, productCount, productPrice
@@ -158,17 +161,18 @@ const Order = () => {
   const onDlvyTelHandler = (event) => {
     setDeliveryTel(event.currentTarget.value);
   };
-  const onDlvyZipcodeHandler = (event) => {
-    setDeliveryZipcode(event.currentTarget.value);
-  };
-  const onDlvyAddressHandler = (event) => {
-    setDeliveryAddress(event.currentTarget.value);
-  };
   const onDlvyDetailAddressHandler = (event) => {
     setDeliveryDetailAddress(event.currentTarget.value);
   };
   const onDlvyMessageHandler = (event) => {
     setDeliveryMessage(event.currentTarget.value);
+  };
+  const onPmtWayHandler = (event) => {
+    setPaymentWay(event.currentTarget.value);
+  };
+  const onPmtNameHandler = (event) => {
+    console.log(paymentName);
+    setPaymentName(event.currentTarget.value);
   };
 
   return (
@@ -229,7 +233,7 @@ const Order = () => {
                   // autoComplete="shipping postal-code"
                   variant="standard"
                   value={zipCode}
-                  onChange={onDlvyZipcodeHandler}
+                  // onChange={onDlvyZipcodeHandler}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -253,7 +257,7 @@ const Order = () => {
                   // autoComplete="shipping address-line1"
                   variant="standard"
                   value={fullAddress}
-                  onChange={onDlvyAddressHandler}
+                  // onChange={onDlvyAddressHandler}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -300,6 +304,7 @@ const Order = () => {
                   row
                   aria-labelledby="demo-row-radio-buttons-group-label"
                   name="row-radio-buttons-group"
+                  onChange={onPmtWayHandler}
                 >
                   <FormControlLabel
                     value="disabled"
@@ -332,17 +337,54 @@ const Order = () => {
                 </RadioGroup>
               </FormControl>
             </Grid>
+
+            {paymentWay == "무통장입금" ? (
+              <Grid className="bankTransfer">
+                <TextField
+                  name="paymentName"
+                  id="paymentName"
+                  label="입금자 성명"
+                  variant="standard"
+                  value={paymentName}
+                  onChange={onPmtNameHandler}
+                />
+                <Grid className="bankTransferInfo" marginTop={"30px"}>
+                  <Typography>예금주 확인: (주)홈컨트롤러 </Typography>
+                  <Typography>
+                    입금 계좌: 비트은행 12345678901234567890{" "}
+                  </Typography>
+                  <Grid
+                    className="bankTransferWarning"
+                    marginTop={"20px"}
+                    color={"gray"}
+                  >
+                    <Typography>
+                      송금정보, 결제금액(1원 단위까지)이 정확히 일치할 경우
+                      1시간내로 확인됩니다.
+                    </Typography>
+                    <Typography>
+                      '입금확인 완료'(입금시간 아님) 시점 기준, 주문처리 일정이
+                      최종 확정되며,
+                    </Typography>
+                    <Typography>
+                      재고 상황에 따라 출고지연 또는 품절 후 취소 가능성이
+                      있습니다.
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+            ) : null}
           </Grid>
+
           <Grid className="orderReview" marginTop={"50px"}>
             <Typography variant="h4">
               <Looks3OutlinedIcon />
               주문 확인
             </Typography>
             <Typography>주문자: {payInfo.userId}</Typography>
-            <Typography>주문번호: {payInfo.orderNo}</Typography>
-            <Typography>주문 금액(+): {payInfo.orderAmount}</Typography>
+            <Typography>주문 금액(+): ₩ {payInfo.orderAmount}</Typography>
             <Typography>
-              할인 금액(-):{" "}
+              할인 금액(-): ₩{" "}
               {parseInt(payInfo.orderAmount) - parseInt(payInfo.paymentAmount)}
             </Typography>
           </Grid>

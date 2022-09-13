@@ -21,7 +21,7 @@ public interface OrderMapper {
 
 	@Insert("INSERT into t_hmct_ordr ("
 			+ "order_no, order_amount, order_date, order_discount, order_fee, order_memo, order_status, user_id"
-			+ ") VALUE ("
+			+ ") VALUES ("
 			+ "#{orderNo}, #{orderAmount} , now(), #{orderDiscount}, #{orderFee}, null, null, #{userId})")
 	void addOrder(@Param("orderNo") int orderNo,
 				  @Param("userId") String userId, 
@@ -32,7 +32,7 @@ public interface OrderMapper {
 	
 	@Insert("insert into t_hmct_ordritem ("
 			+ "order_no, product_no, product_amount, product_count, product_discount, common_code"
-			+ ") value ("
+			+ ") values ("
 			+ "#{orderNo}, #{productNo}, #{orderAmount}, #{productCount}, 0, #{commonCode})")
 	void addOrderItem(@Param("orderNo") int orderNo,
 					  @Param("productNo") String productNo, 
@@ -42,7 +42,7 @@ public interface OrderMapper {
 
     @Insert("insert into t_hmct_dlvy ("
     		+ "delivery_no, delivery_address, delivery_detail_address, delivery_message, delivery_name, delivery_tel, delivery_tracking_no, delivery_zipcode, order_no"
-    		+ ") value ("
+    		+ ") values ("
     		+ "(SELECT IFNULL(MAX(A.delivery_no), 0) + 1 FROM t_hmct_dlvy A), #{deliveryAddress}, #{deliveryDetailAddress}, #{deliveryMessage}, #{deliveryName}, #{deliveryTel}, null, #{deliveryZipcode}, #{orderNo})")
 	void addDelivery(@Param("orderNo") int orderNo, 
 					 @Param("deliveryName") String deliveryName, 
@@ -54,9 +54,9 @@ public interface OrderMapper {
 	
     @Insert("insert into t_hmct_pmt ("
     		+ "payment_no, payment_amount, payment_date, order_no, payment_name, payment_way"
-    		+ ") value ("
-    		+ "(SELECT IFNULL(MAX(A.payment_no), 0) + 1 FROM t_hmct_pmt A), #{paymentAmount}, now(), #{orderNo}, #{paymentName}, #{paymentWay})")
-	void addPayment(@Param("orderNo") int orderNo, 
+    		+ ") values ("
+    		+ "(SELECT IFNULL(MAX(A.payment_no), 0) + 1 FROM t_hmct_pmt A), #{paymentAmount}, now(), #{orderNo}, #{paymentName}, #{paymentWay} )")
+	void addPayment( @Param("orderNo") int orderNo, 
 					 @Param("paymentName") String paymentName, 
 					 @Param("paymentAmount") String paymentAmount, 
 					 @Param("paymentWay") String paymentWay);

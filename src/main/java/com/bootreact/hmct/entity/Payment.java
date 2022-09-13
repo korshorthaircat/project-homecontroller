@@ -23,7 +23,7 @@ public class Payment {
 	
 	//결제 번호(PK)
 	@Id
-	private String paymentNo;
+	private int paymentNo;
 	
 	//주문 번호(FK)
 	@OneToOne
