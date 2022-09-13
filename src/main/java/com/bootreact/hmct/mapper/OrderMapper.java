@@ -22,8 +22,9 @@ public interface OrderMapper {
 	@Insert("INSERT into t_hmct_ordr ("
 			+ "order_no, order_amount, order_date, order_discount, order_fee, order_memo, order_status, user_id"
 			+ ") VALUES ("
-			+ "#{orderNo}, #{orderAmount} , now(), #{orderDiscount}, #{orderFee}, null, null, #{userId})")
+			+ "#{orderNo}, #{orderAmount} , now(), #{orderDiscount}, #{orderFee}, null, #{orderStatus}, #{userId})")
 	void addOrder(@Param("orderNo") int orderNo,
+				  @Param("orderStatus") String orderStatus,
 				  @Param("userId") String userId, 
 				  @Param("orderAmount") String orderAmount, 
 				  @Param("orderDiscount") String orderDiscount, 

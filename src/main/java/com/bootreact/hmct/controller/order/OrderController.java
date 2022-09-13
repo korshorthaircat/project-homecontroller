@@ -114,8 +114,18 @@ public class OrderController {
 			//주문번호 생성하기
 			int orderNo = orderService.createOrderNo();
 			
+			//주문상태
+			String orderStatus = "";
+			
+			if(paramMap.get("paymentWay").toString().equals("무통장입금")) {
+				orderStatus = "입금대기";
+			} else if(paramMap.get("paymentWay").toString().equals("카카오페이")) {
+				orderStatus = "결제완료";
+			}
+			
 			//Order 테이블에 주문 정보 인서트(orderDate는 자동생성)
 			orderService.addOrder(orderNo,
+								  orderStatus,
 								  paramMap.get("userId").toString(),
 								  paramMap.get("orderAmount").toString(), 
 								  paramMap.get("orderDiscount").toString(),
