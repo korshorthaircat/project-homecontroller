@@ -28,6 +28,7 @@ public class MainController {
 	@Autowired
 	ShowroomService showroomService;  
 	
+	
 //	//헤더의 검색바 관련 메서드
 //	void getSearchProducts(String keyword) {}
 //
