@@ -70,7 +70,7 @@ public class CartController {
 			System.out.println(paramMap.get("productCount"));
 			
 			//수정 처리하기
-			cartService.updateCart(paramMap.get("userId"), 
+			cartService.updateCart(paramMap.get("userId"),
 								paramMap.get("productNo"),
 								paramMap.get("commonCode"),
 								paramMap.get("productCount"));

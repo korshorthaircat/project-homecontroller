@@ -118,7 +118,7 @@ public class UserController {
     	}
     };
     
-    //회원 정보 조회(마이페이지)
+    //회원 정보 조회 (마이페이지)
     @PostMapping("/getUser")
     public ResponseEntity<?> getUser(@RequestBody User user) {
     	try {
@@ -127,17 +127,20 @@ public class UserController {
     		List<User> userList = new ArrayList<User>();
     		userList.add(u);
     		
-    		ResponseDTO<User> response = new ResponseDTO<>(); 
+    		ResponseDTO<User> response = new ResponseDTO<>();
     		response.setData(userList);
+    		System.out.println("!!!!!!!");
     		return ResponseEntity.ok().body(response);
     		
     	}catch(Exception e){
     		System.out.println(e.getMessage());
     		ResponseDTO<User> response = new ResponseDTO<>();
     		response.setError(e.getMessage());
-    		return ResponseEntity.badRequest().body(response);		
+    		return ResponseEntity.badRequest().body(response);
     	}
     }
+
+    
    
     //회원 삭제  
     @DeleteMapping("/deleteUser")
