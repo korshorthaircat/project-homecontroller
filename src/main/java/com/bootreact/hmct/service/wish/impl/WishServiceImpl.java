@@ -1,41 +1,83 @@
 package com.bootreact.hmct.service.wish.impl;
+
 import java.util.List;
-import java.lang.String;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.bootreact.hmct.entity.WishItem;
+import com.bootreact.hmct.entity.WishShowroom;
 import com.bootreact.hmct.mapper.WishItemMapper;
 import com.bootreact.hmct.mapper.WishShowroomMapper;
+import com.bootreact.hmct.repository.WishItemRepository;
+import com.bootreact.hmct.repository.WishShowroomRepository;
 import com.bootreact.hmct.service.wish.WishService;
 
 @Service
 public class WishServiceImpl implements WishService{
-
-	@Autowired
-	WishItemMapper wishitemMapper;
 	
 	@Autowired
-	WishShowroomMapper wishShowroomMapper;
+	private WishItemRepository wishItemRepository;
 	
-
-	@Override
-	public void addWish(String userId, int productNo) {
-		wishitemMapper.getWishItem(userId, productNo);
+	@Autowired
+	private WishItemMapper wishItemMapper;
+	
+	@Autowired
+	private WishShowroomRepository wishShowroomRepository;
+	
+	@Autowired
+	private WishShowroomMapper wishShowroomMapper;
+	
+	
+	
+	
+	
+		//get위시아이템 
+		@Override
+		public List<WishItem> getWishItemList(String userId) {
+		List<WishItem> list = wishItemRepository.findByUserUserId(userId);
+		System.out.println(list.size());
+		return wishItemRepository.findByUserUserId(userId);
+		}
+	
+		//add위시아이템 
+		@Override
+		public void addWishItem(String userId, String productNo) {
+			wishItemMapper.addWishItem(userId, Integer.parseInt(productNo));		
+		}
 		
-	}
-
-	@Override
-	public List<WishItem> getCartList(String userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteWish(String userId, int productNo) {
-		// TODO Auto-generated method stub
+		//delete위시아이템
+		@Override
+		public void deleteWishItem(String userId, String productNo) {
+			wishItemMapper.deleteWishItem(userId, Integer.parseInt(productNo));	
+		}
+	
 		
-	}
+		
+		
+		
+		
+		
+		
+		
+		//get위시쇼룸 
+		@Override
+		public List<WishShowroom> getWishShowroomList(String userId) {
+		List<WishShowroom> list = wishShowroomRepository.findByUserUserId(userId);
+		System.out.println(list.size());
+		return wishShowroomRepository.findByUserUserId(userId);
+		}
 	
-	
+		//add위시쇼룸  
+		@Override
+		public void addWishShowroom(String userId, String showroomNo) {
+			wishShowroomMapper.addWishShowroom(userId, Integer.parseInt(showroomNo));		
+		}
+		
+		//delete위시쇼룸 
+		@Override
+		public void deleteWishShowroom(String userId, String showroomNo) {
+			wishShowroomMapper.deleteWishShowroom(userId, Integer.parseInt(showroomNo));	
+		}
 	
 }

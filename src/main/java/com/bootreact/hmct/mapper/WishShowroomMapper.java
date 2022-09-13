@@ -26,13 +26,13 @@ public interface WishShowroomMapper {
 				+ "A.USER_ID = B.USER_ID"
 				+ " and	A.SHOWROOM_NO = C.SHOWROOM_NO"
 				+ " and A.USER_ID = #{userId}")
-	List<Map<String, Object>> getWishItem(String userId);
+	List<Map<String, Object>> getWishShowroom(String userId);
 
 	
 	@Delete("DELETE FROM t_hmct_wishshowroom"
 			+ " WHERE user_id = #{userId}"
 			+ " and product_no = #{showroomNo}")
-	void deleteWishItem(@Param("userId") String userId, 
+	void deleteWishShowroom(@Param("userId") String userId, 
 					@Param("productNo") int showroomNo);
 
 
@@ -41,16 +41,8 @@ public interface WishShowroomMapper {
 			+ " ) VALUE ("
 			+ " #{showroomNo}, #{userId}, 1"
 			+ ")")
-	void addWishItem(@Param("userId") String userId, 
+	void addWishShowroom(@Param("userId") String userId, 
 				 @Param("showroomNo") int showroomNo); 
-
-
-	
-	@Update("update t_hmct_wishshowroom \n"
-			+ "where user_id =#{userId} \n"
-			+ "and showroom_no = #{showroomNo};")
-	void updateWishShowroom(@Param("userId") String userId, 
-					@Param("showroomNo") int showroomNo); 
 	
 	
 }

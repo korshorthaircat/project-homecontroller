@@ -45,10 +45,6 @@ public interface WishItemMapper {
 			+ ")")
 	void addWishItem(@Param("userId") String userId, 
 				 @Param("productNo") int productNo); 
-
-
-
-	void getWishItem(String userId, int productNo); 
 	
 	
 }

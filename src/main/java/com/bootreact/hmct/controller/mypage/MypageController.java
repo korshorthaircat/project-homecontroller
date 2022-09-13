@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bootreact.hmct.entity.Inquiry;
 import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.jwt.JwtTokenProvider;
 import com.bootreact.hmct.service.cart.CartService;
+import com.bootreact.hmct.service.inquiry.InquiryService;
 //import com.bootreact.hmct.service.inquiry.InquiryService;
 import com.bootreact.hmct.service.mypage.MypageService;
 import com.bootreact.hmct.service.product.ProductService;
@@ -96,4 +98,32 @@ public class MypageController {
 			
 		}
 	}
+	
+	
+	//Mypage 내가작성한 게시글 조회 
+//	@PostMapping("myInquiryList")
+//	public ResponseEntity<?> myInquiryList(@RequestBody User user, @RequestBody Inquiry inquiry) {
+//		// 등록된 사용자 정보를 조회한다 
+//		User oldUser = userService.findbyUserId(user.getUserId());
+//		Inquiry myInquiry = inquiryService.
+//
+//		// 화면 input 항목에서 값을 받아온다 
+//		oldUser.setUserName(user.getUserName());
+//		oldUser.setUserNickname(user.getUserNickname());
+//		oldUser.setUserTel(user.getUserTel());
+//		oldUser.setUserMail(user.getUserMail());
+//		oldUser.setUserZip(user.getUserZip());
+//		oldUser.setUserAddr(user.getUserAddr());
+//		oldUser.setUserAddrDetail(user.getUserAddrDetail());
+//
+//		// 실제 DB 저장 
+//		userService.updateUser(oldUser);
+//
+//		return ResponseEntity.ok().body("success");
+//	}
+	
+	 {
+		
+	}
+	
 }
