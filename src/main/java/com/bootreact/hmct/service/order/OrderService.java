@@ -21,12 +21,6 @@ public interface OrderService {
    void addPayment(int orderNo, String paymentName, String paymentAmount, String paymentWay);
    
    //주문 수정
-   Map<String, Object> updateOrder(int orderNo);
-
-
-
-
-
-
+   Map<String, Object> updateOrder(Map<String, Object> paramMap);
 
 }
