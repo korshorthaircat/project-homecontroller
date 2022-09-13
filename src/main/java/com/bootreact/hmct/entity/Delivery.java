@@ -20,7 +20,7 @@ public class Delivery {
     
 	//배송 번호(PK)
 	@Id
-	private String deliveryNo;
+	private int deliveryNo;
 	
 	//주문 번호(FK)
 	@OneToOne
