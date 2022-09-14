@@ -7,21 +7,25 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import "../../css/ProductDetail.css";
 import { useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { FavoriteBorder } from "@mui/icons-material";
+import { Details, FavoriteBorder } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import MainInfoNav from "./MainInfoNav";
 import { list, productlist } from "./../admin/ProductList";
 import axios from "axios";
+import { Route, useParams } from "react-router-dom";
 
 function MainInfo() {
+  let { productNo } = useParams();
+  console.log(productNo);
   const [productList, setProductList] = React.useState([]);
 
   let listUrl = "http://localhost:8080/api/admin/admin2";
+
   const list = () => {
     axios
       .get(listUrl, {})
       .then((response) => {
-        setProductList(response.data.data.slice(0, 1));
+        setProductList(response.data.data);
       })
       .catch((e) => {
         console.log(e);
