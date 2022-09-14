@@ -141,7 +141,7 @@ const ProductCarousel = () => {
           
           ))}
         
-       </Carousel>
+       </Carousel> 
      </div>
   );
 };
