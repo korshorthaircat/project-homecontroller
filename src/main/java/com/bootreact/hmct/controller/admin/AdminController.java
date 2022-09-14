@@ -145,6 +145,7 @@ public class AdminController {
          productService.updateProduct(product);
          
          
+         
           List<Product> productList = productService.getProductList();
           
           List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
@@ -185,6 +186,33 @@ public class AdminController {
        }
 
     }
+    
+    //상품 옵션(커먼코드, 재고량) 추가
+	@PostMapping("/addOption")
+	public ResponseEntity<?>addOption(@RequestBody Map<String, String> paramMap) {
+		try {
+			System.out.println(paramMap.get("productNo"));
+			System.out.println(paramMap.get("optionCommonCode"));
+			System.out.println(paramMap.get("optionInventory"));
+	
+			//옵션추가 처리하기
+			productService.addOption(Integer.parseInt(paramMap.get("productNo").toString()),
+								   	 paramMap.get("optionCommonCode").toString(),
+								   	Integer.parseInt(paramMap.get("optionInventory").toString()));
+
+			//옵션추가 후 리스트 다시 받아오기
+	        List<Map<String, Object>> productList = productService.getMainProductList();
+	         ResponseDTO<Map<String, Object>> response = new ResponseDTO<>();
+	         response.setData(productList);
+	         return ResponseEntity.ok().body(response);
+		
+    	}catch(Exception e){
+    		System.out.println(e.getMessage());
+    		ResponseDTO response = new ResponseDTO<>();
+    		response.setError(e.getMessage());
+    		return ResponseEntity.badRequest().body(response);		
+    	}
+	}
     
     
     //인테리어 쇼룸 등록

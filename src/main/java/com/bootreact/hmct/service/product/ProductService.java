@@ -32,6 +32,9 @@ public interface ProductService {
 	List<Map<String, Object>> getMainProductList();
 	
 	List<Map<String, Object>> getMainProductImageList();
+
+	void addOption(int productNo, String optionCommonCode, int optionInventory);
+
 }
 
 

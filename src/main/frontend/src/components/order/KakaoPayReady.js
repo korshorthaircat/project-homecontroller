@@ -32,7 +32,7 @@ const KakaoPayReady = () => {
       const newParams = {
         ...params,
         partner_order_id: payInfo.orderNo,
-        artner_user_id: payInfo.userId,
+        partner_user_id: payInfo.userId,
         item_name: payInfo.itemName,
         total_amount: payInfo.paymentAmount,
       };
