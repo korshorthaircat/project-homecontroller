@@ -46,8 +46,8 @@ public class OrderServiceImpl implements OrderService{
     
 	//주문 추가
 	@Override
-	public void addOrder(int orderNo, String userId, String orderAmount, String orderDiscount, String orderFee) {
-		orderMapper.addOrder(orderNo, userId, orderAmount, orderDiscount, orderFee);
+	public void addOrder(int orderNo, String orderStatus, String userId, String orderAmount, String orderDiscount, String orderFee) {
+		orderMapper.addOrder(orderNo, orderStatus, userId, orderAmount, orderDiscount, orderFee);
 	}
 
 	//주문아이템 추가
@@ -64,6 +64,7 @@ public class OrderServiceImpl implements OrderService{
 								 	 orderItem.get("commonCode").toString());
 		}	
 	}
+	 
 	
 	//배송정보 추가
 	@Override

@@ -1,6 +1,7 @@
 package com.bootreact.hmct.controller.cart;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -116,7 +117,8 @@ public class CartController {
     	}
 	}	
 
-	//장바구니 제품리스트 조회 (POST)
+	//작동하는 메서드
+	//장바구니 제품리스트 조회 (이미지 포함X)
 	@PostMapping("/getCartList")
     public ResponseEntity<?> getCartList(@RequestBody User user){
 		//'조회'라고 해서 무조건 'get'요청을 보내는 것은 아님.
@@ -144,5 +146,32 @@ public class CartController {
     		return ResponseEntity.badRequest().body(response);		
     	}
 	}
+	
+	//수정 중
+	//장바구니 제품리스트 조회 (이미지 포함)
+//	@PostMapping("/getCartList")
+//    public Map<String, Object> getCartList(@RequestBody User user){
+//		try {
+//
+//			List<Map<String, Object>> cartList = cartService.getCartList(user.getUserId());
+//			List<Map<String, Object>> cartImageList = cartService.getCartImageList(user.getUserId());
+//			
+//			Map<String, Object> returnMap = new HashMap<String, Object>();
+//			
+//			returnMap.put("cartList", cartList);
+//			returnMap.put("cartImageList", cartImageList);
+//			
+//			return returnMap; 
+//    		
+//    		
+//    	}catch(Exception e){
+//    		System.out.println(e.getMessage());
+//    		ResponseDTO<Cart> response = new ResponseDTO<>();
+//    		response.setError(e.getMessage());
+//    		return ResponseEntity.badRequest().body(response);		
+//    	}
+//	}
+	
+	
 	
 }
