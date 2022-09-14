@@ -62,7 +62,7 @@ public class WishController {
     		
     		Map<String, Object> resultMap = new HashMap<String, Object>();
     		
-    		resultMap.put("wishItemList", wishItemList);
+    		resultMap.put("wishItemList", wishItemList);  
     		
     		return resultMap;
     		
