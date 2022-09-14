@@ -74,10 +74,12 @@ public class ProductController {
 			for(MultipartFile multipartFile : list) {
 				if(!multipartFile.isEmpty()) {
 					ProductImage productImage = new ProductImage();
-					Product pr = new Product();
-					pr.setProductNo(prNo);
+					ProductOption prOpt = new ProductOption();
+				
+					prOpt.setProduct(product);
+					prOpt.setCommon(common);
 					
-					productImage.setProduct(pr);
+					productImage.setProductOption(prOpt);
 					
 					//고유 파일명 생성 
 					//실제 서버에 저장되는 파일명
@@ -97,22 +99,16 @@ public class ProductController {
 		}
 		/*파일 서버에 업로드 끝*/
 		
-		/*업로드 파일정보 저장 시작*/
-		productService.insertProductFiles(fileList);
-		/*업로드 파일정보 저장 끝*/
-		
 		/*색상 및 수량 등록 시작*/ 
-		System.out.println(productOption.toString());
-		Product pr2 = new Product();
-		pr2.setProductNo(prNo);
-		productOption.setProduct(pr2);
+		productOption.setProduct(product);
 		productOption.setCommon(common);
 		System.out.println(productOption.toString());
 		productService.insertProductOption(productOption);
 		/*색상 및 수량 등록 끝*/
 		
-		/*제품 소재 등록 시작*/
-		
+		/*업로드 파일정보 저장 시작*/
+		productService.insertProductFiles(fileList);
+		/*업로드 파일정보 저장 끝*/
 	}
 
 	//제품 조회(상세정보)

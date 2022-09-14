@@ -103,6 +103,21 @@ const style = {
   padding: 0,
 };
 
+const optModalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "40%",
+  height: "75%",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  margin: 0,
+  padding: 0,
+};
+
 export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -204,6 +219,10 @@ export default function EnhancedTable() {
     []
   );
 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <ThemeProvider theme={mdTheme}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -239,7 +258,7 @@ export default function EnhancedTable() {
                       <TableCell align="center">재고량</TableCell>
                       <TableCell align="center">등록일</TableCell>
                       <TableCell align="center">수정일</TableCell>
-                      {/* <TableCell align="center">비고</TableCell> */}
+                      <TableCell align="center">비고</TableCell>
                       <TableCell align="center">수정</TableCell>
                       <TableCell align="center">삭제</TableCell>
                       <TableCell align="center">옵션추가</TableCell>
@@ -290,9 +309,9 @@ export default function EnhancedTable() {
                           <TableCell align="center" sx={{ padding: "0px" }}>
                             {r.productUpdde}
                           </TableCell>
-                          {/* <TableCell align="center" sx={{ padding: "0px" }}>
+                          <TableCell align="center" sx={{ padding: "0px" }}>
                             {}
-                          </TableCell> */}
+                          </TableCell>
 
                           <TableCell align="center" sx={{ padding: "0px" }}>
                             {/* {productList.map((productInfo) => ( */}
@@ -355,49 +374,76 @@ export default function EnhancedTable() {
                           </TableCell>
 
                           <TableCell align="center" sx={{ padding: "0px" }}>
-                            <TextField
-                              required
-                              id="addOptionCommonCode"
-                              name="addOptionCommonCode"
-                              label="옵션 추가(공통코드)"
-                              variant="standard"
-                              onChange={onAddCommonCodeHandler}
-                            />
-                            <TextField
-                              required
-                              id="addOptionInventory"
-                              name="addOptionInventory"
-                              label="옵션 추가(재고량)"
-                              variant="standard"
-                              onChange={onAddInventoryHandler}
-                            />
-                            <Grid>
-                              <Button
-                                onClick={() => {
-                                  onAddOption(
-                                    r.productNo,
-                                    optionCommonCode,
-                                    optionInventory
-                                  );
-                                }}
-                                id={`Btn${r}`}
-                                sx={{
-                                  border: "1px solid lightgray",
-                                  backgroundColor: "#fff",
-                                  borderRadius: "5px",
-                                  width: "70px",
-                                  height: "45px",
-                                  alignItems: "center",
-                                }}
-                              >
-                                <img
-                                  className="AdminEdit"
-                                  src="images/edit.png"
-                                  alt="AdminEdit"
+                            <Button
+                              onClick={handleOpen}
+                              id={`Btn${r}`}
+                              sx={{
+                                border: "1px solid lightgray",
+                                backgroundColor: "#fff",
+                                borderRadius: "5px",
+                                width: "70px",
+                                height: "45px",
+                                alignItems: "center",
+                              }}
+                            >
+                              <img
+                                className="AdminEdit"
+                                src="images/edit.png"
+                                alt="AdminEdit"
+                              />
+                              옵션 추가
+                            </Button>
+                            <Modal
+                              open={open}
+                              onClose={handleClose}
+                              aria-labelledby="modal-modal-title"
+                              aria-describedby="modal-modal-description"
+                            >
+                              <Box sx={optModalStyle}>
+                                <Typography
+                                  id="modal-modal-title"
+                                  variant="h6"
+                                  component="h2"
+                                >
+                                  {r.productName} 의 제품 옵션 추가하기
+                                </Typography>
+                                <Typography
+                                  id="modal-modal-description"
+                                  sx={{ mt: 2 }}
+                                >
+                                  추가하고자 하는 옵션의 컬러(공통코드), 재고량,
+                                  이미지를 추가하세요.
+                                </Typography>
+                                <TextField
+                                  required
+                                  id="addOptionCommonCode"
+                                  name="addOptionCommonCode"
+                                  label="옵션 추가(공통코드)"
+                                  variant="standard"
+                                  onChange={onAddCommonCodeHandler}
                                 />
-                                추가
-                              </Button>
-                            </Grid>
+                                <TextField
+                                  required
+                                  id="addOptionInventory"
+                                  name="addOptionInventory"
+                                  label="옵션 추가(재고량)"
+                                  variant="standard"
+                                  onChange={onAddInventoryHandler}
+                                />
+                                <Button
+                                  onClick={() => {
+                                    onAddOption(
+                                      r.productNo,
+                                      optionCommonCode,
+                                      optionInventory
+                                    );
+                                  }}
+                                  id={`Btn${r}`}
+                                >
+                                  제품 옵션 추가하기
+                                </Button>
+                              </Box>
+                            </Modal>
                           </TableCell>
                         </TableRow>
                       ))
