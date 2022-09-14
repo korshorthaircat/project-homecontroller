@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootreact.hmct.dto.ResponseDTO;
-import com.bootreact.hmct.entity.Cart;
-import com.bootreact.hmct.entity.Product;
 import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.entity.WishItem;
 import com.bootreact.hmct.entity.WishShowroom;
@@ -28,7 +27,7 @@ import com.bootreact.hmct.service.wish.WishService;
 
 
 @RestController
-@RequestMapping("/wish")
+@RequestMapping("/api/wishlist")
 public class WishController {
 	
 	@Autowired
@@ -54,21 +53,23 @@ public class WishController {
 
 	
 	//위시아이템 조회 
-	@PostMapping("/getWishItemList")
-    public ResponseEntity<?> getWishItemList(@RequestBody User user){
+	@GetMapping("/getWishItemList")
+    public Map<String, Object> getWishItemList(@AuthenticationPrincipal String userId){
 		
 		try {
 			//직접 쿼리작성 없이 JPA로 조인&셀렉트하고 싶은 경우 아래와 같이 함
-    		List<WishItem> wishItmList = wishService.getWishItemList(user.getUserId());
-    		ResponseDTO<WishItem> response = new ResponseDTO<>();
-    		response.setData(wishItmList);
-    		return ResponseEntity.ok().body(response);
+    		List<Map<String, Object>> wishItemList = wishService.getWishItemList(userId);
+    		
+    		Map<String, Object> resultMap = new HashMap<String, Object>();
+    		
+    		resultMap.put("wishItemList", wishItemList);
+    		
+    		return resultMap;
     		
     	}catch(Exception e){
-    		System.out.println(e.getMessage());
-    		ResponseDTO<WishItem> response = new ResponseDTO<>();
-    		response.setError(e.getMessage());
-    		return ResponseEntity.badRequest().body(response);		
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+    		errorMap.put("error", e.getMessage());
+    		return errorMap;
     	}
 	}
 	
@@ -91,6 +92,21 @@ public class WishController {
     		response.setError(e.getMessage());
     		return ResponseEntity.badRequest().body(response);
     	}
+	}
+	
+	@PostMapping("/addWishItem")
+	public String addWishItem(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
+		System.out.println(paramMap.toString());
+		System.out.println(paramMap.get("productNo"));
+		System.out.println(userId);
+		
+		
+		int productNo = Integer.parseInt(paramMap.get("productNo"));
+		
+		
+		wishService.addWishItem("gogo", productNo);
+		
+		return "addWishItem Success";
 	}
     
 }
