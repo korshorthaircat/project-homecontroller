@@ -6,11 +6,60 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import InfiniteCarousel from 'react-leaf-carousel';
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-
+import axios from "axios";
+import { useRef, useState, useCallback, useEffect } from "react";
 
 
 function WishList () {
   
+// 화면 input 항목들 상태 관리 시작
+  // 화면 input 항목 = DB 정보
+  const [inputs, setInputs] = useState({
+    productNo        : ''
+   ,productImageNo   : ''
+ });
+
+ // db에서 회원정보 데이터 받아오기
+ const getWishItem = () => {
+   let url = "http://localhost:8080/api/wish/getWishItemList";
+   var userInfoStr = sessionStorage.getItem("USER_INFO"); // 로그인한 사용자의 ID 를 가져오기 위한 세션 정보 활용
+   var userInfo = JSON.parse(userInfoStr); // 세션에 JSON String 으로 등록된 사용자 정보를 JSON 형태로 변환
+   axios({
+     method: "post",
+     url: url,
+     data: { userId: userInfo.userId }, // DB 조회를 위한 사용자 ID
+   }).then((response) => {
+
+     var usrData = response.data.data[0]; // DB 조회 결과
+     // DB 조회 결과를 화면 input 항목에 반영
+     setInputs({
+       productNo      : usrData.productNo 
+      ,productImageNo : usrData.productImageNo
+      
+     });
+   });
+ };
+
+ React.useEffect(() => {
+  getWishItem();
+ }, []);
+
+//  const [toggleState, setToggleState] = useState(1);
+
+//  const toggleTab = (index) => {
+//    setToggleState(index);
+//  };
+
+ // 화면 input 항목들의 변경 내용을 React 상태 갱신
+ const onChange = (e) => { 
+   const { name, value }  = e.target;
+   setInputs({
+     ...inputs,
+     [name]: value,
+   });
+ };
+
+
     return (
       
       <div>
@@ -49,6 +98,7 @@ function WishList () {
         alt=''
         src='https://i.pinimg.com/236x/c5/9a/ff/c59aff9c739f0a92eb70933f72fe14c8.jpg'
       />
+      <h5 name='productNo' value={inputs.productNo}></h5> 
       <button type="button" className="deleteBtn"><img src="https://cdn-icons-png.flaticon.com/512/657/657059.png"/></button>
       <IconButton className="cartBtn"
               size="large"

@@ -1,11 +1,13 @@
 package com.bootreact.hmct.controller.wish;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ import com.bootreact.hmct.entity.WishShowroom;
 import com.bootreact.hmct.jwt.JwtTokenProvider;
 import com.bootreact.hmct.service.mypage.MypageService;
 import com.bootreact.hmct.service.product.ProductService;
+import com.bootreact.hmct.service.showroom.ShowroomService;
 import com.bootreact.hmct.service.user.UserService;
 import com.bootreact.hmct.service.wish.WishService;
 
@@ -42,6 +45,9 @@ public class WishController {
 
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	ShowroomService showroomService;
 	
 	@Autowired	
 	MypageService mypageService;
@@ -66,6 +72,7 @@ public class WishController {
     	}
 	}
 	
+
 	
 	//위시쇼룸 조회
 	@PostMapping("/getWishShowroomList")
