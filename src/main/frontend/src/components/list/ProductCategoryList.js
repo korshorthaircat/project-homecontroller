@@ -60,7 +60,10 @@ const ProductCategoryList = () => {
           </Toolbar>
         </AppBar>
       </Box>
-      <div>
+      <div className="appbarUnder">
+        <div className="header_line">
+          <hr />
+        </div>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2} columns={16}>
             {productList ? (

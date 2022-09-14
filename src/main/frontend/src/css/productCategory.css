@@ -28,3 +28,13 @@
     justify-content: center;
     padding: 2%;
 }
+
+.css-mhc70k-MuiGrid-root {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.appbarUnder{
+    margin-top: 2%;
+}
