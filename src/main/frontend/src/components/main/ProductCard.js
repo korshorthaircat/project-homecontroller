@@ -3,6 +3,7 @@ import "../../css/productCard.css";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import axios from "axios";
 
 
 
@@ -36,7 +37,19 @@ const ProductCard = ({ item, productImageList }) => {
     }
   }, [item, productImageList]);
     
- 
+//하트아이콘 클릭시 위시리스트에 담기
+const addWishList = () => {
+  axios({
+    url: 'http://localhost:8080/api/wishlist/addWishItem',
+    headers: {
+      Authorization: 'Bearer ' + sessionStorage.getItem("ACCESS_TOKEN")
+    },
+    method: 'post',
+    data: {productNo: item.productNo},
+  }).then(response => {
+    console.log(response.data);
+  })
+} 
 
   
 
@@ -71,6 +84,7 @@ const ProductCard = ({ item, productImageList }) => {
               aria-label="show 17 new notifications"
               color="inherit"
               sx={{ padding: "0 6px", left: 180 }}
+              onClick={addWishList}
             >
               <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
             </IconButton>
