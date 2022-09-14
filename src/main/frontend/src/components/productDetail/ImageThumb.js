@@ -4,6 +4,8 @@ import "../../css/ProductDetail.css";
 import ProductMainInfo from "./ProductMainInfo";
 import ProductDetailInfo from "./ProductDetailInfo";
 import { useEffect } from "react";
+import { Route, useParams } from "react-router-dom";
+import { Details } from "@mui/icons-material";
 
 const choice = {
   img1: {
@@ -28,7 +30,7 @@ const choice = {
   },
 };
 
-function ImageThumb() {
+function ImageThumb(props) {
   const [userSelect, setUserSelect] = useState(choice.img1);
 
   const play = (userChoice) => {
@@ -50,6 +52,8 @@ function ImageThumb() {
   useEffect(() => {
     getProducts();
   }, []);
+
+  let { productNo } = useParams();
 
   return (
     <>

@@ -76,7 +76,7 @@ const AppRouter = () => {
           <Route path="/kakaopayResult" element={<KakaoPayResult />} />
           <Route path="/bartest" element={<FixedBar />} />
           <Route path="/showroomAdmin1" element={<ShowroomAdd />} />
-          <Route path="/productDetail/:productNo" element={<ImageThumb/> } />
+          <Route path="/productDetail/:productNo" element={<ImageThumb />} />
         </Routes>
       </BrowserRouter>
       <Footer />
