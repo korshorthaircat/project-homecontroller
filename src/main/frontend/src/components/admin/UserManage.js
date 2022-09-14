@@ -16,6 +16,7 @@ import Button from "@mui/material/Button";
 import "../../css/admin.css";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
+import Paging from "./Paging";
 
 const mdTheme = createTheme();
 
@@ -119,6 +120,12 @@ function UserManage() {
     };
     setUserInfo(updateUser);
   };
+
+  //페이지네이션
+  const [limit, setLimit] = React.useState(10);
+  const [page, setPage] = React.useState(1);
+  const offset = (page - 1) * limit;
+
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }} style={{ maxWidth: "1750px" }}>
@@ -130,6 +137,19 @@ function UserManage() {
 
         <Container style={{ marginTop: "5%" }}>
           <h1>회원 관리폼</h1>
+          {/*페이지네이션 표출할 데이터양*/}
+          {/* <label className="orderOption">
+              페이지 당 표시할 게시물 수:&nbsp;
+              <select
+                type="number"
+                value={limit}
+                onChange={({ target: { value } }) => setLimit(Number(value))}
+              >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+              </select>
+            </label> */}
           <Box
             component="form"
             sx={{
@@ -152,8 +172,8 @@ function UserManage() {
                 </TableHead>
                 <TableBody>
                   {/* 가져온 data mapping ?절 사용(map 뒤의 u는 아무거나 가능)*/}
-                  {userList.data ? (
-                    userList.data.map((u, index) => (
+                  {(userList.data) ? (
+                    (userList.data).slice(offset, offset + limit).map((u, index) => (
                       <TableRow
                         key={u.userName}
                         sx={{
@@ -417,6 +437,12 @@ function UserManage() {
           </Box>
         </Container>
       </Box>
+      {/* <Paging 
+          total={userList.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        /> */}
     </ThemeProvider>
   );
 }
