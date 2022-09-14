@@ -26,7 +26,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bootreact.hmct.dto.ProductDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
+import com.bootreact.hmct.entity.Common;
 import com.bootreact.hmct.entity.Product;
+import com.bootreact.hmct.entity.ProductOption;
 import com.bootreact.hmct.entity.Showroom;
 import com.bootreact.hmct.service.product.ProductService;
 import com.bootreact.hmct.service.showroom.ShowroomService;
@@ -188,9 +190,14 @@ public class AdminController {
     }
     
     //상품 옵션(커먼코드, 재고량) 추가
-	@PostMapping("/addOption")
-	public ResponseEntity<?>addOption(@RequestBody Map<String, String> paramMap) {
-		try {
+	@PostMapping(value = "/addOption", consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<?>addOption(@RequestBody Map<String, String> paramMap,
+									  MultipartHttpServletRequest mphsRequest, 
+									  Product product, 
+									  HttpServletRequest request, 
+									  ProductOption productOption, 
+									  Common common) throws IllegalStateException, IOException {
+	
 			System.out.println(paramMap.get("productNo"));
 			System.out.println(paramMap.get("optionCommonCode"));
 			System.out.println(paramMap.get("optionInventory"));
@@ -206,12 +213,7 @@ public class AdminController {
 	         response.setData(productList);
 	         return ResponseEntity.ok().body(response);
 		
-    	}catch(Exception e){
-    		System.out.println(e.getMessage());
-    		ResponseDTO response = new ResponseDTO<>();
-    		response.setError(e.getMessage());
-    		return ResponseEntity.badRequest().body(response);		
-    	}
+
 	}
     
     

@@ -109,7 +109,7 @@ const optModalStyle = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "40%",
-  height: "75%",
+  height: "40%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -218,6 +218,58 @@ export default function EnhancedTable() {
     },
     []
   );
+
+  const fileList = []; // 업로드한 파일들을 저장하는 배열
+
+  //이미지 업로드
+  const onChangeImg = (e) => {
+    console.log(e.target.files);
+    const uploadFiles = Array.prototype.slice.call(e.target.files); // 파일선택창에서 선택한 파일들
+
+    uploadFiles.forEach((uploadFile) => {
+      fileList.push(uploadFile);
+    });
+  };
+
+  const onProductOptSubmitHandler = (event) => {
+    event.preventDefault();
+
+    const f = new FormData(event.target);
+
+    const fObj = {};
+    f.forEach((value, key) => (fObj[key] = value));
+
+    fObj.uploadFiles = fileList;
+
+    // const formData = new FormData();
+
+    // formData.append(
+    //   "productNo",
+    //   new Blob([JSON.stringify(event.target.productNo.value)], {
+    //     type: "application/json",
+    //   })
+    // );
+
+    // fileList.forEach((file) => {
+    //   // 파일 데이터 저장
+    //   formData.append("uploadFiles", file);
+    // });
+
+    console.log(fObj.uploadFiles);
+
+    axios({
+      url: "http://localhost:8080/api/product/insertProduct",
+      method: "POST",
+      data: fObj,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {})
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -405,7 +457,7 @@ export default function EnhancedTable() {
                                   variant="h6"
                                   component="h2"
                                 >
-                                  {r.productName} 의 제품 옵션 추가하기
+                                  {r.productName}의 제품 옵션 추가하기
                                 </Typography>
                                 <Typography
                                   id="modal-modal-description"
@@ -414,30 +466,42 @@ export default function EnhancedTable() {
                                   추가하고자 하는 옵션의 컬러(공통코드), 재고량,
                                   이미지를 추가하세요.
                                 </Typography>
-                                <TextField
-                                  required
-                                  id="addOptionCommonCode"
-                                  name="addOptionCommonCode"
-                                  label="옵션 추가(공통코드)"
-                                  variant="standard"
-                                  onChange={onAddCommonCodeHandler}
-                                />
-                                <TextField
-                                  required
-                                  id="addOptionInventory"
-                                  name="addOptionInventory"
-                                  label="옵션 추가(재고량)"
-                                  variant="standard"
-                                  onChange={onAddInventoryHandler}
-                                />
+                                <Grid>
+                                  <TextField
+                                    required
+                                    id="addOptionCommonCode"
+                                    name="addOptionCommonCode"
+                                    label="옵션 추가(공통코드)"
+                                    variant="standard"
+                                    onChange={onAddCommonCodeHandler}
+                                  />
+                                </Grid>
+                                <Grid>
+                                  <TextField
+                                    required
+                                    id="addOptionInventory"
+                                    name="addOptionInventory"
+                                    label="옵션 추가(재고량)"
+                                    variant="standard"
+                                    onChange={onAddInventoryHandler}
+                                  />
+                                </Grid>
+                                <Grid>
+                                  <label htmlFor="profile-upload" />
+                                  <input
+                                    type="file"
+                                    multiple="multiple"
+                                    id="profile-upload"
+                                    name="uploadFiles"
+                                    onChange={onChangeImg}
+                                  />
+                                </Grid>
+
                                 <Button
-                                  onClick={() => {
-                                    onAddOption(
-                                      r.productNo,
-                                      optionCommonCode,
-                                      optionInventory
-                                    );
-                                  }}
+                                  variant="contained"
+                                  color="success"
+                                  type="submit"
+                                  onSubmit={onProductOptSubmitHandler}
                                   id={`Btn${r}`}
                                 >
                                   제품 옵션 추가하기
