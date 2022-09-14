@@ -25,4 +25,8 @@ public interface ProductMapper {
 	void addOption(@Param("productNo") int productNo, 
 				   @Param("commonCode") String optionCommonCode, 
 				   @Param("productInventory") int optionInventory);
+
+	List<Map<String, Object>> getProduct(int productNo);
+
+	List<Map<String, Object>> getProductImage(int productNo);
 }		

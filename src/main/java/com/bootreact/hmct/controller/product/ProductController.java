@@ -3,8 +3,10 @@ package com.bootreact.hmct.controller.product;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -113,13 +115,27 @@ public class ProductController {
 		
 	}
 
-//	//제품상세
-//
-//	//상세페이지에 제품정보 불러오기
-//	ResponseEntity<?> getProductInfo(Product product) {
-//		return null;
-//	}
-//
+	//제품 조회(상세정보)
+	Map<String, Object> getProduct(Product product) {
+		try {	
+			
+			List<Map<String, Object>> productInfo = productService.getProduct(product.getProductNo());
+			List<Map<String, Object>> productImage = productService.getProductImage(product.getProductNo());
+			
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			
+			returnMap.put("productInfo", productInfo);
+			returnMap.put("productImage", productImage);
+			
+			return returnMap; 
+    	}catch(Exception e){
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+    		errorMap.put("error", e.getMessage());
+    		return errorMap;
+    	}
+	}
+
+	
 //	//상품평 클릭 시 상품평 네브바로 불러오기 
 //	ResponseEntity<?>  getReviewList() {
 //		return null;

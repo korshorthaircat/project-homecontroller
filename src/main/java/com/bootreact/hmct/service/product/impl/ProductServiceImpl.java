@@ -96,5 +96,15 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 
+	@Override
+	public List<Map<String, Object>> getProduct(int productNo) {
+		return productMapper.getProduct(productNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> getProductImage(int productNo) {
+		return productMapper.getProductImage(productNo);
+	}
+
 
 }
