@@ -1,6 +1,7 @@
 package com.bootreact.hmct.service.wish.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,16 +35,16 @@ public class WishServiceImpl implements WishService{
 	
 		//get위시아이템 
 		@Override
-		public List<WishItem> getWishItemList(String userId) {
-		List<WishItem> list = wishItemRepository.findByUserUserId(userId);
-		System.out.println(list.size());
-		return wishItemRepository.findByUserUserId(userId);
+		public List<Map<String, Object>> getWishItemList(String userId) {
+			List<Map<String, Object>> list = wishItemMapper.getWishItemList(userId);
+			System.out.println(list.size());
+			return list;
 		}
 	
 		//add위시아이템 
 		@Override
-		public void addWishItem(String userId, String productNo) {
-			wishItemMapper.addWishItem(userId, Integer.parseInt(productNo));		
+		public void addWishItem(String userId, int productNo) {
+			wishItemMapper.addWishItem(userId, productNo);		
 		}
 		
 		//delete위시아이템

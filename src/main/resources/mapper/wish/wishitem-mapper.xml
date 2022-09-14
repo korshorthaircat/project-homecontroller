@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/dtd/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.bootreact.hmct.mapper.WishItemMapper">
+	<select id="getWishItemList" resultType="camelHashMap" parameterType="string">
+	<![CDATA[
+		SELECT A.PRODUCT_NO
+			 , B.PRODUCT_NAME
+		     , C.PRODUCT_IMAGE_NAME
+			FROM T_HMCT_WISHITEM A
+			   , T_HMCT_PRODUCT B
+		       , T_HMCT_PRODUCT_IMAGE C
+			WHERE A.PRODUCT_NO = B.PRODUCT_NO
+		      AND A.PRODUCT_NO = C.PRODUCT_NO
+		      AND C.PRODUCT_IMAGE_NO = 1
+		      AND A.USER_ID = #{userId}
+	]]>
+	</select>
+</mapper>
+
+

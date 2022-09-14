@@ -40,6 +40,7 @@ const ProductCard = ({ item, productImageList }) => {
     }
   }, [item, productImageList]);
     
+
  //하트아이콘 클릭시 위시리스트에 담기
 const addWishList = () => {
   axios({
@@ -86,6 +87,7 @@ const addWishList = () => {
               aria-label="show 17 new notifications"
               color="inherit"
               sx={{ padding: "0 6px", left: 180 }} 
+
               onClick={addWishList}
             >
               <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
