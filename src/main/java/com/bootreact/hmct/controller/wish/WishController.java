@@ -52,7 +52,7 @@ public class WishController {
 	MypageService mypageService;
 
 	
-	//위시아이템 조회 
+	//위시아이템 조회 하기 
 	@GetMapping("/getWishItemList")
     public Map<String, Object> getWishItemList(@AuthenticationPrincipal String userId){
 		
