@@ -21,7 +21,6 @@ const ariaLabel = { 'aria-label': 'description' };
 
 function UserUpdate() {
   
-  // 화면 input 항목들 상태 관리 시작
   // 화면 input 항목 = DB 정보
   const [inputs, setInputs] = useState({
      userZip        : ''
