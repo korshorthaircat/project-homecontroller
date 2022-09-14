@@ -35,6 +35,8 @@ import { data } from "jquery";
 import { Link } from "react-router-dom";
 import { useCallback } from "react";
 import { useState } from "react";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
 
 function createData(
   productNo,
@@ -137,7 +139,7 @@ export default function EnhancedTable() {
 
   React.useEffect(() => {
     list();
-  }, []);
+  }, [productList]);
 
   const useConfirm = (message = null, onConfirm, onCancel) => {
     if (!onConfirm || typeof onConfirm !== "function") {
@@ -171,6 +173,36 @@ export default function EnhancedTable() {
       setProduct(response.data.data);
     });
   }, []);
+
+  const [optionCommonCode, setOptionCommonCode] = useState(""); //새로 추가될 컬러옵션
+  const [optionInventory, setOptionInventory] = useState(0); //새로 추가될 컬러옵션 제품의 재고량
+
+  const onAddCommonCodeHandler = (event) => {
+    setOptionCommonCode(event.currentTarget.value);
+    console.log(event.currentTarget.value);
+  };
+
+  const onAddInventoryHandler = (event) => {
+    setOptionInventory(event.currentTarget.value);
+    console.log(event.currentTarget.value);
+  };
+
+  const onAddOption = useCallback(
+    (productNo, optionCommonCode, optionInventory) => {
+      axios({
+        method: "post",
+        url: API_BASE_URL + "/api/admin/addOption",
+        data: {
+          productNo: productNo,
+          optionCommonCode: optionCommonCode,
+          optionInventory: optionInventory,
+        },
+      }).then((response) => {
+        setProduct(response.data.data);
+      });
+    },
+    []
+  );
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -207,9 +239,10 @@ export default function EnhancedTable() {
                       <TableCell align="center">재고량</TableCell>
                       <TableCell align="center">등록일</TableCell>
                       <TableCell align="center">수정일</TableCell>
-                      <TableCell align="center">비고</TableCell>
-                      <TableCell align="center">수정하기</TableCell>
-                      <TableCell align="center">삭제하기</TableCell>
+                      {/* <TableCell align="center">비고</TableCell> */}
+                      <TableCell align="center">수정</TableCell>
+                      <TableCell align="center">삭제</TableCell>
+                      <TableCell align="center">옵션추가</TableCell>
                     </TableRow>
                   </TableHead>
 
@@ -257,9 +290,9 @@ export default function EnhancedTable() {
                           <TableCell align="center" sx={{ padding: "0px" }}>
                             {r.productUpdde}
                           </TableCell>
-                          <TableCell align="center" sx={{ padding: "0px" }}>
+                          {/* <TableCell align="center" sx={{ padding: "0px" }}>
                             {}
-                          </TableCell>
+                          </TableCell> */}
 
                           <TableCell align="center" sx={{ padding: "0px" }}>
                             {/* {productList.map((productInfo) => ( */}
@@ -287,6 +320,7 @@ export default function EnhancedTable() {
                                 <img
                                   className="AdminEdit"
                                   src="images/edit.png"
+                                  alt="AdminEdit"
                                 />
                                 수정
                               </Link>
@@ -314,9 +348,56 @@ export default function EnhancedTable() {
                               <img
                                 className="AdminEdit"
                                 src="images/edit.png"
+                                alt="AdminEdit"
                               />
                               삭제
                             </Button>
+                          </TableCell>
+
+                          <TableCell align="center" sx={{ padding: "0px" }}>
+                            <TextField
+                              required
+                              id="addOptionCommonCode"
+                              name="addOptionCommonCode"
+                              label="옵션 추가(공통코드)"
+                              variant="standard"
+                              onChange={onAddCommonCodeHandler}
+                            />
+                            <TextField
+                              required
+                              id="addOptionInventory"
+                              name="addOptionInventory"
+                              label="옵션 추가(재고량)"
+                              variant="standard"
+                              onChange={onAddInventoryHandler}
+                            />
+                            <Grid>
+                              <Button
+                                onClick={() => {
+                                  onAddOption(
+                                    r.productNo,
+                                    optionCommonCode,
+                                    optionInventory
+                                  );
+                                }}
+                                id={`Btn${r}`}
+                                sx={{
+                                  border: "1px solid lightgray",
+                                  backgroundColor: "#fff",
+                                  borderRadius: "5px",
+                                  width: "70px",
+                                  height: "45px",
+                                  alignItems: "center",
+                                }}
+                              >
+                                <img
+                                  className="AdminEdit"
+                                  src="images/edit.png"
+                                  alt="AdminEdit"
+                                />
+                                추가
+                              </Button>
+                            </Grid>
                           </TableCell>
                         </TableRow>
                       ))
