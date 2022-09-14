@@ -6,24 +6,28 @@
 }
 
 .red {
-   
     background-color: #FF0000;
+    border: 0px;
 }
 
 .yellow {
     background-color: #FFDB00;
+    border: 0px;
 }
 
 .green {
     background-color: #3B7D22;
+    border: 0px;
 }
 
 .blue {
     background-color: #0058A3;
+    border: 0px;
 }
 
 .purple {
     background-color: #A96ECC;
+    border: 0px;
 }
 
 .white {
@@ -33,19 +37,22 @@
 
 .black {
     background-color: black;
+    border: 0px;
 }
 
 .pink {
     background-color: #FFB8C3;
+    border: 0px;
 }
 
 .beige {
     background-color: #F4F3D7;
+    border: 0px;
 }
 
 .gray {
-    
     background-color: #959595;
+    border: 0px;
 }
 
 .mainShowroomColor {
@@ -71,10 +78,11 @@
 } */
 
 
-/* .mainShowroom_MoreBtn {
+.mainShowroom_MoreBtn {
     width: 1560px;
+    text-align: center;
     margin: 0 auto;
-} */
+}
 
 .col {
     width: 760px;
@@ -86,10 +94,33 @@
     width: 730px;
     height: 900px;
     background-size: cover;
+    position: relative;
 }
 
 .row {
     margin: 0 auto;
-    width: 1560px;
+    width: 1600px;
     
 }
+
+/* 
+.showroomBoxBg {
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    border-radius: 100%;
+   
+} */
+
+
+.showroomBoxHeart {
+    background-color: rgba(0, 0, 0,.5);
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    border: 0px;
+    position: relative;
+    bottom: 65px;
+    left: 325px;
+}
+

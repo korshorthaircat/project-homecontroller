@@ -32,6 +32,16 @@ public interface ProductService {
 	List<Map<String, Object>> getMainProductList();
 	
 	List<Map<String, Object>> getMainProductImageList();
+
+	void addOption(int productNo, String optionCommonCode, int optionInventory);
+
+
+	//제품번호로 제품 하나의 상세정보 받아오기
+	List<Map<String, Object>> getProduct(int productNo);
+
+	//제품번호로 제품 하나의 이미지들 받아오기
+	List<Map<String, Object>> getProductImage(int productNo);
+
 }
 
 

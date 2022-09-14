@@ -15,6 +15,8 @@ const ProductCard = ({ item, productImageList }) => {
   const [hoverImage, setHoverImage] = useState("");
   const [isHover, setIsHover] = useState(false);
 
+  // const dispatch = useDispatch();
+
  const handleMouseOver = () => {
   setIsHover(true);
  }
@@ -61,23 +63,17 @@ const addWishList = () => {
       alt="사진" 
       /> 
       <div className="textArea">
-        <p className="title_text">{item?.productName}</p>
+        <p className="title_text">{item.productName}</p>
 
         
 
         <p className="category_text">
-        {item?.productCategoryName}, {item?.productSize}
-
-
-
-
-
-            
+        {item.productCategoryName}, {item.productSize}
           </p>
         <div className="priceArea">
           <p>PRICE</p>
           <div className="last">
-            <p className="price_text">\{item?.productPrice}</p>
+            <p className="price_text">\{item.productPrice}</p>
           
             <IconButton
               size="large"
@@ -95,6 +91,7 @@ const addWishList = () => {
               aria-haspopup="true"
               color="inherit"
               sx={{ padding: "0 6px", left: 180 }}
+              // onClick={() => dispatch(addCart(item))}
             >
               <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
             </IconButton>

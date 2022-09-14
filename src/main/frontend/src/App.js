@@ -24,10 +24,10 @@ function App() {
       <h4 className="main_title">개발자들을 위한 인테리어 추천 제품</h4>
       <MainInteriorImage/>
 
-
-      <Testt />
       <h4 className="main_title">진행중인 이벤트 및 프로모션</h4>
-      <EventCarousel/>
+      <EventCarousel />
+      
+      
       
 
       <h4 className="main_title">다양한 HOME CONTROLLER 서비스</h4>
