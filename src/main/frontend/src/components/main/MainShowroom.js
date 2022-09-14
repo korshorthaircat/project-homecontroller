@@ -24,11 +24,8 @@ const MainShowroom = () => {
     axios
       .get(showroomListUrl, {})
       .then((response) => {
-        
         setShowroomImg(response.data.data);
-        setShowroomImgData(response.data.data.slice(0, 4));
-
-        console.log(response.data.data.slice(0, 4));
+        setShowroomImgData(response.data.data.slice(0, 2));
       })
       .catch((e) => {
         console.log(e);

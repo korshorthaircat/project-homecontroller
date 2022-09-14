@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { useDispatch } from "react-redux";
-
+import { Link } from 'react-router-dom';
 
 
 
@@ -44,12 +44,16 @@ const ProductCard = ({ item, productImageList }) => {
   
 
   return (
+    
     <div className="card">
+      <Link to = {`/productDetail/${item.productNo}`}
+                  state = {{productList: item}} > 
       <img className="imageArea" src= {isHover ? `http://localhost:8080/upload/${hoverImage}` : `http://localhost:8080/upload/${thumbnail}`}
       onMouseOver= {handleMouseOver}
       onMouseOut= {handleMouseOut}
       alt="사진" 
       /> 
+      </Link>
       <div className="textArea">
         <p className="title_text">{item.productName}</p>
 
@@ -62,7 +66,7 @@ const ProductCard = ({ item, productImageList }) => {
           <p>PRICE</p>
           <div className="last">
             <p className="price_text">\{item.productPrice}</p>
-          
+
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
