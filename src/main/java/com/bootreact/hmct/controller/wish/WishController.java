@@ -57,7 +57,7 @@ public class WishController {
     public Map<String, Object> getWishItemList(@AuthenticationPrincipal String userId){
 		
 		try {
-			//직접 쿼리작성 없이 JPA로 조인&셀렉트하고 싶은 경우 아래와 같이 함
+			
     		List<Map<String, Object>> wishItemList = wishService.getWishItemList(userId);
     		
     		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -80,7 +80,7 @@ public class WishController {
     public ResponseEntity<?> getWishShowroomList(@RequestBody User user){
 		
 		try {
-			//직접 쿼리작성 없이 JPA로 조인&셀렉트하고 싶은 경우 아래와 같이 함
+			
     		List<WishShowroom> wishShowroomList = wishService.getWishShowroomList(user.getUserId());
     		ResponseDTO<WishShowroom> response = new ResponseDTO<>();
     		response.setData(wishShowroomList);
@@ -104,7 +104,7 @@ public class WishController {
 		int productNo = Integer.parseInt(paramMap.get("productNo"));
 		
 		
-		wishService.addWishItem("gogo", productNo);
+		wishService.addWishItem(userId, productNo);
 		
 		return "addWishItem Success";
 	}
