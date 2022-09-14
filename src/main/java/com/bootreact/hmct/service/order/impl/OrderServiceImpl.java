@@ -36,7 +36,7 @@ public class OrderServiceImpl implements OrderService{
     	resultMap.put("orderItemList", orderMapper.getOrderItemList(orderNo));
     	
     	return resultMap;
-    }
+    } 
 
     //주문번호 생성
 	@Override

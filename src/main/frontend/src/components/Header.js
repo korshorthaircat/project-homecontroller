@@ -160,7 +160,9 @@ const Header = () => {
             </IconButton>
 
             <div className="logoSearchbarLogin">
-            <img className="logo" src="images/logo_2.png" alt="헤더로고" />
+
+            <Link href="/"><img className="logo" src="images/logo_2.png" alt="헤더로고" /></Link>
+            
 
             <Search>
               <SearchIconWrapper>

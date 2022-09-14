@@ -3,6 +3,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import ProductCard from './ProductCard';
 import "../../css/carousel.css";
+import { Link } from 'react-router-dom';
 
 
 
@@ -134,13 +135,13 @@ const ProductCarousel = () => {
       
         {productList? (
           productList.map((a) => (
+          <Link to = {`/productDetail/${a.productNo}`}
+                  state = {{productList: a}} > 
           <ProductCard
           item={a} 
-          productImageList={productImageList}/>)
-          
-          
-        
+          productImageList={productImageList}/>
 
+          </Link>)
         )) : (<p>조회된 데이터가 없습니다.</p>)}
         
        </Carousel>

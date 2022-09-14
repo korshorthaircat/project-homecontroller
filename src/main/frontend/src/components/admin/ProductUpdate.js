@@ -21,6 +21,7 @@ import "../../css/ad_productList.css";
 
 const mdTheme = createTheme();
 
+//수정 후 페이지 이동
 function moveClick(e) {
   window.location.replace("/admin2");
 }
@@ -303,7 +304,7 @@ function ProductUpdate() {
                     shrink: true,
                   }}
                   onChange={handleChange}
-                  value={productInfo.ProductInventory}
+                  value={productInfo.productInventory}
                 />
                 <TextField
                   id="outlined-select-color-native"
