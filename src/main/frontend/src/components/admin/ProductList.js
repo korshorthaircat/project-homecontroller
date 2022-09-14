@@ -79,6 +79,8 @@ const productData = [
     "A123",
     123,
     "",
+    "",
+    "",
     ""
   ),
 ];
@@ -213,7 +215,7 @@ export default function EnhancedTable() {
 
                   <TableBody>
                     {productList.data ? (
-                      productList.data.map((r, index) => (
+                      productList.data.map((r) => (
                         <TableRow
                           key={r.productNo}
                           sx={{
@@ -247,7 +249,7 @@ export default function EnhancedTable() {
                             {r.productPrice}원
                           </TableCell>
                           <TableCell align="center" sx={{ padding: "0px" }}>
-                            {r.productInventory}
+                            {r.productInventory}개
                           </TableCell>
                           <TableCell align="center" sx={{ padding: "0px" }}>
                             {r.productRgsde}
@@ -297,10 +299,9 @@ export default function EnhancedTable() {
                               onClick={() => {
                                 onRemove(r.productNo);
                                 confirmDelete();
-
                                 window.location.replace("/admin2");
                               }}
-                              id={`Btn${index}`}
+                              id={`Btn${r}`}
                               sx={{
                                 border: "1px solid lightgray",
                                 backgroundColor: "#fff",
@@ -330,16 +331,6 @@ export default function EnhancedTable() {
             </Box>
           </Container>
         </Box>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={productData.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          sx={{ alignItems: "center" }}
-        />
       </Paper>
     </ThemeProvider>
   );

@@ -3,6 +3,8 @@ package com.bootreact.hmct.dto;
 import java.util.List;
 import java.util.Map;
 
+import com.bootreact.hmct.entity.Review;
+
 import lombok.Data;
 
 

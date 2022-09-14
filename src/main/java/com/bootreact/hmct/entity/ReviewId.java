@@ -8,4 +8,5 @@ import lombok.Data;
 public class ReviewId implements Serializable{
     private int reviewNo;
     private int order;
+    private int product;
 }
