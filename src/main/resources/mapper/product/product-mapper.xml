@@ -79,6 +79,7 @@
 		SELECT *
 			FROM T_HMCT_PRODUCT_IMAGE
 			WHERE PRODUCT_NO = #{productNo}
+			
 	]]>
 	</select>
 	

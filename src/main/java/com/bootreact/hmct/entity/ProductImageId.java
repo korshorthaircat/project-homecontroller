@@ -6,6 +6,6 @@ import lombok.Data;
 
 @Data
 public class ProductImageId implements Serializable{
-     private int productImageNo;
-     private int product;
+    private int productImageNo;
+ 	private ProductOptionId productOption;
 }

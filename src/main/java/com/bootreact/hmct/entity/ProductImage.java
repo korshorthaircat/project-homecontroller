@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -23,11 +24,20 @@ public class ProductImage {
 	@Id
 	private int productImageNo;
 	
-	//제품 번호(PK, FK)
+//	//제품 번호(PK, FK)
+//	@Id
+//	@JoinColumn(name="PRODUCT_NO")
+//	@ManyToOne
+//	private Product product;
+	
+	//제품옵션(PK, FK)
 	@Id
-	@JoinColumn(name="PRODUCT_NO")
 	@ManyToOne
-	private Product product;
+	@JoinColumns({
+		@JoinColumn(name = "PRODUCT_NO", referencedColumnName="PRODUCT_NO"),
+		@JoinColumn(name = "COMMON_CODE", referencedColumnName="COMMON_CODE")
+	})
+	private ProductOption productOption;
 	
 	//제품 이미지 명
 	@Column(nullable = false)
