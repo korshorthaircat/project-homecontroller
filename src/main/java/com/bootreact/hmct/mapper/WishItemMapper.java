@@ -17,10 +17,11 @@ public interface WishItemMapper {
 
 	
 	@Delete("DELETE FROM t_hmct_wishitem "
-			+ " WHERE user_id = #{userId}"
+			+ " WHERE user_id = #{userId} "
 			+ " and product_no = #{productNo}")
 	void deleteWishItem(@Param("userId") String userId, 
 					@Param("productNo") int productNo);
+	
 
 
 	@Insert("INSERT into t_hmct_wishitem ("

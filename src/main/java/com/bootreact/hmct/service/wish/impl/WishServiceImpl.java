@@ -49,8 +49,8 @@ public class WishServiceImpl implements WishService{
 		
 		//delete위시아이템
 		@Override
-		public void deleteWishItem(String userId, String productNo) {
-			wishItemMapper.deleteWishItem(userId, Integer.parseInt(productNo));	
+		public void deleteWishItem(String userId, int productNo) {
+			wishItemMapper.deleteWishItem(userId, productNo);	
 		}
 	
 		

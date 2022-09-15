@@ -1,20 +1,27 @@
 package com.bootreact.hmct.controller.mypage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bootreact.hmct.entity.Inquiry;
+import com.bootreact.hmct.dto.OrderDTO;
+import com.bootreact.hmct.dto.ResponseDTO;
+import com.bootreact.hmct.entity.Order;
 import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.jwt.JwtTokenProvider;
 import com.bootreact.hmct.service.cart.CartService;
-import com.bootreact.hmct.service.inquiry.InquiryService;
 //import com.bootreact.hmct.service.inquiry.InquiryService;
 import com.bootreact.hmct.service.mypage.MypageService;
+import com.bootreact.hmct.service.order.OrderService;
 import com.bootreact.hmct.service.product.ProductService;
 import com.bootreact.hmct.service.review.ReviewService;
 import com.bootreact.hmct.service.user.UserService;
@@ -24,8 +31,8 @@ import com.bootreact.hmct.service.wish.WishService;
 @RequestMapping("/api/mypage")
 public class MypageController {
 
-//	@Autowired
-//	OrderService orderService;
+	@Autowired
+	OrderService orderService;
 
 	@Autowired
 	UserService userService;
@@ -122,8 +129,49 @@ public class MypageController {
 //		return ResponseEntity.ok().body("success");
 //	}
 	
-	 {
-		
-	}
+	
+	/**
+	 * Mypage 나의 주문내역 조회
+	 */
+	@GetMapping("/getMyOrderList")
+    public ResponseEntity<?> getMyOrderList(@AuthenticationPrincipal String userId){
+    	try {
+
+//    		System.out.println(userId); //Ok
+    		List<Order> orderList = orderService.getMyOrderList(userId);
+    		    	
+    		List<OrderDTO> orderDTOList = new ArrayList<OrderDTO>();
+    		
+    		for(Order t: orderList) {
+    			OrderDTO orderDTO = new OrderDTO();
+    			
+    			orderDTO.setOrderNo(t.getOrderNo());
+    			orderDTO.setUser(t.getUser());  
+    			orderDTO.setOrderStatus(t.getOrderStatus());
+    			orderDTO.setOrderDate(t.getOrderDate());
+    			orderDTO.setOrderMemo(t.getOrderMemo());
+    			orderDTO.setOrderAmount(t.getOrderAmount());
+    			orderDTO.setOrderDiscount(t.getOrderDiscount());
+    			orderDTO.setOrderFee(t.getOrderFee());
+    			
+    			orderDTOList.add(orderDTO);	
+    		}
+    		ResponseDTO<OrderDTO> response = new ResponseDTO<>();
+    		
+    		response.setData(orderDTOList);
+    		
+    		return ResponseEntity.ok().body(response);
+    		
+    	}catch(Exception e){
+    		System.out.println(e.getMessage());
+    		ResponseDTO<OrderDTO> response = new ResponseDTO<>();
+    		response.setError(e.getMessage());
+    		return ResponseEntity.badRequest().body(response);		
+    	}
+    }
+	
+	
+	
+	
 	
 }

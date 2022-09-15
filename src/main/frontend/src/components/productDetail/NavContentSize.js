@@ -43,15 +43,7 @@ export default function NavContentSize() {
             <AccordionDetails>
               <Typography>
                 <p id="acodianProductName">치수</p>
-                <p id="acodianProductInfo">
-                {r.productGauge}
-                </p>
-
-                <img
-                  id="productSizeImg"
-                  src="/images/Product_ikea.png"
-                  style={{ width: "400px" }}
-                ></img>
+                <p id="acodianProductInfo">{r.productGauge}</p>
               </Typography>
             </AccordionDetails>
 
@@ -73,49 +65,6 @@ export default function NavContentSize() {
             </AccordionSummary>
             <AccordionDetails>
               <Typography></Typography>
-            </AccordionDetails>
-          </Accordion>
-
-          <Accordion
-            expanded={expanded === "panel"}
-            onChange={handleChange("panel")}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2bh-content"
-              id="panel2bh-header"
-            >
-              <Typography
-                sx={{
-                  width: "33%",
-                  flexShrink: 0,
-                  height: "80px",
-                  transform: "translateY(35%)",
-                  fontWeight: 600,
-                  fontSize: "17px",
-                }}
-              >
-                포장
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                이 제품은 여러 개의 패키지로 포장되어 있습니다. 폭 : 51 cm <p />
-                높이 : 6 cm <p />
-                길이 : 146 cm <p />
-                무게 : 22.00 kg <p />
-                패키지 : 1 <p /> <p />
-                폭 : 52 cm <p />
-                높이 : 6 cm <p />
-                길이 : 146 cm <p />
-                무게 : 18.40 kg <p />
-                패키지 : 1 <p /> <p />
-                폭 : 53 cm <p />
-                높이 : 6 cm <p />
-                길이 : 164 cm <p />
-                무게 : 19.80 kg <p />
-                패키지 : 1
-              </Typography>
             </AccordionDetails>
           </Accordion>
         </>

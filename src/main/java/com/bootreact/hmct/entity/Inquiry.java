@@ -30,9 +30,9 @@ public class Inquiry {
 	@Column(nullable = false)
 	private String inquiryTitle;
 	
-	//문의글 유형 
-	@Column(nullable = false)
-	private String inquiryType;
+//	//문의글 유형 
+//	@Column(nullable = false)
+//	private String inquiryType;
 	
 	//문의글 내용 
 	@Column(nullable = false)

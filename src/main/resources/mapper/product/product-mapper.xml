@@ -10,6 +10,45 @@
 			,  CC.COMMON_CODE_NAME AS PRODUCT_CATEGORY_NAME
 			FROM (
 					SELECT A.*
+						 , MIN(B.COMMON_CODE)
+		                 , B.PRODUCT_INVENTORY
+						 , C.COMMON_CODE_NAME
+						FROM T_HMCT_PRODUCT A
+						   , T_HMCT_PRODUCT_OPTN B
+						   , T_HMCT_COMMON C
+						WHERE A.PRODUCT_NO = B.PRODUCT_NO
+						  AND B.COMMON_CODE = C.COMMON_CODE
+						group by A.PRODUCT_NO
+				) AA
+		        , (
+					SELECT * 
+						FROM T_HMCT_COMMON
+		                WHERE COMMON_TYPE = 'B' 
+				  ) BB
+				, (
+					SELECT * 
+						FROM T_HMCT_COMMON
+		                WHERE COMMON_TYPE = 'C' 
+				  ) CC
+			WHERE AA.PRODUCT_MATERIAL = BB.COMMON_CODE
+		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE;
+	]]>
+	</select>
+	
+	<select id="getMainProductImageList" resultType="camelHashMap">
+	<![CDATA[
+		SELECT *
+			FROM T_HMCT_PRODUCT_IMAGE
+	]]>
+	</select>
+	
+	<select id="getAdminProductList" resultType="camelHashMap">
+	<![CDATA[
+		SELECT AA.*
+			,  BB.COMMON_CODE_NAME AS PRODUCT_MATERIAL_NAME
+			,  CC.COMMON_CODE_NAME AS PRODUCT_CATEGORY_NAME
+			FROM (
+					SELECT A.*
 						 , B.COMMON_CODE
 		                 , B.PRODUCT_INVENTORY
 						 , C.COMMON_CODE_NAME
@@ -31,13 +70,6 @@
 				  ) CC
 			WHERE AA.PRODUCT_MATERIAL = BB.COMMON_CODE
 		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE
-	]]>
-	</select>
-	
-	<select id="getMainProductImageList" resultType="camelHashMap">
-	<![CDATA[
-		SELECT *
-			FROM T_HMCT_PRODUCT_IMAGE
 	]]>
 	</select>
 	
@@ -74,12 +106,32 @@
 	]]>
 	</select>
 	
+	<!-- 제품번호를 넘겨서 이미지 조회(컬러 구분 x) -->
 	<select id="getProductImage" parameterType="int" resultType="camelHashMap">
 	<![CDATA[
 		SELECT *
 			FROM T_HMCT_PRODUCT_IMAGE
 			WHERE PRODUCT_NO = #{productNo}
-			
+	]]>
+	</select> 
+	
+	
+	<!-- 제품번호, 커먼코드 둘 다 넘겨서 이미지 조회(컬러 구분 o)-->
+	<select id="getProductWithCommonCode" parameterType="Map" resultType="camelHashMap">
+	<![CDATA[
+		SELECT *
+			FROM T_HMCT_PRODUCT_IMAGE
+			WHERE PRODUCT_NO = #{productNo}
+			AND COMMON_CODE = #{commonCode};
+	]]>
+	</select>
+	
+	<!-- 제품번호를 이용해서 대표 컬러(커먼코드) 1개 가져오기 -->
+	<select id="getRepresentativeCommonCode" parameterType="int" resultType="camelHashMap">
+	<![CDATA[
+		select  MIN(COMMON_CODE) as COMMON_CODE
+			from t_hmct_product_optn
+			where product_no = #{productNo};
 	]]>
 	</select>
 	

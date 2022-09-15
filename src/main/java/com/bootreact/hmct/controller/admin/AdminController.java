@@ -28,6 +28,7 @@ import com.bootreact.hmct.dto.ProductDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.entity.Common;
 import com.bootreact.hmct.entity.Product;
+import com.bootreact.hmct.entity.ProductImage;
 import com.bootreact.hmct.entity.ProductOption;
 import com.bootreact.hmct.entity.Showroom;
 import com.bootreact.hmct.service.product.ProductService;
@@ -36,20 +37,14 @@ import com.bootreact.hmct.service.showroom.ShowroomService;
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
-//    @Autowired
-//    AdminService adminService;
-    
-//    @Autowired
-//    UserService userService;
-   
+
    @Autowired
    ProductService productService;
    
    @Autowired
    private ShowroomService showroomService;
 
-//
-//   
+
 ////주문 관리
 //
 ////   주문/배송 수정
@@ -91,12 +86,12 @@ public class AdminController {
 //    }
 
    
-//
-////   상품 조회(리스트)
+
+//   상품 조회(리스트)
     @GetMapping("/admin2")
     public ResponseEntity<?> getMainProductList() {
       try {
-         List<Map<String, Object>> productList = productService.getMainProductList();
+         List<Map<String, Object>> productList = productService.getAdminProductList();
       
          
          ResponseDTO<Map<String, Object>> response = new ResponseDTO<>();
@@ -113,8 +108,6 @@ public class AdminController {
       }
    };
     
-   
-   
    
 //   상품 조회(상세)
     @PostMapping("/admin3")
@@ -137,7 +130,7 @@ public class AdminController {
        }
     }
     
-    //상품수정
+    //상품 수정
     @PutMapping("/admin3")
    ResponseEntity<?> updateProduct(@RequestBody Product product) {
       try {
@@ -189,31 +182,71 @@ public class AdminController {
 
     }
     
-    //상품 옵션(커먼코드, 재고량) 추가
+    //상품 옵션(커먼코드, 재고량, 이미지파일) 추가
 	@PostMapping(value = "/addOption", consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<?>addOption(@RequestBody Map<String, String> paramMap,
-									  MultipartHttpServletRequest mphsRequest, 
+	public String addOption(MultipartHttpServletRequest mphsRequest, 
 									  Product product, 
 									  HttpServletRequest request, 
 									  ProductOption productOption, 
 									  Common common) throws IllegalStateException, IOException {
 	
-			System.out.println(paramMap.get("productNo"));
-			System.out.println(paramMap.get("optionCommonCode"));
-			System.out.println(paramMap.get("optionInventory"));
-	
+//			System.out.println(product.getProductNo());
+//			System.out.println(common.getCommonCode());
+//			System.out.println(productOption.getProductInventory());
+			
+			productOption.setCommon(common);
+			productOption.setProduct(product);
+			
 			//옵션추가 처리하기
-			productService.addOption(Integer.parseInt(paramMap.get("productNo").toString()),
-								   	 paramMap.get("optionCommonCode").toString(),
-								   	Integer.parseInt(paramMap.get("optionInventory").toString()));
+			productService.addOption(product.getProductNo(),
+								   	 common.getCommonCode(),
+								   	 productOption.getProductInventory());
 
-			//옵션추가 후 리스트 다시 받아오기
-	        List<Map<String, Object>> productList = productService.getMainProductList();
-	         ResponseDTO<Map<String, Object>> response = new ResponseDTO<>();
-	         response.setData(productList);
-	         return ResponseEntity.ok().body(response);
+			//이미지 등록하기 
+			/*파일 서버에 업로드 시작*/
+			List<ProductImage> fileList = new ArrayList<ProductImage>();
+			
+			//서버의 루트 경로 가져오기
+			String rootPath = request.getSession().getServletContext().getRealPath("/");
+			String attachPath = "/upload/";
+			File directory = new File(rootPath + attachPath);
+			
+			if(directory.exists() == false) {
+				//서버 루트 경로에 upload 폴더 만들기 
+				directory.mkdir();
+			}
+			
+			//첨부파일 목록 꺼내오기 
+			Iterator<String> iterator = mphsRequest.getFileNames(); 
+			
+			while(iterator.hasNext()) {
+				//iterator에 담겨있는 파일이름들로 첨부파일 꺼내오기 
+				List<MultipartFile> list = mphsRequest.getFiles(iterator.next());
+				
+				for(MultipartFile multipartFile : list) {
+					if(!multipartFile.isEmpty()) {
+						ProductImage productImage = new ProductImage();
+						productImage.setProductOption(productOption);
+						
+						//고유 파일명 생성 
+						//실제 서버에 저장되는 파일명
+						String uuid = UUID.randomUUID().toString();
+						productImage.setProductImageName(uuid + multipartFile.getOriginalFilename());
+						productImage.setProductImagePath(rootPath + attachPath);
+						
+						fileList.add(productImage);
+						
+						//파일 업로드 처리 
+						File file = new File(rootPath + attachPath + uuid + multipartFile.getOriginalFilename());
+						multipartFile.transferTo(file);
+					}
+				}
+			}
+			/*파일 서버에 업로드 끝*/
 		
-
+			productService.insertProductFiles(fileList);
+		
+			return "OK";
 	}
     
     
@@ -336,7 +369,6 @@ public class AdminController {
              productDTO.setProductGauge(t.getProductGauge());
              productDTO.setProductMaterial(t.getProductMaterial());
              productDTO.setProductCategory(t.getProductCategory());
-             
              
              productDTOList.add(productDTO);   
           }

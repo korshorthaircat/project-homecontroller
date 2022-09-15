@@ -32,7 +32,6 @@ const ProductCard = ({ item, productImageList }) => {
   setIsHover(false);
  }
   
-
   useEffect(() => {
     if(Object.keys(item).length !== 0 && productImageList.length !== 0) {
       productImageList.map(productImage => {

@@ -26,35 +26,6 @@ export default function NavContentRev() {
         </button>
 
         <hr />
-        <p style={{ fontSize: "17px", fontWeight: "700" }}>평가 필터링</p>
-        <div>
-          <div class="circle">
-            <p className="circleNo">
-              1<img className="star" src="/images/fullstar.png"></img>
-            </p>
-          </div>
-          <div class="circle">
-            <p className="circleNo">
-              2<img className="star" src="/images/fullstar.png"></img>
-            </p>
-          </div>
-          <div class="circle">
-            <p className="circleNo">
-              3<img className="star" src="/images/fullstar.png"></img>
-            </p>
-          </div>
-          <div class="circle">
-            <p className="circleNo">
-              4<img className="star" src="/images/fullstar.png"></img>
-            </p>
-          </div>
-          <div class="circle">
-            <p className="circleNo">
-              5<img className="star" src="/images/fullstar.png"></img>
-            </p>
-          </div>
-        </div>
-        <hr />
 
         <div className="revContents">
           <hr />
