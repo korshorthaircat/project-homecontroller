@@ -56,4 +56,9 @@ public class Review {
 	//리뷰 내용
 	@Column(nullable=false)
 	private String reviewContent;
+
+	public Object getProduct() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

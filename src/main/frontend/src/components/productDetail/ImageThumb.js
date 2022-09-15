@@ -6,6 +6,7 @@ import ProductDetailInfo from "./ProductDetailInfo";
 import { useEffect } from "react";
 import { Route, useParams } from "react-router-dom";
 import { Details } from "@mui/icons-material";
+import axios from "axios";
 
 const choice = {
   img1: {
@@ -32,86 +33,94 @@ const choice = {
 
 function ImageThumb(props) {
   const [userSelect, setUserSelect] = useState(choice.img1);
-
-  const play = (userChoice) => {
-    setUserSelect(choice[userChoice]);
+  const { productNo } = useParams();
+  const play = (a, index) => {
+    console.log(a);
+    console.log(index);
+    const nameNum = index + 1;
+    console.log(nameNum);
+    setUserSelect({
+      name: `img${nameNum}`,
+      img: `http://localhost:8080/upload/${a.productImageName}`,
+    });
   };
 
   let [productList, setProductList] = useState([]);
   const [productImageList, setProductImageList] = useState([]);
 
+  const [productImageData, setProductImageData] = useState([]);
   const getProducts = async () => {
-    let url = `http://localhost:8080/api/main/getMainProductList`;
-    let response = await fetch(url);
-    let data = await response.json();
-    console.log(data);
-    setProductList(data.productList.slice(0, 1));
-    setProductImageList(data.productImageList);
+    axios({
+      url: `http://localhost:8080/api/product/productDetail`,
+      method: "get",
+      params: { productNo: productNo },
+    }).then((response) => {
+      console.log(response.data);
+      setProductList(response.data.productInfo);
+      setProductImageList(response.data.productImage);
+      //setProductImageData(response.data.slice(0, 4));
+    });
   };
 
   useEffect(() => {
     getProducts();
   }, []);
 
-  let { productNo } = useParams();
-
   return (
     <>
-      {productList.map((a) => (
-        <div className="main">
-          <div className="imgBox">
-            <div style={{ textAlign: "center" }}>
-              <Box item={userSelect} />
-            </div>
-            <div className="thumbImg">
-              <input
+      <div className="main">
+        <div className="imgBox">
+          <div style={{ textAlign: "center" }}>
+            <Box item={userSelect} />
+          </div>
+          <div className="thumbImg">
+            {productImageList.map((a, index) => (
+              <img
+                key={index}
+                src={`http://localhost:8080/upload/${a.productImageName}`}
                 className="btn"
-                onClick={() => play("img1")}
-                type="image"
-                item={a}
-                productImageList={productImageList}
-                alt="1번째사진"
-              ></input>
-              <input
+                onClick={() => play(a, index)}
+              />
+            ))}
+            {/* <img
                 className="btn"
                 onClick={() => play("img2")}
                 type="image"
-                src="/images/inter (2).png"
+                src={`http://localhost:8080/upload/${a.productImageName}`}
                 alt="2번째사진"
-              ></input>
-              <input
+              ></img>
+              <img
                 className="btn"
                 onClick={() => play("img3")}
                 type="image"
-                src="/images/inter (3).png"
+                src={`http://localhost:8080/upload/${a.productImageName}`}
                 alt="3번째사진"
-              ></input>
-              <input
+              ></img>
+              <img
                 className="btn"
                 onClick={() => play("img4")}
                 type="image"
-                src="/images/light3.png"
+                src={`http://localhost:8080/upload/${a.productImageName}`}
                 alt="4번째사진"
-              ></input>
-              <input
+              ></img>
+              <img
                 className="btn"
                 onClick={() => play("img5")}
                 type="image"
-                src="/images/light1.png"
+                src={`http://localhost:8080/upload/${a.productImageName}`}
                 alt="5번째사진"
-              ></input>
-            </div>
-            <p>
-              <hr className="line1"></hr>
-            </p>
+              ></img> */}
+          </div>
+          <p>
+            <hr className="line1"></hr>
+          </p>
 
-            <ProductDetailInfo />
-          </div>
-          <div className="contentBox">
-            <ProductMainInfo />
-          </div>
+          <ProductDetailInfo />
         </div>
-      ))}
+        <div className="contentBox">
+          <ProductMainInfo />
+        </div>
+      </div>
     </>
   );
 }

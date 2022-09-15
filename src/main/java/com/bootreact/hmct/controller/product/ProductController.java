@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -112,11 +113,12 @@ public class ProductController {
 	}
 
 	//제품 조회(상세정보)
-	Map<String, Object> getProduct(Product product) {
+	@GetMapping("/productDetail")
+	public Map<String, Object> getProduct(@RequestParam int productNo) {
 		try {	
 			
-			List<Map<String, Object>> productInfo = productService.getProduct(product.getProductNo());
-			List<Map<String, Object>> productImage = productService.getProductImage(product.getProductNo());
+			List<Map<String, Object>> productInfo = productService.getProduct(productNo);
+			List<Map<String, Object>> productImage = productService.getProductImage(productNo);
 			
 			Map<String, Object> returnMap = new HashMap<String, Object>();
 			
