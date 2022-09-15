@@ -13,27 +13,19 @@ const choice = {
     name: "img1",
     img: process.env.PUBLIC_URL + "/images/inter (1).png",
   },
-  img2: {
-    name: "img2",
-    img: process.env.PUBLIC_URL + "/images/inter (2).png",
-  },
-  img3: {
-    name: "img3",
-    img: process.env.PUBLIC_URL + "/images/inter (3).png",
-  },
-  img4: {
-    name: "img4",
-    img: process.env.PUBLIC_URL + "/images/light3.png",
-  },
-  img5: {
-    name: "img5",
-    img: process.env.PUBLIC_URL + "/images/light1.png",
-  },
 };
 
 function ImageThumb(props) {
-  const [userSelect, setUserSelect] = useState(choice.img1);
+  // useEffect(() => {
+  //   userSelect({
+  //     name: `image0`,
+  //     img: `http://localhost:8080/upload/${productImageList[1].productImageName}`,
+  //   });
+  // }, []);
+
   const { productNo } = useParams();
+  const [userSelect, setUserSelect] = useState();
+
   const play = (a, index) => {
     console.log(a);
     console.log(index);
@@ -47,8 +39,6 @@ function ImageThumb(props) {
 
   let [productList, setProductList] = useState([]);
   const [productImageList, setProductImageList] = useState([]);
-
-  const [productImageData, setProductImageData] = useState([]);
   const getProducts = async () => {
     axios({
       url: `http://localhost:8080/api/product/productDetail`,
@@ -66,6 +56,14 @@ function ImageThumb(props) {
     getProducts();
   }, []);
 
+  useEffect(() => {
+    if (productImageList.length !== 0)
+      setUserSelect({
+        name: `img1`,
+        img: `http://localhost:8080/upload/${productImageList[0].productImageName}`,
+      });
+  }, [productImageList]);
+
   return (
     <>
       <div className="main">
@@ -82,34 +80,6 @@ function ImageThumb(props) {
                 onClick={() => play(a, index)}
               />
             ))}
-            {/* <img
-                className="btn"
-                onClick={() => play("img2")}
-                type="image"
-                src={`http://localhost:8080/upload/${a.productImageName}`}
-                alt="2번째사진"
-              ></img>
-              <img
-                className="btn"
-                onClick={() => play("img3")}
-                type="image"
-                src={`http://localhost:8080/upload/${a.productImageName}`}
-                alt="3번째사진"
-              ></img>
-              <img
-                className="btn"
-                onClick={() => play("img4")}
-                type="image"
-                src={`http://localhost:8080/upload/${a.productImageName}`}
-                alt="4번째사진"
-              ></img>
-              <img
-                className="btn"
-                onClick={() => play("img5")}
-                type="image"
-                src={`http://localhost:8080/upload/${a.productImageName}`}
-                alt="5번째사진"
-              ></img> */}
           </div>
           <p>
             <hr className="line1"></hr>

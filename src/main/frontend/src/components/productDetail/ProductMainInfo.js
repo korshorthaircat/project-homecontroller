@@ -55,6 +55,7 @@ function MainInfo() {
           </p>
 
           <div>
+            
             <div style={{ display: "flex" }}>
               <img className="selectColorBtn" src="/images/light3.png"></img>
 
