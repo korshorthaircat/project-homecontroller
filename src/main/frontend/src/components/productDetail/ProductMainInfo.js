@@ -76,6 +76,7 @@ function MainInfo() {
                     marginRight: "0px",
                   }}
                   src="/Product_arrow.png"
+                  alt="색상선택"
                 ></img>
               </div>
               <p style={{ fontSize: "13px", marginLeft: "10px" }}>화이트</p>
