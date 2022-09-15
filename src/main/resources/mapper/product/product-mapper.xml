@@ -10,7 +10,7 @@
 			,  CC.COMMON_CODE_NAME AS PRODUCT_CATEGORY_NAME
 			FROM (
 					SELECT A.*
-						 , B.COMMON_CODE
+						 , MIN(B.COMMON_CODE)
 		                 , B.PRODUCT_INVENTORY
 						 , C.COMMON_CODE_NAME
 						FROM T_HMCT_PRODUCT A
@@ -18,6 +18,7 @@
 						   , T_HMCT_COMMON C
 						WHERE A.PRODUCT_NO = B.PRODUCT_NO
 						  AND B.COMMON_CODE = C.COMMON_CODE
+						group by A.PRODUCT_NO
 				) AA
 		        , (
 					SELECT * 
@@ -30,7 +31,7 @@
 		                WHERE COMMON_TYPE = 'C' 
 				  ) CC
 			WHERE AA.PRODUCT_MATERIAL = BB.COMMON_CODE
-		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE
+		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE;
 	]]>
 	</select>
 	
