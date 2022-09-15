@@ -113,5 +113,10 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.getAdminProductList();
 	}
 
+	@Override
+	public String getRepresentativeCommonCode(int productNo) {
+		return productMapper.getRepresentativeCommonCode(productNo);
+	}
+
 
 }

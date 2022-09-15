@@ -106,7 +106,7 @@
 	]]>
 	</select>
 	
-	<!-- 작동하는 쿼리. 필요하다면 주석 풀어서 사용하기 -->	
+	<!-- 제품번호를 넘겨서 이미지 조회(컬러 구분 x) -->
 	<select id="getProductImage" parameterType="int" resultType="camelHashMap">
 	<![CDATA[
 		SELECT *
@@ -116,14 +116,22 @@
 	</select> 
 	
 	
-	<!-- 제품번호, 커먼코드 둘 다 넘겨서 이미지 조회하는 쿼리 작성 중 -->
-	<!-- 파라미터타입이 맵이어야 함. -->
+	<!-- 제품번호, 커먼코드 둘 다 넘겨서 이미지 조회(컬러 구분 o)-->
 	<select id="getProductWithCommonCode" parameterType="Map" resultType="camelHashMap">
 	<![CDATA[
 		SELECT *
 			FROM T_HMCT_PRODUCT_IMAGE
 			WHERE PRODUCT_NO = #{productNo}
 			AND COMMON_CODE = #{commonCode};
+	]]>
+	</select>
+	
+	<!-- 제품번호를 이용해서 대표 컬러(커먼코드) 1개 가져오기 -->
+	<select id="getRepresentativeCommonCode" parameterType="int" resultType="String">
+	<![CDATA[
+		select  MIN(COMMON_CODE) as COMMON_CODE
+			from t_hmct_product_optn
+			where product_no = #{productNo};
 	]]>
 	</select>
 	

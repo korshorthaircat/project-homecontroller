@@ -119,7 +119,19 @@ public class ProductController {
 		try {	
 			
 			List<Map<String, Object>> productInfo = productService.getProduct(productNo);
-			List<Map<String, Object>> productImage = productService.getProductImage(productNo);
+			//List<Map<String, Object>> productImage = productService.getProductImage(productNo);
+			
+			//제품번호를 이용해서 대표컬러(커먼코드) 1개 가져오기
+			String commonCode = productService.getRepresentativeCommonCode(productNo);
+
+			
+			//제품번호와 커먼코드를 맵에 담기
+			Map paramMap = new HashMap();
+			paramMap.put("productNo", productNo);
+			paramMap.put("commonCode", commonCode);
+
+			//제품번호, 커먼코드를 맵에 담아 보내서 이미지 받아오기
+			List<Map<String, Object>> productImage = productService.getProductWithCommonCode(paramMap);
 			
 			Map<String, Object> returnMap = new HashMap<String, Object>();
 			

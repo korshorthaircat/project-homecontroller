@@ -33,4 +33,6 @@ public interface ProductMapper {
 	List<Map<String, Object>> getProductWithCommonCode(Map paramMap);
 
 	List<Map<String, Object>> getAdminProductList();
+
+	String getRepresentativeCommonCode(int productNo);
 }		
