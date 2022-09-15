@@ -15,7 +15,7 @@ public interface WishService {
 			
 			void addWishItem(String userId, int productNo);
 			
-			void deleteWishItem(String userId, String productNo);
+			void deleteWishItem(String userId, int productNo);
 			
 			
 			//위시쇼룸 
