@@ -5,6 +5,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import axios from "axios";
 
+import { Link } from 'react-router-dom';
 
 
 
@@ -39,7 +40,8 @@ const ProductCard = ({ item, productImageList }) => {
     }
   }, [item, productImageList]);
     
-//하트아이콘 클릭시 위시리스트에 담기
+
+ //하트아이콘 클릭시 위시리스트에 담기
 const addWishList = () => {
   axios({
     url: 'http://localhost:8080/api/wishlist/addWishItem',
@@ -53,15 +55,20 @@ const addWishList = () => {
   })
 } 
 
+
   
 
   return (
+    
     <div className="card">
+      <Link to = {`/productDetail/${item.productNo}`}
+                  state = {{productList: item}} > 
       <img className="imageArea" src= {isHover ? `http://localhost:8080/upload/${hoverImage}` : `http://localhost:8080/upload/${thumbnail}`}
       onMouseOver= {handleMouseOver}
       onMouseOut= {handleMouseOut}
       alt="사진" 
       /> 
+      </Link>
       <div className="textArea">
         <p className="title_text">{item.productName}</p>
 
@@ -74,12 +81,13 @@ const addWishList = () => {
           <p>PRICE</p>
           <div className="last">
             <p className="price_text">\{item.productPrice}</p>
-          
+
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
-              sx={{ padding: "0 6px", left: 180 }}
+              sx={{ padding: "0 6px", left: 180 }} 
+
               onClick={addWishList}
             >
               <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />

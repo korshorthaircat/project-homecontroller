@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void insertProductFiles(List<ProductImage> fileList) {
 		for(ProductImage pi : fileList) {
-			int piNo = productMapper.getNextProductImageNo(pi.getProduct().getProductNo());
+			int piNo = productMapper.getNextProductImageNo(pi.getProductOption().getProduct().getProductNo());
 			pi.setProductImageNo(piNo);
 			productImageRepository.save(pi);
 		}

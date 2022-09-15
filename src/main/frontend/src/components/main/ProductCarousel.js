@@ -105,7 +105,7 @@ const responsive = {
 
 
 const ProductCarousel = () => {
-  let [productList, setProductList] = useState([]);
+  const [productList, setProductList] = useState([]);
   const [productImageList, setProductImageList] = useState([]);
   
 
@@ -133,18 +133,15 @@ const ProductCarousel = () => {
       // itemClass="carousel-item-padding-40-px"
       > 
       
-        {productList? (
-          productList.map((a) => (
-          <Link to = {`/productDetail/${a.productNo}`}
-                  state = {{productList: a}} > 
+        {productList.map((a) => (
+          
           <ProductCard
           item={a} 
           productImageList={productImageList}/>
-
-          </Link>)
-        )) : (<p>조회된 데이터가 없습니다.</p>)}
+          
+          ))}
         
-       </Carousel>
+       </Carousel> 
      </div>
   );
 };
