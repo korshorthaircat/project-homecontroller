@@ -14,7 +14,8 @@ import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import Paging from "./Paging"
+import Paging from "./Paging";
+import "../../css/paging.css";
 
 const mdTheme = createTheme();
 
@@ -38,6 +39,11 @@ function OrderManage() {
     ordList();
   },[]);
 
+  //페이지네이션
+  const [limit, setLimit] = React.useState(10);
+  const [page, setPage] = React.useState(1);
+  const offset = (page - 1) * limit;
+
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }} style={{ maxWidth: "1750px" }}>
@@ -48,6 +54,19 @@ function OrderManage() {
         </Box>
         <Container style={{ marginTop: "5%" }}>
           <h1>주문 관리폼</h1>
+          {/*페이지네이션 표출할 데이터양*/}
+          <label className="orderOption">
+              페이지 당 표시할 게시물 수:&nbsp;
+              <select
+                type="number"
+                value={limit}
+                onChange={({ target: { value } }) => setLimit(Number(value))}
+              >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+              </select>
+            </label>
           <Box
             component="form"
             sx={{
@@ -57,7 +76,7 @@ function OrderManage() {
             autoComplete="off"
           >
             <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 650 }} >
+                    <Table sx={{ minWidth: 650 }} >                   
                         <TableHead>
                             <TableRow>
                                 <TableCell>주문 번호</TableCell>
@@ -72,7 +91,7 @@ function OrderManage() {
                        
                         <TableBody>
                         {orderList ? (
-                            orderList.map((o, index) => (
+                            orderList.slice(offset, offset + limit).map((o, index) => (
                             <TableRow
                             key={o.orderNo}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -112,12 +131,18 @@ function OrderManage() {
                         </TableBody>
                     </Table>
             </TableContainer>
-            <Paging/>
           </Box>
         </Container>
       </Box>
+      <Paging 
+          total={orderList.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
     </ThemeProvider>
   );
 }
 
 export default OrderManage;
+
