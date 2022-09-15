@@ -53,11 +53,12 @@ public interface CartMapper {
 	@Insert("INSERT into t_hmct_cart ("
 			+ " common_code, product_no, user_id, product_count"
 			+ " ) VALUE ("
-			+ "#{commonCode}, #{productNo}, #{userId}, 1"
+			+ "#{commonCode}, #{productNo}, #{userId}, #{productCount}"
 			+ ")")
 	void addCart(@Param("userId") String userId, 
 				 @Param("productNo") int productNo, 
-				 @Param("commonCode") String commonCode);
+				 @Param("commonCode") String commonCode,
+				 @Param("productCount") int productCount);
 
 	
 	@Update("update t_hmct_cart \n"

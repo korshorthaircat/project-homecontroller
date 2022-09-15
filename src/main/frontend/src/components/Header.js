@@ -24,7 +24,6 @@ import ListItemText from "@mui/material/ListItemText";
 import Link from "@mui/material/Link";
 import Badge from '@mui/material/Badge';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
 
 const drawerWidth = 450;
 
@@ -184,13 +183,18 @@ const Header = () => {
                 
                   {loginUser !== null ? (
                     <>
+                    <div className="loginName">
                       <p>{loginUser.userNickname}</p>
+                    </div>
+                    
+                    <div className="logout">
                       <Link onClick={logout} href="/">
                         로그아웃
                       </Link>
+                    </div> 
                     </>
                   ) : (
-                    <div className="login_text">
+                    <div className="login">
                       <Link href="/login">로그인 또는 가입하기</Link>
                     </div>
                   )}
