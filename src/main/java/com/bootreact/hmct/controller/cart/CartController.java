@@ -40,7 +40,7 @@ public class CartController {
 	public String addCart(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
 		
 			System.out.println(paramMap.toString());
-			
+			System.out.println(userId);
 			System.out.println(paramMap.get("productNo"));
 			System.out.println(paramMap.get("commonCode"));
 			

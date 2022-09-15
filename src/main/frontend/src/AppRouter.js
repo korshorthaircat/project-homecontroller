@@ -29,7 +29,7 @@ import ProductUpdate from "./components/admin/ProductUpdate";
 import ProductCategoryList from "./components/list/ProductCategoryList";
 import FixedBar from "./components/list/FixedBar";
 import ShowroomAdd from "./components/admin/ShowroomAdd";
-import Saw from "./components/productDetail/Saw";
+import Board from "./Board";
 
 function Copyright() {
   return (
@@ -75,6 +75,7 @@ const AppRouter = () => {
           <Route path="/bartest" element={<FixedBar />} />
           <Route path="/showroomAdmin1" element={<ShowroomAdd />} />
           <Route path="/productDetail/:productNo" element={<ImageThumb />} />
+          <Route path="/board" element={<Board/>} />
         </Routes>
       </BrowserRouter>
       <Footer />
