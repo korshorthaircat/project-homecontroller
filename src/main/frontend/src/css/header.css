@@ -25,14 +25,14 @@
   
   }
   
-  .login_text {
+  .login {
     font-size: 18px;
     font-weight: bold;
     padding: 0px 10px;
     
   }
 
-  .login_text a {
+  .login a {
     color: black;
     text-decoration: none;
     
@@ -43,8 +43,6 @@
     height: 90px;
     justify-content : center;
     align-items: center;
-  
-    
   }
   
   .css-1yx0if0{
@@ -68,27 +66,47 @@
   
   }
   
-  
-  
   .greenheader_text{
     font-size: 13px;
     font-weight: bold;
     color: white;
     padding: 0 10px;
-    
     margin: 0px;
-    
   }
   
   .greenheader_btn {
     width: 200px;
   }
 
- 
   .nav_hr hr{
     width: 337px;
     margin: 0 auto;
-    
   }
+
+  .loginName {
+    display: flex;
+    align-items: center;
+  }
+
+ .loginName p {
+  margin: 0px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 0 10px;
+ }
+
+ .logout {
+  
+  display: flex;
+  align-items: center;
+ }
+ 
+ .logout a {
+  
+  color: black;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+ }
 
  

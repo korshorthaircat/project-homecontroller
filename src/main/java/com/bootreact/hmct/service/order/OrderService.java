@@ -1,6 +1,7 @@
 package com.bootreact.hmct.service.order;
 
 import java.util.List;
+
 import java.util.Map;
 
 import com.bootreact.hmct.entity.Order;
@@ -22,5 +23,10 @@ public interface OrderService {
    
    //주문 수정
    Map<String, Object> updateOrder(Map<String, Object> paramMap);
+
+   //<마이페이지> 로그인한 사용자의 주문목록 조회
+   List<Order> getMyOrderList(String userId);
+
+
 
 }

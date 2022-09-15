@@ -38,8 +38,8 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public void addCart(String userId, String productNo, String commonCode) {
-		cartMapper.addCart(userId, Integer.parseInt(productNo), commonCode);	
+	public void addCart(String userId, String productNo, String commonCode, int productCount) {
+		cartMapper.addCart(userId, Integer.parseInt(productNo), commonCode, productCount);	
 	}
 
 	@Override

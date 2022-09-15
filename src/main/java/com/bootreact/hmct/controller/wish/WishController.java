@@ -52,35 +52,12 @@ public class WishController {
 	MypageService mypageService;
 
 	
-	//위시아이템 조회 
-	@GetMapping("/getWishItemList")
-    public Map<String, Object> getWishItemList(@AuthenticationPrincipal String userId){
-		
-		try {
-			//직접 쿼리작성 없이 JPA로 조인&셀렉트하고 싶은 경우 아래와 같이 함
-    		List<Map<String, Object>> wishItemList = wishService.getWishItemList(userId);
-    		
-    		Map<String, Object> resultMap = new HashMap<String, Object>();
-    		
-    		resultMap.put("wishItemList", wishItemList);
-    		
-    		return resultMap;
-    		
-    	}catch(Exception e){
-    		Map<String, Object> errorMap = new HashMap<String, Object>();
-    		errorMap.put("error", e.getMessage());
-    		return errorMap;
-    	}
-	}
-	
-
-	
 	//위시쇼룸 조회
 	@PostMapping("/getWishShowroomList")
     public ResponseEntity<?> getWishShowroomList(@RequestBody User user){
 		
 		try {
-			//직접 쿼리작성 없이 JPA로 조인&셀렉트하고 싶은 경우 아래와 같이 함
+			
     		List<WishShowroom> wishShowroomList = wishService.getWishShowroomList(user.getUserId());
     		ResponseDTO<WishShowroom> response = new ResponseDTO<>();
     		response.setData(wishShowroomList);
@@ -93,7 +70,29 @@ public class WishController {
     		return ResponseEntity.badRequest().body(response);
     	}
 	}
+		
+		//위시아이템 조회 하기 
+		@GetMapping("/getWishItemList")
+	    public Map<String, Object> getWishItemList(@AuthenticationPrincipal String userId){
+			
+			try {
+				
+	    		List<Map<String, Object>> wishItemList = wishService.getWishItemList(userId);
+	    		
+	    		Map<String, Object> resultMap = new HashMap<String, Object>();
+	    		
+	    		resultMap.put("wishItemList", wishItemList);  
+	    		
+	    		return resultMap;
+	    		
+	    	}catch(Exception e){
+	    		Map<String, Object> errorMap = new HashMap<String, Object>();
+	    		errorMap.put("error", e.getMessage());
+	    		return errorMap;
+	    	}
+	}
 	
+	//위시아이템 담기 
 	@PostMapping("/addWishItem")
 	public String addWishItem(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
 		System.out.println(paramMap.toString());
@@ -104,9 +103,29 @@ public class WishController {
 		int productNo = Integer.parseInt(paramMap.get("productNo"));
 		
 		
-		wishService.addWishItem("gogo", productNo);
+		wishService.addWishItem(userId, productNo);
 		
 		return "addWishItem Success";
 	}
+	
+	
+	
+	//위시아이템 삭제 
+	@PostMapping("/deleteWishItem")
+	public String deleteWishItem(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
+		
+		System.out.println(paramMap.toString());
+		System.out.println(paramMap.get("productNo"));
+		System.out.println(userId);
+		
+		int productNo = Integer.parseInt(paramMap.get("productNo").toString());
+		
+		wishService.deleteWishItem(userId, productNo);
+		
+		return "deleteWishItem Success";
+	}
     
 }
+
+
+

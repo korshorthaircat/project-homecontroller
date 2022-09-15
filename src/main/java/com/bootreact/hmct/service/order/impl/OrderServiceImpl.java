@@ -15,6 +15,7 @@ import com.bootreact.hmct.service.order.OrderService;
 
 @Service
 public class OrderServiceImpl implements OrderService{
+	
     @Autowired
     OrderRepository orderRepository;
     
@@ -94,6 +95,12 @@ public class OrderServiceImpl implements OrderService{
     	return resultMap;
     	
     }
+
+    //<마이페이지> 로그인한 사용자의 주문목록 조회
+	@Override
+	public List<Order> getMyOrderList(String userId) {
+    	return orderRepository.findByUserUserId(userId);
+	}
 
 	
 
