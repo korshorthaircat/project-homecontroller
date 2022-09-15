@@ -13,27 +13,29 @@ import MainInfoNav from "./MainInfoNav";
 import { list, productlist } from "./../admin/ProductList";
 import axios from "axios";
 import { Route, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 function MainInfo() {
   let { productNo } = useParams();
   console.log(productNo);
-  const [productList, setProductList] = React.useState([]);
 
-  let listUrl = "http://localhost:8080/api/admin/admin2";
+  let [productList, setProductList] = useState([]);
+  const [productImageList, setProductImageList] = useState([]);
 
-  const list = () => {
-    axios
-      .get(listUrl, {})
-      .then((response) => {
-        setProductList(response.data.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  const getProducts = async () => {
+    axios({
+      url: `http://localhost:8080/api/product/productDetail`,
+      method: "get",
+      params: { productNo: productNo },
+    }).then((response) => {
+      console.log(response.data);
+      setProductList(response.data.productInfo);
+      setProductImageList(response.data.productImage);
+    });
   };
 
-  React.useEffect(() => {
-    list();
+  useEffect(() => {
+    getProducts();
   }, []);
 
   return (

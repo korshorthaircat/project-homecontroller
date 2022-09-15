@@ -22,17 +22,20 @@ export default function NavRevInsert() {
     axios({
       method: "post",
       url: API_BASE_URL + "/api/review/insertReview",
+      headers: {
+        Authorization: "Bearer" + localStorage.getItem("ACCESS_TOKEN"),
+      },
       data: {
-        // userId: "gogo",
-        // productNo: 11,
-        // orderNo: 27,
+        userId: "gogo",
+        productNo: 11,
+        orderNo: 27,
         reviewTitle: reviewTitle,
         reviewContent: reviewContent,
         reviewGrade: reviewGrade,
       },
     }).then((response) => {
       //회원가입 성공시 로그인 페이지로 이동
-      //alert("상품평 작성이 완료되었습니다.");
+      alert("상품평 작성이 완료되었습니다.");
       //window.location.href = "/productDetail";
     });
   };

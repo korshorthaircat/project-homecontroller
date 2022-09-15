@@ -8,5 +8,9 @@ import com.bootreact.hmct.entity.Review;
 
 @Service
 public interface ReviewService {
-	
+
+//List<Review> Review(Review review);
+//    
+//Review InsertReview(Review review);
+//	
 }
