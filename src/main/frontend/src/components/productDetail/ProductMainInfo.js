@@ -14,17 +14,19 @@ import { list, productlist } from "./../admin/ProductList";
 import axios from "axios";
 import { Route, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { height, width } from "@mui/system";
 
 function MainInfo() {
-  let { productNo } = useParams();
+  let { productNo, commonCode } = useParams();
   console.log(productNo);
 
   let [productList, setProductList] = useState([]);
+
   const [productImageList, setProductImageList] = useState([]);
 
-  const getProducts = async () => {
+  const getColorCommonCode = async () => {
     axios({
-      url: `http://localhost:8080/api/product/productDetail`,
+      url: `http://localhost:8080/api/product/productColorDetail`,
       method: "get",
       params: { productNo: productNo },
     }).then((response) => {
@@ -35,7 +37,9 @@ function MainInfo() {
   };
 
   useEffect(() => {
-    getProducts();
+    getColorCommonCode();
+    console.log(productImageList);
+    console.log(productList);
   }, []);
 
   return (
@@ -53,35 +57,38 @@ function MainInfo() {
           <p>
             <hr className="line2"></hr>
           </p>
+          <div style={{ display: "flex", marginTop: "50px" }}>
+            <p className="selectColorUnder" style={{ fontWeight: "1000" }}>
+              색상선택
+            </p>
+            <img
+              style={{
+                width: "20px",
+                height: "20px",
+                align: "right",
+                marginRight: "0px",
+              }}
+              src="/Product_arrow.png"
+              alt="색상선택"
+            ></img>{" "}
+            화이트
+          </div>
 
           <div>
-            
             <div style={{ display: "flex" }}>
-              <img className="selectColorBtn" src="/images/light3.png"></img>
-
-              <img className="selectColorBtn" src="/images/light3.png"></img>
-
-              <img className="selectColorBtn" src="/images/light3.png"></img>
-            </div>
-
-            <button className="selectColor">
-              <div style={{ display: "flex" }}>
-                <p className="selectColorUnder" style={{ fontWeight: "800" }}>
-                  색상선택
-                </p>
+              {productImageList.map((a, index) => (
                 <img
                   style={{
-                    width: "20px",
-                    height: "20px",
-                    align: "right",
-                    marginRight: "0px",
+                    width: "80px",
+                    height: "80px",
+                    margin: "10px",
+                    borderRadius: "5%",
                   }}
-                  src="/Product_arrow.png"
-                  alt="색상선택"
-                ></img>
-              </div>
-              <p style={{ fontSize: "13px", marginLeft: "10px" }}>화이트</p>
-            </button>
+                  key={index}
+                  src={`http://localhost:8080/upload/${a.productImageName}`}
+                />
+              ))}
+            </div>
           </div>
 
           <div className="sellHeartBtn">

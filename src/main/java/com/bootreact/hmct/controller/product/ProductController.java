@@ -113,6 +113,31 @@ public class ProductController {
 		/*업로드 파일정보 저장 끝*/
 	}
 
+	//제품조회(상세정보) - 모든 컬러 다가져오기
+	@GetMapping("/productColorDetail")
+	public Map<String, Object> getColorProduct(@RequestParam int productNo) {
+		try {	
+			
+			List<Map<String, Object>> productInfo = productService.getProduct(productNo);
+			List<Map<String, Object>> productImage = productService.getProductImage(productNo);
+			
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			
+			
+//			String getColorCommonCode = productService.getColorCommonCode(productNo);
+
+			returnMap.put("productInfo", productInfo);
+			returnMap.put("productImage", productImage);
+			
+			return returnMap; 
+    	}catch(Exception e){
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+    		errorMap.put("error", e.getMessage());
+    		return errorMap;
+    	}
+	}
+	
+	
 // 제품 조회(상세정보) - 제품번호만 넘겨서 조회하기
 	@GetMapping("/productDetail")
 	public Map<String, Object> getProduct(@RequestParam int productNo) {
