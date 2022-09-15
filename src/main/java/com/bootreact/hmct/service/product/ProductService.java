@@ -49,6 +49,9 @@ public interface ProductService {
 	//제품번호를 이용해서 대표컬러(커먼코드) 1개 가져오기
 	String getRepresentativeCommonCode(int productNo);
 
+	//제품번호 이용해서 컬러별 대표사진 1개씩 가져오기
+	String getColorCommonCode(int productNo);
+
 }
 
 

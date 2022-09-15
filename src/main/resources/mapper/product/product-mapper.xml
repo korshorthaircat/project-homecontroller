@@ -135,6 +135,15 @@
 	]]>
 	</select>
 	
+	<!-- 컬러(커먼코드)별 대표사진 1개씩 가져오기 -->
+	<select id="getColorCommonCode" parameterType="int" resultType="String">
+	<![CDATA[
+		SELECT *
+			FROM T_HMCT_PRODUCT_IMAGE
+			WHERE PRODUCT_NO = #{productNo}
+				AND MIN(PRODUCT_IMAGE_NO) = #{productImageNo};
+	]]>
+	</select>
 	
 </mapper>
 

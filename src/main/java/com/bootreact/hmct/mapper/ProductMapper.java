@@ -35,4 +35,6 @@ public interface ProductMapper {
 	List<Map<String, Object>> getAdminProductList();
 
 	String getRepresentativeCommonCode(int productNo);
+
+	String getColorCommonCode(int productNo);
 }		

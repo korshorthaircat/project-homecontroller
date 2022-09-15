@@ -117,6 +117,11 @@ public class ProductServiceImpl implements ProductService {
 	public String getRepresentativeCommonCode(int productNo) {
 		return productMapper.getRepresentativeCommonCode(productNo);
 	}
+	
+	@Override
+	public String getColorCommonCode(int productNo) {
+		return productMapper.getColorCommonCode(productNo);
+	}
 
 
 }
