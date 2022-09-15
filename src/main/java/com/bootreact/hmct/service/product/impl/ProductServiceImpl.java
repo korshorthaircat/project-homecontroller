@@ -55,7 +55,6 @@ public class ProductServiceImpl implements ProductService {
 		productOptionRepository.save(productOption);
 	}
 	
-//관리자상품조회
 	@Override
 	public List<Product> getProductList() {
 		
@@ -102,6 +101,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Map<String, Object>> getProductImage(int productNo) {
 		return productMapper.getProductImage(productNo);
+	}
+	
+	@Override
+	public List<Map<String, Object>> getProductWithCommonCode(Map paramMap) {
+		return productMapper.getProductWithCommonCode(paramMap);
 	}
 
 	@Override

@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -112,13 +113,42 @@ public class ProductController {
 		/*업로드 파일정보 저장 끝*/
 	}
 
-	//제품 조회(상세정보)
+// 제품 조회(상세정보) - 제품번호만 넘겨서 조회하기
 	@GetMapping("/productDetail")
 	public Map<String, Object> getProduct(@RequestParam int productNo) {
 		try {	
 			
 			List<Map<String, Object>> productInfo = productService.getProduct(productNo);
 			List<Map<String, Object>> productImage = productService.getProductImage(productNo);
+			
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			
+			returnMap.put("productInfo", productInfo);
+			returnMap.put("productImage", productImage);
+			
+			return returnMap; 
+    	}catch(Exception e){
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+    		errorMap.put("error", e.getMessage());
+    		return errorMap;
+    	}
+	}
+
+	//제품 조회(상세정보) - 제품번호, 커먼코드를 넘겨서 조회하기
+	@PostMapping("/productDetail")
+	public Map<String, Object> getProductWithCommonCode(@RequestBody Map<String, String> paramMap) {
+//		  리액트단에서 데이터 보낼 때(axios 요청) 아래와 같이 해야 함
+//		  method: "post",
+//	      params: { productNo: productNo,
+//					commonCode: commonCode },
+		try {	
+			System.out.println(paramMap.get("productNo"));
+			System.out.println(paramMap.get("commonCode"));
+			
+			List<Map<String, Object>> productInfo = productService.getProduct(
+					Integer.parseInt(paramMap.get("productNo").toString())
+					);
+			List<Map<String, Object>> productImage = productService.getProductWithCommonCode(paramMap);
 			
 			Map<String, Object> returnMap = new HashMap<String, Object>();
 			

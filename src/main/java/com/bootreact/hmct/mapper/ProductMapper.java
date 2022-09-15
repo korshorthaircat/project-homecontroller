@@ -29,6 +29,8 @@ public interface ProductMapper {
 	List<Map<String, Object>> getProduct(int productNo);
 
 	List<Map<String, Object>> getProductImage(int productNo);
+	
+	List<Map<String, Object>> getProductWithCommonCode(Map paramMap);
 
 	List<Map<String, Object>> getAdminProductList();
 }		

@@ -106,12 +106,24 @@
 	]]>
 	</select>
 	
+	<!-- 작동하는 쿼리. 필요하다면 주석 풀어서 사용하기 -->	
 	<select id="getProductImage" parameterType="int" resultType="camelHashMap">
 	<![CDATA[
 		SELECT *
 			FROM T_HMCT_PRODUCT_IMAGE
 			WHERE PRODUCT_NO = #{productNo}
-			
+	]]>
+	</select> 
+	
+	
+	<!-- 제품번호, 커먼코드 둘 다 넘겨서 이미지 조회하는 쿼리 작성 중 -->
+	<!-- 파라미터타입이 맵이어야 함. -->
+	<select id="getProductWithCommonCode" parameterType="Map" resultType="camelHashMap">
+	<![CDATA[
+		SELECT *
+			FROM T_HMCT_PRODUCT_IMAGE
+			WHERE PRODUCT_NO = #{productNo}
+			AND COMMON_CODE = #{commonCode};
 	]]>
 	</select>
 	
