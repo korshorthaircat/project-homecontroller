@@ -1,8 +1,13 @@
 package com.bootreact.hmct.service.mypage;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
+import com.bootreact.hmct.entity.Order;
+
 public interface MypageService {
+
+	List<Order> getMyOrderList();
+
+
 	
 }

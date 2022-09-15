@@ -104,7 +104,7 @@ public class WishController {
 		int productNo = Integer.parseInt(paramMap.get("productNo"));
 		
 		
-		wishService.addWishItem("gogo", productNo);
+		wishService.addWishItem(userId, productNo);
 		
 		return "addWishItem Success";
 	}
