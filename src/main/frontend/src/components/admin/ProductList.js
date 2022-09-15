@@ -203,23 +203,6 @@ export default function EnhancedTable() {
     console.log(event.currentTarget.value);
   };
 
-  const onAddOption = useCallback(
-    (productNo, optionCommonCode, optionInventory) => {
-      axios({
-        method: "post",
-        url: API_BASE_URL + "/api/admin/addOption",
-        data: {
-          productNo: productNo,
-          optionCommonCode: optionCommonCode,
-          optionInventory: optionInventory,
-        },
-      }).then((response) => {
-        setProduct(response.data.data);
-      });
-    },
-    []
-  );
-
   React.useEffect(() => {
     if (isAddOption) {
       list();

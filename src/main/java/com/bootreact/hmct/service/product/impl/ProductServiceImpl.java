@@ -92,8 +92,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void addOption(int productNo, String optionCommonCode, int optionInventory) {
 		productMapper.addOption(productNo, optionCommonCode, optionInventory);
-		
-		
 	}
 
 	@Override
@@ -104,6 +102,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Map<String, Object>> getProductImage(int productNo) {
 		return productMapper.getProductImage(productNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> getAdminProductList() {
+		return productMapper.getAdminProductList();
 	}
 
 

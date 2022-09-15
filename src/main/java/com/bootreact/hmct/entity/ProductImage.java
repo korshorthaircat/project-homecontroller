@@ -24,12 +24,6 @@ public class ProductImage {
 	@Id
 	private int productImageNo;
 	
-//	//제품 번호(PK, FK)
-//	@Id
-//	@JoinColumn(name="PRODUCT_NO")
-//	@ManyToOne
-//	private Product product;
-	
 	//제품옵션(PK, FK)
 	@Id
 	@ManyToOne
