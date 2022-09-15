@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,31 +36,30 @@ public class CartController {
 	private PasswordEncoder passwordEncoder;
 
 //	//장바구니 제품추가 (POST)
-//	@PostMapping("/addCart")
-//	public ResponseEntity<?>addCart(@RequestBody Map<String, String> paramMap) {
-//		try {
-//			System.out.println(paramMap.get("userId"));
-//			System.out.println(paramMap.get("productNo"));
-//			System.out.println(paramMap.get("commonCode"));
-//			
-//			//추가 처리하기
-//			cartService.addCart(paramMap.get("userId"), 
-//								paramMap.get("productNo"),
-//								paramMap.get("commonCode"));
-//			
-//			//추가 후 장바구니리스트 다시 받아오기
+	@PostMapping("/addCart")
+	public String addCart(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
+		
+			System.out.println(paramMap.toString());
+			
+			System.out.println(paramMap.get("productNo"));
+			System.out.println(paramMap.get("commonCode"));
+			
+			int productCount = 1;
+			
+			//추가 처리하기
+			cartService.addCart(userId, 
+								paramMap.get("productNo"),
+								paramMap.get("commonCode"),
+								productCount);
+			
+			//추가 후 장바구니리스트 다시 받아오기
 //    		List<Cart> cartList = cartService.getCartList(paramMap.get("userId"));
 //    		ResponseDTO<Cart> response = new ResponseDTO<>();
 //    		response.setData(cartList);
-//    		return ResponseEntity.ok().body(response);
-//    		
-//    	}catch(Exception e){
-//    		System.out.println(e.getMessage());
-//    		ResponseDTO<Cart> response = new ResponseDTO<>();
-//    		response.setError(e.getMessage());
-//    		return ResponseEntity.badRequest().body(response);	   	
-//    	}
-//	}
+    		return "add cart success";
+    		
+    	
+	}
 	
 //	//장바구니 제품수정(수량 변경) (POST)
 	@PutMapping("/updateCart")

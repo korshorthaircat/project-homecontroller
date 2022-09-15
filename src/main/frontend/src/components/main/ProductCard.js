@@ -55,7 +55,21 @@ const addWishList = () => {
   })
 } 
 
-
+//장바구니 클릭시 장바구니에 담기
+const addCart = () => {
+  axios({
+    url: 'http://localhost:8080/api/cart/addCart',
+    headers : {
+      Authorization : 'Bearer' + sessionStorage.getItem("ACCESS_TOKEN")
+    },
+    method: 'post',
+    data: {productNo: item.productNo,
+      commonCode: item.commonCode
+    },
+  }).then(response => {
+    // console.log("cart",response.data);
+  })
+} 
   
 
   return (
@@ -99,7 +113,7 @@ const addWishList = () => {
               aria-haspopup="true"
               color="inherit"
               sx={{ padding: "0 6px", left: 180 }}
-              // onClick={() => dispatch(addCart(item))}
+              onClick={addCart}
             >
               <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
             </IconButton>
