@@ -39,4 +39,5 @@ public interface ProductMapper {
 
 
 	List<Map<String, Object>> getRepresentativeImage(int productNo);
+
 }		

@@ -17,6 +17,7 @@ import "../../css/admin.css";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
 import Paging from "./Paging";
+import { useNavigate } from "react-router-dom";
 
 const mdTheme = createTheme();
 
@@ -42,9 +43,10 @@ const modalstyle = {
 
 function UserManage() {
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
   const handleOpen = (index) => {
     setOpen(true);
-    setUserInfo(userList.data[index]);
+    setUserInfo(userList[index]);
   };
   const handleClose = () => {
     setOpen(false);
@@ -65,12 +67,11 @@ function UserManage() {
   //axios로 setUserList에 담아줌
   const list = () => {
     axios
-      .get(listUrl, {})
+      .get(listUrl)
       .then((response) => {
-        setUserList(response.data);
-
-        //오류나면 오류메세지
+        setUserList(response.data.data);  
       })
+      //오류나면 오류메세지
       .catch((e) => {
         console.log(e);
       });
@@ -78,7 +79,9 @@ function UserManage() {
 
   React.useEffect(() => {
     list();
+    console.log(userList); 
   }, []);
+
 
   //수정, 삭제 서브밋 처리 함수
   const handleSubmit = (e) => {
@@ -92,6 +95,7 @@ function UserManage() {
         .then((response) => {
           setOpen(false);
           setUserList(response.data);
+          window.location.href="/UserManage"
         })
         .catch((e) => {
           console.log("update오류" + e);
@@ -105,6 +109,7 @@ function UserManage() {
         .then((response) => {
           setOpen(false);
           setUserList(response.data);
+          window.location.href="/UserManage"
         })
         .catch((e) => {
           console.log("delete오류" + e);
@@ -122,7 +127,7 @@ function UserManage() {
   };
 
   //페이지네이션
-  const [limit, setLimit] = React.useState(10);
+  const [limit, setLimit] = React.useState(5);
   const [page, setPage] = React.useState(1);
   const offset = (page - 1) * limit;
 
@@ -138,7 +143,7 @@ function UserManage() {
         <Container style={{ marginTop: "5%" }}>
           <h1>회원 관리폼</h1>
           {/*페이지네이션 표출할 데이터양*/}
-          {/* <label className="orderOption">
+          <label className="orderOption">
               페이지 당 표시할 게시물 수:&nbsp;
               <select
                 type="number"
@@ -149,7 +154,7 @@ function UserManage() {
                 <option value="10">10</option>
                 <option value="20">20</option>
               </select>
-            </label> */}
+            </label>
           <Box
             component="form"
             sx={{
@@ -172,8 +177,8 @@ function UserManage() {
                 </TableHead>
                 <TableBody>
                   {/* 가져온 data mapping ?절 사용(map 뒤의 u는 아무거나 가능)*/}
-                  {(userList.data) ? (
-                    (userList.data).slice(offset, offset + limit).map((u, index) => (
+                  {userList ? (
+                    userList.slice(offset, offset + limit).map((u, index) => (
                       <TableRow
                         key={u.userName}
                         sx={{
@@ -437,12 +442,12 @@ function UserManage() {
           </Box>
         </Container>
       </Box>
-      {/* <Paging 
+      <Paging 
           total={userList.length}
           limit={limit}
           page={page}
           setPage={setPage}
-        /> */}
+        />
     </ThemeProvider>
   );
 }

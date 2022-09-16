@@ -21,23 +21,43 @@ import com.bootreact.hmct.entity.Cart;
 import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.jwt.JwtTokenProvider;
 import com.bootreact.hmct.service.cart.CartService;
+import com.bootreact.hmct.service.product.ProductService;
  
 @RestController
 @RequestMapping("/api/cart")
 public class CartController {
-	
-	@Autowired
-	CartService cartService;
-	
-	@Autowired
-	private JwtTokenProvider jwtTokenProvider;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	 
+	@Autowired CartService cartService;
+	@Autowired ProductService productService;
+	@Autowired private JwtTokenProvider jwtTokenProvider;
+	@Autowired private PasswordEncoder passwordEncoder;
 
-//	//장바구니 제품추가 (POST)
+	//<메인 페이지> 장바구니 제품추가 (대표 컬러로 추가됨)
 	@PostMapping("/addCart")
 	public String addCart(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
+		
+			System.out.println(paramMap.toString());
+			System.out.println(userId);
+			System.out.println(paramMap.get("productNo"));
+			System.out.println(paramMap.get("commonCode"));
+			
+			int productCount = 1;
+			String commonCode = productService.getRepresentativeCommonCode(
+					Integer.parseInt(paramMap.get("productNo"))
+					);
+			
+			//추가 처리하기
+			cartService.addCart(userId, 
+								paramMap.get("productNo"),
+								commonCode,
+								productCount);
+			
+    		return "add cart success";
+	}
+	
+	//<상세 페이지> 장바구니 제품추가 (선택한 컬러로 추가됨)
+	@PostMapping("/addCartAtDetail")
+	public String addCartAtDetail(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
 		
 			System.out.println(paramMap.toString());
 			System.out.println(userId);
@@ -52,16 +72,12 @@ public class CartController {
 								paramMap.get("commonCode"),
 								productCount);
 			
-			//추가 후 장바구니리스트 다시 받아오기
-//    		List<Cart> cartList = cartService.getCartList(paramMap.get("userId"));
-//    		ResponseDTO<Cart> response = new ResponseDTO<>();
-//    		response.setData(cartList);
     		return "add cart success";
-    		
-    	
 	}
 	
-//	//장바구니 제품수정(수량 변경) (POST)
+	
+	
+//	//장바구니 제품수정 (수량 변경) 
 	@PutMapping("/updateCart")
 	public ResponseEntity<?>updateCart(@RequestBody Map<String, String> paramMap) {
 		try {
@@ -148,29 +164,28 @@ public class CartController {
 	}
 	
 	//수정 중
-	//장바구니 제품리스트 조회 (이미지 포함)
-//	@PostMapping("/getCartList")
-//    public Map<String, Object> getCartList(@RequestBody User user){
-//		try {
-//
-//			List<Map<String, Object>> cartList = cartService.getCartList(user.getUserId());
-//			List<Map<String, Object>> cartImageList = cartService.getCartImageList(user.getUserId());
-//			
-//			Map<String, Object> returnMap = new HashMap<String, Object>();
-//			
+	//장바구니 제품이미지 리스트 조회
+	@PostMapping("/getCartImageList")
+    public Map<String, Object> getCartImageList(@RequestBody User user){
+		try {
+
+//			List<Map<String, Object>> cartList = cartService.getCartMapList(user.getUserId());
+			List<Map<String, Object>> cartImageList = cartService.getCartImageList(user.getUserId());
+			
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			
 //			returnMap.put("cartList", cartList);
-//			returnMap.put("cartImageList", cartImageList);
-//			
-//			return returnMap; 
-//    		
-//    		
-//    	}catch(Exception e){
-//    		System.out.println(e.getMessage());
-//    		ResponseDTO<Cart> response = new ResponseDTO<>();
-//    		response.setError(e.getMessage());
-//    		return ResponseEntity.badRequest().body(response);		
-//    	}
-//	}
+			returnMap.put("cartImageList", cartImageList);
+			
+			return returnMap; 
+    		
+    		
+    	}catch(Exception e){
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+			errorMap.put("error", e.getMessage());
+			return errorMap;	
+    	}
+	}
 	
 	
 	
