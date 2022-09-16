@@ -26,6 +26,7 @@ const Cart = () => {
     }).then((response) => {
       console.log(response.data.data);
       setCartList(response.data.data);
+      sessionStorage.setItem("cartCount", response.data.data.length);
     });
   };
 

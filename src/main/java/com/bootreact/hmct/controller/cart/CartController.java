@@ -1,7 +1,6 @@
 package com.bootreact.hmct.controller.cart;
 
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,23 +20,43 @@ import com.bootreact.hmct.entity.Cart;
 import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.jwt.JwtTokenProvider;
 import com.bootreact.hmct.service.cart.CartService;
+import com.bootreact.hmct.service.product.ProductService;
  
 @RestController
 @RequestMapping("/api/cart")
 public class CartController {
 	
-	@Autowired
-	CartService cartService;
-	
-	@Autowired
-	private JwtTokenProvider jwtTokenProvider;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	@Autowired CartService cartService;
+	@Autowired ProductService productService;
+	@Autowired private JwtTokenProvider jwtTokenProvider;
+	@Autowired private PasswordEncoder passwordEncoder;
 
-//	//장바구니 제품추가 (POST)
+	//<메인 페이지> 장바구니 제품추가 (대표 컬러로 추가됨)
 	@PostMapping("/addCart")
 	public String addCart(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
+		
+			System.out.println(paramMap.toString());
+			System.out.println(userId);
+			System.out.println(paramMap.get("productNo"));
+			System.out.println(paramMap.get("commonCode"));
+			
+			int productCount = 1;
+			String commonCode = productService.getRepresentativeCommonCode(
+					Integer.parseInt(paramMap.get("productNo"))
+					);
+			
+			//추가 처리하기
+			cartService.addCart(userId, 
+								paramMap.get("productNo"),
+								commonCode,
+								productCount);
+			
+    		return "add cart success";
+	}
+	
+	//<상세 페이지> 장바구니 제품추가 (선택한 컬러로 추가됨)
+	@PostMapping("/addCartAtDetail")
+	public String addCartAtDetail(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
 		
 			System.out.println(paramMap.toString());
 			System.out.println(userId);
@@ -52,16 +71,12 @@ public class CartController {
 								paramMap.get("commonCode"),
 								productCount);
 			
-			//추가 후 장바구니리스트 다시 받아오기
-//    		List<Cart> cartList = cartService.getCartList(paramMap.get("userId"));
-//    		ResponseDTO<Cart> response = new ResponseDTO<>();
-//    		response.setData(cartList);
     		return "add cart success";
-    		
-    	
 	}
 	
-//	//장바구니 제품수정(수량 변경) (POST)
+	
+	
+//	//장바구니 제품수정 (수량 변경) 
 	@PutMapping("/updateCart")
 	public ResponseEntity<?>updateCart(@RequestBody Map<String, String> paramMap) {
 		try {

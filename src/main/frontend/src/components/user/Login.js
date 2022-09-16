@@ -28,6 +28,16 @@ const Login = () => {
         window.location.href = "/";
       }
     });
+
+    //db로부터 장바구니 길이 데이터 받아오기
+    axios({
+      method: "post",
+      url: "http://localhost:8080/api/cart/getCartList",
+      data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
+    }).then((response) => {
+      console.log(response.data.data);
+      sessionStorage.setItem("cartCount", response.data.data.length);
+    });
   };
 
   const handleSubmit = (e) => {
