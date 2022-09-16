@@ -10,12 +10,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.Data;
 
 @Entity
 @Table(name="T_HMCT_RETUN")
 @Data
+@DynamicInsert //@DynamicInsert는 컬럼의 지정된 default 값을 적용시키며 INSERT할 때 사용
+@DynamicUpdate
 public class Retun {
 	
 	//반품 번호(PK) 
@@ -42,6 +45,8 @@ public class Retun {
 	//운송장번호
 	@Column
 	private String retunTrackingNo;
+	
+	private String retunReason;
 	
 	
 }

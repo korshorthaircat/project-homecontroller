@@ -126,6 +126,7 @@ class ServiceCarousel extends React.Component {
           />
         </Carousel>
       </div>
+
     );
   }
 }

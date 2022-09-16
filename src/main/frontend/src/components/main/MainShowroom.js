@@ -15,6 +15,8 @@ const MainShowroom = () => {
 
   const[cnt, setCnt] = useState(0);
 
+  const colorArr = ["red", "yellow", "green", "blue", "purple", "white", "beige", "black", "gray", "pink"];
+
   
 
 
@@ -25,7 +27,7 @@ const MainShowroom = () => {
       .get(showroomListUrl, {})
       .then((response) => {
         setShowroomImg(response.data.data);
-        setShowroomImgData(response.data.data.slice(0, 2));
+        setShowroomImgData(response.data.data.slice(0, 4));
       })
       .catch((e) => {
         console.log(e);
@@ -46,21 +48,29 @@ const MainShowroom = () => {
     setShowroomImgData(copy);
   }, [cnt]);
 
+  const getColorShowroomList = (color) => {
+    console.log(color);
+    axios({
+      url: "http://localhost:8080/api/main/getColorShowroomList",
+      method: 'get',
+      params: {showroomColor: color}
+    }).then(response => {
+      console.log(response.data.data);
+      setShowroomImg(response.data.data);
+      if(response.data.data.length > 4)
+        setShowroomImgData(response.data.data.slice(0, 4));
+      else
+        setShowroomImgData(response.data.data);
+    }).catch(e => {
+
+    });
+  }
 
  
     return (
         <div>
         <div className='mainShowroomColor'>
-            <MainShowroomColor color="red" />         
-            <MainShowroomColor color="yellow" />
-            <MainShowroomColor color="green" />
-            <MainShowroomColor color="blue" />
-            <MainShowroomColor color="purple" />
-            <MainShowroomColor color="white" />
-            <MainShowroomColor color="beige" />
-            <MainShowroomColor color="black" />
-            <MainShowroomColor color="gray" />   
-            <MainShowroomColor color="pink" /> 
+          {colorArr.map((color, index) => (<MainShowroomColor  key={index} color={color} getColorShowroomList={getColorShowroomList}/>))}
         </div>
 
 

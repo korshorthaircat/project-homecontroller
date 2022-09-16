@@ -7,7 +7,6 @@ import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import Button from "@mui/material/Button";
 import { Link } from 'react-router-dom';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 
@@ -24,10 +23,9 @@ const ProductCard = ({ item, productImageList }) => {
   const [cnt, setCnt] = useState(0);
  
 
-  const handleMouseOver = () => {
-    setIsHover(true);
-  };
-
+ const handleMouseOver = () => {
+  setIsHover(true);
+ }
 
  const handleMouseOut = () => {
   setIsHover(false);
@@ -35,24 +33,18 @@ const ProductCard = ({ item, productImageList }) => {
   
 
   useEffect(() => {
-    if (Object.keys(item).length !== 0 && productImageList.length !== 0) {
-      productImageList.map((productImage) => {
-        if (
-          item.productNo === productImage.productNo &&
-          productImage.productImageNo === 1
-        )
+    if(Object.keys(item).length !== 0 && productImageList.length !== 0) {
+      productImageList.map(productImage => {
+        if(item.productNo === productImage.productNo && productImage.productImageNo === 1)
           setThumbnail(productImage.productImageName);
-        else if (
-          item.productNo === productImage.productNo &&
-          productImage.productImageNo === 2
-        )
-          setHoverImage(productImage.productImageName);
-
+        else if(item.productNo === productImage.productNo && productImage.productImageNo === 2)
+          setHoverImage(productImage.productImageName); 
+          
         return productImage;
       });
     }
   }, [item, productImageList]);
-
+    
 
  //하트 아이콘 클릭시 위시리스트에 담기
 const addWishList = () => {
@@ -82,8 +74,6 @@ const addCart = () => {
   }).then(response => {
     // console.log("cart",response.data);
     setShow(true);
-    setCnt(cnt+1);
-    console.log(cnt);
   })
 } 
   
@@ -92,31 +82,22 @@ const addCart = () => {
 
   
 
-
   return (
+    
     <div className="card">
-      <Link
-        to={`/productDetail/${item.productNo}`}
-        state={{ productList: item }}
-      >
-        <img
-          className="imageArea"
-          src={
-            isHover
-              ? `http://localhost:8080/upload/${hoverImage}`
-              : `http://localhost:8080/upload/${thumbnail}`
-          }
-          onMouseOver={handleMouseOver}
-          onMouseOut={handleMouseOut}
-          alt="사진"
-        />
+      <Link to = {`/productDetail/${item.productNo}`}
+                  state = {{productList: item}} > 
+      <img className="imageArea" src= {isHover ? `http://localhost:8080/upload/${hoverImage}` : `http://localhost:8080/upload/${thumbnail}`}
+      onMouseOver= {handleMouseOver}
+      onMouseOut= {handleMouseOut}
+      alt="사진" 
+      /> 
       </Link>
       <div className="textArea">
         <p className="title_text">{item.productName}</p>
-
         <p className="category_text">
-          {item.productCategoryName}, {item.productSize}
-        </p>
+        {item.productCategoryName}, {item.productSize}
+          </p>
         <div className="priceArea">
           <p>PRICE</p>
           <div className="last">
@@ -126,7 +107,8 @@ const addCart = () => {
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
-              sx={{ padding: "0 6px", left: 180 }}
+              sx={{ padding: "0 6px", left: 140 }} 
+
               onClick={addWishList}
             >
               <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
@@ -137,9 +119,8 @@ const addCart = () => {
               aria-label="account of current user"
               aria-haspopup="true"
               color="inherit"
-              sx={{ padding: "0 6px", left: 180 }}
-              onClick={addCart
-              }
+              sx={{ padding: "0 6px", left: 140 }}
+              onClick={addCart}
             >
               <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
             </IconButton>

@@ -13,5 +13,5 @@ public interface ShowroomService {
 	
 	List<Showroom> getShowroomList();
 	
-	
+	List<Showroom> getColorShowroomList(String showroomColor);
 }

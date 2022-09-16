@@ -96,7 +96,7 @@ function OrderManage() {
                             key={o.orderNo}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th">
+                                <TableCell component="th" >
                                     {o.orderNo}
                                 </TableCell>
                                 <TableCell align="center">{o.orderStatus}</TableCell>

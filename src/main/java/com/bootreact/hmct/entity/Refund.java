@@ -9,11 +9,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import lombok.Data;
 
 @Entity
 @Table(name="T_HMCT_REFND")
 @Data
+@DynamicInsert //@DynamicInsert는 컬럼의 지정된 default 값을 적용시키며 INSERT할 때 사용
+@DynamicUpdate
 public class Refund {
 	
 	//환불 번호(PK)

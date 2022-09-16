@@ -2,7 +2,7 @@
     width: 50px;
     height: 50px;
     border-radius: 100%;
-    margin: 30px 50px;
+    margin: 30px 40px;
 }
 
 .red {
@@ -58,7 +58,7 @@
 .mainShowroomColor {
     display: flex;
     justify-content: center;
-    width: 1560px;
+    width: 1350px;
     margin: 0 auto;
     
 }
@@ -79,27 +79,28 @@
 
 
 .mainShowroom_MoreBtn {
-    width: 1560px;
+    width: 1350px;
     text-align: center;
     margin: 0 auto;
 }
 
 .col {
-    width: 760px;
     height: 900px;
-    
+    width: 655px;
+    padding: 0;
+    margin: 10px;
 }
 
 .col img {
-    width: 730px;
+    width: 655px;
     height: 900px;
-    background-size: cover;
+    
     position: relative;
 }
 
 .row {
     margin: 0 auto;
-    width: 1600px;
+    width: 1350px;
     
 }
 
@@ -121,6 +122,6 @@
     border: 0px;
     position: relative;
     bottom: 65px;
-    left: 325px;
+    left: 285px;
 }
 
