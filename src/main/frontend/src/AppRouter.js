@@ -23,6 +23,8 @@ import UserManage from "./components/admin/UserManage";
 import OrderManage from "./components/admin/OrderManage";
 import ProductAdd from "./components/admin/ProductAdd";
 import ProductList from "./components/admin/ProductList";
+import MyOrderDetail from "./components/mypage/MyOrderDetail"
+import MyOrderstatus from "./components/mypage/MyOrderstatus"
 import Cart from "./components/cart/Cart";
 import AdminOrderDetail from "./components/admin/AdminOrderDetail";
 import ProductUpdate from "./components/admin/ProductUpdate";
@@ -46,6 +48,8 @@ const AppRouter = () => {
           <Route path="/reviewlist" element={<ReviewList />} />
           <Route path="/wishlist" element={<WishList />} />
           <Route path="/orderlist" element={<OrderList />} />
+          <Route path="/MyOrderDetail" element={<MyOrderDetail />} />
+          <Route path="/MyOrderstatus" element={<MyOrderstatus />} />
           <Route path="/order" element={<Order />} />
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin1" element={<ProductAdd />} />
