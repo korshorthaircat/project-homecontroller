@@ -122,6 +122,8 @@ public class WishController {
 		
 		wishService.deleteWishItem(userId, productNo);
 		
+		
+		
 		return "deleteWishItem Success";
 	}
     
