@@ -40,7 +40,7 @@ function OrderManage() {
   },[]);
 
   //페이지네이션
-  const [limit, setLimit] = React.useState(10);
+  const [limit, setLimit] = React.useState(5);
   const [page, setPage] = React.useState(1);
   const offset = (page - 1) * limit;
 
@@ -96,7 +96,7 @@ function OrderManage() {
                             key={o.orderNo}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row" >
+                                <TableCell component="th">
                                     {o.orderNo}
                                 </TableCell>
                                 <TableCell align="center">{o.orderStatus}</TableCell>
