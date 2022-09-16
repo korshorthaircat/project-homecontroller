@@ -18,7 +18,6 @@ import axios from "axios";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 
 const ariaLabel = { "aria-label": "description" };
-np;
 function UserUpdate() {
   // 화면 input 항목 = DB 정보
   const [inputs, setInputs] = useState({
