@@ -6,9 +6,15 @@
 	
 	<select id="getCartImageList" parameterType="int" resultType="camelHashMap">
 	<![CDATA[
-		SELECT *
-			FROM T_HMCT_ORDRITEM
-		    WHERE ORDER_NO = #{orderNo}
+		select A.product_image_name
+			,  A.product_image_path
+			,  B.product_no
+			,  B.common_code 
+			from t_hmct_product_image A,
+				 t_hmct_cart B
+			where  B.user_id = 'gogo'
+			and A.product_no = B.product_no
+			group by product_no  ;
 	]]>
 	</select>
 

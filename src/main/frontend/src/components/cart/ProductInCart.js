@@ -9,6 +9,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
 const ProductInCart = ({
   cart,
+  cartImage,
   orderAmount,
   getOrderAmount,
   paymentAmount,
@@ -93,7 +94,10 @@ const ProductInCart = ({
       <Grid container spacing={2} sx={{ paddingBottom: "40px" }}>
         <Grid item>
           <ButtonBase sx={{ width: 128, height: 128 }}>
-            <ProductImg alt="complex" src="images/light1.png" />
+            <ProductImg
+              alt="complex"
+              src={`http://localhost:8080/upload/${cartImage.productImageName}`}
+            />
           </ButtonBase>
         </Grid>
         <Grid item xs={12} sm container>

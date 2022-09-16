@@ -14,11 +14,13 @@ import axios from "axios";
 const Cart = () => {
   //db에서 받아온 장바구니 데이터를 담을 state
   const [cartList, setCartList] = useState([]);
+  const [cartImageList, setCartImageList] = useState([]);
 
   let url = "http://localhost:8080/api/cart";
 
   //db로부터 장바구니의 데이터 받아오기
   const getCartList = () => {
+    //제품 정보(텍스트) 받아오기
     axios({
       method: "post",
       url: url + "/getCartList",
@@ -27,6 +29,15 @@ const Cart = () => {
       console.log(response.data.data);
       setCartList(response.data.data);
       sessionStorage.setItem("cartCount", response.data.data.length);
+    });
+    //제품 이미지 받아오기
+    axios({
+      method: "post",
+      url: url + "/getCartImageList",
+      data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
+    }).then((response) => {
+      console.log(response.data.cartImageList);
+      setCartImageList(response.data.cartImageList);
     });
   };
 
@@ -115,8 +126,9 @@ const Cart = () => {
         <Grid className="productsInCart">
           <Typography variant="h4">장바구니</Typography>
 
-          {cartList.map((cart) => (
+          {cartList.map((cart, index) => (
             <ProductInCart
+              cartImage={cartImageList[index]}
               cart={cart}
               orderAmount={orderAmount}
               getOrderAmount={getOrderAmount}
