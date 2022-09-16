@@ -79,7 +79,8 @@ class ServiceCarousel extends React.Component {
     return (
         <div className="carousel_container">
              <Carousel 
-                 ssr={false}
+                  arrows={false}
+                  ssr={false}
                   ref={el => (this.Carousel = el)}
                   partialVisible={false}
                   customButtonGroup={<CustomSlider />}

@@ -36,7 +36,12 @@ public class ShowroomServiceImpl implements ShowroomService{
 	}
 	
 	@Override
-	   public List<Showroom> getShowroomList() {
-	      return showroomRepository.findAll();
-	   } 
+	public List<Showroom> getShowroomList() {
+		return showroomRepository.findAll();
+	}
+	
+	@Override
+	public List<Showroom> getColorShowroomList(String showroomColor) {
+		return showroomMapper.getColorShowroomList(showroomColor);
+	}
 }

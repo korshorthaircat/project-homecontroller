@@ -41,7 +41,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    width: 1600px;
+    width: 1350px;
     height: 900px;
     margin: 0 auto;
 }
@@ -49,15 +49,19 @@
 .aaa {
     grid-row: 1 / 3;
     background-color: red;
-    margin-right: 20px;
+    margin: 10px;
+    
     
 }
 
+
 .bbb {
     background-color: blue;
+    margin: 10px;
 }    
 
 .ccc {
     background-color: yellow;
+    margin: 10px;
 }
 

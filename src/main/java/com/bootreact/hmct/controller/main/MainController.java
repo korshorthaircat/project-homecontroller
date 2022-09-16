@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootreact.hmct.dto.ProductDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
+import com.bootreact.hmct.dto.ShowroomDTO;
 import com.bootreact.hmct.entity.Showroom;
 import com.bootreact.hmct.service.product.ProductService;
 import com.bootreact.hmct.service.showroom.ShowroomService;
@@ -66,31 +68,61 @@ public class MainController {
 		try {
 			List<Showroom> showroomList = showroomService.getShowroomList();
 			
-			List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
+			List<ShowroomDTO> showroomDTOList = new ArrayList<ShowroomDTO>();
 	
 			for(Showroom s: showroomList) {
-				ProductDTO productDTO = new ProductDTO();
+				ShowroomDTO showroomDTO = new ShowroomDTO();
 				
-				productDTO.setShowroomNo(s.getShowroomNo());
-				productDTO.setShowroomColor(s.getShowroomColor());
-				productDTO.setShowroomImgName(s.getShowroomImgName());
-				productDTO.setShowroomImgOriginalName(s.getShowroomImgOriginalName());
+				showroomDTO.setShowroomNo(s.getShowroomNo());
+				showroomDTO.setShowroomColor(s.getShowroomColor());
+				showroomDTO.setShowroomImgName(s.getShowroomImgName());
+				showroomDTO.setShowroomImgOriginalName(s.getShowroomImgOriginalName());
 				
-				productDTOList.add(productDTO);				
+				showroomDTOList.add(showroomDTO);				
 			}
-			ResponseDTO<ProductDTO> response = new ResponseDTO<>();
+			ResponseDTO<ShowroomDTO> response = new ResponseDTO<>();
 			
-			response.setData(productDTOList);
+			response.setData(showroomDTOList);
 			
 			return ResponseEntity.ok().body(response);
 			
-			}catch(Exception e) {
-				System.out.println(e.getMessage());
-				ResponseDTO<ProductDTO> response = new ResponseDTO<> ();
-				response.setError(e.getMessage());
-				return ResponseEntity.badRequest().body(response);
-			}
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			ResponseDTO<ProductDTO> response = new ResponseDTO<> ();
+			response.setError(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
 	};
 	
-	
+	//선택된 색상의 쇼룸 표출
+	@GetMapping("/getColorShowroomList")
+	public ResponseEntity<?> getColorShowroomList(@RequestParam String showroomColor) {
+		try {
+			List<Showroom> colorShowroomList = showroomService.getColorShowroomList(showroomColor);
+			
+			List<ShowroomDTO> showroomDTOList = new ArrayList<ShowroomDTO>();
+			
+			for(Showroom s: colorShowroomList) {
+				ShowroomDTO showroomDTO = new ShowroomDTO();
+				
+				showroomDTO.setShowroomNo(s.getShowroomNo());
+				showroomDTO.setShowroomColor(s.getShowroomColor());
+				showroomDTO.setShowroomImgName(s.getShowroomImgName());
+				showroomDTO.setShowroomImgOriginalName(s.getShowroomImgOriginalName());
+				
+				showroomDTOList.add(showroomDTO);				
+			}
+			ResponseDTO<ShowroomDTO> response = new ResponseDTO<>();
+			
+			response.setData(showroomDTOList);
+			
+			return ResponseEntity.ok().body(response);
+			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			ResponseDTO<ProductDTO> response = new ResponseDTO<> ();
+			response.setError(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
+	};
 }

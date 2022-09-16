@@ -1,42 +1,30 @@
-
-
-
 .cardBox {
-    width: 493px;
+    width: 430px;
     height: 350px;
     padding: 0px;  
-    margin: 20px;
-   
-
+    margin: 10px;
 }
 
 .eventCardImg img{
-    width: 493px;
+    width: 430px;
     height: 270px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-   
-    
     border-radius: 6px;
-
-    
 }
 
 .cardText {
-    width: 493px;
+    width: 430px;
     height: 80px;
     padding: 15px 10px;
- 
 }
-
 
 .cardMainText {
     font-size: 22px;
     font-weight: bold;
     margin: 0 0 5px;
-    
 }
 
 .cardSubText {
