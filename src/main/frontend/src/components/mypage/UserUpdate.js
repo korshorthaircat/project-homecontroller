@@ -344,7 +344,7 @@ const handleComplete = (data) => {
       <div>
       <Input name='userPoint' value={inputs.userPoint} inputProps={ariaLabel} onChange={onChange} />
       </div>
-      <div>
+      {/* <div> */}
       <Button
               id="userZipSearch"
               variant="contained"
@@ -354,14 +354,14 @@ const handleComplete = (data) => {
             >
               우편번호 검색
             </Button>
-      <Input name='userZip' value={inputs.userZip} inputProps={ariaLabel} onChange={onChange} />
+      {/* <Input name='userZip' value={inputs.userZip} inputProps={ariaLabel} onChange={onChange} />
       </div>
       <div>
       <Input name='userAddr' value={inputs.userAddr} inputProps={ariaLabel} onChange={onChange} />
       </div>
       <div>
       <Input name='userAddrDetail' value={inputs.userAddrDetail} inputProps={ariaLabel} onChange={onChange} />
-      </div>
+      </div> */}
 
 
       {/* setInputs({
@@ -380,7 +380,8 @@ const handleComplete = (data) => {
               fullWidth
               id="userZip"
               label="우편번호66"
-              value={zipCode}
+              value={inputs.userZip}
+              onChange={onChange}
             />
           </Grid>
           <Grid item xs={12}>
