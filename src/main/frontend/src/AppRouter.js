@@ -30,6 +30,7 @@ import ProductCategoryList from "./components/list/ProductCategoryList";
 import FixedBar from "./components/list/FixedBar";
 import ShowroomAdd from "./components/admin/ShowroomAdd";
 import Board from "./Board";
+import Coupon from "./components/event/Coupon";
 
 const AppRouter = () => {
   // 경로에 따라 실행되는 컴포넌트가 다르므로, 그 정보를 갖고있는 AppRouter를 가장 먼저 렌더링해야 한다.(Index.js에서)
@@ -64,7 +65,8 @@ const AppRouter = () => {
           <Route path="/bartest" element={<FixedBar />} />
           <Route path="/showroomAdmin1" element={<ShowroomAdd />} />
           <Route path="/productDetail/:productNo" element={<ImageThumb />} />
-          <Route path="/board" element={<Board/>} />
+          <Route path="/board" element={<Board />} />
+          <Route path="/coupon" element={<Coupon />} />
         </Routes>
       </BrowserRouter>
       <Footer />
