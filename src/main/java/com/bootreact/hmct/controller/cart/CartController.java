@@ -179,7 +179,6 @@ public class CartController {
 			
 			return returnMap; 
     		
-    		
     	}catch(Exception e){
     		Map<String, Object> errorMap = new HashMap<String, Object>();
 			errorMap.put("error", e.getMessage());
