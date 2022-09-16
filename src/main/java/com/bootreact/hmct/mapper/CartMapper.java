@@ -70,6 +70,9 @@ public interface CartMapper {
 					@Param("productNo") int productNo, 
 					@Param("commonCode") String commonCode, 
 					@Param("productCount") int productCount);
+
+
+	List<Map<String, Object>> getCartImageList(String userId);
 	
 	
 }

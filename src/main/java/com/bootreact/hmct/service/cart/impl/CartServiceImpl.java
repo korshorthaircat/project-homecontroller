@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bootreact.hmct.entity.Cart;
 import com.bootreact.hmct.mapper.CartMapper;
+import com.bootreact.hmct.mapper.ProductMapper;
 import com.bootreact.hmct.repository.CartRepository;
 import com.bootreact.hmct.service.cart.CartService;
 
@@ -19,17 +20,15 @@ public class CartServiceImpl implements CartService{
 	@Autowired
 	private CartMapper cartMapper;
 	
+	@Autowired
+	private ProductMapper productMapper;
+	
 	@Override
 	public List<Cart> getCartList(String userId) {
 		List<Cart> list = cartRepository.findByUserUserId(userId);
 		System.out.println(list.size());
 		return cartRepository.findByUserUserId(userId);
 	}
-	
-//	@Override
-//	public List<Map<String, Object>> getCartMapList(String userId) {
-//		return cartMapper.getCartList(userId);
-//	}
 
 
 	@Override
@@ -45,5 +44,19 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public void updateCart(String userId, String productNo, String commonCode, String productCount) {
 		cartMapper.updateCart(userId, Integer.parseInt(productNo), commonCode, Integer.parseInt(productCount));
+	}
+
+
+
+	@Override
+	public List<Map<String, Object>> getCartMapList(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<Map<String, Object>> getCartImageList(String userId) {
+		return cartMapper.getCartImageList(userId);
 	}
 }

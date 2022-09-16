@@ -1,6 +1,7 @@
 package com.bootreact.hmct.controller.cart;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -163,29 +164,28 @@ public class CartController {
 	}
 	
 	//수정 중
-	//장바구니 제품리스트 조회 (이미지 포함)
-//	@PostMapping("/getCartList")
-//    public Map<String, Object> getCartList(@RequestBody User user){
-//		try {
-//
-//			List<Map<String, Object>> cartList = cartService.getCartList(user.getUserId());
-//			List<Map<String, Object>> cartImageList = cartService.getCartImageList(user.getUserId());
-//			
-//			Map<String, Object> returnMap = new HashMap<String, Object>();
-//			
+	//장바구니 제품이미지 리스트 조회
+	@PostMapping("/getCartImageList")
+    public Map<String, Object> getCartImageList(@RequestBody User user){
+		try {
+
+//			List<Map<String, Object>> cartList = cartService.getCartMapList(user.getUserId());
+			List<Map<String, Object>> cartImageList = cartService.getCartImageList(user.getUserId());
+			
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			
 //			returnMap.put("cartList", cartList);
-//			returnMap.put("cartImageList", cartImageList);
-//			
-//			return returnMap; 
-//    		
-//    		
-//    	}catch(Exception e){
-//    		System.out.println(e.getMessage());
-//    		ResponseDTO<Cart> response = new ResponseDTO<>();
-//    		response.setError(e.getMessage());
-//    		return ResponseEntity.badRequest().body(response);		
-//    	}
-//	}
+			returnMap.put("cartImageList", cartImageList);
+			
+			return returnMap; 
+    		
+    		
+    	}catch(Exception e){
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+			errorMap.put("error", e.getMessage());
+			return errorMap;	
+    	}
+	}
 	
 	
 	
