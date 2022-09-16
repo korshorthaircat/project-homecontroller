@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
-//최근 본 상품 
+//최근 본 상품
 const Recently = (props) => {
   const { userId } = useParams();
   const [dataa, setDataa] = useState({});

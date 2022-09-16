@@ -12,7 +12,7 @@ export function call(api, method, request) {
     "Content-Type": "application/json",
   });
   //로컬 스토리지에서 토큰 값 가져오기
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
+  const accessToken = sessionStorage.getItem("ACCESS_TOKEN");
 
   //토큰 값이 존재하면 헤더에 담아서 API 호출
   if (accessToken && accessToken !== null) {

@@ -1,5 +1,8 @@
 package com.bootreact.hmct.service.review.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,21 +13,23 @@ import com.bootreact.hmct.service.review.ReviewService;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
-//	@Autowired
-//    private ReviewRepository reviewRepository;
-//	
-//	@Autowired
-//	private ReviewMapper reviewMapper;
-//
-//    
-//    @Override
-//    public Review InsertReview(Review review) {
-//    	int reviewNo = reviewRepository.selectNextReviewNo(review.getProduct().getProductNo());
-//    	review.setReviewNo(reviewNo);
-//    	return reviewRepository.save(review);
-//    }
+	@Autowired
+    private ReviewRepository reviewRepository;
+	
+	@Autowired
+	private ReviewMapper reviewMapper;
 
-
-  
-
+	@Override
+	public List<Review> Review(Review review) {
+		return null;
+	}
+    
+    @Override
+    public void InsertReview(Map<String, String> paramMap) {
+    	int reviewNo = reviewRepository.selectNextReviewNo();
+    	
+    	paramMap.put("reviewNo", String.valueOf(reviewNo));
+    	
+    	reviewMapper.insertReview(paramMap);
+    }
 }

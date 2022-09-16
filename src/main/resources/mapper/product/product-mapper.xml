@@ -126,8 +126,9 @@
 	]]>
 	</select>
 	
+	
 	<!-- 제품번호를 이용해서 대표 컬러(커먼코드) 1개 가져오기 -->
-	<select id="getRepresentativeCommonCode" parameterType="int" resultType="camelHashMap">
+	<select id="getRepresentativeCommonCode" parameterType="int" resultType="String">
 	<![CDATA[
 		select  MIN(COMMON_CODE) as COMMON_CODE
 			from t_hmct_product_optn
@@ -136,12 +137,11 @@
 	</select>
 	
 	<!-- 컬러(커먼코드)별 대표사진 1개씩 가져오기 -->
-	<select id="getColorCommonCode" parameterType="int" resultType="String">
+	<select id="getRepresentativeImage" parameterType="int" resultType="camelHashMap">
 	<![CDATA[
-		SELECT *
-			FROM T_HMCT_PRODUCT_IMAGE
-			WHERE PRODUCT_NO = #{productNo}
-				AND MIN(PRODUCT_IMAGE_NO) = #{productImageNo};
+		SELECT * FROM T_HMCT_PRODUCT_IMAGE
+			WHERE product_no = #{productNo}
+            group by common_code;
 	]]>
 	</select>
 	

@@ -33,8 +33,10 @@ public interface ProductMapper {
 	List<Map<String, Object>> getProductWithCommonCode(Map paramMap);
 
 	List<Map<String, Object>> getAdminProductList();
+	
+	//제품번호를 이용해서 대표컬러(커먼코드) 1개 가져오기
+		String getRepresentativeCommonCode(int productNo);
 
-	String getRepresentativeCommonCode(int productNo);
 
-	String getColorCommonCode(int productNo);
+	List<Map<String, Object>> getRepresentativeImage(int productNo);
 }		

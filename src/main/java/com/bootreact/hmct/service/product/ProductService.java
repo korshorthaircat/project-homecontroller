@@ -50,7 +50,7 @@ public interface ProductService {
 	String getRepresentativeCommonCode(int productNo);
 
 	//제품번호 이용해서 컬러별 대표사진 1개씩 가져오기
-	String getColorCommonCode(int productNo);
+	List<Map<String, Object>> getRepresentativeImage(int productNo);
 
 }
 
