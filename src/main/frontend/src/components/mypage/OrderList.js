@@ -4,7 +4,6 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
-
 import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
 import Form from "react-bootstrap/Form";
@@ -148,7 +147,6 @@ function Orderlist() {
                       <TableCell>주문 번호</TableCell>
                       <TableCell align="center">주문 상태</TableCell>
                       <TableCell align="center">주문 날짜</TableCell>
-                      <TableCell align="center">주문자</TableCell>
                       <TableCell align="center">주문 금액</TableCell>
                       <TableCell align="center">관리</TableCell>
                     </TableRow>
@@ -172,9 +170,7 @@ function Orderlist() {
                               {o.orderStatus}
                             </TableCell>
                             <TableCell align="center">{o.orderDate}</TableCell>
-                            {/* <TableCell align="center">
-                              {o.user.userId}
-                            </TableCell> */}
+                        
                             <TableCell align="center">
                               {o.orderAmount}
                             </TableCell>
@@ -191,7 +187,7 @@ function Orderlist() {
                                 }}
                               >
                                 <Link
-                                  to={"/AdminOrderDetail"}
+                                  to={"/MyOrderDetail"}
                                   state={o.orderNo}
                                 >
                                   <img
@@ -199,7 +195,30 @@ function Orderlist() {
                                     src="images/edit.png"
                                   />
                                   조회
-                                </Link>
+                                </Link>             
+                              </Button>
+                              <Button
+                                id={`detailBtn${index}`}
+                                sx={{
+                                  border: "1px solid lightgray",
+                                  backgroundColor: "#fff",
+                                  borderRadius: "5px",
+                                  width: "110px",
+                                  height: "45px",
+                                  marginLeft:"10px",
+                                  alignItems: "center",
+                                }}
+                              >
+                                <Link
+                                  to={"/MyOrderstatus"}
+                                  state={o.orderNo}
+                                >
+                                  <img
+                                    className="AdminEdit"
+                                    src="images/edit.png"
+                                  />
+                                  반품/취소
+                                </Link>             
                               </Button>
                             </TableCell>
                           </TableRow>

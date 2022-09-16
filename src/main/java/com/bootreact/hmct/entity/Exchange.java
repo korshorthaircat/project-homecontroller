@@ -9,11 +9,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import lombok.Data;
 
 @Entity
 @Table(name="T_HMCT_EXCHN")
 @Data
+@DynamicInsert //@DynamicInsert는 컬럼의 지정된 default 값을 적용시키며 INSERT할 때 사용
+@DynamicUpdate
 public class Exchange {
 	
 	//교환 번호(PK)
@@ -37,5 +42,6 @@ public class Exchange {
 	@Column(nullable = false)
 	private String exchangeStatus;
 	
+	private String exchangeReason;
 
 }
