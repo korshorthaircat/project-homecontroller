@@ -37,4 +37,5 @@ public interface ProductMapper {
 	String getRepresentativeCommonCode(int productNo);
 
 	String getColorCommonCode(int productNo);
+
 }		
