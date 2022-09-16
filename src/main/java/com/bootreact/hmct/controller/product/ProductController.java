@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bootreact.hmct.dto.ProductDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
+import com.bootreact.hmct.dto.ShowroomDTO;
 import com.bootreact.hmct.entity.Common;
 import com.bootreact.hmct.entity.Product;
 import com.bootreact.hmct.entity.ProductImage;
@@ -253,21 +254,21 @@ public class ProductController {
 		try {
 			List<Showroom> showroomList = showroomService.getShowroomList();
 			
-			List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
+			List<ShowroomDTO> showroomDTOList = new ArrayList<ShowroomDTO>();
 	
 			for(Showroom s: showroomList) {
-				ProductDTO productDTO = new ProductDTO();
+				ShowroomDTO showroomDTO = new ShowroomDTO();
 				
-				productDTO.setShowroomNo(s.getShowroomNo());
-				productDTO.setShowroomColor(s.getShowroomColor());
-				productDTO.setShowroomImgName(s.getShowroomImgName());
-				productDTO.setShowroomImgOriginalName(s.getShowroomImgOriginalName());
+				showroomDTO.setShowroomNo(s.getShowroomNo());
+				showroomDTO.setShowroomColor(s.getShowroomColor());
+				showroomDTO.setShowroomImgName(s.getShowroomImgName());
+				showroomDTO.setShowroomImgOriginalName(s.getShowroomImgOriginalName());
 				
-				productDTOList.add(productDTO);				
+				showroomDTOList.add(showroomDTO);				
 			}
-			ResponseDTO<ProductDTO> response = new ResponseDTO<>();
+			ResponseDTO<ShowroomDTO> response = new ResponseDTO<>();
 			
-			response.setData(productDTOList);
+			response.setData(showroomDTOList);
 			
 			return ResponseEntity.ok().body(response);
 			

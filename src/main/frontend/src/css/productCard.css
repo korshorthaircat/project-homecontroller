@@ -1,6 +1,6 @@
 .imageArea {
-    width: 360px;
-    height: 360px;
+    width: 317.5px;
+    height: 317.5px;
     
     background-size: cover;
     margin: 0 auto;
@@ -8,7 +8,7 @@
 
 .textArea {
     padding-top: 25px;
-    width: 360px;
+    width: 317.5px;
     height: 180px;
     background-size: cover;
     margin: 0 auto;
@@ -20,22 +20,22 @@
 
 .card {
     border: none;
+    
 
+}
+
+.card a {
+    margin: 0 auto;
 }
 
 .price_text {
     font-size: 22px;
     font-weight: bold;
-    
 }
-
-
 
 .last {
     display: flex;
     align-items: center;
-   
-    
 }
 
 .last p {
@@ -51,11 +51,8 @@
     font-size: 14px;
 }
 
-
-
 .priceArea {
     margin-top: 20px;
-
 }
 
 .product_line {
@@ -63,11 +60,12 @@
 }
 
 .react-multiple-carousel__arrow--left {
-    left: 0px;
+    left: -0px;
 }
 
 .react-multiple-carousel__arrow--right {
     right: 0px;
     
 }
+
 

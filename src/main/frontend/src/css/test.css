@@ -35,7 +35,7 @@ input[type=range]{
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 0 20px;
+    padding: 0 10px;
   }
   .custom-slider__input {
     width: 100%;

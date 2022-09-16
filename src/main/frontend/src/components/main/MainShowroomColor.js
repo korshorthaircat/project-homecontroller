@@ -4,7 +4,7 @@ import "../../css/mainShowroom.css";
 const MainShowroomColor = (props) => {
     return (
         <div>
-            <button className= {`showroomColor ${props.color}`}/>
+            <button className= {`showroomColor ${props.color}`} onClick={() => props.getColorShowroomList(props.color)}/>
             
         </div>
     );

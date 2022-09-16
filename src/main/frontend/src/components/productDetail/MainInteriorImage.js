@@ -15,7 +15,9 @@ const MainInteriorImage = () => {
         // </div>
 
         <div className='ttt'>
-            <div className='aaa'></div>
+            <div className='aaa'>
+                
+            </div>
             <div className='bbb'></div>
             <div className='ccc'></div>
         </div>
