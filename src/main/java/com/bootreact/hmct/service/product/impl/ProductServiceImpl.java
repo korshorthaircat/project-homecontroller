@@ -119,8 +119,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public String getColorCommonCode(int productNo) {
-		return productMapper.getColorCommonCode(productNo);
+	public  List<Map<String, Object>> getRepresentativeImage(int productNo) {
+		return productMapper.getRepresentativeImage(productNo);
 	}
 
 

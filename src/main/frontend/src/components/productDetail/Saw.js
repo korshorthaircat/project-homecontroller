@@ -42,7 +42,7 @@ const Saw = () => {
         get_local.splice(0, 1);
       }
 
-      localStorage.setItem("data", JSON.stringify(get_local));
+      sessionStorage.setItem("data", JSON.stringify(get_local));
     }
     // let tested = JSON.parse(localStorage.getItem("data"));
     // tested.unshift(id);

@@ -4,7 +4,7 @@ import "../../css/ProductDetail.css";
 import ProductMainInfo from "./ProductMainInfo";
 import ProductDetailInfo from "./ProductDetailInfo";
 import { useEffect } from "react";
-import { Route, useParams } from "react-router-dom";
+import { Route, useLocation, useParams } from "react-router-dom";
 import { Details } from "@mui/icons-material";
 import axios from "axios";
 
@@ -39,6 +39,7 @@ function ImageThumb(props) {
 
   let [productList, setProductList] = useState([]);
   const [productImageList, setProductImageList] = useState([]);
+
   const getProducts = async () => {
     axios({
       url: `http://localhost:8080/api/product/productDetail`,
@@ -51,6 +52,12 @@ function ImageThumb(props) {
       //setProductImageData(response.data.slice(0, 4));
     });
   };
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     getProducts();
