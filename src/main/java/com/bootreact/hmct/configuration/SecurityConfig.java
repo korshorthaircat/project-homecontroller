@@ -42,7 +42,7 @@ public class SecurityConfig{
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
 			.authorizeRequests().antMatchers("/", "/api/user/**", "/api/product/*", "/api/admin/*",
-					                         "/api/cart/*", "/api/order/*", "/api/main/*", "/api/mypage/*", "/api/coupon/*" 
+					                         "/api/cart/*", "/api/order/*", "/api/main/*", "/api/mypage/*", "/api/coupon/*", 
 					                         "/upload/*", "/api/refund/*").permitAll()
 								.anyRequest().authenticated();
 		
