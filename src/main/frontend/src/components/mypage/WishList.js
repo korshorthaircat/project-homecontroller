@@ -90,7 +90,7 @@ const settings = {
   centerMode: true,
   infinite: true,
   centerPadding: "400px",
-  slidesToShow: 4,
+  slidesToShow: 3,
   speed: 500,
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />,
