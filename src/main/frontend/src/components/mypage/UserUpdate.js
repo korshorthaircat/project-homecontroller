@@ -16,6 +16,8 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useDaumPostcodePopup } from "react-daum-postcode";
+import "../../css/mypagesidebar.css";
+
 
 const ariaLabel = { "aria-label": "description" };
 function UserUpdate() {
@@ -178,11 +180,6 @@ function UserUpdate() {
     getUser();
   }, []);
 
-  const [toggleState, setToggleState] = useState(1);
-
-  const toggleTab = (index) => {
-    setToggleState(index);
-  };
 
   // 화면 input 항목들의 변경 내용을 React 상태 갱신
   const onChange = (e) => {
@@ -281,37 +278,69 @@ function UserUpdate() {
   };
 
   return (
+
+
+    
+
     <div className="container">
-      <div className="bloc-tabs">
-        <div
-          className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-          onClick={() => toggleTab(1)}
-        >
-          나의정보 수정
-        </div>
-        <div
-          className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-          onClick={() => toggleTab(2)}
-        >
-          회원 탈퇴
-        </div>
-        {/* <div className={toggleState === 3 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(3)}>Tab 1</div> */}
-      </div>
 
-      {/* CONTENT 부분 */}
-      <div className="content-tabs">
-        <div
-          className={toggleState === 1 ? "content active-content" : "content"}
-        >
-          <div className="outCard">
-            <div class="card text-center">
-              <div class="card-header">
-                <h5 class="card-title">
-                  {inputs.userNickname} 님의 회원정보는 아래와 같습니다.{" "}
-                </h5>
-              </div>
-              <div class="card-body"></div>
 
+<body>
+      <div>
+<div class="nav_wrapper"> 
+<nav className="MyNavMenu">
+    <ul>
+      <li ><Link href="/mypage" title="Link">MYPAGE</Link>
+
+      </li>
+      <li ><a href="#Link" title="Link">나의 정보</a>
+        <ul >
+          <li ><a href="/userupdate" title="Link ">나의정보 수정</a></li>
+          <li ><a href="/outmembers" title="Link">멤버십 해지</a></li>
+        </ul>
+      </li>
+      <li ><a href="/wishlist" title="Link">위시리스트</a>
+      </li>
+      <li ><a href="#Link" title="Link">장바구니</a>
+
+      </li>
+      <li ><a href="#Link" title="Link">포인트/쿠폰</a>
+        <ul >
+          <li ><a href="#Link" title="Link">포인트</a></li>
+          <li ><a href="#Link" title="Link">쿠폰</a></li>
+        </ul>
+      </li>
+
+      <li ><a href="#Link" title="Link">주문내역</a>
+        <ul >
+          <li ><a href="#Link" title="Link">주문</a></li>
+          <li ><a href="#Link" title="Link">반품</a></li>
+          <li ><a href="#Link" title="Link">교환</a></li>
+        </ul>
+      </li>
+
+      <li ><a href="#Link" title="Link">나의 게시글</a>
+        <ul >
+          <li ><a href="#Link" title="Link">자유게시판</a></li>
+          <li ><a href="/reviewlist" title="Link">상품후기</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+</div>
+</body>
+
+      <div className="FormDiv">
+        {/* <div className="userImg">
+          <img src="https://images.pexels.com/photos/8356403/pexels-photo-8356403.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"></img>
+        </div> */}
+
+        <div className="userImg">
+          <img src="https://images.pexels.com/photos/6739653/pexels-photo-6739653.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"></img>
+        </div>
+              
+              <div className="userForm">
               <Box
                 component="form"
                 sx={{
@@ -321,7 +350,9 @@ function UserUpdate() {
                 autoComplete="off"
               >
                 <div>
+                  <label>아이디  </label>
                   <Input
+
                     name="userId"
                     value={inputs.userId}
                     inputProps={ariaLabel}
@@ -330,6 +361,7 @@ function UserUpdate() {
                   />
                 </div>
                 <div>
+                <label>닉네임</label>
                   <Input
                     name="userNickname"
                     value={inputs.userNickname}
@@ -338,6 +370,7 @@ function UserUpdate() {
                   />
                 </div>
                 <div>
+                <label>이름</label>
                   <Input
                     name="userName"
                     value={inputs.userName}
@@ -346,6 +379,7 @@ function UserUpdate() {
                   />
                 </div>
                 <div>
+                <label>이메일</label>
                   <Input
                     name="userMail"
                     value={inputs.userMail}
@@ -354,6 +388,7 @@ function UserUpdate() {
                   />
                 </div>
                 <div>
+                <label>전화번호</label>
                   <Input
                     name="userTel"
                     value={inputs.userTel}
@@ -362,6 +397,7 @@ function UserUpdate() {
                   />
                 </div>
                 <div>
+                <label>포인트</label>
                   <Input
                     name="userPoint"
                     value={inputs.userPoint}
@@ -370,23 +406,27 @@ function UserUpdate() {
                   />
                 </div>
                 <div>
-                  <Button
-                    id="userZipSearch"
-                    variant="contained"
-                    color="success"
-                    style={{ height: "56px" }}
-                    onClick={handleZipBtnClick}
-                  >
-                    우편번호 검색
-                  </Button>
+                <label>우편번호</label>
+                  
                   <Input
                     name="userZip"
+                    style={{ width: "280px" }}
                     value={inputs.userZip}
                     inputProps={ariaLabel}
                     onChange={onChange}
                   />
+                  <Button
+                    id="userZipSearch"
+                    variant="contained"
+                    color="success"
+                    style={{ height: "40px" }}
+                    onClick={handleZipBtnClick}
+                  >
+                    우편번호 검색
+                  </Button>
                 </div>
                 <div>
+                <label>주소</label>
                   <Input
                     name="userAddr"
                     value={inputs.userAddr}
@@ -395,6 +435,7 @@ function UserUpdate() {
                   />
                 </div>
                 <div>
+                <label>상세주소</label>
                   <Input
                     name="userAddrDetail"
                     value={inputs.userAddrDetail}
@@ -403,16 +444,12 @@ function UserUpdate() {
                   />
                 </div>
 
-                {/* setInputs({
-        userZip        : usrData.userZip
-       ,userAddr       : usrData.userAddr
-       ,userAddrDetail : usrData.userAddrDetail */}
-
                 <Grid item xs={12} sm={4}></Grid>
               </Box>
 
-              <div className="outBtn">
+              <div className="outBtn" style={{ paddingLeft: "50px" }}>
                 <Button
+                
                   type="button"
                   className="pwChange"
                   variant="contained"
@@ -495,7 +532,7 @@ function UserUpdate() {
                 </Box>
               </Modal>
 
-              <div className="outBtn">
+              <div className="outBtn" style={{ paddingLeft: "50px" }}>
                 <Button
                   type="button"
                   className="updateBtn"
@@ -505,45 +542,16 @@ function UserUpdate() {
                 >
                   수정
                 </Button>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className={toggleState === 2 ? "content active-content" : "content"}>
-        <div className="outCard">
-          <div class="card text-center">
-            <div class="card-header">
-              <h5 class="card-title">
-                HomeController 멤버십을 탈퇴하면 {inputs.userNickname} 님께
-                발행된 할인 쿠폰과 적립된 포인트를 모두 사용할 수 없게 됩니다.
-              </h5>
-            </div>
-            <div class="card-body">
-              <div className="pointPart">
-                <h5>
-                  {inputs.userNickname} 님의 현재까지 누적 포인트 :{" "}
-                  {inputs.userPoint} POINT
-                </h5>
-                <h5>지금 바로 사용 가능한 쿠폰</h5>
-                <img src="https://i.pinimg.com/564x/84/ab/ab/84abab661b1bab887559f001d80bc1f5.jpg"></img>
               </div>
 
-              <div className="outBtn">
-                <button className="outButton" onClick={deleteUserInfo}>
-                  멤버십 탈퇴하기
-                </button>
-              </div>
-            </div>
-            <div class="card-footer text-muted">
-              HomeController 이용에 관한 불편함이나 건의사항이 있으시다면 문의
-              게시판에 언제든지 작성해주세요.
-            </div>
-          </div>
+
         </div>
-      </div>
-    </div>
+
+
+
+
   );
 }
 export default UserUpdate;

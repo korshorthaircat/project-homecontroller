@@ -3,73 +3,52 @@
     margin: 0;
     padding: 0;
   }
+
+  /* display flex를 주는바람에 form의 label 배치가 뒤틀림 */
+.FormDiv {
+  display: flex;
+  width: 100%;
+  margin-top: 50px;
+}
   
-  /* body {
-    background: #fff;
-  } */
-  
-  .container {
-    display: flex;
+  .container {   
     flex-direction: column;
-    position: relative;
-    width: 1500px;
+    display: flex;
+    width: 100%;
     height: 100%;
-    margin: 100px auto 0;
     word-break: break-all;
   }
-  
-  .bloc-tabs {
+
+  .userImg {
     display: flex;
+    margin-right: 70px;
   }
-  .tabs {
-  
-    padding: 15px;
-    text-align: center;
-    font-weight: bold;
-    font-size: large;
-    width: 10%;
-    cursor: pointer;
-    box-sizing: content-box;
-    position: relative;
-    outline: none;
+
+  .userImg img {
+    width: 600px;
+    border-radius: 15px;
   }
-  .tabs:not(:last-child){
-    border-right: 1px solid rgba(0, 0, 0, 0.274);
+
+  .userForm {
+    width: 600px;
   }
-  
-  .active-tabs  {
-    background: white;
-    border-bottom: 1px solid transparent;
-    border-right: 1px solid rgba(0, 0, 0, 0.274); 
-    border-left: 1px solid rgba(0, 0, 0, 0.274); 
+
+  .userForm label {
+    /* margin-right: 20px; */
+    width: 80px;
   }
-  
-  .active-tabs::before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% + 2px);
-    height: 5px;
-    background: #003319;
+
+  .userForm input {
+    width: 380px;
+    margin-left: 10px;
   }
-  
-  
-  
-  /* button {
-    border: none;
-  } */
-  .content-tabs {
-    flex-grow : 1;
-  }
+
   .content {
     background: white;
     padding: 20px;
     width: 100%;
     height: 100%;
-    display: none;
+    display: inline-block;
   }
   .content h2 {
     padding: 0px 0 5px 0px;
@@ -89,24 +68,6 @@
     display: block;
   }
 
-
-  /* CONTENT */
-  .updateInput {
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* justify-content:flex-start; */
-  width: 50%;
-  margin: 0 auto;
-  align-items:center;
-  padding-top: 50px;
-  /* text-align: center; */
-  /* min-height: 100vh; */
-  }
-
-
-  /* #basic-addon1 {
-    margin-left: 20px;
-  } */
 
   /* 조회시 기간선택하는 부분 */
   .Date {
@@ -135,17 +96,14 @@
 
   .outBtn {
     padding: 20px;
-    
-    /* margin-top: 40px; */
   }
 
   .pwChange {
-    width: 200px;
-    margin: 0 auto;
+    width: 450px;
   }
 
   .updateBtn {
-    width: 200px;
+    width: 450px;
     margin: 0 auto;
   }
 
@@ -157,11 +115,23 @@
     margin: 0 auto;
   }
 
+  .card-title {
+    margin-top: 30px;
+  }
+
   .form-control {
     border: none;
     border-bottom: 1px solid black;
   }
 
-  
+
 
   
+
+  /* <div1> //가장 바깥에 
+    <div2> //2와 3을 나란히 놓고싶음 
+      <div3>
+      
+      </div3>
+    </div2>
+  </div1> */
