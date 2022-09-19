@@ -37,7 +37,11 @@ public interface ProductMapper {
 	//제품번호를 이용해서 대표컬러(커먼코드) 1개 가져오기
 		String getRepresentativeCommonCode(int productNo);
 
-
+	//제품번호를 이용해서 대표이미지 가져오기
 	List<Map<String, Object>> getRepresentativeImage(int productNo);
+
+	List<Map<String, Object>> getProductListByFilter(Map<String, String> paramMap);
+
+	List<Map<String, Object>> getProductImageListByFilter(Map<String, String> paramMap);
 
 }		

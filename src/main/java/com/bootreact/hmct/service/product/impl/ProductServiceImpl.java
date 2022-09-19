@@ -123,5 +123,15 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.getRepresentativeImage(productNo);
 	}
 
+	@Override
+	public List<Map<String, Object>> getProductListByFilter(Map<String, String> paramMap) {
+		return productMapper.getProductListByFilter(paramMap);
+	}
+
+	@Override
+	public List<Map<String, Object>> getProductImageListByFilter(Map<String, String> paramMap) {
+		return productMapper.getProductImageListByFilter(paramMap);
+	}
+
 
 }
