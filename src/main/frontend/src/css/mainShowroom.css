@@ -82,6 +82,8 @@
     width: 1350px;
     text-align: center;
     margin: 0 auto;
+    font-weight: bold;
+    
 }
 
 .col {
@@ -94,14 +96,12 @@
 .col img {
     width: 655px;
     height: 900px;
-    
     position: relative;
 }
 
 .row {
     margin: 0 auto;
     width: 1350px;
-    
 }
 
 /* 
@@ -112,7 +112,6 @@
     border-radius: 100%;
    
 } */
-
 
 .showroomBoxHeart {
     background-color: rgba(0, 0, 0,.5);

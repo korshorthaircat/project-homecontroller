@@ -78,6 +78,7 @@ class ServiceCarousel extends React.Component {
     return (
       <div className="carousel_container">
         <Carousel
+          arrows={false}
           ssr={false}
           ref={(el) => (this.Carousel = el)}
           partialVisible={false}

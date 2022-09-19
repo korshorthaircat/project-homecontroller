@@ -208,7 +208,7 @@ const Header = () => {
                   color="inherit"
                 >
                   <Link href="/wishlist">
-                    <FavoriteBorderOutlinedIcon />
+                    <FavoriteBorderOutlinedIcon sx={{color : "black"}} />
                   </Link>
                 </IconButton>
 
@@ -221,7 +221,7 @@ const Header = () => {
                 >
                   <Link href="/cart">
                     <Badge badgeContent={cartCount} color="success">
-                      <ShoppingCartOutlinedIcon />
+                      <ShoppingCartOutlinedIcon sx={{color : "black"}} />
                     </Badge>
                   </Link>
                 </IconButton>

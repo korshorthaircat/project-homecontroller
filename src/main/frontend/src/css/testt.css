@@ -5,6 +5,10 @@
     margin: 10px;
 }
 
+.eventCardImg {
+    overflow: hidden;
+}
+
 .eventCardImg img{
     width: 430px;
     height: 270px;
@@ -13,12 +17,19 @@
     align-items: center;
     justify-content: center;
     border-radius: 6px;
+    transition: all 0.2s linear;
+    
+}
+
+.eventCardImg:hover img{
+    transform: scale(1.05);
 }
 
 .cardText {
     width: 430px;
     height: 80px;
     padding: 15px 10px;
+    
 }
 
 .cardMainText {
