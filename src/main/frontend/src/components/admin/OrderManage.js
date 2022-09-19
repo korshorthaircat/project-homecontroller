@@ -43,6 +43,9 @@ function OrderManage() {
   const [limit, setLimit] = React.useState(5);
   const [page, setPage] = React.useState(1);
   const offset = (page - 1) * limit;
+  const handlePaging =(currentPage) =>{
+    setPage(prev => currentPage);
+}
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -138,7 +141,7 @@ function OrderManage() {
           total={orderList.length}
           limit={limit}
           page={page}
-          setPage={setPage}
+          handlePaging={handlePaging}
         />
     </ThemeProvider>
   );

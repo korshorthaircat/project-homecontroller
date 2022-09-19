@@ -18,6 +18,9 @@ import Modal from "@mui/material/Modal";
 import axios from "axios";
 import Paging from "./Paging";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { render } from "@testing-library/react";
+import { Prev } from "react-bootstrap/esm/PageItem";
 
 const mdTheme = createTheme();
 
@@ -43,10 +46,11 @@ const modalstyle = {
 
 function UserManage() {
   const [open, setOpen] = React.useState(false);
+  const [pagingUserList, setPagingUserList] = React.useState([]);
   const navigate = useNavigate();
   const handleOpen = (index) => {
     setOpen(true);
-    setUserInfo(userList[index]);
+    setUserInfo(pagingUserList[index]);
   };
   const handleClose = () => {
     setOpen(false);
@@ -126,10 +130,23 @@ function UserManage() {
     setUserInfo(updateUser);
   };
 
+  //페이지에 따라 데이터 5개씩 잘라넣는 userList
+  useEffect(() => {
+    setPagingUserList(userList.slice(offset, offset + limit));
+  }, [userList]); 
+
   //페이지네이션
   const [limit, setLimit] = React.useState(5);
   const [page, setPage] = React.useState(1);
   const offset = (page - 1) * limit;
+  const handlePaging =(currentPage) =>{
+      setPage(prev => currentPage);
+  }
+
+  //페이지 바뀔 때마다 잘라넣는 userList 변경
+  useEffect(() => {
+    setPagingUserList(prev => userList.slice(offset, offset + limit));
+  }, [page, offset, limit]);
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -178,7 +195,7 @@ function UserManage() {
                 <TableBody>
                   {/* 가져온 data mapping ?절 사용(map 뒤의 u는 아무거나 가능)*/}
                   {userList ? (
-                    userList.slice(offset, offset + limit).map((u, index) => (
+                    pagingUserList && pagingUserList.map((u, index) => (
                       <TableRow
                         key={u.userName}
                         sx={{
@@ -446,7 +463,7 @@ function UserManage() {
           total={userList.length}
           limit={limit}
           page={page}
-          setPage={setPage}
+          handlePaging={handlePaging}
         />
     </ThemeProvider>
   );
