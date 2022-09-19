@@ -18,7 +18,6 @@ import {
 import axios from "axios";
 import "../../css/mypagesidebar.css";
 
-
 const ariaLabel = { "aria-label": "description" };
 function OutMembers() {
   // 화면 input 항목 = DB 정보
@@ -34,7 +33,6 @@ function OutMembers() {
     userTel: "",
     userPw: "",
   });
-
 
   // db에서 회원정보 데이터 받아오기
   const getUser = () => {
@@ -65,7 +63,6 @@ function OutMembers() {
       console.log(usrData);
     });
   };
-
 
   React.useEffect(() => {
     getUser();
@@ -109,7 +106,6 @@ function OutMembers() {
     setPwdOpen(false);
   };
 
-  
   //회원탈퇴 버튼 클릭시
   const deleteUserInfo = (e) => {
     if (window.confirm("정말로 떠나시겠어요?😢")) {
@@ -141,98 +137,145 @@ function OutMembers() {
     }
   };
 
-  
-
   return (
-
-
-
-    
     <div className="container">
+      <body>
+        <div className="MyNavIndex">
+          <div class="nav_wrapper">
+            <nav className="MyNavMenu">
+              <ul>
+                <li>
+                  <Link href="/mypage" title="Link">
+                    MYPAGE
+                  </Link>
+                </li>
+                <li>
+                  <a href="#Link" title="Link">
+                    나의 정보
+                  </a>
+                  <ul>
+                    <li>
+                      <a href="/userupdate" title="Link ">
+                        나의정보 수정
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/outmembers" title="Link">
+                        멤버십 해지
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="/wishlist" title="Link">
+                    위시리스트
+                  </a>
+                </li>
+                <li>
+                  <a href="#Link" title="Link">
+                    장바구니
+                  </a>
+                </li>
+                <li>
+                  <a href="#Link" title="Link">
+                    포인트/쿠폰
+                  </a>
+                  <ul>
+                    <li>
+                      <a href="#Link" title="Link">
+                        포인트
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#Link" title="Link">
+                        쿠폰
+                      </a>
+                    </li>
+                  </ul>
+                </li>
 
-<body>
-      <div className="MyNavIndex">
-<div class="nav_wrapper"> 
-<nav className="MyNavMenu">
-    <ul>
-      <li ><Link href="/mypage" title="Link">MYPAGE</Link>
+                <li>
+                  <a href="#Link" title="Link">
+                    주문내역
+                  </a>
+                  <ul>
+                    <li>
+                      <a href="#Link" title="Link">
+                        주문
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#Link" title="Link">
+                        반품
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#Link" title="Link">
+                        교환
+                      </a>
+                    </li>
+                  </ul>
+                </li>
 
-      </li>
-      <li ><a href="#Link" title="Link">나의 정보</a>
-        <ul >
-          <li ><a href="/userupdate" title="Link ">나의정보 수정</a></li>
-          <li ><a href="/outmembers" title="Link">멤버십 해지</a></li>
-        </ul>
-      </li>
-      <li ><a href="/wishlist" title="Link">위시리스트</a>
-      </li>
-      <li ><a href="#Link" title="Link">장바구니</a>
-
-      </li>
-      <li ><a href="#Link" title="Link">포인트/쿠폰</a>
-        <ul >
-          <li ><a href="#Link" title="Link">포인트</a></li>
-          <li ><a href="#Link" title="Link">쿠폰</a></li>
-        </ul>
-      </li>
-
-      <li ><a href="#Link" title="Link">주문내역</a>
-        <ul >
-          <li ><a href="#Link" title="Link">주문</a></li>
-          <li ><a href="#Link" title="Link">반품</a></li>
-          <li ><a href="#Link" title="Link">교환</a></li>
-        </ul>
-      </li>
-
-      <li ><a href="#Link" title="Link">나의 게시글</a>
-        <ul >
-          <li ><a href="#Link" title="Link">자유게시판</a></li>
-          <li ><a href="/reviewlist" title="Link">상품후기</a></li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-</div>
-</div>
-</body>
-
-        <div style={{ margin: "0 auto" }}>
-          <img src="https://i.pinimg.com/originals/6c/b0/d2/6cb0d2d23207729a50b9c023748a2c85.gif"/>
+                <li>
+                  <a href="#Link" title="Link">
+                    나의 게시글
+                  </a>
+                  <ul>
+                    <li>
+                      <a href="#Link" title="Link">
+                        자유게시판
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/reviewlist" title="Link">
+                        상품후기
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
+      </body>
 
-        <div className="outCard">
-          <div class="card text-center">
-            <div class="card-header">
-              <h5 class="card-title">
-                HomeController 멤버십을 탈퇴하면 {inputs.userNickname} 님께
-                발행된 할인 쿠폰과 적립된 포인트를 모두 사용할 수 없게 됩니다.
+      <div style={{ margin: "0 auto" }}>
+        <img src="https://i.pinimg.com/originals/6c/b0/d2/6cb0d2d23207729a50b9c023748a2c85.gif" />
+      </div>
+
+      <div className="outCard">
+        <div class="card text-center">
+          <div class="card-header">
+            <h5 class="card-title">
+              HomeController 멤버십을 탈퇴하면 {inputs.userNickname} 님께 발행된
+              할인 쿠폰과 적립된 포인트를 모두 사용할 수 없게 됩니다.
+            </h5>
+          </div>
+
+          <div class="card-body">
+            <div className="pointPart">
+              <h5 style={{ marginBottom: "50px" }}>
+                {inputs.userNickname} 님의 현재까지 누적 포인트 :{" "}
+                {inputs.userPoint} POINT
               </h5>
+              <h5>지금 바로 사용 가능한 쿠폰</h5>
+              <img src="https://i.pinimg.com/564x/84/ab/ab/84abab661b1bab887559f001d80bc1f5.jpg"></img>
             </div>
 
-            <div class="card-body">
-              <div className="pointPart">
-                <h5 style={{ marginBottom: "50px"}}>
-                  {inputs.userNickname} 님의 현재까지 누적 포인트 :{" "}
-                  {inputs.userPoint} POINT
-                </h5>
-                <h5>지금 바로 사용 가능한 쿠폰</h5>
-                <img src="https://i.pinimg.com/564x/84/ab/ab/84abab661b1bab887559f001d80bc1f5.jpg"></img>
-              </div>
-
-              <div className="outBtn">
-                <button className="outButton" onClick={deleteUserInfo}>
-                  멤버십 탈퇴하기
-                </button>
-              </div>
+            <div className="outBtn">
+              <button className="outButton" onClick={deleteUserInfo}>
+                멤버십 탈퇴하기
+              </button>
             </div>
-            <div class="card-footer text-muted">
-              HomeController 이용에 관한 불편함이나 건의사항이 있으시다면 문의
-              게시판에 언제든지 작성해주세요.
-            </div>
+          </div>
+          <div class="card-footer text-muted">
+            HomeController 이용에 관한 불편함이나 건의사항이 있으시다면 문의
+            게시판에 언제든지 작성해주세요.
           </div>
         </div>
       </div>
-
+    </div>
   );
 }
 export default OutMembers;

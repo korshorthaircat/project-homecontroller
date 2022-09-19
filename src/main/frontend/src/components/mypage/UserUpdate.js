@@ -18,7 +18,6 @@ import axios from "axios";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import "../../css/mypagesidebar.css";
 
-
 const ariaLabel = { "aria-label": "description" };
 function UserUpdate() {
   // 화면 input 항목 = DB 정보
@@ -180,7 +179,6 @@ function UserUpdate() {
     getUser();
   }, []);
 
-
   // 화면 input 항목들의 변경 내용을 React 상태 갱신
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -213,6 +211,24 @@ function UserUpdate() {
     setPwdOpen(false);
   };
 
+  //비밀번호변경
+  const updateUserPw = (e) => {
+    if (window.confirm("비밀번호를 변경하시겠습니까")) {
+      console.log("확인버튼클릭");
+      let url = "http://localhost:8080/api/user/updateUserPw";
+      axios({
+        method: "post",
+        url: url,
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+        },
+        data: inputs, // 화면 input 항목에 대한 정보
+      }).then((response) => {
+        console.log("잘되나");
+      });
+    }
+  };
+
   const updateUserInfo = (e) => {
     if (window.confirm("수정한 내용을 저장하시겠어요? ^^")) {
       // 화면 유효성 검사
@@ -235,6 +251,7 @@ function UserUpdate() {
       });
     }
   };
+
   //회원탈퇴 버튼 클릭시
   const deleteUserInfo = (e) => {
     if (window.confirm("정말로 떠나시겠어요?😢")) {
@@ -278,58 +295,107 @@ function UserUpdate() {
   };
 
   return (
-
-
-    
-
     <div className="container">
+      <body>
+        <div>
+          <div class="nav_wrapper">
+            <nav className="MyNavMenu">
+              <ul>
+                <li>
+                  <Link href="/mypage" title="Link">
+                    MYPAGE
+                  </Link>
+                </li>
+                <li>
+                  <a href="#Link" title="Link">
+                    나의 정보
+                  </a>
+                  <ul>
+                    <li>
+                      <a href="/userupdate" title="Link ">
+                        나의정보 수정
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/outmembers" title="Link">
+                        멤버십 해지
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="/wishlist" title="Link">
+                    위시리스트
+                  </a>
+                </li>
+                <li>
+                  <a href="#Link" title="Link">
+                    장바구니
+                  </a>
+                </li>
+                <li>
+                  <a href="#Link" title="Link">
+                    포인트/쿠폰
+                  </a>
+                  <ul>
+                    <li>
+                      <a href="#Link" title="Link">
+                        포인트
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#Link" title="Link">
+                        쿠폰
+                      </a>
+                    </li>
+                  </ul>
+                </li>
 
+                <li>
+                  <a href="#Link" title="Link">
+                    주문내역
+                  </a>
+                  <ul>
+                    <li>
+                      <a href="#Link" title="Link">
+                        주문
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#Link" title="Link">
+                        반품
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#Link" title="Link">
+                        교환
+                      </a>
+                    </li>
+                  </ul>
+                </li>
 
-<body>
-      <div>
-<div class="nav_wrapper"> 
-<nav className="MyNavMenu">
-    <ul>
-      <li ><Link href="/mypage" title="Link">MYPAGE</Link>
-
-      </li>
-      <li ><a href="#Link" title="Link">나의 정보</a>
-        <ul >
-          <li ><a href="/userupdate" title="Link ">나의정보 수정</a></li>
-          <li ><a href="/outmembers" title="Link">멤버십 해지</a></li>
-        </ul>
-      </li>
-      <li ><a href="/wishlist" title="Link">위시리스트</a>
-      </li>
-      <li ><a href="#Link" title="Link">장바구니</a>
-
-      </li>
-      <li ><a href="#Link" title="Link">포인트/쿠폰</a>
-        <ul >
-          <li ><a href="#Link" title="Link">포인트</a></li>
-          <li ><a href="#Link" title="Link">쿠폰</a></li>
-        </ul>
-      </li>
-
-      <li ><a href="#Link" title="Link">주문내역</a>
-        <ul >
-          <li ><a href="#Link" title="Link">주문</a></li>
-          <li ><a href="#Link" title="Link">반품</a></li>
-          <li ><a href="#Link" title="Link">교환</a></li>
-        </ul>
-      </li>
-
-      <li ><a href="#Link" title="Link">나의 게시글</a>
-        <ul >
-          <li ><a href="#Link" title="Link">자유게시판</a></li>
-          <li ><a href="/reviewlist" title="Link">상품후기</a></li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-</div>
-</div>
-</body>
+                <li>
+                  <a href="#Link" title="Link">
+                    나의 게시글
+                  </a>
+                  <ul>
+                    <li>
+                      <a href="#Link" title="Link">
+                        자유게시판
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/reviewlist" title="Link">
+                        상품후기
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </body>
 
       <div className="FormDiv">
         {/* <div className="userImg">
@@ -339,219 +405,193 @@ function UserUpdate() {
         <div className="userImg">
           <img src="https://images.pexels.com/photos/6739653/pexels-photo-6739653.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"></img>
         </div>
-              
-              <div className="userForm">
-              <Box
-                component="form"
-                sx={{
-                  "& > :not(style)": { m: 5 },
-                }}
-                noValidate
-                autoComplete="off"
+
+        <div className="userForm">
+          <Box
+            component="form"
+            sx={{
+              "& > :not(style)": { m: 5 },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <div>
+              <label>아이디 </label>
+              <Input
+                name="userId"
+                value={inputs.userId}
+                inputProps={ariaLabel}
+                onChange={onChange}
+                readOnly
+              />
+            </div>
+            <div>
+              <label>닉네임</label>
+              <Input
+                name="userNickname"
+                value={inputs.userNickname}
+                inputProps={ariaLabel}
+                onChange={onChange}
+              />
+            </div>
+            <div>
+              <label>이름</label>
+              <Input
+                name="userName"
+                value={inputs.userName}
+                inputProps={ariaLabel}
+                onChange={onChange}
+              />
+            </div>
+            <div>
+              <label>이메일</label>
+              <Input
+                name="userMail"
+                value={inputs.userMail}
+                inputProps={ariaLabel}
+                onChange={onChange}
+              />
+            </div>
+            <div>
+              <label>전화번호</label>
+              <Input
+                name="userTel"
+                value={inputs.userTel}
+                inputProps={ariaLabel}
+                onChange={onChange}
+              />
+            </div>
+            <div>
+              <label>포인트</label>
+              <Input
+                name="userPoint"
+                value={inputs.userPoint}
+                inputProps={ariaLabel}
+                onChange={onChange}
+              />
+            </div>
+            <div>
+              <label>우편번호</label>
+
+              <Input
+                name="userZip"
+                style={{ width: "280px" }}
+                value={inputs.userZip}
+                inputProps={ariaLabel}
+                onChange={onChange}
+              />
+              <Button
+                id="userZipSearch"
+                variant="contained"
+                color="success"
+                style={{ height: "40px" }}
+                onClick={handleZipBtnClick}
               >
-                <div>
-                  <label>아이디  </label>
-                  <Input
+                우편번호 검색
+              </Button>
+            </div>
+            <div>
+              <label>주소</label>
+              <Input
+                name="userAddr"
+                value={inputs.userAddr}
+                inputProps={ariaLabel}
+                onChange={onChange}
+              />
+            </div>
+            <div>
+              <label>상세주소</label>
+              <Input
+                name="userAddrDetail"
+                value={inputs.userAddrDetail}
+                inputProps={ariaLabel}
+                onChange={onChange}
+              />
+            </div>
 
-                    name="userId"
-                    value={inputs.userId}
-                    inputProps={ariaLabel}
-                    onChange={onChange}
-                    readOnly
-                  />
-                </div>
-                <div>
-                <label>닉네임</label>
-                  <Input
-                    name="userNickname"
-                    value={inputs.userNickname}
-                    inputProps={ariaLabel}
-                    onChange={onChange}
-                  />
-                </div>
-                <div>
-                <label>이름</label>
-                  <Input
-                    name="userName"
-                    value={inputs.userName}
-                    inputProps={ariaLabel}
-                    onChange={onChange}
-                  />
-                </div>
-                <div>
-                <label>이메일</label>
-                  <Input
-                    name="userMail"
-                    value={inputs.userMail}
-                    inputProps={ariaLabel}
-                    onChange={onChange}
-                  />
-                </div>
-                <div>
-                <label>전화번호</label>
-                  <Input
-                    name="userTel"
-                    value={inputs.userTel}
-                    inputProps={ariaLabel}
-                    onChange={onChange}
-                  />
-                </div>
-                <div>
-                <label>포인트</label>
-                  <Input
-                    name="userPoint"
-                    value={inputs.userPoint}
-                    inputProps={ariaLabel}
-                    onChange={onChange}
-                  />
-                </div>
-                <div>
-                <label>우편번호</label>
-                  
-                  <Input
-                    name="userZip"
-                    style={{ width: "280px" }}
-                    value={inputs.userZip}
-                    inputProps={ariaLabel}
-                    onChange={onChange}
-                  />
-                  <Button
-                    id="userZipSearch"
-                    variant="contained"
-                    color="success"
-                    style={{ height: "40px" }}
-                    onClick={handleZipBtnClick}
-                  >
-                    우편번호 검색
-                  </Button>
-                </div>
-                <div>
-                <label>주소</label>
-                  <Input
-                    name="userAddr"
-                    value={inputs.userAddr}
-                    inputProps={ariaLabel}
-                    onChange={onChange}
-                  />
-                </div>
-                <div>
-                <label>상세주소</label>
-                  <Input
-                    name="userAddrDetail"
-                    value={inputs.userAddrDetail}
-                    inputProps={ariaLabel}
-                    onChange={onChange}
-                  />
-                </div>
+            <Grid item xs={12} sm={4}></Grid>
+          </Box>
 
-                <Grid item xs={12} sm={4}></Grid>
-              </Box>
+          <div className="outBtn" style={{ paddingLeft: "50px" }}>
+            <Button
+              type="button"
+              className="pwChange"
+              variant="contained"
+              color="success"
+              onClick={handlePwdOpen}
+            >
+              비밀번호변경
+            </Button>
+          </div>
 
-              <div className="outBtn" style={{ paddingLeft: "50px" }}>
-                <Button
-                
-                  type="button"
-                  className="pwChange"
-                  variant="contained"
-                  color="success"
-                  onClick={handlePwdOpen}
-                >
-                  비밀번호변경
-                </Button>
-              </div>
+          <Modal
+            open={pwdOpen}
+            onClose={handlePwdClose}
+            aria-labelledby="parent-modal-title"
+            aria-describedby="parent-modal-description"
+          >
+            <Box sx={{ ...style, width: 400 }}>
+              <form noValidate onSubmit={handleSubmit}>
+                {" "}
+                <h2 id="parent-modal-title">Text in a modal</h2>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="userPw"
+                    label="현재비밀번호"
+                    name="userPw"
+                    type="password"
+                    autoComplete="current-password"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    name="userPw"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="userPw"
+                    label="새비밀번호"
+                    type="password"
+                    // value=""
+                    onChange={onChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    name="userPwCheck"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="userPwCheck"
+                    label="비밀번호 확인"
+                    type="password"
+                    value={userPwCheck}
+                    onChange={onPwCheckHandler}
+                  />
+                </Grid>
+                <button onClick={updateUserInfo}>확인</button>
+                <button>취소</button>
+              </form>
+            </Box>
+          </Modal>
 
-              <Modal
-                open={pwdOpen}
-                onClose={handlePwdClose}
-                aria-labelledby="parent-modal-title"
-                aria-describedby="parent-modal-description"
-              >
-                <Box sx={{ ...style, width: 400 }}>
-                  <form noValidate onSubmit={handleSubmit}>
-                    {" "}
-                    <h2 id="parent-modal-title">Text in a modal</h2>
-                    <Grid item xs={12}>
-                      <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="userPw"
-                        label="현재비밀번호"
-                        name="userPw"
-                        type="password"
-                        autoComplete="current-password"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        name="userPw"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="userPw"
-                        label="새비밀번호"
-                        type="password"
-                        // value=""
-                        onChange={onChange}
-                      />
-                      {userPw.length > 0 && (
-                        <span
-                          className={`message ${
-                            isPassword ? "success" : "error"
-                          }`}
-                        >
-                          {userPwMessage}
-                        </span>
-                      )}
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        name="userPwCheck"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="userPwCheck"
-                        label="비밀번호 확인"
-                        type="password"
-                        value={userPwCheck}
-                        onChange={onPwCheckHandler}
-                      />
-                      {userPwCheck.length > 0 && (
-                        <span
-                          className={`message ${
-                            isCheckedPassword ? "success" : "error"
-                          }`}
-                        >
-                          {userPwCheckMessage}
-                        </span>
-                      )}
-                    </Grid>
-                    <button onClick={updateUserInfo}>확인</button>
-                    <button>취소</button>
-                  </form>
-                </Box>
-              </Modal>
-
-              <div className="outBtn" style={{ paddingLeft: "50px" }}>
-                <Button
-                  type="button"
-                  className="updateBtn"
-                  variant="contained"
-                  color="success"
-                  onClick={updateUserInfo}
-                >
-                  수정
-                </Button>
-                </div>
-              </div>
-              </div>
-
-
+          <div className="outBtn" style={{ paddingLeft: "50px" }}>
+            <Button
+              type="button"
+              className="updateBtn"
+              variant="contained"
+              color="success"
+              onClick={updateUserInfo}
+            >
+              수정
+            </Button>
+          </div>
         </div>
-
-
-
-
+      </div>
+    </div>
   );
 }
 export default UserUpdate;
