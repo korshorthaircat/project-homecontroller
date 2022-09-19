@@ -9,9 +9,12 @@ public interface ShowroomService {
 	
 	void insertShowroom(Showroom showroom);
 	
-	void insertShowroomItems(int showroomNo, List<Integer> productNos);
+//	void insertShowroomItems(int showroomNo, List<Integer> productNos, productLocationLeft, productLocationTop);
 	
 	List<Showroom> getShowroomList();
 	
 	List<Showroom> getColorShowroomList(String showroomColor);
+
+	void insertShowroomItems(int srNo, List<Integer> prNoList, List<String> leftLocationList,
+			List<String> topLocationList);
 }
