@@ -5,7 +5,7 @@ import MainShowroom from "./components/main/MainShowroom";
 import ProductCarousel from "./components/main/ProductCarousel";
 import ServiceCarousel from "./components/main/ServiceCarousel";
 import EventCarousel from "./components/main/EventCarousel";
-import MainInteriorImage from "./components/productDetail/MainInteriorImage";
+import MainInteriorImage from "./components/main/MainInteriorImage";
 import TopButton from "./components/main/TopButton";
 import WithScrollbar from "./components/main/Test";
 import  ScrollTop from "./components/main/ScrollTop";
@@ -35,7 +35,7 @@ function App() {
       <h4 className="main_title">시들지 않는 조화로 매일 싱그럽게!</h4>
       <ProductCarousel/>
 
-      <h4 className="main_title">인테리어 쇼룸</h4>
+      <h4 className="showroom_title">인테리어 쇼룸</h4>
       <p className="sub_title">다양한 인테리어 제품을 한 눈에 볼 수 있는 인테리어쇼룸! 인테리어를 참고하세요.</p>
       <MainShowroom />
       
