@@ -8,6 +8,18 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "../../css/mypagesidebar.css";
+import {
+  Button,
+  TextField,
+  Link,
+  Grid,
+  Container,
+  Typography,
+  FormControlLabel,
+  Checkbox,
+  Modal,
+} from "@mui/material";
 
 
 function WishList() {
@@ -52,6 +64,8 @@ const deleteWishList = (index) => {
     method: 'post',
     data: {productNo: wishItemList[index].productNo},
   }).then(response => {
+    // setWishItemList(response.data.wishItemList);
+    window.location.href = "/wishlist";
     console.log(response.data);
   })
 }
@@ -62,6 +76,7 @@ const deleteWishList = (index) => {
  }, []);
 
 
+ //좌우 이동시키는 버튼 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -72,7 +87,7 @@ function SampleNextArrow(props) {
     />
   );
 }
-
+ //좌우 이동시키는 버튼 
 function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -89,7 +104,7 @@ const settings = {
   className: "center",
   centerMode: true,
   infinite: true,
-  centerPadding: "400px",
+  centerPadding: "100px",
   slidesToShow: 3,
   speed: 500,
   nextArrow: <SampleNextArrow />,
@@ -101,8 +116,48 @@ const settings = {
 
 
     return (
-      
-      
+      <div>
+      <div class="nav_wrapper"> 
+  <nav className="MyNavMenu">
+    <ul>
+      <li ><Link href="/mypage" title="Link">MYPAGE</Link>
+
+      </li>
+      <li ><a href="#Link" title="Link">나의 정보</a>
+        <ul >
+          <li ><a href="/userupdate" title="Link ">나의정보 수정</a></li>
+          <li ><a href="/outmembers" title="Link">멤버십 해지</a></li>
+        </ul>
+      </li>
+      <li ><a href="/wishlist" title="Link">위시리스트</a>
+      </li>
+      <li ><a href="#Link" title="Link">장바구니</a>
+
+      </li>
+      <li ><a href="#Link" title="Link">포인트/쿠폰</a>
+        <ul >
+          <li ><a href="#Link" title="Link">포인트</a></li>
+          <li ><a href="#Link" title="Link">쿠폰</a></li>
+        </ul>
+      </li>
+
+      <li ><a href="#Link" title="Link">주문내역</a>
+        <ul >
+          <li ><a href="#Link" title="Link">주문</a></li>
+          <li ><a href="#Link" title="Link">반품</a></li>
+          <li ><a href="#Link" title="Link">교환</a></li>
+        </ul>
+      </li>
+
+      <li ><a href="#Link" title="Link">나의 게시글</a>
+        <ul >
+          <li ><a href="#Link" title="Link">자유게시판</a></li>
+          <li ><a href="/reviewlist" title="Link">상품후기</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
     <div className="wish">
     <h1 className="wishTitle">나의 위시리스트</h1>
       <Slider {...settings}>
@@ -116,7 +171,6 @@ const settings = {
     <img className="wishImg" src={`http://localhost:8080/upload/${wishItem.productImageName}`}/>
     	</div>
       <button onClick={() => {deleteWishList(index)}}>삭제</button><button>장바구니담기</button>
-
       </div>
       ))}
       
@@ -137,6 +191,7 @@ const settings = {
       
       </Slider>
       
+    </div>
     </div>
 
 

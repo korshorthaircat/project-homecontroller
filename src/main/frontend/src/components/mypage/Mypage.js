@@ -14,49 +14,61 @@ import UserUpdate from './UserUpdate';
 
 function Mypage() {
   return (
+
+    <div className='mypageTitle'>
+      <h1 className='My'>마이페이지</h1>
     <div className='icons'>
+
     <Link  href="/userupdate">
-     <img src="../images/mypage_icons/user_update.png" View style={{
+     <img className='a01' src="../images/mypage_icons/user_update.png" View style={{
       padding: 40,
       flex: 1,
       flexDirection: 'row'
     }} />
+
     </Link>
 
     <Link  href="/wishlist">
-    <img src="../images/mypage_icons/wishlist.png" View style={{
+    <img className='a02' src="../images/mypage_icons/wishlist.png" View style={{
       padding: 40,
       flex: 1,
       flexDirection: 'row' 
     }} />
+
     </Link>
     
-    <img src="../images/mypage_icons/cart.png" View style={{
+    <img className='a03' src="../images/mypage_icons/cart.png" View style={{
       padding: 40,
       flex: 1,
       flexDirection: 'row'
     }} />
+
     <Link  href="/orderlist">
-    <img src="../images/mypage_icons/orderdetails.png" View style={{
+    <img className='a04' src="../images/mypage_icons/orderdetails.png" View style={{
       padding: 40,
       flex: 1,
       flexDirection: 'row'
     }} />
+
     </Link>
     <Link  href="/reviewlist">
-    <img src="../images/mypage_icons/board.png" View style={{
+    <img className='a05' src="../images/mypage_icons/board.png" View style={{
       padding: 40,
       flex: 1,
       flexDirection: 'row'
     }} />
+
     </Link>
-    <img src="../images/mypage_icons/cupon.png" View style={{
+    <img className='a06' src="../images/mypage_icons/cupon.png" View style={{
       padding: 40,
       flex: 1,
       flexDirection: 'row'
     }} /> 
+  
     
     
+    </div>
+
     </div>
   );
 };
