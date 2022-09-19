@@ -4,7 +4,7 @@
 	
 <mapper namespace="com.bootreact.hmct.mapper.CartMapper">
 	
-	<select id="getCartImageList" parameterType="int" resultType="camelHashMap">
+	<select id="getCartImageList" parameterType="String" resultType="camelHashMap">
 	<![CDATA[
 		select A.product_image_name
 			,  A.product_image_path
@@ -12,7 +12,7 @@
 			,  B.common_code 
 			from t_hmct_product_image A,
 				 t_hmct_cart B
-			where  B.user_id = 'gogo'
+			where  B.user_id = #{userId}
 			and A.product_no = B.product_no
 			group by product_no  ;
 	]]>

@@ -44,4 +44,8 @@ public interface ProductMapper {
 
 	List<Map<String, Object>> getProductImageListByFilter(Map<String, String> paramMap);
 
+	List<Map<String, Object>> getAllProductList();
+
+	List<Map<String, Object>> getAllProductImageList();
+
 }		

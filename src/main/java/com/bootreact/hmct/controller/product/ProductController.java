@@ -286,24 +286,38 @@ public class ProductController {
 //	}
 	
 	
+	//<리스트 페이지> 전제 제품 조회 (컬러별 중복 노출)
+	@GetMapping("/getAllProductList")
+	public Map<String, Object> getAllProductList() {
+		try {
+			System.out.println(".///////////////////////");
+			List<Map<String, Object>> productList = productService.getAllProductList();
+			List<Map<String, Object>> productImageList = productService.getAllProductImageList();
+			
+			System.out.println(productList.toString());
+			System.out.println(productImageList.toString());
+			
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			
+			returnMap.put("productList", productList);
+			returnMap.put("productImageList", productImageList);
+			
+			return returnMap; 
+			
+		} catch(Exception e) {
+			Map<String, Object> errorMap = new HashMap<String, Object>();
+			errorMap.put("error", e.getMessage());
+			return errorMap;
+		}
+	};
 	
-	//<리스트 페이지> 컬러별 제품 목록 조회
-//	getProductListByColor
-	
-	//<리스트 페이지> 소재별 제품 목록 조회
-//	getProductListByMaterial
-	
-	//<리스트 페이지> 가격별 제품 목록 조회
-//	getProductListByPrice
-	
-	//<리스트 페이지> 컬러/소재/가격별 제품목록 조회 (동적 쿼리 사용)
+	//<리스트 페이지> 카테고리/컬러/소재/가격별 제품목록 조회 (동적 쿼리 사용)
 	@PostMapping("/getProductListByFilter")
 	public Map<String, Object> getProductListByFilter(@RequestBody Map<String, String> paramMap) {
 //		  리액트단에서 데이터 보낼 때(axios 요청) 아래와 같이 해야 함
 //		  method: "post",
-//	      params: { productNo: productNo,
-//					productCategory: productCategory,
-//					producctMaterial: productMaterial,
+//	      params: { productCategory: productCategory,
+//					commonCode: commonCode,
 //					producctMaterial: productMaterial,
 //					lowestPrice: lowestPrice,
 //					highestPrice: highestPrice},
