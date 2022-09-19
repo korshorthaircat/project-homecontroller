@@ -43,16 +43,13 @@ const ProductDetailInfo = () => {
           style={{ position: "relative" }}
         >
           <div>
-            <MainInfoNav option="review"/>
+            <MainInfoNav option="review" />
           </div>
           상품평
         </button>
         <img id="arrowIcon" src="/Product_arrow.png"></img>
       </p>
       <hr className="line1"></hr>
-      <div>
-        <SameCategoryList />
-      </div>
     </div>
   );
 };

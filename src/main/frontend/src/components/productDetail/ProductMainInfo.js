@@ -43,6 +43,8 @@ function MainInfo() {
     getColorCommonCode();
   }, []);
 
+  const Imgchange = () => {};
+
   return (
     <>
       <div className="productMainInfo">
@@ -86,6 +88,7 @@ function MainInfo() {
           <div style={{ display: "flex" }}>
             {productImageList.map((a, index) => (
               <img
+                className="ColorSelectImg"
                 style={{
                   width: "80px",
                   height: "80px",
@@ -100,7 +103,13 @@ function MainInfo() {
         </div>
 
         <div className="sellHeartBtn">
-          <button type="button" id="sellBtn">
+          <button
+            type="button"
+            id="sellBtn"
+            onClick={() => {
+              console.log("얌" + productImageList);
+            }}
+          >
             구매하기
           </button>
 

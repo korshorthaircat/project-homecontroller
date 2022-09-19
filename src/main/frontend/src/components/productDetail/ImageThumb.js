@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { Route, useLocation, useParams } from "react-router-dom";
 import { Details } from "@mui/icons-material";
 import axios from "axios";
+import SameCategoryList from "./SameCategoryList";
 
 const choice = {
   img1: {
@@ -98,6 +99,7 @@ function ImageThumb(props) {
           <ProductMainInfo />
         </div>
       </div>
+      <SameCategoryList />
     </>
   );
 }
