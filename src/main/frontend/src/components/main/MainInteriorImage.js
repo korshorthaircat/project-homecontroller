@@ -26,7 +26,7 @@ const MainInteriorImage = () => {
         .get(productListUrl, {})
         .then((response) => {
             setProductList(response.data.data)
-
+ 
         })
         .catch((e) => {
             console.log(e);
