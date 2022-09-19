@@ -8,7 +8,9 @@ import Join from "./components/user/Join";
 import Order from "./components/order/Order";
 import Dashboard from "./components/admin/Dashboard";
 import Mypage from "./components/mypage/Mypage";
+import MypageSideBar from "./components/mypage/MypageSideBar";
 import UserUpdate from "./components/mypage/UserUpdate";
+import OutMembers from "./components/mypage/OutMembers";
 import ReviewList from "./components/mypage/ReviewList";
 import WishList from "./components/mypage/WishList";
 import OrderList from "./components/mypage/OrderList";
@@ -23,8 +25,8 @@ import UserManage from "./components/admin/UserManage";
 import OrderManage from "./components/admin/OrderManage";
 import ProductAdd from "./components/admin/ProductAdd";
 import ProductList from "./components/admin/ProductList";
-import MyOrderDetail from "./components/mypage/MyOrderDetail"
-import MyOrderstatus from "./components/mypage/MyOrderstatus"
+import MyOrderDetail from "./components/mypage/MyOrderDetail";
+import MyOrderstatus from "./components/mypage/MyOrderstatus";
 import Cart from "./components/cart/Cart";
 import AdminOrderDetail from "./components/admin/AdminOrderDetail";
 import ProductUpdate from "./components/admin/ProductUpdate";
@@ -33,6 +35,7 @@ import FixedBar from "./components/list/FixedBar";
 import ShowroomAdd from "./components/admin/ShowroomAdd";
 import Board from "./Board";
 import Coupon from "./components/event/Coupon";
+
 
 const AppRouter = () => {
   // 경로에 따라 실행되는 컴포넌트가 다르므로, 그 정보를 갖고있는 AppRouter를 가장 먼저 렌더링해야 한다.(Index.js에서)
@@ -45,7 +48,9 @@ const AppRouter = () => {
           <Route path="/join" element={<Join />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<Mypage />} />
+          <Route path="/mypagesidebar" element={<MypageSideBar />} />
           <Route path="/userupdate" element={<UserUpdate />} />
+          <Route path="/outmembers" element={<OutMembers/>} />
           <Route path="/reviewlist" element={<ReviewList />} />
           <Route path="/wishlist" element={<WishList />} />
           <Route path="/orderlist" element={<OrderList />} />

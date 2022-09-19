@@ -32,7 +32,8 @@
 .css-mhc70k-MuiGrid-root {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
+    width: 1560px;
 }
 
 .appbarUnder{

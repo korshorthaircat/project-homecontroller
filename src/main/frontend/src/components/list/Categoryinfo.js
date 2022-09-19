@@ -1,11 +1,11 @@
 import React from "react";
 import "../../css/productCategory.css";
 
-const Categoryinfo = (props) => {
+const Categoryinfo = ({ item }) => {
   return (
     <div>
-      <h1 style={{ fontWeight: "bold" }}>{props.title}</h1>
-      <p className="pdetail">{props.content}</p>
+      <h1 style={{ fontWeight: "bold" }}>{item.title}</h1>
+      <p className="pdetail">{item.content}</p>
     </div>
   );
 };
