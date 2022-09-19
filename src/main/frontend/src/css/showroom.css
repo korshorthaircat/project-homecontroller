@@ -68,3 +68,8 @@
     bottom: 65px;
     left: 285px;
 }
+
+.css-mhc70k-MuiGrid-root{
+    display: flex;
+    justify-content: space-evenly;
+}

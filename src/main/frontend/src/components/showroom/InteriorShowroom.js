@@ -6,6 +6,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import ShowroomBox from "../main/ShowroomBox";
 import "../../css/showroom.css";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 
 const InteriorShowroom = () => {
   const [showroomImg, setShowroomImg] = React.useState([]);
@@ -64,9 +66,13 @@ const InteriorShowroom = () => {
     <div>
       <div>
         <ShowroomTop></ShowroomTop>
-        {showroomImgData.map((a) => (
-          <ShowroomBox item={a} />
-        ))}
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2} columns={16}>
+            {showroomImgData.map((a) => (
+              <ShowroomBox item={a} />
+            ))}
+          </Grid>
+        </Box>
       </div>
 
       <div className="mainShowroom_MoreBtn">
