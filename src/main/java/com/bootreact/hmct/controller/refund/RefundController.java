@@ -1,6 +1,6 @@
 package com.bootreact.hmct.controller.refund;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bootreact.hmct.entity.Order;
 import com.bootreact.hmct.service.order.OrderService;
 import com.bootreact.hmct.service.refund.RefundService;
 
@@ -21,25 +22,46 @@ public class RefundController {
 	 @Autowired
 	 RefundService refundService;
 	 
-	 //반품요청
+	 //취소 요청
      @PostMapping("/createCancel")
-     public Map<String, Object> createCancel(@RequestBody Map<String, Object> paramMap) {
-    	 try {
-     		System.out.println(paramMap.toString());
-     		Map<String, Object> crCancel = new HashMap<String, Object>();
-     		Map<String, Object> orderUpdate = orderService.updateOrder(paramMap);
-     		Map<String, Object> addCancel = refundService.createCancel(paramMap);
-     		
-     		return crCancel;
+     public void createCancel(@RequestBody Map<String, Object> paramMap) {
+ 		try {
+
+ 			//매개변수 잘 들어오는지 확인하기
+ 			System.out.println(paramMap.get("orderNo"));
+ 			int cancelNo = refundService.createCancelNo();
+ 			
+ 			List<Order> orderList = orderService.getOrderList();
+ 			//주문상태
+ 			 
+// 			String orderStatus = "";
+// 			
+// 			if(paramMap.get("orderStatus").toString().equals("결제완료")) {
+// 				orderStatus = "주문취소";
+// 			} 			
+ 			//Cancel 테이블에 주문 정보 인서트(cancelRgsDate는 자동생성)
+ 			refundService.addCancel(
+ 								  Integer.parseInt(paramMap.get("orderNo").toString()),
+ 								  paramMap.get("cancelNo").toString(),
+ 								  paramMap.get("cancelAmount").toString(), 
+ 								  paramMap.get("cancelStatus").toString(), 
+ 								  paramMap.get("cancelReason").toString()); 
+ 			
+// 			refundService.addRefund(
+//			 					  paramMap.get("refundNo").toString(),
+//								  paramMap.get("refundAmount").toString(),
+//								  paramMap.get("refundBank").toString(),
+//								  paramMap.get("refundAccount").toString(),
+//								  paramMap.get("refundName").toString(),
+//								  paramMap.get("cancelStatus").toString(), 
+//								  paramMap.get("cancelReason").toString());				             
      	}catch(Exception e){
-     		Map<String, Object> errorMap = new HashMap<String, Object>();
-     		errorMap.put("error", e.getMessage());
-     		return errorMap;		
-     	} 
-     }
+     		System.out.println(e.getMessage());
+     	}
+ 	}
      
      //교환요청
      
      
-     //취소요청
+     //반품 요청
 }
