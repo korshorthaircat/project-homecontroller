@@ -33,7 +33,7 @@ import ProductUpdate from "./components/admin/ProductUpdate";
 import ProductCategoryList from "./components/list/ProductCategoryList";
 import FixedBar from "./components/list/FixedBar";
 import ShowroomAdd from "./components/admin/ShowroomAdd";
-import Board from "./Board";
+import Board from "./components/Board";
 import Coupon from "./components/event/Coupon";
 
 
@@ -76,6 +76,7 @@ const AppRouter = () => {
           <Route path="/productDetail/:productNo" element={<ImageThumb />} />
           <Route path="/board" element={<Board />} />
           <Route path="/coupon" element={<Coupon />} />
+          {/* <Route path="/search/:word" element={<Search />} /> */}
         </Routes>
       </BrowserRouter>
       <Footer />

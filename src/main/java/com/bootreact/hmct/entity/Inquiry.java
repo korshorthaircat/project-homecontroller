@@ -1,6 +1,6 @@
 package com.bootreact.hmct.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,7 +44,7 @@ public class Inquiry {
 	
 	//문의글 등록일 
 	@Column(nullable = false)
-	private LocalDateTime inquiryRgsdate = LocalDateTime.now();
+	private LocalDate inquiryRgsdate = LocalDate.now();
 	
 	//문의글 답변 
 	@Column(nullable = true)

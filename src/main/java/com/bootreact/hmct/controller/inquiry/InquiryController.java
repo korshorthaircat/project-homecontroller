@@ -1,15 +1,20 @@
 package com.bootreact.hmct.controller.inquiry;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.bootreact.hmct.dto.InquiryDTO;
+import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.entity.Inquiry;
 import com.bootreact.hmct.service.inquiry.InquiryService;
 
+@RestController
 @RequestMapping("/api/inquiry")
 public class InquiryController {
 
@@ -21,10 +26,38 @@ public class InquiryController {
 //
 //	//문의글 내용 조회
 //	void getInquiryBoard(User user) {}
-	@GetMapping("/getInquiryBoard")
-	public List<Inquiry> getInquiryBoard() {
+	@GetMapping("/getInquiryList")
+	public ResponseEntity<?> getInquiryList() {
+		try {
+			List<Inquiry> inquiryList = inquiryService.getInquiryList();
+			
+			List<InquiryDTO> inquiryDTOList = new ArrayList<InquiryDTO>();
+ 		
+			for(Inquiry i : inquiryList) {
+				InquiryDTO inquiryDTO = new InquiryDTO();
+				
+				inquiryDTO.setInquiryNo(i.getInquiryNo());
+				inquiryDTO.setInquiryAnswer(i.getInquiryAnswer());
+				inquiryDTO.setInquiryContent(i.getInquiryContent());
+				inquiryDTO.setInquiryRgsdate(i.getInquiryRgsdate());
+				inquiryDTO.setInquiryState(i.getInquiryState());
+				inquiryDTO.setInquiryTitle(i.getInquiryTitle());
+				inquiryDTO.setUser(i.getUser());
+				
+				inquiryDTOList.add(inquiryDTO);
+			}
+		ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
 		
-		return inquiryService.getInquiryBoard();
+		response.setData(inquiryDTOList);
+		
+		return ResponseEntity.ok().body(response);
+		
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
+			response.setError(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
 	}
 //
 //	//문의글 목록 조회
