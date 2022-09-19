@@ -19,6 +19,23 @@ const MenuProps = {
   },
 };
 
+// const PriceOptions = [{
+//   "전체": [0, 1000000],
+//   "50,000원 이하": [0, 500000],
+//   "50,000원 ~ 100,000원": [50000, 100000],
+//   "100,000원 ~ 200,000원": ,
+//   "200,000원 ~ 300,000원",
+//   "300,000원 ~ 400,000원",
+//   "400,000원 ~ 500,000원",
+//   "500,000원 ~ 600,000원",
+//   "600,000원 ~ 700,000원",
+//   "700,000원 ~ 800,000원",
+//   "800,000원 ~ 900.000원",
+//   "900,000원 ~ 1,000,000원",
+//   "1,000,000원 이상",
+//   }
+// ];
+
 const PriceOptions = [
   "전체",
   "50,000원 이하",
@@ -34,15 +51,14 @@ const PriceOptions = [
   "900,000원 ~ 1,000,000원",
   "1,000,000원 이상",
 ];
-
 export default function MultipleSelectCheckmarks() {
-  const [personName, setPersonName] = React.useState([]);
+  const [priceRange, setPriceRange] = React.useState([]);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setPriceRange(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
@@ -54,17 +70,17 @@ export default function MultipleSelectCheckmarks() {
         <Select
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"
-          multiple
-          value={personName}
+          // multiple
+          value={priceRange}
           onChange={handleChange}
           input={<OutlinedInput sx={{ borderRadius: "100px" }} label="Tag" />}
           renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
         >
-          {PriceOptions.map((name) => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={personName.indexOf(name) > -1} />
-              <ListItemText primary={name} />
+          {PriceOptions.map((range) => (
+            <MenuItem key={range} value={range}>
+              <Checkbox checked={priceRange.indexOf(range) > -1} />
+              <ListItemText primary={range} />
             </MenuItem>
           ))}
         </Select>

@@ -35,13 +35,13 @@ const materialOptions = [
 ];
 
 export default function MultipleSelectCheckmarks() {
-  const [personName, setPersonName] = React.useState([]);
+  const [materialName, setMaterialName] = React.useState([]);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setMaterialName(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
@@ -53,8 +53,8 @@ export default function MultipleSelectCheckmarks() {
         <Select
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"
-          multiple
-          value={personName}
+          // multiple
+          value={materialName}
           onChange={handleChange}
           input={<OutlinedInput sx={{ borderRadius: "100px" }} label="Tag" />}
           renderValue={(selected) => selected.join(", ")}
@@ -62,7 +62,7 @@ export default function MultipleSelectCheckmarks() {
         >
           {materialOptions.map((name) => (
             <MenuItem key={name} value={name}>
-              <Checkbox checked={personName.indexOf(name) > -1} />
+              <Checkbox checked={materialName.indexOf(name) > -1} />
               <ListItemText primary={name} />
             </MenuItem>
           ))}

@@ -52,12 +52,18 @@ public interface ProductService {
 	//제품번호 이용해서 컬러별 대표사진 1개씩 가져오기
 	List<Map<String, Object>> getRepresentativeImage(int productNo);
 
-	//<상품목록 페이지>
+	//<상품목록 페이지> 카테고리/컬러/소재/가격별 제품목록 조회
 	List<Map<String, Object>> getProductListByFilter(Map<String, String> paramMap);
 
-	//<상품목록 페이지>
+	//<상품목록 페이지> 카테고리/컬러/소재/가격별 제품 이미지 목록 조회
 	List<Map<String, Object>> getProductImageListByFilter(Map<String, String> paramMap);
 
+	List<Map<String, Object>> getAllProductList();
+
+	List<Map<String, Object>> getAllProductImageList();
+
+	
+	
 }
 
 
