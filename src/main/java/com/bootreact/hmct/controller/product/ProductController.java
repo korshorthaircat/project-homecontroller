@@ -143,7 +143,7 @@ public class ProductController {
 	
 	// 제품 조회(상세정보) - 제품번호만 넘겨서 조회하기
 		@GetMapping("/productDetail")
-		public Map<String, Object> getProduct(@RequestParam int productNo) {
+		public Map<String, Object> getProduct(@RequestParam int productNo ) {
 			try {	
 
 				List<Map<String, Object>> productInfo = productService.getProduct(productNo);

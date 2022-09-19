@@ -24,7 +24,7 @@
     
   }
 
-  .btn {
+  .btnThumImg {
     width: 150px;
     height: 150px;
     padding: 0px;
@@ -52,7 +52,7 @@
 }
 
 
-.btn:hover {
+.btnThumImg:hover {
   border: 4px solid #b5c95a;
 }
 
@@ -302,3 +302,4 @@
   font-size: 25px;
   font-weight: 700;
 }
+
