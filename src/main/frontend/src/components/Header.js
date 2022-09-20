@@ -82,9 +82,9 @@ const Header = () => {
   const [loginUser, setLoginUser] = React.useState(null);
   const [word, setWord] = useState("");
 
-  const onSubmit = async() => {
+  const onSubmit = async () => {
     window.location.href = "/search/" + word;
-  }
+  };
 
   const logout = React.useCallback((e) => {
     // console.log(e);
@@ -169,11 +169,9 @@ const Header = () => {
                 <img className="logo" src="images/logo_2.png" alt="헤더로고" />
               </Link>
 
-              <Search >
+              <Search>
                 <SearchIconWrapper>
-                <SearchIcon />
-                 
-
+                  <SearchIcon />
                 </SearchIconWrapper>
                 <StyledInputBase
                   placeholder="검색어 입력"
@@ -184,13 +182,14 @@ const Header = () => {
                   }}
                 />
 
-                  <button
+                <button
                   type="button"
                   onClick={() => {
                     onSubmit();
-                  }}>
+                  }}
+                >
                   검색
-                  </button>
+                </button>
               </Search>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -226,7 +225,7 @@ const Header = () => {
                   color="inherit"
                 >
                   <Link href="/wishlist">
-                    <FavoriteBorderOutlinedIcon sx={{color : "black"}} />
+                    <FavoriteBorderOutlinedIcon sx={{ color: "black" }} />
                   </Link>
                 </IconButton>
 
@@ -239,7 +238,7 @@ const Header = () => {
                 >
                   <Link href="/cart">
                     <Badge badgeContent={cartCount} color="success">
-                      <ShoppingCartOutlinedIcon sx={{color : "black"}} />
+                      <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
                     </Badge>
                   </Link>
                 </IconButton>

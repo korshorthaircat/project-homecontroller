@@ -41,8 +41,8 @@ const modalstyle = {
 
 const Board = () => {
   const [inquiryTitle, setInquiryTitle] = React.useState("");
-  const [inquiryContent, setInquiryContent] = React.useState("");
-  const [inquiryAnswer, setInquiryAnswer] = React.useState("");
+  // const [inquiryContent, setInquiryContent] = React.useState("");
+  // const [inquiryAnswer, setInquiryAnswer] = React.useState("");
 
   const [open, setOpen] = React.useState(false);
   const [inquiryList, setInquiryList] = React.useState([]); //전체 게시글 목록
@@ -98,29 +98,17 @@ const Board = () => {
       .catch((e) => {});
   };
 
-  //선택한 게시글을 조회하는 함수
-  // const getInquiry = (inquiryNo) => {
-  //   axios({
-  //     url: "http://localhost:8080/api/inquiry/getInquiry",
-  //     method: "post",
-  //     data: { inquiryNo: inquiryNo },
-  //   })
-  //     .then((response) => {
-  //       console.log(response.data.data);
-  //       setInquiryInfo(response.data.data);
-  //     })
-  //     .catch((e) => {});
-  // };
-
   //게시글을 등록하는 함수
   const insertInquiryBoard = () => {
     axios({
       url: "http://localhost:8080/api/inquiry/insertInquiryBoard",
       method: "post",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+      },
       data: {
         inquiryTitle: inquiryTitle,
-        inquiryContent: inquiryContent,
-        userId: "gogo",
+        inquiryContent: inquiryInfo.inquiryContent,
       },
     })
       .then((response) => {
@@ -128,7 +116,45 @@ const Board = () => {
         window.location.href = "/board";
       })
       .catch((e) => {
-        console.log("1111" + e);
+        console.log(e);
+      });
+    window.location.href = "/board";
+  };
+
+  //게시글을 수정하는 함수(admin이 답변을 등록할 때 사용)
+  const updateInquiryBoard = () => {
+    axios({
+      url: "http://localhost:8080/api/inquiry/updateInquiryBoard",
+      method: "post",
+      data: {
+        inquiryNo: inquiryInfo.inquiryNo,
+        inquiryAnswer: inquiryInfo.inquiryAnswer,
+      },
+    })
+      .then((response) => {
+        setInquiryList(response.data);
+        window.location.href = "/board";
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  //게시글을 삭제하는 함수(admin이 답변을 등록할 때 사용)
+  const deleteInquiryBoard = () => {
+    axios({
+      url: "http://localhost:8080/api/inquiry/deleteInquiryBoard",
+      method: "delete",
+      data: {
+        inquiryNo: inquiryInfo.inquiryNo,
+      },
+    })
+      .then((response) => {
+        setInquiryList(response.data);
+        window.location.href = "/board";
+      })
+      .catch((e) => {
+        console.log(e);
       });
   };
 
@@ -148,6 +174,8 @@ const Board = () => {
   };
 
   const handleChange = (e) => {
+    console.log(e.target.name);
+    console.log(e.target.value);
     const updateInquiry = {
       ...inquiryInfo,
       [e.target.name]: e.target.value,
@@ -160,6 +188,18 @@ const Board = () => {
       <h1>고객 지원</h1>
       <h5>문의 게시판</h5>
 
+      {/*페이지네이션 표출할 데이터양*/}
+      <label className="orderOption">
+        페이지 당 표시할 게시물 수:&nbsp;
+        <select type="number" value={limit} onChange={changeLimit}>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+        </select>
+      </label>
+
+      {/* 게시글 검색바 */}
+      {/* 
       <Paper
         component="form"
         sx={{
@@ -170,32 +210,16 @@ const Board = () => {
           float: "right",
         }}
       >
-        {/* <IconButton sx={{ p: '10px' }} aria-label="menu">
-                <MenuIcon />
-              </IconButton> */}
         <InputBase
           sx={{ ml: 1, flex: 1 }}
-          placeholder="주문내역 검색"
+          placeholder="게시글 검색"
           inputProps={{ "aria-label": "search google maps" }}
         />
         <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
           <SearchIcon />
         </IconButton>
-        {/* <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-              <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
-                <DirectionsIcon />
-              </IconButton> */}
-      </Paper>
-
-      {/*페이지네이션 표출할 데이터양*/}
-      <label className="orderOption">
-        페이지 당 표시할 게시물 수:&nbsp;
-        <select type="number" value={limit} onChange={changeLimit}>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-        </select>
-      </label>
+      </Paper> 
+      */}
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -350,8 +374,10 @@ const Board = () => {
               <TableCell>
                 <textarea
                   type="text"
-                  style={{ border: "none", width: "400px", height: "300px" }}
+                  style={{ border: "none", width: "400px", height: "150px" }}
                   name="inquiryAnswer"
+                  onChange={handleChange}
+                  value={inquiryInfo.inquiryAnswer}
                 />
               </TableCell>
             </TableRow>
@@ -359,7 +385,6 @@ const Board = () => {
             <span class="buttonSpan">
               <Button
                 type="button"
-                value="update"
                 variant="contained"
                 color="success"
                 onClick={insertInquiryBoard}
@@ -367,23 +392,29 @@ const Board = () => {
                 등록
               </Button>
 
-              <Button
-                type="button"
-                value="update"
-                variant="contained"
-                color="success"
-              >
-                수정
-              </Button>
-
-              <Button
-                type="button"
-                value="delete"
-                variant="contained"
-                color="success"
-              >
-                삭제
-              </Button>
+              {JSON.parse(sessionStorage.getItem("USER_INFO")).userId ===
+              "admin" ? (
+                <>
+                  <Button
+                    type="button"
+                    variant="contained"
+                    color="success"
+                    onClick={updateInquiryBoard}
+                  >
+                    수정
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="contained"
+                    color="success"
+                    onClick={deleteInquiryBoard}
+                  >
+                    삭제
+                  </Button>
+                </>
+              ) : (
+                <div className="noButton">.</div>
+              )}
             </span>
           </Box>
         </form>
