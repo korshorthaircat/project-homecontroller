@@ -29,15 +29,21 @@ public class RefundServiceImpl implements RefundService{
     
   	//주문취소
     @Override
-	public void addCancel(int cancelNo, int orderNo,  String cancelAmount, String cancelStatus, String cancelReason) {
+	public void addCancel(int cancelNo, int orderNo,  String cancelAmount, String cancelStatus, String cancelReason ) {
     	//취소 정보 입력
     	refundMapper.addCancel(cancelNo, orderNo,  cancelAmount, cancelStatus, cancelReason);
     	
     	//환불 정보 입력
     	
-    	
     	//주문상태 업데이트
 	}
+    
+    @Override
+    public void addRefund(int refundNo, int cancelNo,String refundStatus, String refundAmount, String refundBank, String refundAccount, String refundName) {
+    	refundMapper.addRefund(refundNo, cancelNo, refundStatus, refundAmount, refundBank, refundAccount, refundName);
+    }
+    
+    
     
    
 }

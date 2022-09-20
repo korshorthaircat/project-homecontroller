@@ -34,7 +34,8 @@ public class RefundController {
  					
  			//주문상태			 
  			String cancelStatus = "취소 대기";
- 					
+ 			String refundStatus = "환불 대기";
+ 			String orderStatus = "취소 대기";		
  			//Cancel 테이블에 주문 정보 인서트(cancelRgsDate는 자동생성)
  			refundService.addCancel(
  					              cancelNo,
@@ -43,14 +44,17 @@ public class RefundController {
  								  cancelStatus, 
  								  paramMap.get("cancelReason").toString()); 
  			
-// 			refundService.addRefund(
-//			 					  paramMap.get("refundNo").toString(),
-//								  paramMap.get("refundAmount").toString(),
-//								  paramMap.get("refundBank").toString(),
-//								  paramMap.get("refundAccount").toString(),
-//								  paramMap.get("refundName").toString(),
-//								  paramMap.get("cancelStatus").toString(), 
-//								  paramMap.get("cancelReason").toString());				             
+ 			refundService.addRefund(
+			 					  refundNo,
+								  cancelNo,
+								  refundStatus,
+								  paramMap.get("refundAmount").toString(),
+								  paramMap.get("refundBank").toString(),
+								  paramMap.get("refundAccount").toString(),
+								  paramMap.get("refundName").toString());
+ 			
+ 			orderService.updateStaus( Integer.parseInt(paramMap.get("orderNo").toString()), orderStatus);
+ 			
      	}catch(Exception e){
      		System.out.println(e.getMessage());
      	}

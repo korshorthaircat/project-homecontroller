@@ -24,5 +24,18 @@ public interface RefundMapper {
 			       @Param("cancelStatus")String cancelStatus, 
 			       @Param("cancelReason")String cancelReason
 			       );
+	
+	@Insert("insert into t_hmct_refnd ("
+    		+ "refund_no, cancel_no, refund_status, refund_amount, refund_date, refund_bank, refund_account, refund_name"
+    		+ ") values ("
+    		+ "(SELECT IFNULL(MAX(A.refund_no), 0) + 1 FROM t_hmct_refnd A), #{cancelNo}, #{refundStatus}, #{refundAmount}, now(), #{refundBank}, #{refundAccount}, #{refundName} )")
+	void addRefund(@Param ("refundNo")int refundNo,
+			       @Param ("cancelNo") int cancelNo,
+			       @Param("refundStatus") String refundStatus,
+			       @Param("refundAmount") String refundAmount, 
+			       @Param("refundBank") String refundBank, 
+			       @Param("refundAccount")String refundAccount, 
+			       @Param("refundName")String refundName
+			       );
 
 }

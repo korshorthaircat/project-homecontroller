@@ -101,16 +101,11 @@ public class OrderServiceImpl implements OrderService{
 	public List<Order> getMyOrderList(String userId) {
     	return orderRepository.findByUserUserId(userId);
 	}
-
 	
-
-
-
-	
-
-	
-
-	
-
+	//주문 상태 변화
+	@Override
+	public void updateStaus(int orderNo, String orderStatus) {
+		orderMapper.updateStatus(orderNo, orderStatus);
+	}
     
 }
