@@ -11,6 +11,7 @@ import List from "@mui/material/List";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import { useEffect } from "react";
 
 const mdTheme = createTheme();
 
@@ -19,6 +20,8 @@ const showroomFileList = []; // 업로드한 파일들을 저장하는 배열
 function ShowroomAdd() {
   //완료시 모달창 띄우기
   const [show, setShow] = useState(false);
+  const [itemCount, setItemCount] = useState(1);
+  const [ShowroomColor, setShowroomColor] = React.useState("red");
 
   //이미지 업로드
   const onshowroomChangeImg = (e) => {
@@ -33,38 +36,37 @@ function ShowroomAdd() {
   const onShowroomSubmitHandler = (event) => {
     event.preventDefault();
 
-    const f = new FormData(event.target);
-
     const fObj = {};
-    f.forEach((value, key) => (fObj[key] = value));
 
-    fObj.uploadFiles = showroomFileList;
+    const inputArr = [];
 
-    const showroomItems = [];
-    console.log(fObj[`productNo1`]);
-    for (let i = 1; i < 6; i++) {
-      if (fObj[`productNo${i}`] !== "" && fObj[`productNo${i}`] !== null) {
-        showroomItems.push(fObj[`productNo${i}`]);
-      }
+    for (let i = 1; i <= itemCount; i++) {
+      const inputObj = {};
+
+      const key1 = document.getElementById(`productNo${i}`).name;
+      const key2 = document.getElementById(`productLocationLeft${i}`).name;
+      const key3 = document.getElementById(`productLocationTop${i}`).name;
+
+      const value1 = document.getElementById(`productNo${i}`).value;
+      const value2 = document.getElementById(`productLocationLeft${i}`).value;
+      const value3 = document.getElementById(`productLocationTop${i}`).value;
+
+      inputObj[key1] = value1;
+      inputObj[key2] = value2;
+      inputObj[key3] = value3;
+
+      inputArr.push(inputObj);
     }
 
-    fObj.showroomItems = showroomItems;
-    fObj.showroomItemsLength = showroomItems.length;
-    // const formData = new FormData();
+    console.log(inputArr);
 
-    // formData.append(
-    //   "productNo",
-    //   new Blob([JSON.stringify(event.target.productNo.value)], {
-    //     type: "application/json",
-    //   })
-    // );
-
-    // fileList.forEach((file) => {
-    //   // 파일 데이터 저장
-    //   formData.append("uploadFiles", file);
-    // });
+    fObj["itemList"] = JSON.stringify(inputArr);
+    fObj["showroomColor"] = ShowroomColor;
+    fObj.uploadFiles = showroomFileList;
 
     console.log(fObj.uploadFiles);
+
+    console.log(fObj);
 
     axios({
       url: "http://localhost:8080/api/admin/insertShowroom",
@@ -125,13 +127,53 @@ function ShowroomAdd() {
       label: "분홍색",
     },
   ];
-  const [ShowroomColor, setShowroomColor] = React.useState("");
 
   const handleShowroomColorChange = (event) => {
     setShowroomColor(event.target.value);
   };
 
   const handleClose = () => setShow(false);
+
+  const itemAdd = () => {
+    setItemCount((prev) => prev + 1);
+  };
+
+  const itemDelete = () => {
+    setItemCount((prev) => prev - 1);
+  };
+
+  const itemTagAdd = () => {
+    const tagArr = [];
+
+    for (let i = 1; i <= itemCount; i++) {
+      tagArr.push(
+        <div key={i}>
+          <TextField
+            id={`productNo${i}`}
+            name="productNo"
+            label={`제품번호${i}`}
+            type="number"
+          />
+          <TextField
+            id={`productLocationLeft${i}`}
+            name="productLocationLeft"
+            label={`제품번호${i} - 제품left위치`}
+            type="text"
+            helperText="ex) 30%"
+          />
+          <TextField
+            id={`productLocationTop${i}`}
+            name="productLocationTop"
+            label={`제품번호${i} - 제품top위치`}
+            type="text"
+            helperText="ex) 45%"
+          />
+          <br />
+        </div>
+      );
+    }
+    return tagArr;
+  };
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -176,28 +218,29 @@ function ShowroomAdd() {
                   ))}
                 </TextField>
                 <br />
-                <TextField
-                  id="outlined-required"
-                  name="productNo1"
-                  label="제품번호1"
-                  type="number"
-                />
-                <TextField
-                  id="outlined-required"
-                  name="productLocationLeft1"
-                  label="제품번호1 - 제품left위치"
-                  type="text"
-                  helperText="ex) left: ''30%''"
-                />
-                <TextField
-                  id="outlined-required"
-                  name="productLocationTop1"
-                  label="제품번호1 - 제품top위치"
-                  type="text"
-                  helperText="ex) top: ''45%''"
-                />
-                <br />
-                <TextField
+                {itemTagAdd()}
+                {/* <TextField
+                    id="outlined-required"
+                    name="productNo1"
+                    label="제품번호1"
+                    type="number"
+                  />
+                  <TextField
+                    id="outlined-required"
+                    name="productLocationLeft1"
+                    label="제품번호1 - 제품left위치"
+                    type="text"
+                    helperText="ex) left: ''30%''"
+                  />
+                  <TextField
+                    id="outlined-required"
+                    name="productLocationTop1"
+                    label="제품번호1 - 제품top위치"
+                    type="text"
+                    helperText="ex) top: ''45%''"
+                  />
+                  <br /> */}
+                {/* <TextField
                   id="outlined-required"
                   name="productNo2"
                   label="제품번호2"
@@ -271,8 +314,23 @@ function ShowroomAdd() {
                   name="productLocationTop1"
                   label="제품번호5 - 제품top위치"
                   type="text"
-                />
-
+                /> */}
+                <Button
+                  variant="contained"
+                  color="success"
+                  type="button"
+                  onClick={itemAdd}
+                >
+                  상품+
+                </Button>
+                <Button
+                  variant="contained"
+                  color="success"
+                  type="button"
+                  onClick={itemDelete}
+                >
+                  상품-
+                </Button>
                 <Box
                   sx={{
                     "& .MuiTextField-root": { m: 1, width: "46%" },

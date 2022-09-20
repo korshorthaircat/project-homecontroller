@@ -8,11 +8,14 @@ import ShowroomBox from "../main/ShowroomBox";
 import "../../css/showroom.css";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import { width } from "@mui/system";
 
 const InteriorShowroom = () => {
   const [showroomImg, setShowroomImg] = React.useState([]);
 
   const [showroomImgData, setShowroomImgData] = useState([]);
+
+  const [showroomItem, setShowroomItem] = useState([]);
 
   const [cnt, setCnt] = useState(0);
 
@@ -22,8 +25,10 @@ const InteriorShowroom = () => {
     axios
       .get(showroomListUrl, {})
       .then((response) => {
-        setShowroomImg(response.data.data);
-        setShowroomImgData(response.data.data.slice(0, 4));
+        console.log(response.data);
+        setShowroomImg(response.data.showroomList);
+        setShowroomItem(response.data.showroomItemList);
+        setShowroomImgData(response.data.showroomList.slice(0, 4));
       })
       .catch((e) => {
         console.log(e);
@@ -41,6 +46,7 @@ const InteriorShowroom = () => {
     let copy = showroomImgData.concat(
       showroomImg.slice(4 * cnt, 4 * (cnt + 1))
     );
+
     console.log(copy);
     setShowroomImgData(copy);
   }, [cnt]);
@@ -53,11 +59,12 @@ const InteriorShowroom = () => {
       params: { showroomColor: color },
     })
       .then((response) => {
-        console.log(response.data.data);
-        setShowroomImg(response.data.data);
-        if (response.data.data.length > 4)
-          setShowroomImgData(response.data.data.slice(0, 4));
-        else setShowroomImgData(response.data.data);
+        console.log(response.data.colorShowroomList);
+        setShowroomImg(response.data.colorShowroomList);
+        setShowroomItem(response.data.colorShowroomItemList);
+        if (response.data.colorShowroomList.length > 4)
+          setShowroomImgData(response.data.colorShowroomList.slice(0, 4));
+        else setShowroomImgData(response.data.colorShowroomList);
       })
       .catch((e) => {});
   };
@@ -66,10 +73,10 @@ const InteriorShowroom = () => {
     <div>
       <div>
         <ShowroomTop></ShowroomTop>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 4 }}>
           <Grid container spacing={2} columns={16}>
             {showroomImgData.map((a) => (
-              <ShowroomBox item={a} />
+              <ShowroomBox item={a} showroomItem={showroomItem} />
             ))}
           </Grid>
         </Box>

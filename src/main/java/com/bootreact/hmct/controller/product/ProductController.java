@@ -215,39 +215,35 @@ public class ProductController {
 //		return null;
 //	}
 //
-//	//하트 클릭 시 위시리스트 추가
 //	
-//
-//	//하트 재클릭 시 위시리스트 삭제 
-//	
-//
-//	//색상 선택 → 수량 선택 → 구매하기 버튼 클릭 시 장바구니에 추가 
-//	
-//
-//	
-//	//제품목록
-//
-//	//카테고리 선택시 해당 제품만 나오게 필터(색상, 소재, 카테고리 별)
-//	
-//
-//	// 더보기 클릭시 사진 추가 
-//	
-//
-//	//장바구니 클릭시 장바구니 추가
-//	
-//
-//	//하트 클릭 시 위시리스트 추가
-//	
-//
-//	//하트 재클릭 시 위시리스트 삭제
-//	
-//
-//	//필터 카테고리 세부사항 - 세부사항 조정 및 클릭시 그에 해당하는 제품들 출력 
-//	
-//
-//	
-//	//인테리어 쇼룸
-//
+//	//인테리어 쇼룸 - 호버시 제품 상세정보 불러오기 
+		@PostMapping("/getShowroomProductItem")
+		public Map<String, Object> getShowroomProductItem(@RequestBody Map<String, String> paramMap) {
+			try {
+				
+				System.out.println("안녕하세요~!~~~~~~~~~~~~~~~~~~~~~~~~~");
+				System.out.println("//////////////////////////////////" + paramMap);
+				
+				List<Map<String, Object>> showroomProductItem =  showroomService.getShowroomProductItem(
+						Integer.parseInt(paramMap.get("productNo"))
+						);
+				
+				Map<String, Object> returnMap = new HashMap<String, Object>();
+				
+				returnMap.put("showroomProductItem", showroomProductItem);
+				
+				return returnMap;
+			} catch(Exception e) {
+				Map<String, Object> errorMap = new HashMap<String, Object>();
+				errorMap.put("error", e.getMessage());
+				return errorMap;
+				
+			}
+		}
+		
+
+		
+		
 	//색상 선택시 해당 색상 인테리어 쇼룸 이미지 조회(더보기 클릭시 추가)
 	@GetMapping("/getShowroomList")
 	public ResponseEntity<?> getShowroomList() {

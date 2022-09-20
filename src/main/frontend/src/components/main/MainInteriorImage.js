@@ -2,7 +2,6 @@ import React from "react";
 import "../../css/mainInteriorImage.css";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import { BsRecordCircle } from "react-icons/bs";
 import HoverIcon from "./HoverIcon";
 import axios from "axios";
 
@@ -33,7 +32,6 @@ const MainInteriorImage = () => {
     list();
   }, []);
 
-
   return (
     <div>
       <div className="ttt">
@@ -47,12 +45,8 @@ const MainInteriorImage = () => {
           <HoverIcon />
         </div>
       ))}
-
-      <HoverIcon />
     </div>
   );
-
-   
 };
 
 export default MainInteriorImage;
