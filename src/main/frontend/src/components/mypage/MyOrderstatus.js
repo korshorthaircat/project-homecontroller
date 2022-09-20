@@ -25,6 +25,7 @@ import { useEffect } from "react";
 const mdTheme = createTheme();
 
 const MyOrderstatus = () => {
+    //주문 목록 부분
     const location = useLocation({});
     const [orderNo, setOrderNo] = useState(location.state);
     const [orderDetail, setOrderDetail] = useState({});
@@ -55,7 +56,11 @@ const MyOrderstatus = () => {
             method: "post",
             data: {orderNo : orderNo,
                    cancelAmount : cancelAmount,
-                   cancelReason: cancelReason,}
+                   cancelReason: cancelReason,
+                   refundAccount: refundAccount,
+                   refundAmount : refundAmount,
+                   refundBank : refundBank,
+                   refundName : refundName}
             })
             .then((response) => {
             //   setOrderNo(response.data);
@@ -66,15 +71,16 @@ const MyOrderstatus = () => {
             });
         }
     };
-
+    
+    //토글 부분
     const [toggleState, setToggleState] = useState(1);
 
     const toggleTab = (index) => {
         setToggleState(index);
     };
     
+    //서브밋할 내용(Cancel)
     const [cancelReason, setCancelReason] = React.useState(" ");
-    const [cancelStatus, setCancelStatus] = React.useState(" ");
     const [cancelAmount, setCancelAmount] = React.useState(0);
     const onCRHandler = (e) =>{
         setCancelReason(e.target.value);
@@ -90,9 +96,30 @@ const MyOrderstatus = () => {
     };
 
     useEffect(() => {
-      setCancelAmount(prev => orderDetail.paymentAmount)
+      setCancelAmount(prev => orderDetail.paymentAmount);
+      setRefundAmount(prev => orderDetail.paymentAmount);
     }, [orderDetail]);
 
+    //서브밋할 내용(Refund)
+    const [refundAmount, setRefundAmount] = React.useState(0);
+    const [refundBank, setRefundBank] = React.useState(" ");
+    const [refundAccount, setRefundAccount] = React.useState(" ");
+    const [refundName, setRefundName] = React.useState(" ");
+
+    const RFBHandler = (e) =>{
+        setRefundBank(e.target.value);
+    };
+
+    const RFAHandler = (e) =>{
+        setRefundAccount(e.target.value);
+    };
+
+    const RFNHandler = (e) =>{
+        setRefundName(e.target.value);
+    };
+    //서브밋할 내용(Return)
+    
+    //서브밋할 내용(Exchange)
     return (
         <ThemeProvider theme={mdTheme} >
             <Box sx={{ display: "flex" }} > 
@@ -213,7 +240,7 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none" }}
-                                            
+                                            name = "refundAccount"
                                             placeholder="환불 계좌를 적어주세요"
                                         />
                                         </TableCell> 
@@ -224,7 +251,7 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none"}}
-                                            
+                                            name="refundBank"
                                             placeholder="환불 은행을 적어주세요"
                                         />
                                         </TableCell> 
@@ -235,7 +262,7 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none"}}
-                                            
+                                            name="refundName"
                                             placeholder="예금주 명을 적어주세요"
                                         />
                                         </TableCell> 
@@ -381,8 +408,9 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none" }}
-                                            
-                                            placeholder="환불 계좌를 적어주세요"
+                                            name="refundAccount"
+                                            value={refundAccount}
+                                            onChange={RFAHandler}
                                         />
                                         </TableCell> 
                                         <TableCell component={"th"} sx={{backgroundColor: "#DCDCDC", borderBottom: "1px solid white" , padding:"0" , textAlign:"center"}}>
@@ -392,8 +420,9 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none"}}
-                                            
-                                            placeholder="환불 은행을 적어주세요"
+                                            name="refundBank"
+                                            value={refundBank}
+                                            onChange={RFBHandler}
                                         />
                                         </TableCell> 
                                         <TableCell component={"th"} sx={{backgroundColor: "#DCDCDC", borderBottom: "1px solid white" , padding:"0" , textAlign:"center"}}>
@@ -403,8 +432,9 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none"}}
-                                            
-                                            placeholder="예금주 명을 적어주세요"
+                                            name="refundName"
+                                            value={refundName}
+                                            onChange={RFNHandler}
                                         />
                                         </TableCell> 
                                         
@@ -468,7 +498,8 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none" , outline:"none"}}
-                                            value={orderDetail.paymentAmount}
+                                            value={refundAmount}
+                                            name="refundAmount"
                                             readOnly
                                         />
                                         </TableCell>
