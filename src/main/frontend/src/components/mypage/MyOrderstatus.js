@@ -29,7 +29,7 @@ const MyOrderstatus = () => {
     const [orderNo, setOrderNo] = useState(location.state);
     const [orderDetail, setOrderDetail] = useState({});
     const [orderItemList, setOrderItemList] = useState([]);
-
+ 
     React.useEffect(() => {
         if(orderNo !== 0) {
             console.log(orderNo);
@@ -51,24 +51,13 @@ const MyOrderstatus = () => {
         e.preventDefault();
         if (document.activeElement.value === "update") {
         axios({
-            url: "http://localhost:8080/api/order/updateOrder",
-            method: "put",
-            data: {orderNo: orderNo,
-                     orderStatus: orderDetail.orderStatus,
-                     deliveryAddress: orderDetail.deliveryAddress,
-                     deliveryDetailAddress: orderDetail.deliveryDetailAddress,
-                     deliveryMessage: orderDetail.deliveryMessage,
-                     deliveryName: orderDetail.deliveryName,
-                     deliveryTel: orderDetail.deliveryTel,
-                     deliveryTrackingNo: orderDetail.deliveryTrackingNo,
-                     paymentName: orderDetail.paymentName,}
+            url: "http://localhost:8080/api/refund/createCancel",
+            method: "post",
+            data: {orderNo : orderNo}
             })
             .then((response) => {
             //   setOrderNo(response.data);
-              console.log(response.data);
-              navigate("/OrderList");
-              //location(response);             
-              //window.location.href = "/";
+              console.log(response);
             })
             .catch((e) => {
               console.log("update오류" + e);
@@ -82,20 +71,27 @@ const MyOrderstatus = () => {
           [e.target.name]: e.target.value,
         };
         setOrderDetail(updateOrder);
-      };
+    };
 
-      const [toggleState, setToggleState] = useState(1);
+    const [toggleState, setToggleState] = useState(1);
 
-      const toggleTab = (index) => {
+    const toggleTab = (index) => {
         setToggleState(index);
-      };
+    };
     
     const [reason, setReason] = React.useState(" ");
-
+    const [reason2, setReason2] = React.useState(" ");
+    const [reason3, setReason3] = React.useState(" ");
     const handleChange2 = (e) => {
       setReason(e.target.value);
-    };  
-    
+    };
+    const handleChange3 = (e) => {
+        setReason2(e.target.value);
+      }; 
+    const handleChange4 = (e) => {
+    setReason3(e.target.value);
+    };   
+
     return (
         <ThemeProvider theme={mdTheme} >
             <Box sx={{ display: "flex" }} > 
@@ -143,13 +139,13 @@ const MyOrderstatus = () => {
                                 className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
                                 onClick={() => toggleTab(2)}
                                 >
-                                교환
+                                주문 취소
                                 </div>
                                 <div
                                 className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
                                 onClick={() => toggleTab(3)}
                                 >
-                                주문 취소
+                                교환
                                 </div>
                             </div>
                         </Box>
@@ -182,7 +178,7 @@ const MyOrderstatus = () => {
 
                             <Typography variant="h6" sx={{marginTop: "50px"}}>반품 사유</Typography>
                             <Divider sx={{my: 2, borderBottom: "2px solid gray"}} style={{width:"100%"}}/>
-                            <FormControl sx={{ m: 1, minWidth: 80 }}
+                            <FormControl sx={{ m: 1, minWidth: 20 }}
                                     style={{marginTop: "20px"}}>
                                 <InputLabel id="demo-simple-select-autowidth-label">반품 사유를 선택해 주세요</InputLabel>
                                 <Select
@@ -191,20 +187,19 @@ const MyOrderstatus = () => {
                                     value={reason}
                                     onChange={handleChange2}
                                     label="반품 사유를 선택해 주세요"
-                                    autoWidth
+                                    
                                     >
-                                    <MenuItem value={1}>단순 변심</MenuItem>
-                                    <MenuItem value={2}>기타 사유</MenuItem>
-                                    <MenuItem value={3}>실수로 주문함</MenuItem>
-                                    <MenuItem value={4}>타 사이트의 가격이 더 저렴함</MenuItem>
-                                    <MenuItem value={5}>제품 정보와 상이</MenuItem>
+                                    <MenuItem value={"단순 변심"}>단순 변심</MenuItem>
+                                    <MenuItem value={" "}>기타 사유</MenuItem>
+                                    <MenuItem value={"실수로 주문함"}>실수로 주문함</MenuItem>
+                                    <MenuItem value={"타 사이트의 가격이 더 저렴함"}>타 사이트의 가격이 더 저렴함</MenuItem>
+                                    <MenuItem value={"제품 정보와 상이"}>제품 정보와 상이</MenuItem>
                                 </Select>
-                            </FormControl>
-                            <TextareaAutosize style={{width: "50%", minHeight: "50px", resize: "none", marginTop:"20px"}}
-                                            value={orderDetail.orderMemo}
-                                            onChange={handleChange}
+                                <TextareaAutosize style={{width: "500px", minHeight: "50px", resize: "none", marginTop:"20px"}}
+                                            value={reason}
+                                            onChange={handleChange2}
                                             name="orderMemo"/>
-                            
+                            </FormControl>                                               
                             <Typography variant="h6" sx={{marginTop: "50px"}}>결제 정보</Typography>
                             <Divider sx={{my: 2 , borderBottom: "2px solid gray"}}style={{width:"100%"}}/>
                             <Box sx={{marginTop:"20px"}}>
@@ -310,7 +305,7 @@ const MyOrderstatus = () => {
                                 <Button
                                     type="submit"
                                     sx={{ marginTop: "20px", width:"150px" }}
-                                    value="update"
+                                    value=" "
                                     >
                                     <img className="OrderEdit" src="images/edit.png" />
                                         반품 
@@ -344,31 +339,30 @@ const MyOrderstatus = () => {
                             </Table>                       
                             </Box>
 
-                            <Typography variant="h6" sx={{marginTop: "50px"}}>주문 취소</Typography>
+                            <Typography variant="h6" sx={{marginTop: "50px"}}>취소 사유</Typography>
                             <Divider sx={{my: 2 , borderBottom: "2px solid gray"}}style={{width:"100%"}}/>
-                            <FormControl sx={{ m: 1, minWidth: 80 }}
+                            <FormControl sx={{ m: 1, minWidth: 20 }}
                                     style={{marginTop: "20px"}}>
-                                <InputLabel id="demo-simple-select-autowidth-label">주문 취소 사유를 선택해 주세요</InputLabel>
+                                <InputLabel id="demo-simple-select-autowidth-label2">취소 사유를 선택해 주세요</InputLabel>
                                 <Select
-                                    labelId="demo-simple-select-autowidth-label"
+                                    labelId="demo-simple-select-autowidth-label2"
                                     id="demo-simple-select-autowidth"
-                                    value={reason}
-                                    onChange={handleChange2}
-                                    label="반품 사유를 선택해 주세요"
-                                    autoWidth
+                                    value={reason2}
+                                    onChange={handleChange3}
+                                    label="취소 사유를 선택해 주세요"
+                                    
                                     >
-                                    <MenuItem value={1}>단순 변심</MenuItem>
-                                    <MenuItem value={2}>기타 사유</MenuItem>
-                                    <MenuItem value={3}>실수로 주문함</MenuItem>
-                                    <MenuItem value={4}>타 사이트의 가격이 더 저렴함</MenuItem>
-                                    <MenuItem value={5}>제품 정보와 상이</MenuItem>
+                                    <MenuItem value={"단순 변심"}>단순 변심</MenuItem>
+                                    <MenuItem value={" "}>기타 사유</MenuItem>
+                                    <MenuItem value={"실수로 주문함"}>실수로 주문함</MenuItem>
+                                    <MenuItem value={"타 사이트의 가격이 더 저렴함"}>타 사이트의 가격이 더 저렴함</MenuItem>
+                                    <MenuItem value={"제품 정보와 상이"}>제품 정보와 상이</MenuItem>
                                 </Select>
-                            </FormControl>
-                            <TextareaAutosize style={{width: "50%", minHeight: "50px", resize: "none", marginTop:"20px"}}
-                                            value={orderDetail.orderMemo}
-                                            onChange={handleChange}
-                                            name="orderMemo"/>
-
+                                <TextareaAutosize style={{width: "500px", minHeight: "50px", resize: "none", marginTop:"20px"}}
+                                            value={reason2}
+                                            onChange={handleChange3}
+                                            name="cancelReason"/>
+                            </FormControl>           
                             <Typography variant="h6" sx={{marginTop: "50px"}}>결제 정보</Typography>
                             <Divider sx={{my: 2 , borderBottom: "2px solid gray"}}style={{width:"100%"}}/>
                             <Box sx={{marginTop:"20px"}}>
@@ -510,33 +504,32 @@ const MyOrderstatus = () => {
 
                             <Typography variant="h6" sx={{marginTop: "50px"}}>교환 사유</Typography>
                             <Divider sx={{my: 2 , borderBottom: "2px solid gray"}}style={{width:"100%"}}/>
-                            <FormControl sx={{ m: 1, minWidth: 80 }}
+                            <FormControl sx={{ m: 1, minWidth: 20 }}
                                     style={{marginTop: "20px"}}>
-                                <InputLabel id="demo-simple-select-autowidth-label">교환 사유를 선택해 주세요</InputLabel>
+                                <InputLabel id="demo-simple-select-autowidth-label3">교환 사유를 선택해 주세요</InputLabel>
                                 <Select
-                                    labelId="demo-simple-select-autowidth-label"
+                                    labelId="demo-simple-select-autowidth-label3"
                                     id="demo-simple-select-autowidth"
-                                    value={reason}
-                                    onChange={handleChange2}
+                                    value={reason3}
+                                    onChange={handleChange4}
                                     label="반품 사유를 선택해 주세요"
-                                    autoWidth
+                                    
                                     >
-                                    <MenuItem value={1}>단순 변심</MenuItem>
-                                    <MenuItem value={2}>기타 사유</MenuItem>
-                                    <MenuItem value={3}>실수로 주문함</MenuItem>
-                                    <MenuItem value={4}>제품 정보와 상이</MenuItem>
+                                    <MenuItem value={"단순 변심"}>단순 변심</MenuItem>
+                                    <MenuItem value={" "}>기타 사유</MenuItem>
+                                    <MenuItem value={"실수로 주문함"}>실수로 주문함</MenuItem>
+                                    <MenuItem value={"제품 정보와 상이"}>제품 정보와 상이</MenuItem>
                                 </Select>
-                            </FormControl>
-                            <TextareaAutosize style={{width: "50%", minHeight: "50px", resize: "none", marginTop:"20px"}}
-                                            value={orderDetail.orderMemo}
-                                            onChange={handleChange}
+                                <TextareaAutosize style={{width: "500px", minHeight: "50px", resize: "none", marginTop:"20px"}}
+                                            value={reason3}
+                                            onChange={handleChange4}
                                             name="orderMemo"/>
-
+                            </FormControl>           
                             <Box sx={{marginLeft: "40%", marginTop: "30px"}}>
                                 <Button
                                     type="submit"
                                     sx={{ marginTop: "20px", width:"150px" }}
-                                    value="update"
+                                    value=" "
                                     >
                                     <img className="OrderEdit" src="images/edit.png" />
                                         교환

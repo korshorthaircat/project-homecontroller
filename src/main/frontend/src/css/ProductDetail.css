@@ -1,10 +1,13 @@
+
 .main {
   display: flex;
 }
 
+
+/*이미지박스 ImageThumb*/
 .imgBox {
-    margin-left: 10%;
-    width: 50%;
+    margin-left: 18%;
+    width: 40%;
     height: auto;
     margin-top: 50px;
 }
@@ -21,7 +24,7 @@
     
   }
 
-  .btn {
+  .btnThumImg {
     width: 150px;
     height: 150px;
     padding: 0px;
@@ -29,6 +32,7 @@
     border-radius: 0px;
   }
 
+  /*좌측 메뉴바 ProductDetailInfo*/
   #productDetailInfoAll {
     margin: 20px;
     font-size: 22px;
@@ -48,7 +52,7 @@
 }
 
 
-.btn:hover {
+.btnThumImg:hover {
   border: 4px solid #b5c95a;
 }
 
@@ -105,6 +109,8 @@
     background-color: rgb(255, 255, 255);
   }
 
+
+  /*우측 ProductMainInfo*/
   .selectColorBtn{
     width: 80px;
     height: 80px;
@@ -123,6 +129,13 @@
 
   .selectColorUnder:hover{
     text-decoration: underline;
+  }
+
+  .ColorSelectImg:hover {
+    transform: scale(1.1);
+    transition: transform .1s;
+    border: #929292 solid 1px;
+
   }
   
   .line2 {
@@ -284,10 +297,9 @@
 }
 
 
-  .sameCategory {
-    width: 1600px;
-  }
+/*비슷한 카테고리 SameCategory*/
+.sameCategoryTitle {
+  font-size: 25px;
+  font-weight: 700;
+}
 
-  .sameCategory{
-    margin: 30px;
-  }

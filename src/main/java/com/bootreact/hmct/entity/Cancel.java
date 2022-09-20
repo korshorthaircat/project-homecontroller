@@ -46,6 +46,7 @@ public class Cancel {
 	@Column
 	private String cancelAmount;
 	
+	//취소 사유
 	private String cancelReason;
 	
 }

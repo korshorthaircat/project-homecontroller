@@ -1,38 +1,35 @@
 package com.bootreact.hmct.service.refund.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bootreact.hmct.mapper.RefundMapper;
-import com.bootreact.hmct.repository.CancelRepository;
 import com.bootreact.hmct.repository.RefundRepository;
-import com.bootreact.hmct.repository.RetunRepository;
 import com.bootreact.hmct.service.refund.RefundService;
 
 @Service
 public class RefundServiceImpl implements RefundService{
-    @Autowired
-    CancelRepository cancelRepository;
     
     @Autowired
     RefundRepository refundRepository;
-    
-    @Autowired
-    RetunRepository retunRepository;
-    
+     
     @Autowired
     RefundMapper refundMapper;
     
+  	//주문취소
     @Override
-    public Map<String, Object> createCancel(Map<String, Object> paramMap){
+	public void addCancel(int orderNo, String cancelNo, String cancelAmount, String cancelStatus, String cancelReason) {
+    	//취소 정보 입력
+    	refundMapper.addCancel(orderNo, cancelNo, cancelAmount, cancelStatus, cancelReason);
     	
-    	Map<String, Object> resultMap = new HashMap<String, Object>();
+    	//환불 정보 입력
     	
     	
-    	return resultMap;
-    	
-    }
+    	//주문상태 업데이트
+	}
+    
+    @Override
+	public int createCancelNo() {
+		return refundMapper.createCancelNo();
+	}
 }

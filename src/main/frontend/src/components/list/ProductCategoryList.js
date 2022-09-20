@@ -15,10 +15,33 @@ import Categoryinfo from "./Categoryinfo";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
+import axios from "axios";
 
 const ProductCategoryList = () => {
   const [productList, setProductList] = useState([]);
   const [productImageList, setProductImageList] = useState([]);
+  const [filteredProductList, setShowProductList] = useState([]);
+  const [filteredProductImageList, setShowProductImageList] = useState([]);
+
+  //제품조회 필터링 조건
+  const [commonCode, setCommonCode] = useState("색상");
+  const [productMaterial, setProductMaterial] = useState("소재");
+  const [lowestPrice, setLowestPrice] = useState(0);
+  const [highestPrice, setHighestPrice] = useState(100000000);
+
+  const onCommonCodeHandler = (commonCode) => {
+    setCommonCode(commonCode);
+  };
+  const onProductMaterialHandler = (productMaterial) => {
+    setProductMaterial(productMaterial);
+  };
+  const onLowestPriceHandler = (lowestPrice) => {
+    setLowestPrice(lowestPrice);
+  };
+  const onHighestPriceHandler = (highestPrice) => {
+    setHighestPrice(highestPrice);
+  };
+
   const categoryList = [
     {
       title: "침대",
@@ -123,15 +146,29 @@ const ProductCategoryList = () => {
         "화장대를 찾고 계신가요? HOME CONTROLLER에는 다양한 화장대가 준비되어 있어서 집안에 필요한 화장대를 쉽게 찾으실 수 있어요. 어떤 화장대를 원하시든 맞는 의자를 만나실 수 있을 거예요.",
     },
   ];
+  // useEffect(() => {
+  //   showProductList.foreach((showproduct) => {
+  //     setShowProductImageList(
+  //       productImageList.filter(
+  //         (productImage) =>
+  //           showproduct.productNo === productimage.productNo &&
+  //           showproduct.commonCode === productimage.commonCode
+  //       )
+  //     );
+  //   });
+  // }, [showProductList]);
 
   const getProducts = async () => {
-    let url = `http://localhost:8080/api/main/getMainProductList`;
+    let url = `http://localhost:8080/api/product/getAllProductList`;
     let response = await fetch(url);
     let data = await response.json();
     console.log(data);
     setProductList(data.productList);
     setProductImageList(data.productImageList);
   };
+  // oncolorchange = (e) => {
+  //   setFilteredProductList((prev) => prev.filter((p) => e.target.value === p.commonCode));
+  // };
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -143,7 +180,9 @@ const ProductCategoryList = () => {
 
   useEffect(() => {
     getProducts();
+    console.log(commonCode);
   }, []);
+
   return (
     <div className="cute">
       {categoryList.map((a) => (
@@ -153,9 +192,14 @@ const ProductCategoryList = () => {
         <AppBar position="static">
           <Toolbar sx={{ backgroundColor: "lightgray" }}>
             <Button color="inherit">필터</Button>
-            <ColorChip></ColorChip>
-            <MaterialChip></MaterialChip>
-            <PriceChip></PriceChip>
+            <ColorChip onCommonCodeHandler={onCommonCodeHandler}></ColorChip>
+            <MaterialChip
+              onProductMaterialHandler={onProductMaterialHandler}
+            ></MaterialChip>
+            <PriceChip
+              onLowestPriceHandler={onLowestPriceHandler}
+              onHighestPriceHandler={onHighestPriceHandler}
+            ></PriceChip>
           </Toolbar>
         </AppBar>
       </Box>

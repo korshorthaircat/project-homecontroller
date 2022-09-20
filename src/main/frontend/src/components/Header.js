@@ -24,6 +24,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Link from "@mui/material/Link";
 import Badge from "@mui/material/Badge";
 import CloseIcon from "@mui/icons-material/Close";
+import { useState } from "react";
 
 const drawerWidth = 450;
 
@@ -78,10 +79,13 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const Header = () => {
   const [cartCount, setCartCount] = React.useState(0); //장바구니에 담긴 제품 개수
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
   const [loginUser, setLoginUser] = React.useState(null);
+  const [word, setWord] = useState("");
+
+  const onSubmit = async() => {
+    window.location.href = "/search/" + word;
+  }
+
   const logout = React.useCallback((e) => {
     // console.log(e);
     // e.preventDefault();
@@ -165,14 +169,28 @@ const Header = () => {
                 <img className="logo" src="images/logo_2.png" alt="헤더로고" />
               </Link>
 
-              <Search>
+              <Search >
                 <SearchIconWrapper>
-                  <SearchIcon />
+                <SearchIcon />
+                 
+
                 </SearchIconWrapper>
                 <StyledInputBase
                   placeholder="검색어 입력"
                   inputProps={{ "aria-label": "search" }}
+                  onChange={(e) => {
+                    setWord(e.target.value);
+                    console.log(word);
+                  }}
                 />
+
+                  <button
+                  type="button"
+                  onClick={() => {
+                    onSubmit();
+                  }}>
+                  검색
+                  </button>
               </Search>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -264,7 +282,7 @@ const Header = () => {
           <List sx={{ paddingLeft: "40px" }}>
             <ListItem disablePadding>
               <ListItemButton>
-                <ListItemText sx={{ fontSize: 20 }} primary="카테고리" />
+                <ListItemText primary="카테고리" />
               </ListItemButton>
             </ListItem>
 

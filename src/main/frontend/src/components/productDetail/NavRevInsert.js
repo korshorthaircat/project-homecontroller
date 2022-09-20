@@ -26,7 +26,7 @@ export default function NavRevInsert() {
         Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
       },
       data: {
-        userId: "gogo",
+        userId: "choco",
         productNo: 56,
         orderNo: 33,
         reviewTitle: reviewTitle,
@@ -58,7 +58,7 @@ export default function NavRevInsert() {
           className="reviewGrade"
           style={{ fontSize: "20px", marginTop: "50px" }}
         >
-          <RevStar />
+          <RevStar sx={{ width: "200px" }} />
         </p>
         <p style={{ fontSize: "17px", fontWeight: "700", marginTop: "50px" }}>
           {" "}
