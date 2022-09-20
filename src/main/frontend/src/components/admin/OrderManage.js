@@ -45,7 +45,11 @@ function OrderManage() {
   const offset = (page - 1) * limit;
   const handlePaging =(currentPage) =>{
     setPage(prev => currentPage);
-}
+  }
+  const changeLimit = (e) => {
+    setLimit(prev => e.target.value);
+    setPage(1);
+  }
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -63,7 +67,7 @@ function OrderManage() {
               <select
                 type="number"
                 value={limit}
-                onChange={({ target: { value } }) => setLimit(Number(value))}
+                onChange={changeLimit}
               >
                 <option value="5">5</option>
                 <option value="10">10</option>

@@ -4,7 +4,6 @@ import java.util.List;
 
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -69,5 +68,9 @@ public interface OrderMapper {
 	
 	void updateDelivery(Map<String, Object> paramMap);
 
-
+    @Update("update t_hmct_ordr"
+    		+ "  set order_status = #{orderStatus}"
+    		+ "  where order_no = #{orderNo}")
+    void updateStatus(@Param ("orderNo") int orderNo,
+    				  @Param ("orderStatus") String orderStatus);
 }
