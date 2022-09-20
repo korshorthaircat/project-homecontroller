@@ -26,25 +26,21 @@ public class RefundController {
      @PostMapping("/createCancel")
      public void createCancel(@RequestBody Map<String, Object> paramMap) {
  		try {
-
  			//매개변수 잘 들어오는지 확인하기
- 			System.out.println(paramMap.get("orderNo"));
+ 			//System.out.println(paramMap.get("orderNo"));
+ 			//번호 생성(취소,환불)
  			int cancelNo = refundService.createCancelNo();
- 			
- 			List<Order> orderList = orderService.getOrderList();
- 			//주문상태
- 			 
-// 			String orderStatus = "";
-// 			
-// 			if(paramMap.get("orderStatus").toString().equals("결제완료")) {
-// 				orderStatus = "주문취소";
-// 			} 			
+ 			int refundNo = refundService.createRefundNo();
+ 					
+ 			//주문상태			 
+ 			String cancelStatus = "취소 대기";
+ 					
  			//Cancel 테이블에 주문 정보 인서트(cancelRgsDate는 자동생성)
  			refundService.addCancel(
+ 					              cancelNo,
  								  Integer.parseInt(paramMap.get("orderNo").toString()),
- 								  paramMap.get("cancelNo").toString(),
  								  paramMap.get("cancelAmount").toString(), 
- 								  paramMap.get("cancelStatus").toString(), 
+ 								  cancelStatus, 
  								  paramMap.get("cancelReason").toString()); 
  			
 // 			refundService.addRefund(
