@@ -16,6 +16,11 @@ const ProductCard = ({ item, productImageList }) => {
   const [isHover, setIsHover] = useState(false);
   //모달창
   const [show, setShow] = useState(false);
+  //위시리스트 모달창
+  const [wishlistShow, setwishlistShow] = useState(false);
+
+  const [courseCostChange, setCourseCostChange] = useState("");
+
   //
   const [cnt, setCnt] = useState(0);
 
@@ -56,7 +61,8 @@ const ProductCard = ({ item, productImageList }) => {
       method: "post",
       data: { productNo: item.productNo },
     }).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
+      setwishlistShow(true);
     });
   };
 
@@ -77,6 +83,8 @@ const ProductCard = ({ item, productImageList }) => {
 
   //장바구니 등록 완료시 모달창 띄우기
   const handleClose = () => setShow(false);
+  const wishlistHandleClose = () => setwishlistShow(false);
+
 
   return (
     <div className="card">
@@ -96,7 +104,7 @@ const ProductCard = ({ item, productImageList }) => {
           alt="사진"
           onClick={() => {
             window.location.replace(`/productDetail/${item.productNo}`);
-          }}
+
         />
       </Link>
       <div className="textArea">
@@ -107,7 +115,9 @@ const ProductCard = ({ item, productImageList }) => {
         <div className="priceArea">
           <p>PRICE</p>
           <div className="last">
-            <p className="price_text">\{item.productPrice}</p>
+            <p className="price_text">
+              \{(item.productPrice + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </p>
 
             <IconButton
               size="large"
@@ -118,6 +128,21 @@ const ProductCard = ({ item, productImageList }) => {
             >
               <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
             </IconButton>
+            <Modal show={wishlistShow} onHide={wishlistHandleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>위시리스트 등록</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>위시리스트에 담겼습니다.</Modal.Body>
+              <Modal.Footer>
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={wishlistHandleClose}
+                >
+                  닫기
+                </Button>
+              </Modal.Footer>
+            </Modal>
 
             <IconButton
               size="large"
