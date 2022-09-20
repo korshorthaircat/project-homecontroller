@@ -85,7 +85,6 @@ const ProductCard = ({ item, productImageList }) => {
   const handleClose = () => setShow(false);
   const wishlistHandleClose = () => setwishlistShow(false);
 
-
   return (
     <div className="card">
       <Link
@@ -104,8 +103,8 @@ const ProductCard = ({ item, productImageList }) => {
           alt="사진"
           onClick={() => {
             window.location.replace(`/productDetail/${item.productNo}`);
-
-        />
+          }}
+        ></img>
       </Link>
       <div className="textArea">
         <p className="title_text">{item.productName}</p>
