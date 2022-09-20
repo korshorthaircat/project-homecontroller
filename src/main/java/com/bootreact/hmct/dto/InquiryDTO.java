@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class InquiryDTO {
-	private String InquiryNo;
+	private int InquiryNo;
 	private String InquiryAnswer;
 	private String InquiryContent;
 	private LocalDate InquiryRgsdate;

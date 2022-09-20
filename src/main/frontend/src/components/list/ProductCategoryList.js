@@ -16,12 +16,28 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
+import { useParams } from "react-router";
 
 const ProductCategoryList = () => {
   const [productList, setProductList] = useState([]);
   const [productImageList, setProductImageList] = useState([]);
   const [showProductList, setShowProductList] = useState([]); //필터 처리한 제품목록을 담음
   const [showProductImageList, setShowProductImageList] = useState([]); //필터 처리한 제품이미지목록을 담음
+  const [filteredProductList, setShowProductList] = useState([]);
+  const [filteredProductImageList, setShowProductImageList] = useState([]);
+  const [searchData, setSearchData] = useState([]);
+  const params = (useParams = useParams());
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await axios.get(
+        "http://localhost:8080/product/search?word=" + params.word
+      );
+      console.log(result.data.result);
+      setSearchData(result.data.result);
+    }
+    fetchData();
+  }, []);
 
   //제품조회 필터링 조건
   const [commonCode, setCommonCode] = useState("");

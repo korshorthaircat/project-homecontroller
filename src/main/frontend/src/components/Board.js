@@ -63,22 +63,10 @@ const Board = () => {
     setOpen(false);
   };
 
-  let inquiryListUrl = "http://localhost:8080/api/inquiry/getInquiryList";
-
   const list = () => {
-    // axios
-    //   .get(inquiryListUrl)
-    //   .then((response) => {
-    //     setInquiryList(response.data.data);
-    //     console.log(response);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
-
     axios({
-      url: inquiryListUrl,
-      method: "get",
+      url: "http://localhost:8080/api/inquiry/getInquiryList",
+      method: "post",
     })
       .then((response) => {
         console.log(response.data.data);
@@ -87,10 +75,46 @@ const Board = () => {
       .catch((e) => {});
   };
 
+  const insertInquiryBoard = () => {
+    axios({
+      url: "http://localhost:8080/api/inquiry/insertInquiryBoard",
+      method: "post",
+      data: {
+        inquiryTitle: inquiryTitle,
+        inquiryContent: inquiryContent,
+        userId: "gogo",
+      },
+    })
+      .then((response) => {
+        setInquiryList(response.data);
+        window.location.href = "/board";
+      })
+      .catch((e) => {
+        console.log("1111" + e);
+      });
+  };
+
   React.useEffect(() => {
     list();
   }, []);
 
+  const [inquiryTitle, setInquiryTitle] = React.useState("");
+  const [inquiryContent, setInquiryContent] = React.useState("");
+
+  const onInquiryTitleHandler = (e) => {
+    setInquiryTitle(e.curretTarget.value);
+  };
+
+  const onInquiryContentHandler = (e) => {
+    setInquiryContent(e.curretTarget.value);
+  };
+
+  //셀렉트
+  const [option, setOption] = React.useState(" ");
+  const onOptionHandler = (e) => {
+    setOption(e.target.value);
+    setInquiryTitle(e.target.value);
+  };
   return (
     <div className="wrap">
       <h3>고객센터</h3>
@@ -193,25 +217,38 @@ const Board = () => {
 
             <TableContainer>
               <Table>
-                {inquiryList.map((a) => (
+                {inquiryList.slice(0, 1).map((a) => (
                   <>
                     <TableRow>
                       <TableCell component={"th"} sx={modalstyle}>
                         제목
                       </TableCell>
                       <TableCell>
-                        <select name="type">
+                        <select
+                          name="inquiryTitle"
+                          onChange={onOptionHandler}
+                          value={option}
+                        >
                           <option selected="selected">
                             제목을 선택하세요.
                           </option>
-                          <option value="product">상품 문의</option>
-                          <option value="delivery">배송 문의</option>
-                          <option value="exchange/return/cancel">
+                          <option value="상품 문의">상품 문의</option>
+                          <option value="배송 문의">배송 문의</option>
+                          <option value="교환/반품/취소 문의">
                             교환/반품/취소 문의
                           </option>
-                          <option value="order">주문/입금확인 문의</option>
-                          <option value="etc">기타 문의</option>
+                          <option value="주문/입금확인 문의">
+                            주문/입금확인 문의
+                          </option>
+                          <option value="기타 문의">기타 문의</option>
                         </select>
+                      </TableCell>
+                      <TableCell>
+                        <input
+                          type="hidden"
+                          value={option}
+                          name="inquiryTitle"
+                        />
                       </TableCell>
                     </TableRow>
 
@@ -223,7 +260,7 @@ const Board = () => {
                         <textarea
                           type="text"
                           style={{ border: "none" }}
-                          name="userName"
+                          name="inquiryContent"
                           placeholder="게시판 문의시 아래 내용을 기입해 주셔야 
                             빠르게  처리 가능합니다.
                             
@@ -239,9 +276,8 @@ const Board = () => {
                             ▶ 연락처 :
                             ▶ 문의 내용 :
                             ▶ 이전 문의 내용 :"
-                        >
-                          {a.inquiryContent}
-                        </textarea>
+                          onChange={onInquiryContentHandler}
+                        ></textarea>
                       </TableCell>
                     </TableRow>
                   </>
@@ -294,6 +330,7 @@ const Board = () => {
                 value="update"
                 variant="contained"
                 color="success"
+                onClick={insertInquiryBoard}
               >
                 등록
               </Button>
