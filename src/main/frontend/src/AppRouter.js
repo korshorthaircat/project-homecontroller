@@ -75,7 +75,7 @@ const AppRouter = () => {
           <Route path="/productDetail/:productNo" element={<ImageThumb />} />
           <Route path="/board" element={<Board />} />
           <Route path="/coupon" element={<Coupon />} />
-          {/* <Route path="/search/:word" element={<Search />} /> */}
+          <Route path="/search/:word" element={<ProductCategoryList />} />
         </Routes>
       </BrowserRouter>
       <Footer />

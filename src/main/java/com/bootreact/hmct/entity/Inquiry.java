@@ -19,7 +19,7 @@ public class Inquiry {
 	//문의글 번호(PK)
 	@Id
 	@Column(nullable = false)
-	private String inquiryNo;
+	private int inquiryNo;
 	
 	//회원 아이디(FK)
 	@ManyToOne
