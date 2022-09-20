@@ -33,23 +33,7 @@ const MainInteriorImage = () => {
     list();
   }, []);
 
-  return (
-    <div>
-      <div className="ttt">
-        <div className="aaa"></div>
-        <div className="bbb"></div>
-        {/* <div className='ccc'></div> */}
-      </div>
 
-      {showRoomObjlocation.map((a) => (
-        <div className="hoverIcon" style={a.stlye}>
-          <HoverIcon />
-        </div>
-      ))}
-
-      <HoverIcon />
-    </div>
-  );
 
   return (
     <div>
@@ -63,6 +47,22 @@ const MainInteriorImage = () => {
       </div>
     </div>
   );
+
+       
+         
+            {showRoomObjlocation.map((a) => (
+                <div className="hoverIcon" style={a.stlye}>
+                <HoverIcon />
+                </div>
+            ))}
+
+
+            <HoverIcon/>
+            
+       
+        </div>
+    );
+
 };
 
 export default MainInteriorImage;

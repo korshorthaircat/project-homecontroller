@@ -83,8 +83,8 @@ const ProductCard = ({ item, productImageList }) => {
 
   //장바구니 등록 완료시 모달창 띄우기
   const handleClose = () => setShow(false);
-
   const wishlistHandleClose = () => setwishlistShow(false);
+
 
   return (
     <div className="card">
@@ -102,6 +102,9 @@ const ProductCard = ({ item, productImageList }) => {
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
           alt="사진"
+          onClick={() => {
+            window.location.replace(`/productDetail/${item.productNo}`);
+
         />
       </Link>
       <div className="textArea">

@@ -1,29 +1,31 @@
 package com.bootreact.hmct.service.coupon.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bootreact.hmct.mapper.CouponMapper;
 import com.bootreact.hmct.service.coupon.CouponService;
 
 @Service
 public class CoupoonServiceImpl implements CouponService {
+	
+	@Autowired
+	private CouponMapper couponMapper;
 
 	@Override
 	public int createCouponNo() {
-		// TODO Auto-generated method stub
-		return 0;
+		return couponMapper.createCouponNo();
 	}
 
 	@Override
 	public void addCouponIssu(int couponNo, String userId, String couponUseYn) {
-		// TODO Auto-generated method stub
-		
+		couponMapper.addCouponIssu(couponNo, userId, couponUseYn);
 	}
 
 	@Override
 	public void addCoupon(int couponNo, String couponName, String couponExpdate, String couponMethod,
 			String couponPrice) {
-		// TODO Auto-generated method stub
-		
+		couponMapper.addCouponIssu(couponNo, couponName, couponExpdate, couponMethod);
 	}
 
 }
