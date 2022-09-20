@@ -148,6 +148,11 @@ function UserManage() {
     setPagingUserList(prev => userList.slice(offset, offset + limit));
   }, [page, offset, limit]);
 
+  const changeLimit = (e) => {
+    setLimit(prev => e.target.value);
+    setPage(1);
+  }
+  
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }} style={{ maxWidth: "1750px" }}>
@@ -165,7 +170,7 @@ function UserManage() {
               <select
                 type="number"
                 value={limit}
-                onChange={({ target: { value } }) => setLimit(Number(value))}
+                onChange={changeLimit}
               >
                 <option value="5">5</option>
                 <option value="10">10</option>
