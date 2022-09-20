@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -34,7 +34,7 @@ const materialOptions = [
   "가죽",
 ];
 
-export default function MultipleSelectCheckmarks() {
+export default function MultipleSelectCheckmarks({ onProductMaterialHandler }) {
   const [materialName, setMaterialName] = React.useState([]);
 
   const handleChange = (event) => {
@@ -46,6 +46,12 @@ export default function MultipleSelectCheckmarks() {
       typeof value === "string" ? value.split(",") : value
     );
   };
+
+  useEffect(() => {
+    console.log(materialName[0]);
+    onProductMaterialHandler(materialName[0]);
+  }, [materialName]);
+
   return (
     <div>
       <FormControl sx={{ m: 1, width: 200, borderRadius: "50px" }}>

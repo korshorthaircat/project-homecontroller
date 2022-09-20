@@ -20,12 +20,12 @@ import axios from "axios";
 const ProductCategoryList = () => {
   const [productList, setProductList] = useState([]);
   const [productImageList, setProductImageList] = useState([]);
-  const [filteredProductList, setShowProductList] = useState([]);
-  const [filteredProductImageList, setShowProductImageList] = useState([]);
+  const [showProductList, setShowProductList] = useState([]); //필터 처리한 제품목록을 담음
+  const [showProductImageList, setShowProductImageList] = useState([]); //필터 처리한 제품이미지목록을 담음
 
   //제품조회 필터링 조건
-  const [commonCode, setCommonCode] = useState("색상");
-  const [productMaterial, setProductMaterial] = useState("소재");
+  const [commonCode, setCommonCode] = useState("");
+  const [productMaterial, setProductMaterial] = useState("");
   const [lowestPrice, setLowestPrice] = useState(0);
   const [highestPrice, setHighestPrice] = useState(100000000);
 
@@ -146,17 +146,6 @@ const ProductCategoryList = () => {
         "화장대를 찾고 계신가요? HOME CONTROLLER에는 다양한 화장대가 준비되어 있어서 집안에 필요한 화장대를 쉽게 찾으실 수 있어요. 어떤 화장대를 원하시든 맞는 의자를 만나실 수 있을 거예요.",
     },
   ];
-  // useEffect(() => {
-  //   showProductList.foreach((showproduct) => {
-  //     setShowProductImageList(
-  //       productImageList.filter(
-  //         (productImage) =>
-  //           showproduct.productNo === productimage.productNo &&
-  //           showproduct.commonCode === productimage.commonCode
-  //       )
-  //     );
-  //   });
-  // }, [showProductList]);
 
   const getProducts = async () => {
     let url = `http://localhost:8080/api/product/getAllProductList`;
@@ -166,9 +155,69 @@ const ProductCategoryList = () => {
     setProductList(data.productList);
     setProductImageList(data.productImageList);
   };
-  // oncolorchange = (e) => {
-  //   setFilteredProductList((prev) => prev.filter((p) => e.target.value === p.commonCode));
-  // };
+
+  // useEffect(() => {
+  //   if (
+  //     (commonCode === "" || typeof commonCode === "undefined") &&
+  //     (productMaterial === "" || typeof productMaterial === "undefined")
+  //   ) {
+  //     setShowProductList((prev) =>
+  //       productList.filter(
+  //         (p) => p.productPrice > lowestPrice && p.productPrice <= highestPrice
+  //       )
+  //     );
+  //   } else {
+  //     setShowProductList((prev) =>
+  //       prev.filter(
+  //         (p) => p.productPrice > lowestPrice && p.productPrice <= highestPrice
+  //       )
+  //     );
+  //   }
+  // }, [lowestPrice, highestPrice]);
+
+  useEffect(() => {
+    setShowProductList((prev) => [...prev, ...productList]);
+  }, [productList]);
+
+  const filterData = () => {
+    const filteredList = productList.reduce((acc, cur) => {
+      const commonCodeCondition =
+        commonCode !== "" && typeof commonCode !== "undefined"
+          ? cur.commonCodeName === commonCode
+          : true; // 해당 조건이 없으면 그냥 무시하고 지나간다.
+
+      const productMaterialCondition =
+        productMaterial !== "" && typeof productMaterial !== "undefined"
+          ? cur.productMaterialName === productMaterial
+          : true;
+
+      const lowestPriceCondition = lowestPrice
+        ? cur.productPrice > lowestPrice
+        : true;
+
+      const highestPriceCondition = highestPrice
+        ? cur.productPrice <= highestPrice
+        : true;
+
+      // 해당 조건이 있다면 그에 부합하는 교집합인 놈만 push 하겠다.
+      if (
+        commonCodeCondition &&
+        productMaterialCondition &&
+        lowestPriceCondition &&
+        highestPriceCondition
+      ) {
+        acc.push(cur);
+      }
+
+      return acc;
+    }, []);
+
+    setShowProductList(filteredList);
+  };
+
+  useEffect(() => {
+    filterData();
+  }, [productList, commonCode, productMaterial, lowestPrice, highestPrice]);
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -180,7 +229,6 @@ const ProductCategoryList = () => {
 
   useEffect(() => {
     getProducts();
-    console.log(commonCode);
   }, []);
 
   return (
@@ -209,8 +257,18 @@ const ProductCategoryList = () => {
         </div>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2} columns={16}>
+            {/*             
             {productList ? (
               productList.map((a) => (
+                <ProductCard item={a} productImageList={productImageList} />
+              ))
+            ) : (
+              <p>조회된 데이터가 없습니다.</p>
+            )} 
+            */}
+
+            {showProductList ? (
+              showProductList.map((a) => (
                 <ProductCard item={a} productImageList={productImageList} />
               ))
             ) : (
