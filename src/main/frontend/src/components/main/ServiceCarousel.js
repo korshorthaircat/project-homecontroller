@@ -109,10 +109,12 @@ class ServiceCarousel extends React.Component {
               name="이벤트 및 프로모션"
             />
           </Link>
-          <ServiceCard
-            icon="../images/mypage_icons/문의게시판.png"
-            name="문의게시판"
-          />
+          <Link to={"/board"}>
+            <ServiceCard
+              icon="../images/mypage_icons/문의게시판.png"
+              name="문의게시판"
+            />
+          </Link>
           <ServiceCard
             icon="../images/mypage_icons/지점소개.png"
             name="지점소개"
@@ -127,7 +129,6 @@ class ServiceCarousel extends React.Component {
           />
         </Carousel>
       </div>
-
     );
   }
 }

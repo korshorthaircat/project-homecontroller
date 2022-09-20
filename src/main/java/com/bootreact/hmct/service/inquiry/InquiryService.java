@@ -7,6 +7,12 @@ import com.bootreact.hmct.entity.Inquiry;
 public interface InquiryService {
 	List<Inquiry> getInquiryList();
 
-	void addinquiry(int inquiryNo, String inquiryState, String userId, String inquiryContent, String inquiryTitle);
+	void addInquiry(int inquiryNo, String inquiryState, String userId, String inquiryContent, String inquiryTitle, String inquiryAnswer);
+
+	void updateInquiry(int inquiryNo, String inquiryState, String inquiryAnswer);
+
+	void deleteInquiry(int inquiryNo);
+
+	
 
 }

@@ -25,8 +25,19 @@ public class InquiryServiceImpl implements InquiryService{
 	}
 
 	@Override
-	public void addinquiry(int inquiryNo, String inquiryState, String userId, String inquiryContent,
-			String inquiryTitle) {
-		inquiryMapper.addinquiry(inquiryNo, inquiryState, userId, inquiryContent,inquiryTitle);
+	public void addInquiry(int inquiryNo, String inquiryState, String userId, String inquiryContent,
+			String inquiryTitle, String inquiryAnswer) {
+		inquiryMapper.addInquiry(inquiryNo, inquiryState, inquiryAnswer, userId, inquiryContent,inquiryTitle);
 	}
+
+	@Override
+	public void updateInquiry(int inquiryNo, String inquiryState, String inquiryAnswer) {
+		inquiryMapper.updateInquiry(inquiryNo, inquiryState, inquiryAnswer);
+	}
+
+	@Override
+	public void deleteInquiry(int inquiryNo) {
+		inquiryMapper.deleteInquiry(inquiryNo);
+	}
+
 }
