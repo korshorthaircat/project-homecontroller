@@ -12,14 +12,7 @@ import com.bootreact.hmct.service.inquiry.InquiryService;
 
 @Service
 public class InquiryServiceImpl implements InquiryService{
-//	@Autowired
-//	private InquiryRepository inquiryRepository;
-	
-//	@Override
-//	public List<Inquiry> getInquiryBoard() {
-//		return InquiryRepository.findAll();
-//	}
-	
+
 	@Autowired
 	InquiryRepository inquiryRepository;
 	

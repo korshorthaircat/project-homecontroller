@@ -24,8 +24,7 @@ public class InquiryController {
 	@Autowired
 	InquiryService inquiryService;
 	
-//	//문의글 생성
-//	void insertInquiryBoard(Inquiry inquiry, User user) {}
+//	문의글 생성
 	@PostMapping("/insertInquiryBoard")
 	public ResponseEntity<?> insertInquiryBoard(@RequestBody Map<String, String> paramMap) {
 		try {
@@ -34,19 +33,22 @@ public class InquiryController {
 					
 			//답변상태
 			String inquiryState = "답변대기";
+			
+			System.out.println("//////////////////" + paramMap);
 				
+			//문의글 추가 처리하기
 			inquiryService.addinquiry(inquiryNo,
 									  inquiryState,
 									  paramMap.get("userId"),
 									  paramMap.get("inquiryContent"),
 									  paramMap.get("inquiryTitle"));
-			 List<Inquiry> inquiryList = inquiryService.getInquiryList();
 			
+			//게시글 목록 받아오기
+			List<Inquiry> inquiryList = inquiryService.getInquiryList();
 			List<InquiryDTO> inquiryDTOList = new ArrayList<InquiryDTO>();
  		
 			for(Inquiry i : inquiryList) {
 				InquiryDTO inquiryDTO = new InquiryDTO();
-				
 				inquiryDTO.setInquiryNo(i.getInquiryNo());
 				inquiryDTO.setInquiryAnswer(i.getInquiryAnswer());
 				inquiryDTO.setInquiryContent(i.getInquiryContent());
@@ -71,10 +73,7 @@ public class InquiryController {
 		}
 }
 	
-	
-	
-//	//문의글 내용 조회
-//	void getInquiryBoard(User user) {}
+//	문의글 목록 조회
 	@PostMapping("/getInquiryList")
 	public ResponseEntity<?> getInquiryList() {
 		try {
@@ -108,10 +107,43 @@ public class InquiryController {
 			return ResponseEntity.badRequest().body(response);
 		}
 	}
-//
-//	//문의글 목록 조회
-//	void getInquiryBoardList(User user) {}
-//
+	
+//	문의글 내용 조회
+	@PostMapping("/getInquiry")
+	public ResponseEntity<?> getInquiry() {
+		try {
+			List<Inquiry> inquiryList = inquiryService.getInquiryList();
+			
+			List<InquiryDTO> inquiryDTOList = new ArrayList<InquiryDTO>();
+ 		
+			for(Inquiry i : inquiryList) {
+				InquiryDTO inquiryDTO = new InquiryDTO();
+				
+				inquiryDTO.setInquiryNo(i.getInquiryNo());
+				inquiryDTO.setInquiryAnswer(i.getInquiryAnswer());
+				inquiryDTO.setInquiryContent(i.getInquiryContent());
+				inquiryDTO.setInquiryRgsdate(i.getInquiryRgsdate());
+				inquiryDTO.setInquiryState(i.getInquiryState());
+				inquiryDTO.setInquiryTitle(i.getInquiryTitle());
+				inquiryDTO.setUser(i.getUser());
+				
+				inquiryDTOList.add(inquiryDTO);
+			}
+		ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
+		
+		response.setData(inquiryDTOList);
+		
+		return ResponseEntity.ok().body(response);
+		
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
+			response.setError(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
+	}
+
+
 //	//문의글 삭제
 //	void deleteInquiryBoard(Inquiry inquiry, User user) {}
 //
