@@ -44,7 +44,7 @@ const SameCategoryList = () => {
 
   return (
     <div className="carousel_container">
-      <div style={{ margin: "50px 50px 20px 15px" }}>
+      <div style={{ margin: "100px 50px 20px 15px" }}>
         <h className="sameCategoryTitle">비슷한 제품 추천</h>
       </div>
       <hr />
@@ -56,7 +56,11 @@ const SameCategoryList = () => {
         // itemClass="carousel-item-padding-40-px"
       >
         {productList.map((a) => (
-          <ProductCard item={a} productImageList={productImageList} />
+          <ProductCard
+            item={a}
+            productImageList={productImageList}
+            
+          />
         ))}
       </Carousel>
     </div>
