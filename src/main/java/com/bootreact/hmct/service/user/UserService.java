@@ -19,6 +19,6 @@ public interface UserService {
           
 	User findbyUserId(String userId);
 	
-	void changePw(User user);
+	
 
 }

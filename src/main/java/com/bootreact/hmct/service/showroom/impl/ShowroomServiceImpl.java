@@ -28,12 +28,12 @@ public class ShowroomServiceImpl implements ShowroomService{
 		showroomRepository.save(showroom);
 	}
 	
-	@Override
-	public void insertShowroomItems(int showroomNo, List<Integer> productNos) {
-		for(int productNo : productNos) {
-			showroomMapper.insertShowroomItems(showroomNo, productNo);
-		}
-	}
+//	@Override
+//	public void insertShowroomItems(int showroomNo, List<Integer> productNos, productLocationLeft, productLocationTop) {
+//		for(int productNo : productNos) {
+//			showroomMapper.insertShowroomItems(showroomNo, productNo);
+//		}
+//	}
 	
 	@Override
 	public List<Showroom> getShowroomList() {
@@ -43,5 +43,19 @@ public class ShowroomServiceImpl implements ShowroomService{
 	@Override
 	public List<Showroom> getColorShowroomList(String showroomColor) {
 		return showroomMapper.getColorShowroomList(showroomColor);
+	}
+
+	@Override
+	public void insertShowroomItems(int srNo, List<Integer> prNoList, List<String> leftLocationList,
+			List<String> topLocationList) {
+		
+		
+		for(int i = 0; i < prNoList.size(); i++) {
+			int proNo = prNoList.get(i);
+			String leftLocation = leftLocationList.get(i);
+			String topLocation = topLocationList.get(i);
+			showroomMapper.insertShowroomItems(srNo, proNo, leftLocation, topLocation);
+		}
+		
 	}
 }

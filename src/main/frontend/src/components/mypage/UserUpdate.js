@@ -3,17 +3,7 @@ import React, { useRef, useState, useCallback, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
 import { API_BASE_URL } from "../../app-config";
-import {
-  Button,
-  TextField,
-  Link,
-  Grid,
-  Container,
-  Typography,
-  FormControlLabel,
-  Checkbox,
-  Modal,
-} from "@mui/material";
+import { Button, TextField, Link, Grid, Container, Modal } from "@mui/material";
 import axios from "axios";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import "../../css/mypagesidebar.css";
@@ -39,22 +29,14 @@ function UserUpdate() {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
   const [userPwCheck, setUserPwCheck] = useState("");
-  const [userName, setUserName] = useState("");
-  const [userNickname, setUserNickname] = useState("");
-  const [userTel, setUserTel] = useState("");
 
   //비밀번호가 형식에 부합하는 경우(true)
   const [isPassword, setIsPassword] = useState(false);
   //비빌번호와 비밀번호체크가 서로 일치하는 경우(true)
   const [isCheckedPassword, setIsCheckedPassword] = useState(false);
-  //아이디가 중복되지 않은 경우(true)
-  const [isValidId, setIsValidId] = useState(false);
-  //이메일 인증을 완료한 경우(true)
-  const [isValidMail, setIsValidMail] = useState(false);
 
   //에러 메시지
   const [userPwMessage, setUserPwMessage] = useState("");
-  const [userEmailCheckMessage, setUserEmailCheckMessage] = useState("");
   const [userPwCheckMessage, setUserPwCheckMessage] = useState("");
 
   //state의 변화 감지
@@ -211,31 +193,9 @@ function UserUpdate() {
     setPwdOpen(false);
   };
 
-  //비밀번호변경
-  const updateUserPw = (e) => {
-    if (window.confirm("비밀번호를 변경하시겠습니까")) {
-      console.log("확인버튼클릭");
-      let url = "http://localhost:8080/api/user/updateUserPw";
-      axios({
-        method: "post",
-        url: url,
-        headers: {
-          Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
-        },
-        data: inputs, // 화면 input 항목에 대한 정보
-      }).then((response) => {
-        console.log("잘되나");
-      });
-    }
-  };
-
+  //회원정보 수정 버튼 클릭시
   const updateUserInfo = (e) => {
     if (window.confirm("수정한 내용을 저장하시겠어요? ^^")) {
-      // 화면 유효성 검사
-      // 화면의 값들이 정상적인 값인지 체크해야한다
-      // ex:) 아래 조건들이 충족되지 않으면 정보 변경은 할 수 없다
-      // 비어있으면 안되는 값들이 비어있는지 체크 해야한다
-      // 휴대폰 번호는 숫자만 들어갈 수 있게 한다
       console.log("수정버튼클릭");
       let url = "http://localhost:8080/api/mypage/updateUserInfo";
       axios({
@@ -252,35 +212,37 @@ function UserUpdate() {
     }
   };
 
-  //회원탈퇴 버튼 클릭시
-  const deleteUserInfo = (e) => {
-    if (window.confirm("정말로 떠나시겠어요?😢")) {
-      // 화면 유효성 검사
-      // 화면의 값들이 정상적인 값인지 체크해야한다
-      // ex:) 아래 조건들이 충족되지 않으면 정보 변경은 할 수 없다
-      // 비어있으면 안되는 값들이 비어있는지 체크 해야한다
-      // 휴대폰 번호는 숫자만 들어갈 수 있게 한다
-      console.log("탈퇴버튼 클릭");
-      let url = "http://localhost:8080/api/mypage/deleteUserInfo";
-      axios({
-        method: "post",
-        url: url,
-        headers: {
-          Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
-        },
-        data: inputs, // 화면 input 항목에 대한 정보
-      }).then((response) => {
-        alert("삭제됨");
+  //비밀번호변경 확인 버튼 클릭시
+  const onSubmitPw = (event) => {
+    event.preventDefault(); // 아무 동작 안하고 버튼만 눌러도 리프레쉬 되는 것을 막음
 
-        //로컬과 세션에 담긴 유저 정보 삭제
-        localStorage.removeItem("USER_INFO");
-        localStorage.removeItem("ACCESS_TOKEN");
-        sessionStorage.removeItem("USER_INFO");
-        sessionStorage.removeItem("ACCESS_TOKEN");
-        console.log("잘되나");
-        window.location.href = "/Join";
-      });
+    var userId = sessionStorage.getItem("USER_INFO");
+    var userPw = sessionStorage.getItem("USER_INFO");
+    var userInfo = JSON.parse(userId, userPw);
+    var chgPw = "";
+    var chgPwOk = "";
+
+    if (chgPw != chgPwOk) {
+      alert("입력한 비밀번호와 일치하지 않습니다.");
+      return;
     }
+    let url = "http://localhost:8080/api/mypage/changeUserPw";
+    axios({
+      method: "post",
+      url: url,
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+      },
+      data: {
+        userId: userInfo.userId,
+        userPw: userInfo.userPw,
+        chgPw: userInfo.chgPw,
+        chgPwOk: userInfo.chgPwOk,
+      },
+    }).then((response) => {
+      console.log("잘되나");
+      alert("비밀번호가 변경되었습니다.");
+    });
   };
 
   const handleSubmit = (e) => {
@@ -558,6 +520,13 @@ function UserUpdate() {
                     // value=""
                     onChange={onChange}
                   />
+                  {userPw.length > 0 && (
+                    <span
+                      className={`message ${isPassword ? "success" : "error"}`}
+                    >
+                      {userPwMessage}
+                    </span>
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -571,8 +540,17 @@ function UserUpdate() {
                     value={userPwCheck}
                     onChange={onPwCheckHandler}
                   />
+                  {userPwCheck.length > 0 && (
+                    <span
+                      className={`message ${
+                        isCheckedPassword ? "success" : "error"
+                      }`}
+                    >
+                      {userPwCheckMessage}
+                    </span>
+                  )}
                 </Grid>
-                <button onClick={updateUserInfo}>확인</button>
+                <button onClick={onSubmitPw}>확인</button>
                 <button>취소</button>
               </form>
             </Box>

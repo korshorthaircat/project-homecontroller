@@ -304,9 +304,12 @@ public class UserController {
 			response.setError("login failed");
 			return ResponseEntity.badRequest().body(response);
 		}
-	}
+		
+		
+
 
 
 //	//로그아웃
 //	void logout() {}
+}
 }

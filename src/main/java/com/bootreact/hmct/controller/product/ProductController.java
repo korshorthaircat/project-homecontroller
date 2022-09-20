@@ -143,7 +143,7 @@ public class ProductController {
 	
 	// 제품 조회(상세정보) - 제품번호만 넘겨서 조회하기
 		@GetMapping("/productDetail")
-		public Map<String, Object> getProduct(@RequestParam int productNo) {
+		public Map<String, Object> getProduct(@RequestParam int productNo ) {
 			try {	
 
 				List<Map<String, Object>> productInfo = productService.getProduct(productNo);
@@ -279,10 +279,65 @@ public class ProductController {
 				return ResponseEntity.badRequest().body(response);
 			}
 	};
-//
+
 //	// 하트 클릭 시 온라인쇼룸 위시리스트 추가
 //	ResponseEntity<?> addWishShowroom(Product product) {
 //		return null;
 //	}
 	
+	
+	//<리스트 페이지> 전제 제품 조회 (컬러별 중복 노출)
+	@GetMapping("/getAllProductList")
+	public Map<String, Object> getAllProductList() {
+		try {
+			System.out.println(".///////////////////////");
+			List<Map<String, Object>> productList = productService.getAllProductList();
+			List<Map<String, Object>> productImageList = productService.getAllProductImageList();
+			
+			System.out.println(productList.toString());
+			System.out.println(productImageList.toString());
+			
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			
+			returnMap.put("productList", productList);
+			returnMap.put("productImageList", productImageList);
+			
+			return returnMap; 
+			
+		} catch(Exception e) {
+			Map<String, Object> errorMap = new HashMap<String, Object>();
+			errorMap.put("error", e.getMessage());
+			return errorMap;
+		}
+	};
+	
+	//<리스트 페이지> 카테고리/컬러/소재/가격별 제품목록 조회 (동적 쿼리 사용)
+	@PostMapping("/getProductListByFilter")
+	public Map<String, Object> getProductListByFilter(@RequestBody Map<String, String> paramMap) {
+//		  리액트단에서 데이터 보낼 때(axios 요청) 아래와 같이 해야 함
+//		  method: "post",
+//	      params: { productCategory: productCategory,
+//					commonCode: commonCode,
+//					producctMaterial: productMaterial,
+//					lowestPrice: lowestPrice,
+//					highestPrice: highestPrice},
+		try {
+			System.out.println(paramMap.toString());
+			
+			List<Map<String, Object>> productList = productService.getProductListByFilter(paramMap);
+			List<Map<String, Object>> productImageList = productService.getProductImageListByFilter(paramMap);
+			
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			
+			returnMap.put("productList", productList);
+			returnMap.put("productImageList", productImageList);
+			
+			return returnMap; 
+			
+		} catch(Exception e) {
+			Map<String, Object> errorMap = new HashMap<String, Object>();
+			errorMap.put("error", e.getMessage());
+			return errorMap;
+		}
+	}
 }

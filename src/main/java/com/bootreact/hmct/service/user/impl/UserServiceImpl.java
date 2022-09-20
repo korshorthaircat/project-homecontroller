@@ -79,11 +79,6 @@ public class UserServiceImpl implements UserService {
 
 	
 	
-	//비밀번호 변경	
-	@Override
-	public void changePw(User user) {
-		userRepository.save(user);
-		
-		}
+
 
 }

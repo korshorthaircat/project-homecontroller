@@ -145,6 +145,119 @@
 	]]>
 	</select>
 	
+	
+<!-- <상품목록 페이지> 카테고리/컬러/소재/가격별 제품목록 조회 -->
+<!-- 	<select id="getProductListByFilter" parameterType="Map" resultType="camelHashMap">
+	<![CDATA[
+		SELECT AA.*
+			,  BB.COMMON_CODE_NAME AS PRODUCT_MATERIAL_NAME
+			,  CC.COMMON_CODE_NAME AS PRODUCT_CATEGORY_NAME
+			FROM (
+					SELECT A.*
+						 , B.COMMON_CODE
+					     , B.PRODUCT_INVENTORY
+						 , C.COMMON_CODE_NAME
+						FROM T_HMCT_PRODUCT A
+						   , T_HMCT_PRODUCT_OPTN B
+						   , T_HMCT_COMMON C
+						WHERE A.PRODUCT_NO = B.PRODUCT_NO
+						  AND B.COMMON_CODE = C.COMMON_CODE
+				) AA
+		        , (
+					SELECT * 
+						FROM T_HMCT_COMMON
+		                WHERE COMMON_TYPE = 'B' 
+				  ) BB
+				, (
+					SELECT * 
+						FROM T_HMCT_COMMON
+		                WHERE COMMON_TYPE = 'C' 
+				  ) CC
+			WHERE 1=1
+			  AND AA.PRODUCT_MATERIAL = BB.COMMON_CODE
+		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE
+		]]>
+
+		<if test = "#{productCategory} != null and !('').equals(#{productCategory})">
+		      AND AA.PRODUCT_CATEGORY = #{productCategory}
+		</if>
+		<if test = "#{commonCode} != null"> 
+		      AND AA.COMMON_CODE = #{commonCode}
+		</if>
+		<if test = "#{productMaterial} != null">
+		      AND AA.PRODUCT_MATERIAL = #{productMaterial}
+		</if>
+		<if test = "(#{lowestPrice} != null) and (#{highestPrice} != null)">
+		      AND AA.PRODUCT_PRICE BETWEEN #{lowestPrice} and #{highestPrice}
+		</if>
+		<if test = "(#{commonCode} != null) and (#{producMaterial} != null)">
+		      AND AA.COMMON_CODE = #{commonCode}
+		      OR AA.PRODUCT_MATERIAL = #{productMaterial}
+		</if>
+		<if test = "(#{producMaterial} != null) and (#{lowestPrice} != null) and (#{highestPrice} != null)">
+		      AND AA.PRODUCT_MATERIAL = #{productMaterial}
+		      OR AA.PRODUCT_PRICE BETWEEN #{lowestPrice} and #{highestPrice}
+		</if>
+		<if test = "(#{producCategory} != null) and (#{lowestPrice} != null) and (#{highestPrice} != null)">
+			  AND AA.COMMON_CODE = #{commonCode} 
+		      OR AA.PRODUCT_PRICE BETWEEN #{lowestPrice} and #{highestPrice}
+		</if>
+		<if test = "#{commonCode} != null) and (#{productMaterial} != null) and (#{lowestPrice} != null) and (#{highestPrice} != null)">
+			  AND AA.COMMON_CODE = #{commonCode} 
+		      OR AA.PRODUCT_MATERIAL = #{productMaterial}
+		      OR AA.PRODUCT_PRICE BETWEEN #{lowestPrice} and #{highestPrice}
+		</if>
+	</select> -->
+
+
+<!-- <상품목록 페이지> 카테고리/컬러/소재/가격별 제품 이미지 목록 조회 -->
+<!--  
+	<select id="getProductImageListByFilter" parameterType="Map" resultType="camelHashMap">
+	<![CDATA[
+		SELECT *
+			FROM T_HMCT_PRODUCT_IMAGE;
+	]]>
+	</select>	
+-->
+
+<select id="getAllProductList" resultType="camelHashMap">
+	<![CDATA[
+		SELECT AA.*
+			,  BB.COMMON_CODE_NAME AS PRODUCT_MATERIAL_NAME
+			,  CC.COMMON_CODE_NAME AS PRODUCT_CATEGORY_NAME
+			FROM (
+					SELECT A.*
+						 , B.COMMON_CODE
+		                 , B.PRODUCT_INVENTORY
+						 , C.COMMON_CODE_NAME
+						FROM T_HMCT_PRODUCT A
+						   , T_HMCT_PRODUCT_OPTN B
+						   , T_HMCT_COMMON C
+						WHERE A.PRODUCT_NO = B.PRODUCT_NO
+						  AND B.COMMON_CODE = C.COMMON_CODE
+				) AA
+		        , (
+					SELECT * 
+						FROM T_HMCT_COMMON
+		                WHERE COMMON_TYPE = 'B' 
+				  ) BB
+				, (
+					SELECT * 
+						FROM T_HMCT_COMMON
+		                WHERE COMMON_TYPE = 'C' 
+				  ) CC
+			WHERE AA.PRODUCT_MATERIAL = BB.COMMON_CODE
+		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE;
+	]]>
+	</select>
+	
+	<select id="getAllProductImageList" resultType="camelHashMap">
+	<![CDATA[
+		SELECT *
+			FROM T_HMCT_PRODUCT_IMAGE
+	]]>
+	</select>
+
 </mapper>
 
 

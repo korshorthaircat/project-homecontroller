@@ -321,11 +321,17 @@ public class AdminController {
     	//쇼룸 아이템 등록
     	List<Integer> prNoList = new ArrayList<Integer>();
     	
+    	List<String> leftLocationList = new ArrayList<String>();
+    	List<String> topLocationList = new ArrayList<String>();
+    	
+    	
     	for(int i = 0; i < Integer.parseInt(paramMap.get("showroomItemsLength")); i++) {
     		prNoList.add(Integer.parseInt(paramMap.get("showroomItems." + i)));
+    		leftLocationList.add(paramMap.get("leftLocation"));
+    		topLocationList.add(paramMap.get("topLocation"));
     	}
     	
-    	showroomService.insertShowroomItems(srNo, prNoList);
+    	showroomService.insertShowroomItems(srNo, prNoList, leftLocationList, topLocationList);
     }
 
     

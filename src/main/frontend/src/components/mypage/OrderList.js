@@ -55,6 +55,9 @@ function Orderlist() {
   const [limit, setLimit] = React.useState(10);
   const [page, setPage] = React.useState(1);
   const offset = (page - 1) * limit;
+  const handlePaging =(currentPage) =>{
+    setPage(prev => currentPage);
+}
 
   return (
     <div className="container">
@@ -225,7 +228,7 @@ function Orderlist() {
                         ))
                     ) : (
                       <TableRow>
-                        <TableCell>조회된 데이터가 없습니다.</TableCell>
+                        <TableCell >조회된 데이터가 없습니다.</TableCell>
                       </TableRow>
                     )}
                   </TableBody>
@@ -237,7 +240,7 @@ function Orderlist() {
             total={orderList.length}
             limit={limit}
             page={page}
-            setPage={setPage}
+            handlePaging={handlePaging}
           />
         </div>
 

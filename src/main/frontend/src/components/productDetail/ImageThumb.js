@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { Route, useLocation, useParams } from "react-router-dom";
 import { Details } from "@mui/icons-material";
 import axios from "axios";
+import SameCategoryList from "./SameCategoryList";
 
 const choice = {
   img1: {
@@ -74,6 +75,11 @@ function ImageThumb(props) {
   return (
     <>
       <div className="main">
+        <div>제품</div>
+        <div>카테고리</div>
+        {productList.map((r) => (
+          <div>{r.productCategoryName}</div>
+        ))}
         <div className="imgBox">
           <div style={{ textAlign: "center" }}>
             <Box item={userSelect} />
@@ -83,7 +89,7 @@ function ImageThumb(props) {
               <img
                 key={index}
                 src={`http://localhost:8080/upload/${a.productImageName}`}
-                className="btn"
+                className="btnThumImg"
                 onClick={() => play(a, index)}
               />
             ))}
@@ -98,6 +104,7 @@ function ImageThumb(props) {
           <ProductMainInfo />
         </div>
       </div>
+      <SameCategoryList />
     </>
   );
 }
