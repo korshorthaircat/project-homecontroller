@@ -1,5 +1,6 @@
 package com.bootreact.hmct.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -26,5 +27,13 @@ public class ShowroomItem {
 	@ManyToOne
 	@JoinColumn(name="SHOWROOM_NO")
 	private Showroom showroom;
+	
+	//제품위치Left
+	@Column
+	private String productLocationLeft;
+	
+	//제품위치Top
+	@Column
+	private String productLocationTop;
 	
 }

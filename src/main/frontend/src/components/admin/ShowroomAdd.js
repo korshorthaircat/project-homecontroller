@@ -151,7 +151,7 @@ function ShowroomAdd() {
             <h1>인테리어쇼룸 등록폼</h1>
             <Box
               sx={{
-                "& .MuiTextField-root": { m: 1, width: "30ch" },
+                "& .MuiTextField-root": { m: 3, width: "30ch" },
               }}
               noValidate
               autoComplete="off"
@@ -167,7 +167,7 @@ function ShowroomAdd() {
                   SelectProps={{
                     native: true,
                   }}
-                  helperText="색상 선택 하거라 요놈아 (๑╹o╹)✎"
+                  helperText="인테리어 쇼룸 색상을 선택해주세요"
                 >
                   {showroomColor.map((c) => (
                     <option key={c.value} value={c.value}>
@@ -175,6 +175,7 @@ function ShowroomAdd() {
                     </option>
                   ))}
                 </TextField>
+                <br />
                 <TextField
                   id="outlined-required"
                   name="productNo1"
@@ -183,10 +184,38 @@ function ShowroomAdd() {
                 />
                 <TextField
                   id="outlined-required"
+                  name="productLocationLeft1"
+                  label="제품번호1 - 제품left위치"
+                  type="text"
+                  helperText="ex) left: ''30%''"
+                />
+                <TextField
+                  id="outlined-required"
+                  name="productLocationTop1"
+                  label="제품번호1 - 제품top위치"
+                  type="text"
+                  helperText="ex) top: ''45%''"
+                />
+                <br />
+                <TextField
+                  id="outlined-required"
                   name="productNo2"
                   label="제품번호2"
                   type="number"
                 />
+                <TextField
+                  id="outlined-required"
+                  name="productLocationLeft2"
+                  label="제품번호2 - 제품left위치"
+                  type="text"
+                />
+                <TextField
+                  id="outlined-required"
+                  name="productLocationTop2"
+                  label="제품번호2 - 제품top위치"
+                  type="text"
+                />
+                <br />
                 <TextField
                   id="outlined-required"
                   name="productNo3"
@@ -195,15 +224,53 @@ function ShowroomAdd() {
                 />
                 <TextField
                   id="outlined-required"
+                  name="productLocationLeft3"
+                  label="제품번호3 - 제품left위치"
+                  type="text"
+                />
+                <TextField
+                  id="outlined-required"
+                  name="productLocationTop3"
+                  label="제품번호3 - 제품top위치"
+                  type="text"
+                />
+                <br />
+                <TextField
+                  id="outlined-required"
                   name="productNo4"
                   label="제품번호4"
                   type="number"
                 />
                 <TextField
                   id="outlined-required"
+                  name="productLocationLeft4"
+                  label="제품번호4 - 제품left위치"
+                  type="text"
+                />
+                <TextField
+                  id="outlined-required"
+                  name="productLocationTop1"
+                  label="제품번호4 - 제품top위치"
+                  type="text"
+                />
+                <br />
+                <TextField
+                  id="outlined-required"
                   name="productNo5"
                   label="제품번호5"
                   type="number"
+                />
+                <TextField
+                  id="outlined-required"
+                  name="productLocationLeft5"
+                  label="제품번호5 - 제품left위치"
+                  type="text"
+                />
+                <TextField
+                  id="outlined-required"
+                  name="productLocationTop1"
+                  label="제품번호5 - 제품top위치"
+                  type="text"
                 />
 
                 <Box
