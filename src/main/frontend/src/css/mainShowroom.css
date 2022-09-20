@@ -91,6 +91,7 @@
     width: 655px;
     padding: 0;
     margin: 10px;
+    position: relative;
 }
 
 .col img {
@@ -100,7 +101,7 @@
 }
 
 .row {
-    margin: 0 auto;
+    
     width: 1350px;
 }
 
@@ -120,7 +121,7 @@
     border-radius: 100%;
     border: 0px;
     position: relative;
-    bottom: 65px;
-    left: 285px;
+    bottom: 7%;
+    left: 10%;
 }
 

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import MainShowroomColor from "../../components/main/MainShowroomColor";
+import MainShowroomColor from "../main/MainShowroomColor";
 import "../../css/mainShowroom.css";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import ShowroomBox from "./ShowroomBox";
 import { useEffect } from "react";
+import HoverIcon from "./HoverIcon";
 
-const MainShowroom = () => {
+const ShowroomPage = () => {
   const [showroomImg, setShowroomImg] = React.useState([]);
 
   const [showroomImgData, setShowroomImgData] = useState([]);
@@ -34,6 +35,7 @@ const MainShowroom = () => {
     axios
       .get(showroomListUrl, {})
       .then((response) => {
+        console.log(response.data);
         setShowroomImg(response.data.showroomList);
         setShowroomItem(response.data.showroomItemList);
         setShowroomImgData(response.data.showroomList.slice(0, 4));
@@ -126,4 +128,4 @@ const MainShowroom = () => {
   );
 };
 
-export default MainShowroom;
+export default ShowroomPage;

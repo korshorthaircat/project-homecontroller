@@ -16,6 +16,7 @@ import com.bootreact.hmct.dto.ProductDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.dto.ShowroomDTO;
 import com.bootreact.hmct.entity.Showroom;
+import com.bootreact.hmct.entity.ShowroomItem;
 import com.bootreact.hmct.service.product.ProductService;
 import com.bootreact.hmct.service.showroom.ShowroomService;
 
@@ -64,65 +65,54 @@ public class MainController {
 //
 //	//쇼룸 - 컬러칩 보여주는 쇼룸
 	@GetMapping("/getShowroomList")
-	public ResponseEntity<?> getShowroomList() {
+	public Map<String, Object> getShowroomList() {
 		try {
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			
 			List<Showroom> showroomList = showroomService.getShowroomList();
 			
-			List<ShowroomDTO> showroomDTOList = new ArrayList<ShowroomDTO>();
-	
-			for(Showroom s: showroomList) {
-				ShowroomDTO showroomDTO = new ShowroomDTO();
-				
-				showroomDTO.setShowroomNo(s.getShowroomNo());
-				showroomDTO.setShowroomColor(s.getShowroomColor());
-				showroomDTO.setShowroomImgName(s.getShowroomImgName());
-				showroomDTO.setShowroomImgOriginalName(s.getShowroomImgOriginalName());
-				
-				showroomDTOList.add(showroomDTO);				
-			}
-			ResponseDTO<ShowroomDTO> response = new ResponseDTO<>();
+			List<Map<String, Object>> showroomItemList = showroomService.getShowroomItemList();
 			
-			response.setData(showroomDTOList);
+			resultMap.put("showroomList", showroomList);
+			resultMap.put("showroomItemList", showroomItemList);
 			
-			return ResponseEntity.ok().body(response);
+			return resultMap;
 			
 		} catch(Exception e) {
-			System.out.println(e.getMessage());
-			ResponseDTO<ProductDTO> response = new ResponseDTO<> ();
-			response.setError(e.getMessage());
-			return ResponseEntity.badRequest().body(response);
+			Map<String, Object> errorMap = new HashMap<String, Object>();
+			
+			errorMap.put("error", e.getMessage());
+			
+			return errorMap;
 		}
 	};
 	
 	//선택된 색상의 쇼룸 표출
 	@GetMapping("/getColorShowroomList")
-	public ResponseEntity<?> getColorShowroomList(@RequestParam String showroomColor) {
+	public Map<String, Object> getColorShowroomList(@RequestParam String showroomColor) {
 		try {
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			
 			List<Showroom> colorShowroomList = showroomService.getColorShowroomList(showroomColor);
 			
-			List<ShowroomDTO> showroomDTOList = new ArrayList<ShowroomDTO>();
+			List<Map<String, Object>> colorShowroomItemList = new ArrayList<Map<String, Object>>();
 			
-			for(Showroom s: colorShowroomList) {
-				ShowroomDTO showroomDTO = new ShowroomDTO();
-				
-				showroomDTO.setShowroomNo(s.getShowroomNo());
-				showroomDTO.setShowroomColor(s.getShowroomColor());
-				showroomDTO.setShowroomImgName(s.getShowroomImgName());
-				showroomDTO.setShowroomImgOriginalName(s.getShowroomImgOriginalName());
-				
-				showroomDTOList.add(showroomDTO);				
+			for(Showroom s : colorShowroomList) {
+				List<Map<String, Object>> temp = showroomService.getColorShowroomItemList(s.getShowroomNo());
+				colorShowroomItemList.addAll(temp);
 			}
-			ResponseDTO<ShowroomDTO> response = new ResponseDTO<>();
 			
-			response.setData(showroomDTOList);
+			resultMap.put("colorShowroomList", colorShowroomList);
+			resultMap.put("colorShowroomItemList", colorShowroomItemList);
 			
-			return ResponseEntity.ok().body(response);
+			return resultMap;
 			
 		} catch(Exception e) {
-			System.out.println(e.getMessage());
-			ResponseDTO<ProductDTO> response = new ResponseDTO<> ();
-			response.setError(e.getMessage());
-			return ResponseEntity.badRequest().body(response);
+			Map<String, Object> errorMap = new HashMap<String, Object>();
+			
+			errorMap.put("error", e.getMessage());
+			
+			return errorMap;
 		}
 	};
 }

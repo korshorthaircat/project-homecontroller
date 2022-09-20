@@ -10,6 +10,10 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +37,7 @@ import com.bootreact.hmct.entity.ProductOption;
 import com.bootreact.hmct.entity.Showroom;
 import com.bootreact.hmct.service.product.ProductService;
 import com.bootreact.hmct.service.showroom.ShowroomService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -253,7 +258,7 @@ public class AdminController {
     //인테리어 쇼룸 등록
 
     @PostMapping(value= "/insertShowroom",consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void insertShowroom(HttpServletRequest request,MultipartHttpServletRequest mphsRequest, @RequestParam Map<String, String> paramMap) throws IOException {
+    public void insertShowroom(HttpServletRequest request,MultipartHttpServletRequest mphsRequest, @RequestParam Map<String, Object> paramMap) throws IOException, ParseException {
     	//paramMap 형태
     	/*
     	 * {
@@ -269,8 +274,28 @@ public class AdminController {
     	 * ShowroomItem show
     	 * */
     	//파라미터로 받은 맵에서 밸류들 꺼내서 Showroom 객체에 담아주기
+    	
+    	JSONParser parser = new JSONParser();      
+    	
+    	JSONArray jsonArray = (JSONArray) parser.parse(paramMap.get("itemList").toString());
+    	
+    	List<Map<String, Object>> itemList = new ArrayList<Map<String, Object>>();
+
+		if (jsonArray != null) {
+
+			int jsonSize = jsonArray.size();
+
+			for (int i = 0; i < jsonSize; i++) {
+				JSONObject jObj = (JSONObject)jsonArray.get(i);
+
+				Map<String, Object> map = new ObjectMapper().readValue(jObj.toJSONString(), Map.class);
+				
+				itemList.add(map);
+			}
+		}
+    	
     	Showroom showroom = new Showroom();
-    	showroom.setShowroomColor(paramMap.get("showroomColor"));
+    	showroom.setShowroomColor(paramMap.get("showroomColor").toString());
     	
     	//등록할 쇼룸 번호 가져오기
     	int srNo = showroomService.getNextShowroomNo();
@@ -319,19 +344,7 @@ public class AdminController {
     	showroomService.insertShowroom(showroom);
     	
     	//쇼룸 아이템 등록
-    	List<Integer> prNoList = new ArrayList<Integer>();
-    	
-    	List<String> leftLocationList = new ArrayList<String>();
-    	List<String> topLocationList = new ArrayList<String>();
-    	
-    	
-    	for(int i = 0; i < Integer.parseInt(paramMap.get("showroomItemsLength")); i++) {
-    		prNoList.add(Integer.parseInt(paramMap.get("showroomItems." + i)));
-    		leftLocationList.add(paramMap.get("leftLocation"));
-    		topLocationList.add(paramMap.get("topLocation"));
-    	}
-    	
-    	showroomService.insertShowroomItems(srNo, prNoList, leftLocationList, topLocationList);
+    	showroomService.insertShowroomItems(itemList, srNo);
     }
 
     

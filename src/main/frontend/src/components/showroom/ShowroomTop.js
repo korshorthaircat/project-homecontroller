@@ -12,34 +12,34 @@ function ShowroomTop() {
       <p style={{ marginBottom: "5%" }}>나만의 색상으로 내 공간을 꾸며보자!</p>
       <div className="showroomMain">
         <ShowroomColor
-          imgChange="../../images/showroom_images/pink2.jpg"
+          imgChange="../../images/showroom_images/red.png"
           colorChange="red"
           colorname="red"
         />
         <ShowroomColor
-          imgChange="../../images/showroom_images/yellowshowroom.jpg"
+          imgChange="../../images/showroom_images/yellow.png"
           colorChange="yellow"
           colorname="yellow"
         />
         <ShowroomColor
-          imgChange="../../images/showroom_images/green1.png"
+          imgChange="../../images/showroom_images/green.png"
           colorChange="green"
           colorname="green"
         />
         <ShowroomColor
-          imgChange="../../images/showroom_images/navy1.jpg"
+          imgChange="../../images/showroom_images/PantoneBlue.png"
           colorChange="blue"
           colorname="blue"
         />
         <ShowroomColor
-          imgChange="../../images/showroom_images/purple.jpg"
+          imgChange="../../images/showroom_images/purple.png"
           colorChange="purple"
           colorname="purple"
         />
       </div>
       <div className="showroomMain">
         <ShowroomColor
-          imgChange="../../images/showroom_images/white2.jpg"
+          imgChange="../../images/showroom_images/PantoneWhite.png"
           colorChange="white"
           colorname="white"
         />

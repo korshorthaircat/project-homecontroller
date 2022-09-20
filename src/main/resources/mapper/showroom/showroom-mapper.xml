@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/dtd/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.bootreact.hmct.mapper.ShowroomMapper">
+	<select id="getShowroomItemList" resultType="camelHashMap">
+		SELECT * 
+			FROM T_HMCT_SHOWROOM_ITEM
+	</select>
+	
+	<select id="getColorShowroomItemList" parameterType="int" resultType="camelHashMap">
+		SELECT * 
+			FROM T_HMCT_SHOWROOM_ITEM 
+			WHERE SHOWROOM_NO = #{showroomNo}
+	</select>
+	
+	<select id="getShowroomProductItem" parameterType="int" resultType="camelHashMap">
+		SELECT  A. *,
+				B. *	
+			FROM (
+					T_HMCT_SHOWROOM_ITEM A,
+					T_HMCT_PRODUCT B
+				 )
+			WHERE A.PRODUCT_NO = B.PRODUCT_NO
+			AND  PRODUCT_NO = #{productNo}
+	</select>
+</mapper>
+
+

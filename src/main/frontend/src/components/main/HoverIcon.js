@@ -2,9 +2,33 @@ import React from "react";
 import "../../css/mainInteriorImage.css";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 const HoverIcon = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [showroomProductItem, setShowroomProductItem] = useState([]);
+
+  const getShowroomProductItem = () => {
+    // let url = `http://localhost:8080/api/product/getShowroomProductItem`;
+    // let response = await fetch(url);
+    // let data = await response.json();
+    // console.log(data);
+    // setShowroomProductItem(data.showroomProductItem);
+
+    axios({
+      method: "get",
+      url: "http://localhost:8080/api/product/getShowroomProductItem",
+      params: { productNo: 64 },
+    }).then((response) => {
+      console.log(response.data.data);
+    });
+  };
+
+  useEffect(() => {
+    getShowroomProductItem();
+  }, []);
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -48,13 +72,17 @@ const HoverIcon = () => {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 1 }}>
-          <div className="showroomProductContent">
-            MICKE 미케 <br />
-            테이블/식탁/책상, 73x50 cm <br />
-            \30000 <br />
-          </div>
-        </Typography>
+        <div className="showroomProductContent" responsive="responsive">
+          {showroomProductItem.map((a) => (
+            <Typography item={a} sx={{ p: 1 }}>
+              <div>
+                {a.productName} <br />
+                {a.productCategory} , {a.productSize} <br />₩ {a.productPrice}{" "}
+                <br />
+              </div>
+            </Typography>
+          ))}
+        </div>
       </Popover>
     </div>
   );

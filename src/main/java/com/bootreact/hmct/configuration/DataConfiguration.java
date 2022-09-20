@@ -35,7 +35,13 @@ public class DataConfiguration {
 	@ConfigurationProperties(prefix="spring.datasource.hikari")
 	//application.properties 파일 중에서, spring.datasour.hikari로 시작하는 설정들만 읽어오는 설정
 	public HikariConfig hikariConfig() {
-		return new HikariConfig();
+		HikariConfig hikariConfig = new HikariConfig();
+		hikariConfig.setMinimumIdle(10);
+		hikariConfig.setMaximumPoolSize(10);
+		hikariConfig.setConnectionTimeout(3000);
+		hikariConfig.setValidationTimeout(3000);
+		hikariConfig.setMaxLifetime(58000);
+		return hikariConfig;
 	}
 	
 	@Bean
