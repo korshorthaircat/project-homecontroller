@@ -67,8 +67,8 @@ export default function MultipleSelectCheckmarks({ onCommonCodeHandler }) {
   };
 
   useEffect(() => {
-    onCommonCodeHandler(colorName[0]);
     console.log(colorName[0]);
+    onCommonCodeHandler(colorName[0]);
   }, [colorName]);
 
   return (
