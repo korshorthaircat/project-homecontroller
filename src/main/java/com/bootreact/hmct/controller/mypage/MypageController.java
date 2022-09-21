@@ -2,7 +2,8 @@ package com.bootreact.hmct.controller.mypage;
 
 import java.util.ArrayList;
 import java.util.List;
- 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,6 +27,7 @@ import com.bootreact.hmct.service.product.ProductService;
 import com.bootreact.hmct.service.review.ReviewService;
 import com.bootreact.hmct.service.user.UserService;
 import com.bootreact.hmct.service.wish.WishService;
+import com.bootreact.hmct.entity.ChangePw;
 
 @RestController
 @RequestMapping("/api/mypage")
@@ -55,6 +57,8 @@ public class MypageController {
 	@Autowired
 	WishService wishService;
 	
+	private ChangePw changePw;
+	
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
 	
@@ -71,6 +75,7 @@ public class MypageController {
 	){
 		// 등록된 사용자 정보를 조회한다 
 		User oldUser = userService.findbyUserId(user.getUserId());
+//		User pwChange = userService.changePw(user.getUserPw());
 
 		// 화면 input 항목에서 받아온 값들을 변경한다 
 		oldUser.setUserName(user.getUserName());
@@ -80,12 +85,17 @@ public class MypageController {
 		oldUser.setUserZip(user.getUserZip());
 		oldUser.setUserAddr(user.getUserAddr());
 		oldUser.setUserAddrDetail(user.getUserAddrDetail());
+//		oldUser.setUserPw(user.getUserPw());
 
 		// 실제 DB 저장 
 		userService.updateUser(oldUser);
 
 		return ResponseEntity.ok().body("success");
 	}
+	
+	
+	
+	
 	
 	/**
 	 * Mypage 사용자 탈퇴 
@@ -105,6 +115,17 @@ public class MypageController {
 			
 		}
 	}
+	
+	
+	
+
+	//비밀번호 변경 
+	@PostMapping("/changeUserPw")
+	public ResponseEntity<?> changeUserPw(@RequestBody User user) {
+		Map<String, Object> result = mypageService.ChangePw(changePw);
+		return ResponseEntity.ok().body(result);
+	}
+	
 	
 	
 	//Mypage 내가작성한 게시글 조회 

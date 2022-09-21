@@ -5,7 +5,6 @@ import MainShowroom from "./components/main/MainShowroom";
 import ProductCarousel from "./components/main/ProductCarousel";
 import ServiceCarousel from "./components/main/ServiceCarousel";
 import EventCarousel from "./components/main/EventCarousel";
-import MainInteriorImage from "./components/main/MainInteriorImage";
 import TopButton from "./components/main/TopButton";
 import WithScrollbar from "./components/main/Test";
 import  ScrollTop from "./components/main/ScrollTop";
@@ -19,9 +18,6 @@ function App() {
   return (
     <div>
       <MainImage/>
-
-      <h4 className="main_title">개발자들을 위한 인테리어 추천 제품</h4>
-      <MainInteriorImage/>
 
       <h4 className="main_title">진행중인 이벤트 및 프로모션</h4>
       <EventCarousel />
