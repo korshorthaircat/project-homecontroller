@@ -150,7 +150,7 @@ function WishList() {
               </a>
               <ul>
                 <li>
-                  <a href="#Link" title="Link">
+                  <a href="/mypoint" title="Link">
                     포인트
                   </a>
                 </li>
@@ -205,6 +205,7 @@ function WishList() {
           </ul>
         </nav>
       </div>
+
       <div className="wish">
         <h1 className="wishTitle">나의 위시리스트</h1>
         <Slider {...settings}>

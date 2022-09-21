@@ -19,7 +19,7 @@ function ReviewList() {
   };
 
   return (
-    <div className="container">
+    <div className="review_container">
       <div className="bloc-tabs">
         <div
           className={toggleState === 1 ? "tabs active-tabs" : "tabs"}

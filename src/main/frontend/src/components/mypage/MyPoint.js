@@ -6,7 +6,7 @@ import axios from "axios";
 import "../../css/mypagesidebar.css";
 
 const ariaLabel = { "aria-label": "description" };
-function OutMembers() {
+function MyPoint() {
   // 화면 input 항목 = DB 정보
   const [inputs, setInputs] = useState({
     userZip: "",
@@ -200,18 +200,11 @@ function OutMembers() {
       </body>
 
       <div style={{ margin: "0 auto" }}>
-        <img src="https://i.pinimg.com/originals/6c/b0/d2/6cb0d2d23207729a50b9c023748a2c85.gif" />
+        <img src="https://i.pinimg.com/564x/ec/c5/22/ecc5225d244576eee4bbd9c71e34fafc.jpg" />
       </div>
 
       <div className="outCard">
         <div class="card text-center">
-          <div class="card-header">
-            <h5 class="card-title">
-              HomeController 멤버십을 탈퇴하면 {inputs.userNickname} 님께 발행된
-              할인 쿠폰과 적립된 포인트를 모두 사용할 수 없게 됩니다.
-            </h5>
-          </div>
-
           <div class="card-body">
             <div className="pointPart">
               <h5 style={{ marginBottom: "50px" }}>
@@ -221,20 +214,10 @@ function OutMembers() {
               <h5>지금 바로 사용 가능한 쿠폰</h5>
               <img src="https://i.pinimg.com/564x/84/ab/ab/84abab661b1bab887559f001d80bc1f5.jpg"></img>
             </div>
-
-            <div className="outBtn">
-              <button className="outButton" onClick={deleteUserInfo}>
-                멤버십 탈퇴하기
-              </button>
-            </div>
-          </div>
-          <div class="card-footer text-muted">
-            HomeController 이용에 관한 불편함이나 건의사항이 있으시다면 문의
-            게시판에 언제든지 작성해주세요.
           </div>
         </div>
       </div>
     </div>
   );
 }
-export default OutMembers;
+export default MyPoint;

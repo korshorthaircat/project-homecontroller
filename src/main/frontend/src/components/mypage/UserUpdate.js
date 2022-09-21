@@ -26,6 +26,9 @@ function UserUpdate() {
 
   //////////////////////////////////////////////////////////////////////////////
 
+  //비밀번호변경 확인 버튼 클릭시
+  const [chgPw, setChgPw] = useState("");
+  const [chgPwOk, setChgPwOk] = useState("");
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
   const [userPwCheck, setUserPwCheck] = useState("");
@@ -67,21 +70,21 @@ function UserUpdate() {
   );
 
   const onPwCheckHandler = (event) => {
-    setUserPwCheck(event.currentTarget.value);
+    setChgPwOk(event.currentTarget.value);
   };
 
   useEffect(() => {
-    setUserPwCheck((currentValue) => currentValue);
+    setChgPwOk((currentValue) => currentValue);
 
     //비밀번호 일치 여부 검사
-    if (userPw !== userPwCheck) {
+    if (chgPw !== chgPwOk) {
       setIsCheckedPassword(false);
       setUserPwCheckMessage("비밀번호가 일치하지 않습니다.");
     } else {
       setIsCheckedPassword(true);
       setUserPwCheckMessage("비밀번호가 일치합니다.");
     }
-  }, [userPwCheck]);
+  }, [chgPwOk]);
 
   const hasNotSameError = useCallback(
     (str) => {
@@ -168,6 +171,11 @@ function UserUpdate() {
       ...inputs,
       [name]: value,
     });
+    if (name === "chgPw") {
+      setChgPw((prev) => value);
+    } else if (name === "userPw") {
+      setUserPw(value);
+    }
   };
 
   // 비밀번호 변경 모달
@@ -212,15 +220,11 @@ function UserUpdate() {
     }
   };
 
-  //비밀번호변경 확인 버튼 클릭시
   const onSubmitPw = (event) => {
     event.preventDefault(); // 아무 동작 안하고 버튼만 눌러도 리프레쉬 되는 것을 막음
 
-    var userId = sessionStorage.getItem("USER_INFO");
-    var userPw = sessionStorage.getItem("USER_INFO");
-    var userInfo = JSON.parse(userId, userPw);
-    var chgPw = "";
-    var chgPwOk = "";
+    var userInfoStr = sessionStorage.getItem("USER_INFO");
+    var userInfo = JSON.parse(userInfoStr);
 
     if (chgPw != chgPwOk) {
       alert("입력한 비밀번호와 일치하지 않습니다.");
@@ -233,14 +237,12 @@ function UserUpdate() {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
       },
-      data: {
-        userId: userInfo.userId,
-        userPw: userInfo.userPw,
-        chgPw: userInfo.chgPw,
-        chgPwOk: userInfo.chgPwOk,
-      },
+      data: inputs,
     }).then((response) => {
-      console.log("잘되나");
+      // var usrData = response.data.data[0];
+
+      console.log(response);
+      console.log("비번바뀌나");
       alert("비밀번호가 변경되었습니다.");
     });
   };
@@ -301,7 +303,7 @@ function UserUpdate() {
                   </a>
                   <ul>
                     <li>
-                      <a href="#Link" title="Link">
+                      <a href="/mypoint" title="Link">
                         포인트
                       </a>
                     </li>
@@ -502,25 +504,27 @@ function UserUpdate() {
                     required
                     fullWidth
                     id="userPw"
-                    label="현재비밀번호"
                     name="userPw"
+                    value={userPw}
+                    onChange={onChange}
                     type="password"
+                    label="현재비밀번호"
                     autoComplete="current-password"
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    name="userPw"
                     variant="outlined"
                     required
                     fullWidth
-                    id="userPw"
-                    label="새비밀번호"
+                    id="chgPw"
+                    name="chgPw"
                     type="password"
-                    // value=""
+                    label="새비밀번호"
+                    value={chgPw}
                     onChange={onChange}
                   />
-                  {userPw.length > 0 && (
+                  {chgPw.length > 0 && (
                     <span
                       className={`message ${isPassword ? "success" : "error"}`}
                     >
@@ -530,17 +534,17 @@ function UserUpdate() {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    name="userPwCheck"
                     variant="outlined"
                     required
                     fullWidth
-                    id="userPwCheck"
-                    label="비밀번호 확인"
+                    name="chgPwOk"
+                    id="chgPwOk"
                     type="password"
-                    value={userPwCheck}
+                    label="비밀번호 확인"
+                    value={chgPwOk}
                     onChange={onPwCheckHandler}
                   />
-                  {userPwCheck.length > 0 && (
+                  {chgPwOk.length > 0 && (
                     <span
                       className={`message ${
                         isCheckedPassword ? "success" : "error"
