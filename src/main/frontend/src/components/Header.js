@@ -82,7 +82,6 @@ const Header = () => {
   const [cartCount, setCartCount] = React.useState(0); //장바구니에 담긴 제품 개수
   const [loginUser, setLoginUser] = React.useState(null);
   const [word, setWord] = useState("");
-
   // const { productCategoryName } = useParams();
 
   // const onSubmit = async () => {
@@ -197,13 +196,16 @@ const Header = () => {
                 />
 
                 {/* <button
+
                   type="button"
                   onClick={() => {
                     onSubmit();
                   }}
                 >
                   검색
+
                 </button> */}
+
               </Search>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>

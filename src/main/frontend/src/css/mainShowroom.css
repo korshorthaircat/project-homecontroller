@@ -93,6 +93,7 @@
   width: 655px;
   padding: 0;
   margin: 10px;
+  position: relative;
 }
 
 .col img {
@@ -124,4 +125,5 @@
   position: relative;
   bottom: 65px;
   left: 285px;
+
 }

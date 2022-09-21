@@ -7,6 +7,7 @@ import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import HeartButton from "./HeartButton";
 
 const ProductCard = ({ item, productImageList }) => {
   //대표 이미지
@@ -66,6 +67,47 @@ const ProductCard = ({ item, productImageList }) => {
     });
   };
 
+  //위시아이템 삭제하기
+  const deleteWishList = (index) => {
+    axios({
+      url: "http://localhost:8080/api/wishlist/deleteWishItem",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+      },
+      method: "post",
+      data: { productNo: item.productNo },
+    }).then((response) => {
+      // setWishItemList(response.data.wishItemList);
+      window.location.href = "/wishlist";
+      console.log(response.data);
+    });
+  };
+
+  //하트아이콘 클릭시 하트색 변경시키기
+  const [like, setLike] = useState(false);
+
+  // useEffect(async () => {
+  //   const fetchData = async () => {
+  //     const res = await axios.addWishList("ACCESS_TOKEN");
+  //     if (res.data.type === "liked") setLike(true);
+  //   };
+  //   fetchData();
+  // }, []);
+
+  // const toggleLike = async (e) => {
+  //   const res = await axios.addWishList("ACCESS_TOKEN");
+  //   setLike(!like);
+  // };
+
+  const toggleLike = async (e) => {
+    // if (like) {
+    //   deleteWishList;
+    // } else {
+    //   addWishList;
+    // }
+    setLike(!like);
+  };
+
   //장바구니 클릭시 장바구니에 담기
   const addCart = () => {
     axios({
@@ -117,16 +159,17 @@ const ProductCard = ({ item, productImageList }) => {
             <p className="price_text">
               \{(item.productPrice + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </p>
-
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
               sx={{ padding: "0 6px", left: 140 }}
-              onClick={addWishList}
+              onClick={like ? deleteWishList : addWishList}
             >
               <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
             </IconButton>
+
+            <HeartButton like={like} onClick={toggleLike} />
             <Modal show={wishlistShow} onHide={wishlistHandleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>위시리스트 등록</Modal.Title>
@@ -142,7 +185,6 @@ const ProductCard = ({ item, productImageList }) => {
                 </Button>
               </Modal.Footer>
             </Modal>
-
             <IconButton
               size="large"
               aria-label="account of current user"

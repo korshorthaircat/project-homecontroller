@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Typography } from "@mui/material";
+import { Hidden, Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import "../../css/admin.css";
 import axios from "axios";
@@ -20,11 +20,12 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import { useEffect } from "react";
 
 const mdTheme = createTheme();
 
 const MyOrderstatus = () => {
-    const navigate = useNavigate();
+    //주문 목록 부분
     const location = useLocation({});
     const [orderNo, setOrderNo] = useState(location.state);
     const [orderDetail, setOrderDetail] = useState({});
@@ -53,7 +54,13 @@ const MyOrderstatus = () => {
         axios({
             url: "http://localhost:8080/api/refund/createCancel",
             method: "post",
-            data: {orderNo : orderNo}
+            data: {orderNo : orderNo,
+                   cancelAmount : cancelAmount,
+                   cancelReason: cancelReason,
+                   refundAccount: refundAccount,
+                   refundAmount : refundAmount,
+                   refundBank : refundBank,
+                   refundName : refundName}
             })
             .then((response) => {
             //   setOrderNo(response.data);
@@ -63,35 +70,56 @@ const MyOrderstatus = () => {
               console.log("update오류" + e);
             });
         }
-    }
-
-    const handleChange = (e) => {
-        const updateOrder = {
-          ...orderDetail,
-          [e.target.name]: e.target.value,
-        };
-        setOrderDetail(updateOrder);
     };
-
+    
+    //토글 부분
     const [toggleState, setToggleState] = useState(1);
 
     const toggleTab = (index) => {
         setToggleState(index);
     };
     
+    //서브밋할 내용(Cancel)
+    const [cancelReason, setCancelReason] = React.useState(" ");
+    const [cancelAmount, setCancelAmount] = React.useState(0);
+    const onCRHandler = (e) =>{
+        setCancelReason(e.target.value);
+    }
+
     const [reason, setReason] = React.useState(" ");
-    const [reason2, setReason2] = React.useState(" ");
     const [reason3, setReason3] = React.useState(" ");
     const handleChange2 = (e) => {
       setReason(e.target.value);
     };
-    const handleChange3 = (e) => {
-        setReason2(e.target.value);
-      }; 
     const handleChange4 = (e) => {
-    setReason3(e.target.value);
-    };   
+        setReason3(e.target.value);
+    };
 
+    useEffect(() => {
+      setCancelAmount(prev => orderDetail.paymentAmount);
+      setRefundAmount(prev => orderDetail.paymentAmount);
+    }, [orderDetail]);
+
+    //서브밋할 내용(Refund)
+    const [refundAmount, setRefundAmount] = React.useState(0);
+    const [refundBank, setRefundBank] = React.useState(" ");
+    const [refundAccount, setRefundAccount] = React.useState(" ");
+    const [refundName, setRefundName] = React.useState(" ");
+
+    const RFBHandler = (e) =>{
+        setRefundBank(e.target.value);
+    };
+
+    const RFAHandler = (e) =>{
+        setRefundAccount(e.target.value);
+    };
+
+    const RFNHandler = (e) =>{
+        setRefundName(e.target.value);
+    };
+    //서브밋할 내용(Return)
+    
+    //서브밋할 내용(Exchange)
     return (
         <ThemeProvider theme={mdTheme} >
             <Box sx={{ display: "flex" }} > 
@@ -212,7 +240,7 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none" }}
-                                            
+                                            name = "refundAccount"
                                             placeholder="환불 계좌를 적어주세요"
                                         />
                                         </TableCell> 
@@ -223,7 +251,7 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none"}}
-                                            
+                                            name="refundBank"
                                             placeholder="환불 은행을 적어주세요"
                                         />
                                         </TableCell> 
@@ -234,7 +262,7 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none"}}
-                                            
+                                            name="refundName"
                                             placeholder="예금주 명을 적어주세요"
                                         />
                                         </TableCell> 
@@ -340,6 +368,11 @@ const MyOrderstatus = () => {
                             </Box>
 
                             <Typography variant="h6" sx={{marginTop: "50px"}}>취소 사유</Typography>
+                                <Typography variant="h6">
+                                    <input value={"취소 대기"}
+                                           name="cancelStatus"
+                                           type="hidden"/>
+                                </Typography>
                             <Divider sx={{my: 2 , borderBottom: "2px solid gray"}}style={{width:"100%"}}/>
                             <FormControl sx={{ m: 1, minWidth: 20 }}
                                     style={{marginTop: "20px"}}>
@@ -347,8 +380,8 @@ const MyOrderstatus = () => {
                                 <Select
                                     labelId="demo-simple-select-autowidth-label2"
                                     id="demo-simple-select-autowidth"
-                                    value={reason2}
-                                    onChange={handleChange3}
+                                    value={cancelReason}
+                                    onChange={onCRHandler}
                                     label="취소 사유를 선택해 주세요"
                                     
                                     >
@@ -359,8 +392,8 @@ const MyOrderstatus = () => {
                                     <MenuItem value={"제품 정보와 상이"}>제품 정보와 상이</MenuItem>
                                 </Select>
                                 <TextareaAutosize style={{width: "500px", minHeight: "50px", resize: "none", marginTop:"20px"}}
-                                            value={reason2}
-                                            onChange={handleChange3}
+                                            value={cancelReason}
+                                            onChange={onCRHandler}
                                             name="cancelReason"/>
                             </FormControl>           
                             <Typography variant="h6" sx={{marginTop: "50px"}}>결제 정보</Typography>
@@ -375,8 +408,9 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none" }}
-                                            
-                                            placeholder="환불 계좌를 적어주세요"
+                                            name="refundAccount"
+                                            value={refundAccount}
+                                            onChange={RFAHandler}
                                         />
                                         </TableCell> 
                                         <TableCell component={"th"} sx={{backgroundColor: "#DCDCDC", borderBottom: "1px solid white" , padding:"0" , textAlign:"center"}}>
@@ -386,8 +420,9 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none"}}
-                                            
-                                            placeholder="환불 은행을 적어주세요"
+                                            name="refundBank"
+                                            value={refundBank}
+                                            onChange={RFBHandler}
                                         />
                                         </TableCell> 
                                         <TableCell component={"th"} sx={{backgroundColor: "#DCDCDC", borderBottom: "1px solid white" , padding:"0" , textAlign:"center"}}>
@@ -397,8 +432,9 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none"}}
-                                            
-                                            placeholder="예금주 명을 적어주세요"
+                                            name="refundName"
+                                            value={refundName}
+                                            onChange={RFNHandler}
                                         />
                                         </TableCell> 
                                         
@@ -408,8 +444,10 @@ const MyOrderstatus = () => {
                                         <TableCell >
                                         <input
                                             type="text"
-                                            style={{ border: "none" }}
-                                            value={orderDetail.paymentAmount}
+                                            style={{ border: "none" , outline:"none"}}
+                                            value={cancelAmount}
+                                            name= "cancelAmount"
+                                            readOnly
                                         />
                                         </TableCell>  
                                     </TableRow>
@@ -422,9 +460,10 @@ const MyOrderstatus = () => {
                                         <TableCell>
                                         <input
                                             type="text"
-                                            style={{ border: "none" }}
+                                            style={{ border: "none", outline:"none" }}
                                             name="userNickname"
                                             value={orderDetail.orderAmount}
+                                            readOnly
                                         />
                                         </TableCell>
                                         <TableCell component={"th"} sx={{backgroundColor: "#DCDCDC", borderBottom: "1px solid white"}}>
@@ -433,9 +472,10 @@ const MyOrderstatus = () => {
                                         <TableCell>
                                         <input
                                             type="text"
-                                            style={{ border: "none" }}
+                                            style={{ border: "none", outline:"none" }}
                                             name="userNickname"
                                             value={orderDetail.orderDiscount}
+                                            readOnly
                                         />
                                         </TableCell>
                                         <TableCell component={"th"} sx={{backgroundColor: "#DCDCDC", borderBottom: "1px solid white"}}>
@@ -444,9 +484,10 @@ const MyOrderstatus = () => {
                                         <TableCell>
                                         <input
                                             type="text"
-                                            style={{ border: "none" }}
+                                            style={{ border: "none" , outline:"none"}}
                                             name="userNickname"
                                             value={orderDetail.orderFee}
+                                            readOnly
                                         />
                                         </TableCell>
 
@@ -456,8 +497,10 @@ const MyOrderstatus = () => {
                                         <TableCell>
                                         <input
                                             type="text"
-                                            style={{ border: "none" }}
-                                            value={orderDetail.paymentAmount}
+                                            style={{ border: "none" , outline:"none"}}
+                                            value={refundAmount}
+                                            name="refundAmount"
+                                            readOnly
                                         />
                                         </TableCell>
                                     </TableRow>

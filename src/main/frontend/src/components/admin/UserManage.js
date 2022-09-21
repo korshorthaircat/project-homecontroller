@@ -47,7 +47,7 @@ const modalstyle = {
 function UserManage() {
   const [open, setOpen] = React.useState(false);
   const [pagingUserList, setPagingUserList] = React.useState([]);
-  const navigate = useNavigate();
+
   const handleOpen = (index) => {
     setOpen(true);
     setUserInfo(pagingUserList[index]);
@@ -73,7 +73,7 @@ function UserManage() {
     axios
       .get(listUrl)
       .then((response) => {
-        setUserList(response.data.data);  
+        setUserList(response.data.data);
       })
       //오류나면 오류메세지
       .catch((e) => {
@@ -83,9 +83,8 @@ function UserManage() {
 
   React.useEffect(() => {
     list();
-    console.log(userList); 
+    console.log(userList);
   }, []);
-
 
   //수정, 삭제 서브밋 처리 함수
   const handleSubmit = (e) => {
@@ -99,7 +98,7 @@ function UserManage() {
         .then((response) => {
           setOpen(false);
           setUserList(response.data);
-          window.location.href="/UserManage"
+          window.location.href = "/UserManage";
         })
         .catch((e) => {
           console.log("update오류" + e);
@@ -113,7 +112,7 @@ function UserManage() {
         .then((response) => {
           setOpen(false);
           setUserList(response.data);
-          window.location.href="/UserManage"
+          window.location.href = "/UserManage";
         })
         .catch((e) => {
           console.log("delete오류" + e);
@@ -133,20 +132,25 @@ function UserManage() {
   //페이지에 따라 데이터 5개씩 잘라넣는 userList
   useEffect(() => {
     setPagingUserList(userList.slice(offset, offset + limit));
-  }, [userList]); 
+  }, [userList]);
 
   //페이지네이션
   const [limit, setLimit] = React.useState(5);
   const [page, setPage] = React.useState(1);
   const offset = (page - 1) * limit;
-  const handlePaging =(currentPage) =>{
-      setPage(prev => currentPage);
-  }
+  const handlePaging = (currentPage) => {
+    setPage((prev) => currentPage);
+  };
 
   //페이지 바뀔 때마다 잘라넣는 userList 변경
   useEffect(() => {
-    setPagingUserList(prev => userList.slice(offset, offset + limit));
+    setPagingUserList((prev) => userList.slice(offset, offset + limit));
   }, [page, offset, limit]);
+
+  const changeLimit = (e) => {
+    setLimit((prev) => e.target.value);
+    setPage(1);
+  };
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -161,17 +165,13 @@ function UserManage() {
           <h1>회원 관리폼</h1>
           {/*페이지네이션 표출할 데이터양*/}
           <label className="orderOption">
-              페이지 당 표시할 게시물 수:&nbsp;
-              <select
-                type="number"
-                value={limit}
-                onChange={({ target: { value } }) => setLimit(Number(value))}
-              >
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-              </select>
-            </label>
+            페이지 당 표시할 게시물 수:&nbsp;
+            <select type="number" value={limit} onChange={changeLimit}>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+            </select>
+          </label>
           <Box
             component="form"
             sx={{
@@ -195,7 +195,8 @@ function UserManage() {
                 <TableBody>
                   {/* 가져온 data mapping ?절 사용(map 뒤의 u는 아무거나 가능)*/}
                   {userList ? (
-                    pagingUserList && pagingUserList.map((u, index) => (
+                    pagingUserList &&
+                    pagingUserList.map((u, index) => (
                       <TableRow
                         key={u.userName}
                         sx={{
@@ -459,12 +460,12 @@ function UserManage() {
           </Box>
         </Container>
       </Box>
-      <Paging 
-          total={userList.length}
-          limit={limit}
-          page={page}
-          handlePaging={handlePaging}
-        />
+      <Paging
+        total={userList.length}
+        limit={limit}
+        page={page}
+        handlePaging={handlePaging}
+      />
     </ThemeProvider>
   );
 }

@@ -16,21 +16,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
-
-function createData(name, calories, carbs, protein, test) {
-  return { name, calories, carbs, protein, test };
-}
-
-const rows = [
-  createData(1, "문의합니다", "김윤정", "2022-09-15", "답변대기"),
-  createData(2, "환불신청이요", "오샛별", "2022-09-15", "답변완료"),
-  createData(3, "교환신청이요", "차영현", "2022-09-15", "답변대기"),
-  createData(4, "언제배송되나요?", "이기쁨", "2022-09-15", "답변완료"),
-  createData(5, "불량이요", "강효주", "2022-09-15", "답변대기"),
-];
-
-//반품, 교환, 취소
-//답변대기, 답변완료
+import Paging from "./Paging";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const style = {
   position: "absolute",
@@ -53,17 +40,53 @@ const modalstyle = {
 };
 
 const Board = () => {
-  const [open, setOpen] = React.useState(false);
-  const [inquiryList, setInquiryList] = React.useState([]);
+  const [inquiryTitle, setInquiryTitle] = React.useState("");
+  // const [inquiryContent, setInquiryContent] = React.useState("");
+  // const [inquiryAnswer, setInquiryAnswer] = React.useState("");
 
-  const handleOpen = () => {
+  const [open, setOpen] = React.useState(false);
+  const [inquiryList, setInquiryList] = React.useState([]); //전체 게시글 목록
+  const [pagingInquiryList, setPagingInquiryList] = React.useState([]); //페이징 처리한 게시글 모곩
+
+  const [inquiryInfo, setInquiryInfo] = React.useState({}); //조회하고자 하는 게시글의 정보
+
+  const handleOpenForWriting = () => {
     setOpen(true);
+  };
+
+  const handleOpen = (index) => {
+    setOpen(true);
+    setInquiryInfo(pagingInquiryList[index]);
   };
   const handleClose = () => {
     setOpen(false);
   };
 
-  const list = () => {
+  //페이지에 따라 데이터 5개씩 잘라넣는 userList
+  React.useEffect(() => {
+    setPagingInquiryList(inquiryList.slice(offset, offset + limit));
+  }, [inquiryList]);
+
+  //페이지네이션
+  const [limit, setLimit] = React.useState(5);
+  const [page, setPage] = React.useState(1);
+  const offset = (page - 1) * limit;
+  const handlePaging = (currentPage) => {
+    setPage((prev) => currentPage);
+  };
+
+  //페이지 바뀔 때마다 잘라넣는 inquiryList 변경
+  React.useEffect(() => {
+    setPagingInquiryList((prev) => inquiryList.slice(offset, offset + limit));
+  }, [page, offset, limit]);
+
+  const changeLimit = (e) => {
+    setLimit((prev) => e.target.value);
+    setPage(1);
+  };
+
+  //게시글 리스트를 조회하는 함수
+  const getInquiryList = () => {
     axios({
       url: "http://localhost:8080/api/inquiry/getInquiryList",
       method: "post",
@@ -75,14 +98,17 @@ const Board = () => {
       .catch((e) => {});
   };
 
+  //게시글을 등록하는 함수
   const insertInquiryBoard = () => {
     axios({
       url: "http://localhost:8080/api/inquiry/insertInquiryBoard",
       method: "post",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+      },
       data: {
         inquiryTitle: inquiryTitle,
-        inquiryContent: inquiryContent,
-        userId: "gogo",
+        inquiryContent: inquiryInfo.inquiryContent,
       },
     })
       .then((response) => {
@@ -90,36 +116,90 @@ const Board = () => {
         window.location.href = "/board";
       })
       .catch((e) => {
-        console.log("1111" + e);
+        console.log(e);
+      });
+    window.location.href = "/board";
+  };
+
+  //게시글을 수정하는 함수(admin이 답변을 등록할 때 사용)
+  const updateInquiryBoard = () => {
+    axios({
+      url: "http://localhost:8080/api/inquiry/updateInquiryBoard",
+      method: "post",
+      data: {
+        inquiryNo: inquiryInfo.inquiryNo,
+        inquiryAnswer: inquiryInfo.inquiryAnswer,
+      },
+    })
+      .then((response) => {
+        setInquiryList(response.data);
+        window.location.href = "/board";
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  //게시글을 삭제하는 함수(admin이 답변을 등록할 때 사용)
+  const deleteInquiryBoard = () => {
+    axios({
+      url: "http://localhost:8080/api/inquiry/deleteInquiryBoard",
+      method: "delete",
+      data: {
+        inquiryNo: inquiryInfo.inquiryNo,
+      },
+    })
+      .then((response) => {
+        setInquiryList(response.data);
+        window.location.href = "/board";
+      })
+      .catch((e) => {
+        console.log(e);
       });
   };
 
   React.useEffect(() => {
-    list();
+    getInquiryList();
   }, []);
 
-  const [inquiryTitle, setInquiryTitle] = React.useState("");
-  const [inquiryContent, setInquiryContent] = React.useState("");
+  // const onInquiryTitleHandler = (e) => {
+  //   setInquiryTitle(e.curretTarget.value);
+  // };
 
-  const onInquiryTitleHandler = (e) => {
-    setInquiryTitle(e.curretTarget.value);
-  };
-
-  const onInquiryContentHandler = (e) => {
-    setInquiryContent(e.curretTarget.value);
-  };
-
-  //셀렉트
+  //제목 셀렉트
   const [option, setOption] = React.useState(" ");
   const onOptionHandler = (e) => {
     setOption(e.target.value);
     setInquiryTitle(e.target.value);
   };
+
+  const handleChange = (e) => {
+    console.log(e.target.name);
+    console.log(e.target.value);
+    const updateInquiry = {
+      ...inquiryInfo,
+      [e.target.name]: e.target.value,
+    };
+    setInquiryInfo(updateInquiry);
+  };
+
   return (
     <div className="wrap">
-      <h3>고객센터</h3>
+      <h1>고객 지원</h1>
       <h5>문의 게시판</h5>
 
+      {/*페이지네이션 표출할 데이터양*/}
+      <label className="orderOption">
+        페이지 당 표시할 게시물 수:&nbsp;
+        <select type="number" value={limit} onChange={changeLimit}>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+        </select>
+      </label>
+
+      {/* 게시글 검색바 */}
+      {/* 
       <Paper
         component="form"
         sx={{
@@ -130,22 +210,16 @@ const Board = () => {
           float: "right",
         }}
       >
-        {/* <IconButton sx={{ p: '10px' }} aria-label="menu">
-                <MenuIcon />
-              </IconButton> */}
         <InputBase
           sx={{ ml: 1, flex: 1 }}
-          placeholder="주문내역 검색"
+          placeholder="게시글 검색"
           inputProps={{ "aria-label": "search google maps" }}
         />
         <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
           <SearchIcon />
         </IconButton>
-        {/* <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-              <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
-                <DirectionsIcon />
-              </IconButton> */}
-      </Paper>
+      </Paper> 
+      */}
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -154,7 +228,6 @@ const Board = () => {
               <TableCell align="center" sx={{ width: "150px" }}>
                 번호
               </TableCell>
-
               <TableCell align="center">제목</TableCell>
               <TableCell align="center" sx={{ width: "200px" }}>
                 작성자
@@ -168,30 +241,48 @@ const Board = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {inquiryList.map((a) => (
-              <TableRow
-                key={a.inquiryNo}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                onClick={() => handleOpen(true)}
-              >
-                <TableCell component="th" scope="row" align="center">
-                  {a.inquiryNo}
-                </TableCell>
-                <TableCell align="center">{a.inquiryTitle}</TableCell>
-
-                <TableCell align="center">{a.inquiryNo}</TableCell>
-                <TableCell align="center">{a.inquiryRgsdate}</TableCell>
-                <TableCell align="center">{a.inquiryState}</TableCell>
+            {inquiryList ? (
+              pagingInquiryList &&
+              pagingInquiryList.map((a, index) => (
+                <TableRow
+                  key={a.inquiryNo}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row" align="center">
+                    {a.inquiryNo}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    id={`detailTitle${index}`}
+                    onClick={() => handleOpen(index)}
+                  >
+                    {a.inquiryTitle}
+                  </TableCell>
+                  <TableCell align="center">{a.user.userId}</TableCell>
+                  <TableCell align="center">{a.inquiryRgsdate}</TableCell>
+                  <TableCell align="center">{a.inquiryState}</TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell>조회된 데이터가 없습니다.</TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
 
+      <Paging
+        total={inquiryList.length}
+        limit={limit}
+        page={page}
+        handlePaging={handlePaging}
+      />
+
       <Button
         variant="contained"
         color="success"
-        onClick={() => handleOpen(true)}
+        onClick={() => handleOpenForWriting(true)}
         sx={{ float: "right" }}
       >
         글쓰기
@@ -212,76 +303,56 @@ const Board = () => {
                 backgroundColor: "rgb(178, 204, 90)",
               }}
             >
-              게시글 작성
+              문의 게시글
             </Typography>
 
             <TableContainer>
               <Table>
-                {inquiryList.slice(0, 1).map((a) => (
-                  <>
-                    <TableRow>
-                      <TableCell component={"th"} sx={modalstyle}>
-                        제목
-                      </TableCell>
-                      <TableCell>
-                        <select
-                          name="inquiryTitle"
-                          onChange={onOptionHandler}
-                          value={option}
-                        >
-                          <option selected="selected">
-                            제목을 선택하세요.
-                          </option>
-                          <option value="상품 문의">상품 문의</option>
-                          <option value="배송 문의">배송 문의</option>
-                          <option value="교환/반품/취소 문의">
-                            교환/반품/취소 문의
-                          </option>
-                          <option value="주문/입금확인 문의">
-                            주문/입금확인 문의
-                          </option>
-                          <option value="기타 문의">기타 문의</option>
-                        </select>
-                      </TableCell>
-                      <TableCell>
-                        <input
-                          type="hidden"
-                          value={option}
-                          name="inquiryTitle"
-                        />
-                      </TableCell>
-                    </TableRow>
+                <TableRow>
+                  <TableCell component={"th"} sx={modalstyle}>
+                    제목
+                  </TableCell>
+                  <TableCell>
+                    <select
+                      name="inquiryTitle"
+                      onChange={onOptionHandler}
+                      value={option}
+                    >
+                      <option selected="selected">제목을 선택하세요.</option>
+                      <option value="상품 문의">상품 문의</option>
+                      <option value="배송 문의">배송 문의</option>
+                      <option value="교환/반품/취소 문의">
+                        교환/반품/취소 문의
+                      </option>
+                      <option value="주문/입금확인 문의">
+                        주문/입금확인 문의
+                      </option>
+                      <option value="기타 문의">기타 문의</option>
+                    </select>
+                  </TableCell>
+                  <TableCell>
+                    <input type="hidden" value={option} name="inquiryTitle" />
+                  </TableCell>
+                </TableRow>
 
-                    <TableRow>
-                      <TableCell component={"th"} sx={modalstyle}>
-                        내용
-                      </TableCell>
-                      <TableCell>
-                        <textarea
-                          type="text"
-                          style={{ border: "none" }}
-                          name="inquiryContent"
-                          placeholder="게시판 문의시 아래 내용을 기입해 주셔야 
-                            빠르게  처리 가능합니다.
-                            
-                            단,의무사항은 아니므로 연락처 작성을 원하시지 않으시다면 
-                            연락처는 남겨주지 않으셔도 됩니다.
-                            
-                            ※이전에 상담하신 내용이 있으시다면 상담받으신 내용을 하단에 기재 부탁드립니다.
-                            ※비회원 또는 타사이트 구매는 주문 번호를 반드시 기입해 주세요.
-                            ※게시글 답변 확인 후, 대댓글로 남겨주시는 경우 다른 고객님의 문의에 밀려 확인이 누락될 수 있으니 꼭 [새글]로 재문의 남겨주시길 바랍니다.
-                            
-                            ▶ 주문번호 : 
-                            ▶ 주문자 성함 : 
-                            ▶ 연락처 :
-                            ▶ 문의 내용 :
-                            ▶ 이전 문의 내용 :"
-                          onChange={onInquiryContentHandler}
-                        ></textarea>
-                      </TableCell>
-                    </TableRow>
-                  </>
-                ))}
+                <TableRow>
+                  <TableCell component={"th"} sx={modalstyle}>
+                    내용
+                  </TableCell>
+                  <TableCell>
+                    <textarea
+                      type="text"
+                      style={{
+                        border: "none",
+                        width: "400px",
+                        height: "300px",
+                      }}
+                      name="inquiryContent"
+                      onChange={handleChange}
+                      value={inquiryInfo.inquiryContent}
+                    ></textarea>
+                  </TableCell>
+                </TableRow>
               </Table>
             </TableContainer>
 
@@ -303,31 +374,17 @@ const Board = () => {
               <TableCell>
                 <textarea
                   type="text"
-                  style={{ border: "none" }}
-                  name="userName"
-                  placeholder="게시판 문의시 아래 내용을 기입해 주셔야 
-                            빠르게  처리 가능합니다.
-                            
-                            단,의무사항은 아니므로 연락처 작성을 원하시지 않으시다면 
-                            연락처는 남겨주지 않으셔도 됩니다.
-                            
-                            ※이전에 상담하신 내용이 있으시다면 상담받으신 내용을 하단에 기재 부탁드립니다.
-                            ※비회원 또는 타사이트 구매는 주문 번호를 반드시 기입해 주세요.
-                            ※게시글 답변 확인 후, 대댓글로 남겨주시는 경우 다른 고객님의 문의에 밀려 확인이 누락될 수 있으니 꼭 [새글]로 재문의 남겨주시길 바랍니다.
-                            
-                            ▶ 주문번호 : 
-                            ▶ 주문자 성함 : 
-                            ▶ 연락처 :
-                            ▶ 문의 내용 :
-                            ▶ 이전 문의 내용 :"
+                  style={{ border: "none", width: "400px", height: "150px" }}
+                  name="inquiryAnswer"
+                  onChange={handleChange}
+                  value={inquiryInfo.inquiryAnswer}
                 />
               </TableCell>
             </TableRow>
 
             <span class="buttonSpan">
               <Button
-                type="submit"
-                value="update"
+                type="button"
                 variant="contained"
                 color="success"
                 onClick={insertInquiryBoard}
@@ -335,23 +392,29 @@ const Board = () => {
                 등록
               </Button>
 
-              <Button
-                type="submit"
-                value="update"
-                variant="contained"
-                color="success"
-              >
-                수정
-              </Button>
-
-              <Button
-                type="submit"
-                value="delete"
-                variant="contained"
-                color="success"
-              >
-                삭제
-              </Button>
+              {JSON.parse(sessionStorage.getItem("USER_INFO")).userId ===
+              "admin" ? (
+                <>
+                  <Button
+                    type="button"
+                    variant="contained"
+                    color="success"
+                    onClick={updateInquiryBoard}
+                  >
+                    수정
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="contained"
+                    color="success"
+                    onClick={deleteInquiryBoard}
+                  >
+                    삭제
+                  </Button>
+                </>
+              ) : (
+                <div className="noButton">.</div>
+              )}
             </span>
           </Box>
         </form>

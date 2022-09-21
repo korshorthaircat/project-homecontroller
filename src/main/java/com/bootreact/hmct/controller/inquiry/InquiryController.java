@@ -6,7 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,29 +25,28 @@ public class InquiryController {
 	@Autowired
 	InquiryService inquiryService;
 	
-//	//문의글 생성
-//	void insertInquiryBoard(Inquiry inquiry, User user) {}
+//	문의글 생성
 	@PostMapping("/insertInquiryBoard")
-	public ResponseEntity<?> insertInquiryBoard(@RequestBody Map<String, String> paramMap) {
+	public ResponseEntity<?> insertInquiryBoard(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
 		try {
-			//번호 생성하기
 			int inquiryNo = 1;
-					
-			//답변상태
 			String inquiryState = "답변대기";
-				
-			inquiryService.addinquiry(inquiryNo,
-									  inquiryState,
-									  paramMap.get("userId"),
-									  paramMap.get("inquiryContent"),
-									  paramMap.get("inquiryTitle"));
-			 List<Inquiry> inquiryList = inquiryService.getInquiryList();
+			String inquiryAnswer = "빠른 시일 내에 답변 드리겠습니다.";
 			
+			//문의글 추가 처리하기
+			inquiryService.addInquiry(inquiryNo,
+									  inquiryState,
+									  userId,
+									  paramMap.get("inquiryContent"),
+									  paramMap.get("inquiryTitle"),
+									  inquiryAnswer);
+			
+			//게시글 목록 받아오기
+			List<Inquiry> inquiryList = inquiryService.getInquiryList();
 			List<InquiryDTO> inquiryDTOList = new ArrayList<InquiryDTO>();
  		
 			for(Inquiry i : inquiryList) {
 				InquiryDTO inquiryDTO = new InquiryDTO();
-				
 				inquiryDTO.setInquiryNo(i.getInquiryNo());
 				inquiryDTO.setInquiryAnswer(i.getInquiryAnswer());
 				inquiryDTO.setInquiryContent(i.getInquiryContent());
@@ -71,10 +71,7 @@ public class InquiryController {
 		}
 }
 	
-	
-	
-//	//문의글 내용 조회
-//	void getInquiryBoard(User user) {}
+//	문의글 목록 조회
 	@PostMapping("/getInquiryList")
 	public ResponseEntity<?> getInquiryList() {
 		try {
@@ -108,13 +105,85 @@ public class InquiryController {
 			return ResponseEntity.badRequest().body(response);
 		}
 	}
-//
-//	//문의글 목록 조회
-//	void getInquiryBoardList(User user) {}
-//
-//	//문의글 삭제
-//	void deleteInquiryBoard(Inquiry inquiry, User user) {}
-//
-//	//문의글 수정
-//	void updateInquiryBoard(Inquiry inquiry, User user) {}
+
+
+//	문의글 수정
+	@PostMapping("/updateInquiryBoard")
+	public ResponseEntity<?> updateInquiryBoard(@RequestBody Map<String, String> paramMap) {
+		try {
+			String inquiryState = "답변완료";
+			
+			//문의글 수정 처리하기
+			inquiryService.updateInquiry(Integer.parseInt(paramMap.get("inquiryNo")), 
+										 inquiryState, 
+										 paramMap.get("inquiryAnswer")
+										);
+			
+			//게시글 목록 받아오기
+			List<Inquiry> inquiryList = inquiryService.getInquiryList();
+			List<InquiryDTO> inquiryDTOList = new ArrayList<InquiryDTO>();
+ 		
+			for(Inquiry i : inquiryList) {
+				InquiryDTO inquiryDTO = new InquiryDTO();
+				inquiryDTO.setInquiryNo(i.getInquiryNo());
+				inquiryDTO.setInquiryAnswer(i.getInquiryAnswer());
+				inquiryDTO.setInquiryContent(i.getInquiryContent());
+				inquiryDTO.setInquiryRgsdate(i.getInquiryRgsdate());
+				inquiryDTO.setInquiryState(i.getInquiryState());
+				inquiryDTO.setInquiryTitle(i.getInquiryTitle());
+				inquiryDTO.setUser(i.getUser());
+				
+				inquiryDTOList.add(inquiryDTO);
+			}
+		ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
+		
+		response.setData(inquiryDTOList);
+		
+		return ResponseEntity.ok().body(response);
+		
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
+			response.setError(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
+}
+
+
+//	문의글 삭제
+	@DeleteMapping("/deleteInquiryBoard")
+	public ResponseEntity<?> deleteInquiryBoard(@RequestBody Map<String, String> paramMap) {
+		try {
+			//문의글 삭제 처리하기
+			inquiryService.deleteInquiry(Integer.parseInt(paramMap.get("inquiryNo")));
+			
+			//게시글 목록 받아오기
+			List<Inquiry> inquiryList = inquiryService.getInquiryList();
+			List<InquiryDTO> inquiryDTOList = new ArrayList<InquiryDTO>();
+ 		
+			for(Inquiry i : inquiryList) {
+				InquiryDTO inquiryDTO = new InquiryDTO();
+				inquiryDTO.setInquiryNo(i.getInquiryNo());
+				inquiryDTO.setInquiryAnswer(i.getInquiryAnswer());
+				inquiryDTO.setInquiryContent(i.getInquiryContent());
+				inquiryDTO.setInquiryRgsdate(i.getInquiryRgsdate());
+				inquiryDTO.setInquiryState(i.getInquiryState());
+				inquiryDTO.setInquiryTitle(i.getInquiryTitle());
+				inquiryDTO.setUser(i.getUser());
+				
+				inquiryDTOList.add(inquiryDTO);
+			}
+		ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
+		
+		response.setData(inquiryDTOList);
+		
+		return ResponseEntity.ok().body(response);
+		
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
+			response.setError(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
+	}
 }

@@ -27,6 +27,6 @@ public interface OrderService {
    //<마이페이지> 로그인한 사용자의 주문목록 조회
    List<Order> getMyOrderList(String userId);
 
-
+   void updateStaus(int orderNo, String orderStatus);
 
 }
