@@ -31,7 +31,7 @@
 		                WHERE COMMON_TYPE = 'C' 
 				  ) CC
 			WHERE AA.PRODUCT_MATERIAL = BB.COMMON_CODE
-		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE;
+		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE
 	]]>
 	</select>
 	
@@ -122,7 +122,7 @@
 		SELECT *
 			FROM T_HMCT_PRODUCT_IMAGE
 			WHERE PRODUCT_NO = #{productNo}
-			AND COMMON_CODE = #{commonCode};
+			AND COMMON_CODE = #{commonCode}
 	]]>
 	</select>
 	
@@ -132,7 +132,7 @@
 	<![CDATA[
 		select  MIN(COMMON_CODE) as COMMON_CODE
 			from t_hmct_product_optn
-			where product_no = #{productNo};
+			where product_no = #{productNo}
 	]]>
 	</select>
 	
@@ -141,7 +141,7 @@
 	<![CDATA[
 		SELECT * FROM T_HMCT_PRODUCT_IMAGE
 			WHERE product_no = #{productNo}
-            group by common_code;
+            group by common_code
 	]]>
 	</select>
 	

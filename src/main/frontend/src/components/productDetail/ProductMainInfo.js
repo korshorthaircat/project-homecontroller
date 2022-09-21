@@ -19,7 +19,7 @@ import NavContentRev from "./NavContentRev";
 import RevStar from "./RevStar";
 import { Button, Modal } from "react-bootstrap";
 
-const MainInfo = ({ item }) => {
+const MainInfo = ({ changeProductColor }) => {
   let { productNo, commonCode } = useParams();
   console.log(productNo);
 
@@ -63,6 +63,21 @@ const MainInfo = ({ item }) => {
   useEffect(() => {
     getColorCommonCode();
   }, []);
+
+  const handleClickImg = (product) => {
+    axios({
+      url: `http://localhost:8080/api/product/changeProductColor`,
+      method: "post",
+      data: { productNo: product.productNo, commonCode: product.commonCode },
+    })
+      .then((response) => {
+        console.log(response);
+        changeProductColor(response.data.productImage);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     <>
@@ -126,6 +141,8 @@ const MainInfo = ({ item }) => {
                 }}
                 key={index}
                 src={`http://localhost:8080/upload/${a.productImageName}`}
+                alt={`제품사진${index}`}
+                onClick={() => handleClickImg(a)}
               />
             ))}
           </div>
