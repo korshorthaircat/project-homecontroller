@@ -6,29 +6,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 
-const HoverIcon = () => {
+const HoverIcon = ({ productItem }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [showroomProductItem, setShowroomProductItem] = useState([]);
-
-  const getShowroomProductItem = () => {
-    // let url = `http://localhost:8080/api/product/getShowroomProductItem`;
-    // let response = await fetch(url);
-    // let data = await response.json();
-    // console.log(data);
-    // setShowroomProductItem(data.showroomProductItem);
-
-    axios({
-      method: "get",
-      url: "http://localhost:8080/api/product/getShowroomProductItem",
-      params: { productNo: 64 },
-    }).then((response) => {
-      console.log(response.data.data);
-    });
-  };
-
-  useEffect(() => {
-    getShowroomProductItem();
-  }, []);
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -73,15 +52,13 @@ const HoverIcon = () => {
         disableRestoreFocus
       >
         <div className="showroomProductContent" responsive="responsive">
-          {showroomProductItem.map((a) => (
-            <Typography item={a} sx={{ p: 1 }}>
-              <div>
-                {a.productName} <br />
-                {a.productCategory} , {a.productSize} <br />₩ {a.productPrice}{" "}
-                <br />
-              </div>
-            </Typography>
-          ))}
+          <Typography sx={{ p: 1 }}>
+            <div>
+              {productItem.productName} <br />
+              {productItem.productCategoryName} , {productItem.productSize}{" "}
+              <br /> {`₩ ${productItem.productPrice}`} <br />
+            </div>
+          </Typography>
         </div>
       </Popover>
     </div>

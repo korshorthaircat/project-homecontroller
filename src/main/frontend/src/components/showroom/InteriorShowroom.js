@@ -9,21 +9,22 @@ import "../../css/showroom.css";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { width } from "@mui/system";
+import Typography from "@mui/material/Typography";
 
 const InteriorShowroom = () => {
   const [showroomImg, setShowroomImg] = React.useState([]);
-
   const [showroomImgData, setShowroomImgData] = useState([]);
-
   const [showroomItem, setShowroomItem] = useState([]);
-
   const [cnt, setCnt] = useState(0);
+  //const [showroomProductItem, setShowroomProductItem] = useState([]);
 
   let showroomListUrl = "http://localhost:8080/api/main/getShowroomList";
+  // let showroomProductItemUrl =
+  //   "http://localhost:8080/api/product/getShowroomProductItem";
 
   const list = () => {
     axios
-      .get(showroomListUrl, {})
+      .get(showroomListUrl)
       .then((response) => {
         console.log(response.data);
         setShowroomImg(response.data.showroomList);
@@ -34,6 +35,18 @@ const InteriorShowroom = () => {
         console.log(e);
       });
   };
+
+  // const getShowroomProductItem = () => {
+  //   axios
+  //     .get(showroomProductItemUrl)
+  //     .then((response) => {
+  //       console.log(response);
+  //       setShowroomProductItem(response.data.data);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
 
   React.useEffect(() => {
     list();
@@ -49,6 +62,7 @@ const InteriorShowroom = () => {
 
     console.log(copy);
     setShowroomImgData(copy);
+    //getShowroomProductItem();
   }, [cnt]);
 
   const getColorShowroomList = (color) => {
@@ -74,7 +88,14 @@ const InteriorShowroom = () => {
       <div>
         <ShowroomTop></ShowroomTop>
         <Box sx={{ flexGrow: 4 }}>
-          <Grid container spacing={2} columns={16}>
+          <Grid
+            container
+            spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
             {showroomImgData.map((a) => (
               <ShowroomBox item={a} showroomItem={showroomItem} />
             ))}
