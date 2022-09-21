@@ -63,7 +63,7 @@ function WishList() {
     }).then((response) => {
       // setWishItemList(response.data.wishItemList);
       window.location.href = "/wishlist";
-      console.log(response.data);
+      // console.log(response.data);
     });
   };
 
