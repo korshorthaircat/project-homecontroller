@@ -1,49 +1,46 @@
 .cardBox {
-    width: 430px;
-    height: 350px;
-    padding: 0px;  
-    margin: 10px;
+  width: 430px;
+  height: 350px;
+  padding: 0px;
+  margin: 10px;
 }
 
 .eventCardImg {
-    overflow: hidden;
+  overflow: hidden;
 }
 
-.eventCardImg img{
-    width: 430px;
-    height: 270px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    transition: all 0.2s linear;
-    
+.eventCardImg img {
+  width: 430px;
+  height: 270px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
 }
 
-.eventCardImg:hover img{
-    transform: scale(1.05);
+.eventCardImg:hover img {
+  transform: scale(1.05);
+  transition: all 0.2s linear;
 }
 
 .cardText {
-    width: 430px;
-    height: 80px;
-    padding: 15px 10px;
-    
+  width: 430px;
+  height: 80px;
+  padding: 15px 10px;
 }
 
 .cardMainText {
-    font-size: 22px;
-    font-weight: bold;
-    margin: 0 0 5px;
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0 0 5px;
 }
 
 .cardSubText {
-    margin: 0px;
-    font-size: 14px;
+  margin: 0px;
+  font-size: 14px;
 }
 
 .col {
-    flex: 0;
+  flex: 0;
 }
-
