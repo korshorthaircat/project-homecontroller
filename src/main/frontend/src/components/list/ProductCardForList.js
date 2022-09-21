@@ -7,9 +7,9 @@ import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import HeartButton from "./HeartButton";
+import HeartButton from "../main/HeartButton";
 
-const ProductCard = ({ item, productImageList }) => {
+const ProductCardForList = ({ item, productImageList }) => {
   //대표 이미지
   const [thumbnail, setThumbnail] = useState("");
   //호버 이미지
@@ -39,29 +39,18 @@ const ProductCard = ({ item, productImageList }) => {
       productImageList.map((productImage) => {
         if (
           item.productNo === productImage.productNo &&
-          productImage.productImageNo === 1
+          item.commonCode === productImage.commonCode &&
+          (productImage.productImageNo === 1 ||
+            productImage.productImageNo === 3)
         )
           setThumbnail(productImage.productImageName);
         else if (
           item.productNo === productImage.productNo &&
-          productImage.productImageNo === 2
+          item.commonCode === productImage.commonCode &&
+          (productImage.productImageNo === 2 ||
+            productImage.productImageNo === 4)
         )
           setHoverImage(productImage.productImageName);
-
-        // if (
-        //   item.productNo === productImage.productNo &&
-        //   item.commonCode === productImage.commonCode &&
-        //   (productImage.productImageNo === 1 ||
-        //     productImage.productImageNo === 3)
-        // )
-        //   setThumbnail(productImage.productImageName);
-        // else if (
-        //   item.productNo === productImage.productNo &&
-        //   item.commonCode === productImage.commonCode &&
-        //   (productImage.productImageNo === 2 ||
-        //     productImage.productImageNo === 4)
-        // )
-        //   setHoverImage(productImage.productImageName);
 
         return productImage;
       });
@@ -234,4 +223,4 @@ const ProductCard = ({ item, productImageList }) => {
   );
 };
 
-export default ProductCard;
+export default ProductCardForList;
