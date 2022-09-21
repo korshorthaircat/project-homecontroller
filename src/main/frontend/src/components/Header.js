@@ -205,7 +205,6 @@ const Header = () => {
                   검색
 
                 </button> */}
-
               </Search>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
