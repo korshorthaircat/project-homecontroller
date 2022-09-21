@@ -15,10 +15,8 @@ import ReviewList from "./components/mypage/ReviewList";
 import WishList from "./components/mypage/WishList";
 import OrderList from "./components/mypage/OrderList";
 import ImageThumb from "./components/productDetail/ImageThumb";
-import ProductMainInfo from "./components/productDetail/ProductMainInfo";
 import InteriorShowroom from "./components/showroom/InteriorShowroom";
 import Footer from "./components/Footer";
-import SplitButton from "./components/list/SplitButton";
 import KakaoPayReady from "./components/order/KakaoPayReady";
 import KakaoPayResult from "./components/order/KakaoPayResult";
 import UserManage from "./components/admin/UserManage";
@@ -35,9 +33,28 @@ import FixedBar from "./components/list/FixedBar";
 import ShowroomAdd from "./components/admin/ShowroomAdd";
 import Board from "./components/Board";
 import Coupon from "./components/event/Coupon";
+import SearchedProductCategoryList from "./components/list/SearchedProductCategoryList";
 
 const AppRouter = () => {
   // 경로에 따라 실행되는 컴포넌트가 다르므로, 그 정보를 갖고있는 AppRouter를 가장 먼저 렌더링해야 한다.(Index.js에서)
+
+  const [loginUser, setLoginUser] = useState(null);
+  const [admin, setAdmin] = useState(null);
+  const authenticated = loginUser != null; // authenticated: 로그인 상태 확인
+  const authenticatedAdmin = admin != null; // authenticatedAdmin: 관리자 로그인
+
+  useEffect(() => {
+    if (sessionStorage.getItem("USER_INFO") !== null) {
+      setLoginUser(JSON.parse(sessionStorage.getItem("USER_INFO")));
+    }
+  }, []);
+
+  // useEffect(()=>{
+  //   if (loginUser !== null and ) {
+  //     setLoginUser(JSON.parse(sessionStorage.getItem("USER_INFO")));
+  //   }
+  // }, [loginUser]);
+
   return (
     <div>
       <Header />
@@ -78,6 +95,11 @@ const AppRouter = () => {
           <Route
             path="/list/:productCategoryName"
             element={<ProductCategoryList />}
+          />
+          <Route path="/search" element={<SearchedProductCategoryList />} />
+          <Route
+            path="/search:searchKeyword"
+            element={<SearchedProductCategoryList />}
           />
         </Routes>
       </BrowserRouter>

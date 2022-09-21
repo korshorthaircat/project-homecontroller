@@ -234,29 +234,59 @@ const Header = () => {
                   )}
                 </IconButton>
 
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  color="inherit"
-                >
-                  <Link href="/wishlist">
-                    <FavoriteBorderOutlinedIcon sx={{ color: "black" }} />
-                  </Link>
-                </IconButton>
+                {loginUser !== null ? (
+                  <>
+                    <IconButton
+                      size="large"
+                      aria-label="show 17 new notifications"
+                      color="inherit"
+                    >
+                      <Link href="/wishlist">
+                        <FavoriteBorderOutlinedIcon sx={{ color: "black" }} />
+                      </Link>
+                    </IconButton>
 
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-haspopup="true"
-                  color="inherit"
-                >
-                  <Link href="/cart">
-                    <Badge badgeContent={cartCount} color="success">
-                      <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
-                    </Badge>
-                  </Link>
-                </IconButton>
+                    <IconButton
+                      size="large"
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-haspopup="true"
+                      color="inherit"
+                    >
+                      <Link href="/cart">
+                        <Badge badgeContent={cartCount} color="success">
+                          <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
+                        </Badge>
+                      </Link>
+                    </IconButton>
+                  </>
+                ) : (
+                  <>
+                    <IconButton
+                      size="large"
+                      aria-label="show 17 new notifications"
+                      color="inherit"
+                    >
+                      <Link href="/login">
+                        <FavoriteBorderOutlinedIcon sx={{ color: "black" }} />
+                      </Link>
+                    </IconButton>
+
+                    <IconButton
+                      size="large"
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-haspopup="true"
+                      color="inherit"
+                    >
+                      <Link href="/login">
+                        <Badge badgeContent={cartCount} color="success">
+                          <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
+                        </Badge>
+                      </Link>
+                    </IconButton>
+                  </>
+                )}
               </Box>
             </div>
           </Toolbar>
