@@ -11,6 +11,7 @@ import Mypage from "./components/mypage/Mypage";
 import MypageSideBar from "./components/mypage/MypageSideBar";
 import UserUpdate from "./components/mypage/UserUpdate";
 import OutMembers from "./components/mypage/OutMembers";
+import MyPoint from "./components/mypage/MyPoint";
 import ReviewList from "./components/mypage/ReviewList";
 import WishList from "./components/mypage/WishList";
 import OrderList from "./components/mypage/OrderList";
@@ -67,6 +68,7 @@ const AppRouter = () => {
           <Route path="/mypagesidebar" element={<MypageSideBar />} />
           <Route path="/userupdate" element={<UserUpdate />} />
           <Route path="/outmembers" element={<OutMembers />} />
+          <Route path="/mypoint" element={<MyPoint />} />
           <Route path="/reviewlist" element={<ReviewList />} />
           <Route path="/wishlist" element={<WishList />} />
           <Route path="/orderlist" element={<OrderList />} />
