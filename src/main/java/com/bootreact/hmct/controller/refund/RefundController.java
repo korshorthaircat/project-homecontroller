@@ -53,15 +53,81 @@ public class RefundController {
 								  paramMap.get("refundAccount").toString(),
 								  paramMap.get("refundName").toString());
  			
- 			orderService.updateStaus( Integer.parseInt(paramMap.get("orderNo").toString()), orderStatus);
+ 			orderService.updateStaus( Integer.parseInt(paramMap.get("orderNo").toString()), 
+ 					                  orderStatus);
  			
      	}catch(Exception e){
      		System.out.println(e.getMessage());
      	}
- 	}
-     
-     //교환요청
-     
+ 	};
      
      //반품 요청
+ 	 @PostMapping("/createRetun")
+     public void createRetun(@RequestBody Map<String, Object> paramMap) {
+ 		try {
+ 			//매개변수 잘 들어오는지 확인하기
+ 			//System.out.println(paramMap.get("orderNo"));
+ 			
+ 			//번호 생성(취소,환불)
+ 			int retunNo = refundService.createRetunNo();
+ 			int refundNo = refundService.createRefundNo();
+ 					
+ 			//주문상태			 
+ 			String retunState = "반품 대기";
+ 			String refundStatus = "환불 대기";
+ 			String orderStatus = "반품 대기";		
+ 			//Cancel 테이블에 주문 정보 인서트(cancelRgsDate는 자동생성)
+ 			
+ 			refundService.addRetun(
+ 								  retunNo,
+ 								  Integer.parseInt(paramMap.get("orderNo").toString()),
+ 								  paramMap.get("retunAmount").toString(), 
+ 								  retunState, 
+ 								  paramMap.get("retunReason").toString()); 
+ 			
+ 			refundService.addRefundsc(
+			 					  refundNo,
+			 					  retunNo,
+								  refundStatus,
+								  paramMap.get("refundAmount2").toString(),
+								  paramMap.get("refundBank2").toString(),
+								  paramMap.get("refundAccount2").toString(),
+								  paramMap.get("refundName2").toString());
+ 			
+ 			orderService.updateStaus( Integer.parseInt(paramMap.get("orderNo").toString()), 
+ 					                  orderStatus);
+ 			
+     	}catch(Exception e){
+     		System.out.println(e.getMessage());
+     	}
+ 	}; 
+     
+    //교환 요청
+ 	@PostMapping("/createExchange")
+    public void createExchange(@RequestBody Map<String, Object> paramMap) {
+		try {
+			//매개변수 잘 들어오는지 확인하기
+			System.out.println(paramMap.get("orderNo"));
+			
+			//번호 생성(취소,환불)
+			int exchangeNo = refundService.createExchangeNo();
+					
+			//주문상태			 
+			String exchangeStatus = "교환 대기";
+			String orderStatus = "교환 대기";		
+			//Cancel 테이블에 주문 정보 인서트(cancelRgsDate는 자동생성)
+			
+			refundService.addExchange(
+								  exchangeNo,
+								  Integer.parseInt(paramMap.get("orderNo").toString()),
+								  exchangeStatus, 
+								  paramMap.get("exchangeReason").toString()); 
+					
+			orderService.updateStaus( Integer.parseInt(paramMap.get("orderNo").toString()), 
+					                  orderStatus);
+			
+    	}catch(Exception e){
+    		System.out.println(e.getMessage());
+    	}
+	}; 
 }
