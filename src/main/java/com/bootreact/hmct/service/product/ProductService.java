@@ -62,6 +62,8 @@ public interface ProductService {
 
 	List<Map<String, Object>> getAllProductImageList();
 
+	List<Map<String, Object>> getSearchProducts(String word);
+
 	
 	
 }

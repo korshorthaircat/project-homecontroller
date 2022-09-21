@@ -16,14 +16,14 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const ProductCategoryList = () => {
   const [productList, setProductList] = useState([]);
   const [productImageList, setProductImageList] = useState([]);
   const [showProductList, setShowProductList] = useState([]); //필터 처리한 제품목록을 담음
   const [showProductImageList, setShowProductImageList] = useState([]); //필터 처리한 제품이미지목록을 담음
-  const [query, setQuery] = useSearchParams();
+  // const [query, setQuery] = useSearchParams();
 
   //제품조회 필터링 조건
   const [commonCode, setCommonCode] = useState("");
@@ -149,10 +149,24 @@ const ProductCategoryList = () => {
     },
   ];
 
+  const [searchData, setSearchData] = React.useState([]);
+  const params = useParams();
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await axios.get(
+        "http://localhost:8080/api/main/list?word=" + params.word
+      );
+      console.log("////////////", result.data.result);
+      setSearchData(result);
+    }
+    fetchData();
+  }, []);
+
   const getProducts = async () => {
-    let serachQuery = query.get("q");
-    console.log("serachQuery", serachQuery);
-    let url = `http://localhost:8080/api/product/getAllProductList?q=${serachQuery}`;
+    // let serachQuery = query.get("q");
+    // console.log("serachQuery", serachQuery);
+    let url = "http://localhost:8080/api/product/getAllProductList";
     let response = await fetch(url);
     let data = await response.json();
     console.log(data);
@@ -181,7 +195,7 @@ const ProductCategoryList = () => {
 
   useEffect(() => {
     setShowProductList((prev) => [...prev, ...productList]);
-  }, [productList, query]);
+  }, [productList]);
 
   const filterData = () => {
     const filteredList = productList.reduce((acc, cur) => {
