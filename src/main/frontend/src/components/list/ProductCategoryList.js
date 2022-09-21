@@ -237,9 +237,12 @@ const ProductCategoryList = () => {
 
   return (
     <div className="cute">
-      {categoryList.map((a) => (
+      {/* {categoryList.map((a) => (
         <Categoryinfo item={a} />
-      ))}
+      ))} */}
+
+      <Categoryinfo item={categoryList[0]} />
+
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar sx={{ backgroundColor: "lightgray" }}>
