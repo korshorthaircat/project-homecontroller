@@ -1,8 +1,31 @@
 
 .main {
   display: flex;
+  padding-top: 80px;
 }
 
+#categoryMenu{
+  position: absolute;
+  width: 1350px;
+  left: 13.5%;
+  padding-top: 30px;
+}
+
+#categoryMenu2:hover {
+  text-decoration: underline;
+}
+
+#categoryMenu2 {
+  font-size: 15px; 
+  float: left;
+}
+
+#arrow {
+  width: 20px;
+  height: 20px;
+  margin-right: 0px;
+  float: left;
+}
 
 /*이미지박스 ImageThumb*/
 .imgBox {
@@ -62,10 +85,10 @@
     display: flex;
     flex-direction: column;
     position: sticky;
-    top: 200px;
+    top: 300px;
     width: 100%;    
     word-break: keep-all;
-    padding-left: 80px;
+    padding-left: 100px;
   }
 
   .productName {
