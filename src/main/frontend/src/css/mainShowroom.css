@@ -1,66 +1,70 @@
 .showroomColor {
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-    margin: 30px 40px;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  margin: 30px 40px;
+}
+
+.showroomColor:hover {
+  transition: all 0.2s linear;
+  transform: scale(1.1);
 }
 
 .red {
-    background-color: #FF0000;
-    border: 0px;
+  background-color: #ff0000;
+  border: 0px;
 }
 
 .yellow {
-    background-color: #FFDB00;
-    border: 0px;
+  background-color: #ffdb00;
+  border: 0px;
 }
 
 .green {
-    background-color: #3B7D22;
-    border: 0px;
+  background-color: #3b7d22;
+  border: 0px;
 }
 
 .blue {
-    background-color: #0058A3;
-    border: 0px;
+  background-color: #0058a3;
+  border: 0px;
 }
 
 .purple {
-    background-color: #A96ECC;
-    border: 0px;
+  background-color: #a96ecc;
+  border: 0px;
 }
 
 .white {
-    background-color: white;
-    border: 1px solid darkgray;
+  background-color: white;
+  border: 1px solid darkgray;
 }
 
 .black {
-    background-color: black;
-    border: 0px;
+  background-color: black;
+  border: 0px;
 }
 
 .pink {
-    background-color: #FFB8C3;
-    border: 0px;
+  background-color: #ffb8c3;
+  border: 0px;
 }
 
 .beige {
-    background-color: #F4F3D7;
-    border: 0px;
+  background-color: #f4f3d7;
+  border: 0px;
 }
 
 .gray {
-    background-color: #959595;
-    border: 0px;
+  background-color: #959595;
+  border: 0px;
 }
 
 .mainShowroomColor {
-    display: flex;
-    justify-content: center;
-    width: 1350px;
-    margin: 0 auto;
-    
+  display: flex;
+  justify-content: center;
+  width: 1350px;
+  margin: 0 auto;
 }
 
 /* .showroomBox_1 {
@@ -77,31 +81,29 @@
    
 } */
 
-
 .mainShowroom_MoreBtn {
-    width: 1350px;
-    text-align: center;
-    margin: 0 auto;
-    font-weight: bold;
-    
+  width: 1350px;
+  text-align: center;
+  margin: 0 auto;
+  font-weight: bold;
 }
 
 .col {
-    height: 900px;
-    width: 655px;
-    padding: 0;
-    margin: 10px;
+  height: 900px;
+  width: 655px;
+  padding: 0;
+  margin: 10px;
 }
 
 .col img {
-    width: 655px;
-    height: 900px;
-    position: relative;
+  width: 655px;
+  height: 900px;
+  position: relative;
 }
 
 .row {
-    margin: 0 auto;
-    width: 1350px;
+  margin: 0 auto;
+  width: 1350px;
 }
 
 /* 
@@ -114,13 +116,12 @@
 } */
 
 .showroomBoxHeart {
-    background-color: rgba(0, 0, 0,.5);
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-    border: 0px;
-    position: relative;
-    bottom: 65px;
-    left: 285px;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  border: 0px;
+  position: relative;
+  bottom: 65px;
+  left: 285px;
 }
-

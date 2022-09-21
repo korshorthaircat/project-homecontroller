@@ -25,6 +25,7 @@ import Link from "@mui/material/Link";
 import Badge from "@mui/material/Badge";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
+import { Navigate, useNavigate, useParam } from "react-router-dom";
 
 const drawerWidth = 450;
 
@@ -82,9 +83,11 @@ const Header = () => {
   const [loginUser, setLoginUser] = React.useState(null);
   const [word, setWord] = useState("");
 
-  const onSubmit = async() => {
-    window.location.href = "/search/" + word;
-  }
+  // const { productCategoryName } = useParams();
+
+  // const onSubmit = async () => {
+  //   window.location.href = "/list/" + productCategoryName;
+  // };
 
   const logout = React.useCallback((e) => {
     // console.log(e);
@@ -111,6 +114,20 @@ const Header = () => {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  // const navigate = useNavigate();
+  const search = (event) => {
+    if (event.key === "Enter") {
+      //입력한 검색어를 읽어와서
+      //url을 바꿔준다
+      let keyword = event.target.value;
+      console.log("keyword", keyword);
+
+      //url을 바꿔준다
+
+      // navigate(`/${keyword}`);
+    }
   };
 
   return (
@@ -169,28 +186,24 @@ const Header = () => {
                 <img className="logo" src="images/logo_2.png" alt="헤더로고" />
               </Link>
 
-              <Search >
+              <Search>
                 <SearchIconWrapper>
-                <SearchIcon />
-                 
-
+                  <SearchIcon />
                 </SearchIconWrapper>
                 <StyledInputBase
                   placeholder="검색어 입력"
                   inputProps={{ "aria-label": "search" }}
-                  onChange={(e) => {
-                    setWord(e.target.value);
-                    console.log(word);
-                  }}
+                  onKeyPress={(event) => search(event)}
                 />
 
-                  <button
+                {/* <button
                   type="button"
                   onClick={() => {
                     onSubmit();
-                  }}>
+                  }}
+                >
                   검색
-                  </button>
+                </button> */}
               </Search>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -226,7 +239,7 @@ const Header = () => {
                   color="inherit"
                 >
                   <Link href="/wishlist">
-                    <FavoriteBorderOutlinedIcon sx={{color : "black"}} />
+                    <FavoriteBorderOutlinedIcon sx={{ color: "black" }} />
                   </Link>
                 </IconButton>
 
@@ -239,7 +252,7 @@ const Header = () => {
                 >
                   <Link href="/cart">
                     <Badge badgeContent={cartCount} color="success">
-                      <ShoppingCartOutlinedIcon sx={{color : "black"}} />
+                      <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
                     </Badge>
                   </Link>
                 </IconButton>
