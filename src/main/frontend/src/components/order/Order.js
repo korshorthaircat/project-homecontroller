@@ -382,10 +382,17 @@ const Order = () => {
               주문 확인
             </Typography>
             <Typography>주문자: {payInfo.userId}</Typography>
-            <Typography>주문 금액(+): ₩ {payInfo.orderAmount}</Typography>
+            <Typography>
+              주문 금액(+): ₩{" "}
+              {(payInfo.orderAmount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </Typography>
             <Typography>
               할인 금액(-): ₩{" "}
-              {parseInt(payInfo.orderAmount) - parseInt(payInfo.paymentAmount)}
+              {(
+                parseInt(payInfo.orderAmount) -
+                parseInt(payInfo.paymentAmount) +
+                ""
+              ).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </Typography>
           </Grid>
 
@@ -405,37 +412,72 @@ const Order = () => {
               backgroundColor: "#F0F0F0",
             }}
           >
-            <Typography>주문 금액(+): ₩ {payInfo.orderAmount}</Typography>
+            <Typography>
+              주문 금액(+): ₩{" "}
+              {(payInfo.orderAmount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </Typography>
             <Typography>
               할인 금액(-): ₩{" "}
-              {parseInt(payInfo.orderAmount) - parseInt(payInfo.paymentAmount)}
+              {(
+                parseInt(payInfo.orderAmount) -
+                parseInt(payInfo.paymentAmount) +
+                ""
+              ).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </Typography>
-            <Typography>배송료(+): ₩ 5000</Typography>
+            <Typography>배송료(+): ₩ 5,000</Typography>
             <Typography>
               총 결제 금액(주문금액 - 할인금액 + 배송료): ₩{" "}
-              {parseInt(payInfo.paymentAmount + 5000)}
+              {(parseInt(payInfo.paymentAmount + 5000) + "").replace(
+                /\B(?=(\d{3})+(?!\d))/g,
+                ","
+              )}
             </Typography>
             <Grid>
-              <Link
-                to={"/kakaopayReady"}
-                state={{
-                  obj: {
-                    orderNo: payInfo.orderNo,
-                    userId: payInfo.userId,
-                    itemName: orderName,
-                    paymentAmount: parseInt(payInfo.paymentAmount + 5000),
-                  },
-                }}
-              >
-                <Button
-                  variant="contained"
-                  color="success"
-                  fullWidth
-                  onClick={createOrder}
+              {paymentWay == "카카오페이" ? (
+                <>
+                  <Link
+                    to={"/kakaopayReady"}
+                    state={{
+                      obj: {
+                        orderNo: payInfo.orderNo,
+                        userId: payInfo.userId,
+                        itemName: orderName,
+                        paymentAmount: parseInt(payInfo.paymentAmount + 5000),
+                      },
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="success"
+                      fullWidth
+                      onClick={createOrder}
+                    >
+                      카카오페이로 결제하기
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  to={"/orderComplete"}
+                  state={{
+                    obj: {
+                      orderNo: payInfo.orderNo,
+                      userId: payInfo.userId,
+                      itemName: orderName,
+                      paymentAmount: parseInt(payInfo.paymentAmount + 5000),
+                    },
+                  }}
                 >
-                  결제하기
-                </Button>
-              </Link>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    fullWidth
+                    onClick={createOrder}
+                  >
+                    결제하기
+                  </Button>
+                </Link>
+              )}
             </Grid>
           </Paper>
         </Grid>

@@ -36,6 +36,8 @@ import Coupon from "./components/event/Coupon";
 import SearchedProductCategoryList from "./components/list/NotUsedProductCategoryList";
 import NotUsedProductCategoryList from "./components/list/NotUsedProductCategoryList";
 import NavProductCategoryList from "./components/list/NavProductCategoryList";
+import OrderComplete from "./components/order/OrderComplete";
+
 
 const AppRouter = () => {
   // 경로에 따라 실행되는 컴포넌트가 다르므로, 그 정보를 갖고있는 AppRouter를 가장 먼저 렌더링해야 한다.(Index.js에서)
@@ -78,6 +80,7 @@ const AppRouter = () => {
               <Route path="/wishlist" element={<WishList />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/order" element={<Order />} />
+              <Route path="/orderComplete" element={<OrderComplete />} />
               <Route path="/board" element={<Board />} />
             </>
           ) : (

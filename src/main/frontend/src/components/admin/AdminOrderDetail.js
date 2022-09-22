@@ -129,6 +129,7 @@ const AdminOrderDetail = () => {
                             <TableHead>
                                     <TableRow sx={{backgroundColor: "#DCDCDC"}}>
                                         <TableCell>주문 상품</TableCell>
+                                        <TableCell>제품 이름</TableCell>
                                         <TableCell align="center">판매가</TableCell>
                                         <TableCell align="center">수량</TableCell>
                                         <TableCell align="center">주문 금액</TableCell>
@@ -139,7 +140,13 @@ const AdminOrderDetail = () => {
                             <TableBody>
                                         {orderItemList.map((orderItem, index) => (
                                             <TableRow>
-                                                <TableCell>주문 상품 이미지</TableCell>
+                                                <TableCell>
+                                                    <img 
+                                                        src={`http://localhost:8080/upload/${orderItem.productImageName}`} 
+                                                        alt="제품사진"
+                                                        id="ImgThum"/>
+                                                </TableCell>
+                                                <TableCell>{orderItem.productName}</TableCell>
                                                 <TableCell align="center">{orderItem.productAmount}</TableCell>
                                                 <TableCell align="center">{orderItem.productCount}</TableCell>
                                                 <TableCell align="center">{parseInt(orderItem.productAmount) * parseInt(orderItem.productCount)}</TableCell>
