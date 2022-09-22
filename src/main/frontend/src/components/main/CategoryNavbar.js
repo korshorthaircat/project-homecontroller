@@ -117,6 +117,7 @@ function CategoryNavbar(props) {
         <div className="nav_hr">
           <hr />
         </div>
+
         <Divider />
         <List sx={{ paddingLeft: "50px" }}>
           <ListItem disablePadding>
