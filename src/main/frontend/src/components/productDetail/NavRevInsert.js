@@ -6,9 +6,13 @@ import Textarea from "../../css/Textarea";
 import RevStar from "./RevStar";
 
 export default function NavRevInsert() {
+  const [reviewList, setReviewList] = React.useState([]); //전체 게시글 목록
+
   const [reviewTitle, setReviewTitle] = React.useState("");
   const [reviewContent, setReviewContent] = React.useState("");
-  const [reviewGrade, setReviewGrade] = React.useState(5);
+  const [reviewGrade, setReviewGrade] = React.useState();
+
+  const [reviewNo, setReviewNo] = React.useState({}); //조회하고자 하는 게시글의 정보
 
   const onRevTitleHandler = (event) => {
     setReviewTitle(event.currentTarget.value);
@@ -18,28 +22,33 @@ export default function NavRevInsert() {
     setReviewContent(event.currentTarget.value);
   };
 
+
+
+  //상품평등록하는 함수
   const insertReview = () => {
     axios({
-      method: "post",
       url: API_BASE_URL + "/api/review/insertReview",
+      method: "post",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
       },
       data: {
-        userId: "choco",
-        productNo: 56,
-        orderNo: 33,
         reviewTitle: reviewTitle,
         reviewContent: reviewContent,
         reviewGrade: reviewGrade,
-        commonCode: "A07",
       },
     }).then((response) => {
       //회원가입 성공시 로그인 페이지로 이동
       alert("상품평 작성이 완료되었습니다.");
-      //window.location.href = "/productDetail";
+      window.location.href = "/productDetail";
     });
   };
+
+
+
+  React.useEffect(() => {
+    insertReview();
+  }, []);
 
   return (
     <div>

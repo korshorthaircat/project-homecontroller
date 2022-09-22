@@ -23,6 +23,8 @@ const MainInfo = ({ changeProductColor }) => {
   let { productNo, commonCode } = useParams();
   console.log(productNo);
 
+  const [selectCommonCode, setSelectCommonCode] = useState("");
+
   let [productList, setProductList] = useState([]);
 
   const [productImageList, setProductImageList] = useState([]);
@@ -37,7 +39,7 @@ const MainInfo = ({ changeProductColor }) => {
         Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
       },
       method: "post",
-      data: { productNo: productNo, commonCode: commonCode },
+      data: { productNo: productNo, commonCode: selectCommonCode },
     }).then((response) => {
       // console.log("cart",response.data);
       setShow(true);
@@ -71,13 +73,38 @@ const MainInfo = ({ changeProductColor }) => {
       data: { productNo: product.productNo, commonCode: product.commonCode },
     })
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         changeProductColor(response.data.productImage);
+        // changeProductColorName(response.data.commonCodeName);
+
+        //console.log(productList);
+        //console.log(response.data.productImage[0].commonCode);
+        console.log(productList[0].commonCodeName);
+
+        //색상변경클릭시 받아오는 이미지의 커먼코드를 뽑아서
+        //기존의 프로덕트리스트가 갖고 있는 커먼코드에 다시 셋해준다.
+        setProductList([
+          {
+            ...productList[0],
+            commonCode: response.data.productImage[0].commonCode,
+          },
+        ]);
+
+        setProductImageList([
+          {
+            ...productList[0],
+            commonCodeName: response.data.productList[0].commonCode,
+          },
+        ]);
       })
       .catch((e) => {
         console.log(e);
       });
   };
+
+  // const changeProductColorName = (commonCodeName) => {
+  //   setProductList(commonCodeName);
+  // };
 
   return (
     <>
@@ -123,7 +150,7 @@ const MainInfo = ({ changeProductColor }) => {
                 src="/Product_arrow.png"
                 alt="색상선택"
               ></img>
-              <span>{r.commonCode}</span>
+              <span>{r.commonCodeName}</span>
             </div>
           </div>
         ))}

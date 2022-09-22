@@ -1,10 +1,58 @@
+import axios from "axios";
 import * as React from "react";
 import "../../css/ProductDetail.css";
 import Textarea from "../../css/Textarea";
 import RevInserNav from "./RevInsertNav";
 import RevStar from "./RevStar";
 
+
+
 export default function NavContentRev() {
+
+  const [reviewList, setReviewList] = React.useState([]); //전체 게시글 목록
+
+const [reviewTitle, setReviewTitle] = React.useState("");
+const [reviewContent, setReviewContent] = React.useState("");
+const [reviewGrade, setReviewGrade] = React.useState();
+
+const [reviewNo, setReviewNo] = React.useState({}); //조회하고자 하는 게시글의 정보
+
+//게시글을 수정하는 함수(admin이 답변을 등록할 때 사용)
+const updateReview = () => {
+  axios({
+    url: "http://localhost:8080/api/inquiry/updateReview",
+    method: "post",
+    data: {
+      ReviewNo: reviewNo,
+    },
+  })
+    .then((response) => {
+      setReviewList(response.data);
+      window.location.href = "/productDetail";
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
+//게시글을 삭제하는 함수(admin이 답변을 등록할 때 사용)
+const deleteReview = () => {
+  axios({
+    url: "http://localhost:8080/api/inquiry/deleteReview",
+    method: "delete",
+    data: {
+      reviewNo: reviewNo,
+    },
+  })
+    .then((response) => {
+      setReviewList(response.data);
+      window.location.href = "/productDetail";
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
   return (
     <>
       <div className="ReviewPage">

@@ -176,19 +176,23 @@ public class ProductController {
 		}
 		//제품 조회(상세정보) - 제품번호, 커먼코드를 넘겨서 조회하기
 		@PostMapping("/changeProductColor")
-		public Map<String, Object> getProductWithCommonCode(@RequestBody Map<String, Object> paramMap) {
+		public Map<String, Object> getProductWithCommonCode(@RequestBody Map<String, String> paramMap) {
 //			  리액트단에서 데이터 보낼 때(axios 요청) 아래와 같이 해야 함
 //			  method: "post",
 //		      params: { productNo: productNo,
 //						commonCode: commonCode },
 			try {	
-				System.out.println(paramMap.get("product"));
+				System.out.println(paramMap.get("productNo"));
 				System.out.println(paramMap.get("commonCode"));
 				
+				List<Map<String, Object>> productInfo = productService.getProduct(
+						Integer.parseInt(paramMap.get("productNo").toString())
+						);
 				List<Map<String, Object>> productImage = productService.getProductWithCommonCode(paramMap);
 				
 				Map<String, Object> returnMap = new HashMap<String, Object>();
 				
+				returnMap.put("productInfo", productInfo);
 				returnMap.put("productImage", productImage);
 				
 				return returnMap; 
