@@ -46,6 +46,11 @@ const ProductCategoryList = () => {
 
   const categoryList = [
     {
+      title: "전체 제품 보기",
+      code: "",
+      content: "HomeController의 모든 제품을 만나보세요.",
+    },
+    {
       title: "침대",
       code: "C01",
       content:

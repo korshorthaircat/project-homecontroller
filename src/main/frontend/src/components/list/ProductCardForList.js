@@ -162,7 +162,7 @@ const ProductCardForList = ({ item, productImageList }) => {
           <p>PRICE</p>
           <div className="last">
             <p className="price_text">
-              \{(item.productPrice + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              ₩{(item.productPrice + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </p>
             <IconButton
               size="large"
