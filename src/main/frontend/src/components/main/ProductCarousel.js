@@ -108,7 +108,7 @@ const ProductCarousel = () => {
     let url = `http://localhost:8080/api/main/getMainProductList`;
     let response = await fetch(url);
     let data = await response.json();
-    console.log(data);
+    console.log("data/////////", data.productList.productCategoryName);
     setProductList(data.productList);
     setProductImageList(data.productImageList);
   };

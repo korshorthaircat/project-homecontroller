@@ -248,8 +248,6 @@ public class ProductController {
 			}
 		}
 		
-
-		
 		
 	//색상 선택시 해당 색상 인테리어 쇼룸 이미지 조회(더보기 클릭시 추가)
 	@GetMapping("/getShowroomList")
@@ -282,12 +280,6 @@ public class ProductController {
 				return ResponseEntity.badRequest().body(response);
 			}
 	};
-
-//	// 하트 클릭 시 온라인쇼룸 위시리스트 추가
-//	ResponseEntity<?> addWishShowroom(Product product) {
-//		return null;
-//	}
-	
 	
 	//<리스트 페이지> 전제 제품 조회 (컬러별 중복 노출)
 	@GetMapping("/getAllProductList")

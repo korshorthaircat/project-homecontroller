@@ -20,3 +20,8 @@
 .OrderBtn{
    justify-content: center;
 }
+
+#ImgThum{
+    width: 100px;
+    height: 100px;
+}

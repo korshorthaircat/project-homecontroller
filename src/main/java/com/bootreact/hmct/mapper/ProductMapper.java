@@ -50,9 +50,14 @@ public interface ProductMapper {
 
 	List<Map<String, Object>> getAllProductImageList();
 
-	List<Map<String, Object>> getSearchProducts();
+	//List<Map<String, Object>> getSearchProducts();
 	
 	int getOrderHistory(@Param("productNo") int productNo, @Param("userId") String userId);
 	
 	List<Integer> getOrderNoListByProductNo(@Param("productNo") int productNo, @Param("userId") String userId);
+
+	List<Map<String, Object>> getSearchProducts(String word);
+	
+	List<Map<String, Object>> getSearchProductImageList(Map<String, Object> paramMap);
+
 }		

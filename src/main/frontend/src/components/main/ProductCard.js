@@ -8,6 +8,8 @@ import Modal from "react-bootstrap/Modal";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import HeartButton from "./HeartButton";
+import Heart from "react-heart";
+import { HideImageRounded } from "@mui/icons-material";
 
 const ProductCard = ({ item, productImageList }) => {
   //대표 이미지
@@ -19,6 +21,7 @@ const ProductCard = ({ item, productImageList }) => {
   const [show, setShow] = useState(false);
   //위시리스트 모달창
   const [wishlistShow, setwishlistShow] = useState(false);
+  const [wishDeleteShow, setWishDeleteShow] = useState(false);
 
   const [courseCostChange, setCourseCostChange] = useState("");
 
@@ -68,6 +71,9 @@ const ProductCard = ({ item, productImageList }) => {
     }
   }, [item, productImageList]);
 
+  const [like, setLike] = useState(false);
+  const [active, setActive] = useState(false);
+
   //하트 아이콘 클릭시 위시리스트에 담기
   const addWishList = () => {
     axios({
@@ -94,26 +100,11 @@ const ProductCard = ({ item, productImageList }) => {
       data: { productNo: item.productNo },
     }).then((response) => {
       // setWishItemList(response.data.wishItemList);
-      window.location.href = "/wishlist";
-      console.log(response.data);
+      // window.location.href = "/wishlist";
+      // console.log(response.data);
+      // setWishDeleteShow(false);
     });
   };
-
-  //하트아이콘 클릭시 하트색 변경시키기
-  const [like, setLike] = useState(false);
-
-  // useEffect(async () => {
-  //   const fetchData = async () => {
-  //     const res = await axios.addWishList("ACCESS_TOKEN");
-  //     if (res.data.type === "liked") setLike(true);
-  //   };
-  //   fetchData();
-  // }, []);
-
-  // const toggleLike = async (e) => {
-  //   const res = await axios.addWishList("ACCESS_TOKEN");
-  //   setLike(!like);
-  // };
 
   const toggleLike = async (e) => {
     // if (like) {
@@ -175,22 +166,51 @@ const ProductCard = ({ item, productImageList }) => {
             <p className="price_text">
               \{(item.productPrice + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </p>
-            <IconButton
+            {/* 하트아이콘버튼부분  */}
+            {/* <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
               sx={{ padding: "0 6px", left: 140 }}
-              onClick={like ? deleteWishList : addWishList}
+              // onClick={like ? deleteWishList : addWishList}
+              isActive={active}
             >
               <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
-            </IconButton>
-
-            <HeartButton like={like} onClick={toggleLike} />
+            </IconButton> */}
+            <Heart
+              style={{ width: "2rem" }}
+              isActive={active}
+              onClick={() => {
+                setActive(!active);
+                if (!active) {
+                  addWishList();
+                } else {
+                  deleteWishList();
+                  alert("취소되었습니다");
+                }
+              }}
+            />
             <Modal show={wishlistShow} onHide={wishlistHandleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>위시리스트 등록</Modal.Title>
               </Modal.Header>
               <Modal.Body>위시리스트에 담겼습니다.</Modal.Body>
+              <Modal.Footer>
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={wishlistHandleClose}
+                >
+                  닫기
+                </Button>
+              </Modal.Footer>
+            </Modal>
+
+            <Modal show={wishDeleteShow} onHide={wishlistHandleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>위시리스트 삭제</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>위시리스트에서 삭제되었습니다.</Modal.Body>
               <Modal.Footer>
                 <Button
                   variant="contained"

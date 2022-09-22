@@ -36,24 +36,18 @@ const ProductCardForList = ({ item, productImageList }) => {
   useEffect(() => {
     if (Object.keys(item).length !== 0 && productImageList.length !== 0) {
       console.log(productImageList);
-      productImageList.map((productImage) => {
+      const indexList = [];
+      productImageList.map((productImage, index) => {
         if (
           item.productNo === productImage.productNo &&
-          item.commonCode === productImage.commonCode &&
-          (productImage.productImageNo === 1 ||
-            productImage.productImageNo === 3)
+          item.commonCode === productImage.commonCode
         )
-          setThumbnail(productImage.productImageName);
-        else if (
-          item.productNo === productImage.productNo &&
-          item.commonCode === productImage.commonCode &&
-          (productImage.productImageNo === 2 ||
-            productImage.productImageNo === 4)
-        )
-          setHoverImage(productImage.productImageName);
-
+          indexList.push(index);
         return productImage;
       });
+
+      setThumbnail(productImageList[indexList[0]].productImageName);
+      setHoverImage(productImageList[indexList[1]].productImageName);
     }
   }, [item, productImageList]);
 
@@ -162,7 +156,7 @@ const ProductCardForList = ({ item, productImageList }) => {
           <p>PRICE</p>
           <div className="last">
             <p className="price_text">
-              \{(item.productPrice + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              ₩{(item.productPrice + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </p>
             <IconButton
               size="large"
