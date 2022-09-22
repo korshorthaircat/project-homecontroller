@@ -74,7 +74,7 @@ const ProductCard = ({ item, productImageList }) => {
   const [like, setLike] = useState(false);
   const [active, setActive] = useState(false);
 
-  //하트 아이콘 클릭시 위시리스트에 담기
+  //위시리스트에 담기
   const addWishList = () => {
     axios({
       url: "http://localhost:8080/api/wishlist/addWishItem",
@@ -86,6 +86,20 @@ const ProductCard = ({ item, productImageList }) => {
     }).then((response) => {
       // console.log(response.data);
       setwishlistShow(true);
+    });
+  };
+
+  //위시쇼룸 담기
+  const addWishShowroom = () => {
+    axios({
+      url: "http://localhost:8080/api/wishlist/addWishShowroom",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+      },
+      method: "post",
+      data: { showroomNo: item.showroomNo },
+    }).then((response) => {
+      // setwishshowroomShow(true);
     });
   };
 
@@ -104,6 +118,18 @@ const ProductCard = ({ item, productImageList }) => {
       // console.log(response.data);
       // setWishDeleteShow(false);
     });
+  };
+
+  //위시쇼룸 삭제하기
+  const deleteWishShowroom = (index) => {
+    axios({
+      url: "http://localhost:8080/api/wishlist/deleteWishShowroom",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+      },
+      method: "post",
+      data: { showroomNo: item.showroomNo },
+    }).then((response) => {});
   };
 
   const toggleLike = async (e) => {
