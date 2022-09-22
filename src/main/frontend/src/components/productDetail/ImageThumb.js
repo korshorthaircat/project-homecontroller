@@ -38,6 +38,8 @@ function ImageThumb(props) {
 
   const { productNo } = useParams();
   const [userSelect, setUserSelect] = useState();
+  const [orderHistory, setOrderHistory] = useState(0);
+  const [orderNoList, setOrderNoList] = useState([]);
 
   const play = (a, index) => {
     console.log(a);
@@ -57,11 +59,16 @@ function ImageThumb(props) {
     axios({
       url: `http://localhost:8080/api/product/productDetail`,
       method: "get",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+      },
       params: { productNo: productNo },
     }).then((response) => {
       console.log(response.data);
-      setProductList(response.data.productInfo.slice(0, 1));
-      setProductImageList(response.data.productImage);
+      setProductList((prev) => response.data.productInfo.slice(0, 1));
+      setProductImageList((prev) => response.data.productImage);
+      setOrderHistory((prev) => response.data.orderHistory);
+      setOrderNoList((prev) => response.data.orderNoList);
       //setProductImageData(response.data.slice(0, 4));
     });
   };
@@ -129,7 +136,7 @@ function ImageThumb(props) {
               <hr className="line1"></hr>
             </p>
 
-            <ProductDetailInfo />
+            <ProductDetailInfo orderHistory={orderHistory} />
           </div>
           <div className="contentBox">
             <ProductMainInfo changeProductColor={changeProductColor} />

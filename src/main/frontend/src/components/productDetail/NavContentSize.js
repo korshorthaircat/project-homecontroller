@@ -6,8 +6,10 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import "../../css/ProductDetail.css";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 export default function NavContentSize() {
+  let { productNo } = useParams();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -16,20 +18,19 @@ export default function NavContentSize() {
 
   const [productList, setProductList] = React.useState([]);
 
-  let listUrl = "http://localhost:8080/api/admin/admin2";
-  const list = () => {
-    axios
-      .get(listUrl, {})
-      .then((response) => {
-        setProductList(response.data.data.slice(0, 1));
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  const getproductList = async () => {
+    axios({
+      url: `http://localhost:8080/api/product/productColorDetail`,
+      method: "get",
+      params: { productNo: productNo },
+    }).then((response) => {
+      console.log(response.data);
+      setProductList(response.data.productInfo.slice(0, 1));
+    });
   };
 
   React.useEffect(() => {
-    list();
+    getproductList();
   }, []);
 
   return (
