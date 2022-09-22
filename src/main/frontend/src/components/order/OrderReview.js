@@ -34,7 +34,11 @@ const OrderReview = ({ cart }) => {
                 {cart.productOption.product.productSize} <br />
                 수량: {cart.productCount}
               </Typography>
-              <br /> ₩ {cart.productOption.product.productPrice}
+              <br /> ₩{" "}
+              {(cart.productOption.product.productPrice + "").replace(
+                /\B(?=(\d{3})+(?!\d))/g,
+                ","
+              )}
             </React.Fragment>
           }
         />
