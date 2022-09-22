@@ -33,8 +33,11 @@ import FixedBar from "./components/list/FixedBar";
 import ShowroomAdd from "./components/admin/ShowroomAdd";
 import Board from "./components/Board";
 import Coupon from "./components/event/Coupon";
-import SearchedProductCategoryList from "./components/list/SearchedProductCategoryList";
+import SearchedProductCategoryList from "./components/list/NotUsedProductCategoryList";
+import NotUsedProductCategoryList from "./components/list/NotUsedProductCategoryList";
+import NavProductCategoryList from "./components/list/NavProductCategoryList";
 import OrderComplete from "./components/order/OrderComplete";
+
 
 const AppRouter = () => {
   // 경로에 따라 실행되는 컴포넌트가 다르므로, 그 정보를 갖고있는 AppRouter를 가장 먼저 렌더링해야 한다.(Index.js에서)
@@ -127,21 +130,14 @@ const AppRouter = () => {
 
           <Route path="/productDetail" element={<ImageThumb />} />
           <Route path="/showroom" element={<InteriorShowroom />} />
-          <Route path="/list" element={<ProductCategoryList />} />
+          <Route path="/list" element={<NavProductCategoryList />} />
           <Route path="/kakaopayReady" element={<KakaoPayReady />} />
           <Route path="/kakaopayResult" element={<KakaoPayResult />} />
           <Route path="/bartest" element={<FixedBar />} />
           <Route path="/productDetail/:productNo" element={<ImageThumb />} />
           <Route path="/coupon" element={<Coupon />} />
-          <Route
-            path="/list/:productCategoryName"
-            element={<ProductCategoryList />}
-          />
-          <Route path="/search" element={<SearchedProductCategoryList />} />
-          <Route
-            path="/search:searchKeyword"
-            element={<SearchedProductCategoryList />}
-          />
+          <Route path="/search/:word" element={<ProductCategoryList />} />
+          <Route path="/notuse" element={<NotUsedProductCategoryList />} />
         </Routes>
       </BrowserRouter>
       <Footer />

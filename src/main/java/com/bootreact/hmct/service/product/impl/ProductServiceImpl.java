@@ -1,5 +1,6 @@
 package com.bootreact.hmct.service.product.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.bootreact.hmct.entity.Product;
 import com.bootreact.hmct.entity.ProductImage;
 import com.bootreact.hmct.entity.ProductOption;
-import com.bootreact.hmct.entity.Showroom;
 import com.bootreact.hmct.mapper.ProductMapper;
 import com.bootreact.hmct.repository.ProductImageRepository;
 import com.bootreact.hmct.repository.ProductOptionRepository;
@@ -145,8 +145,13 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Map<String, Object>> getSearchProducts(String word) {
-		return productMapper.getSearchProducts();
+		return productMapper.getSearchProducts(word);
 	}
 
-
+	@Override
+	public List<Map<String, Object>> getSearchProductImageList(int[] productNoArr) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("productNoArr", productNoArr);
+		return productMapper.getSearchProductImageList(paramMap);
+	}
 }
