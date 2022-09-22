@@ -266,7 +266,7 @@
 	</select>	
 -->
 
-<select id="getAllProductList" resultType="camelHashMap">
+	<select id="getAllProductList" resultType="camelHashMap">
 	<![CDATA[
 		SELECT AA.*
 			,  BB.COMMON_CODE_NAME AS PRODUCT_MATERIAL_NAME
@@ -324,6 +324,7 @@
 		      AND A.USER_ID = #{userId}
 		      AND B.PRODUCt_NO = #{productNo}
 		      AND A.ORDER_NO != C.ORDER_NO
+	</select>      
 
 	<select id="getSearchProductImageList" parameterType="map" resultType="camelHashMap">
 		SELECT *

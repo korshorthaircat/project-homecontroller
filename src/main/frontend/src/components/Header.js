@@ -25,12 +25,9 @@ import Link from "@mui/material/Link";
 import Badge from "@mui/material/Badge";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
-<<<<<<< HEAD
 import Navbar from "./main/CategoryNavbar";
 import CategoryNavbar from "./main/CategoryNavbar";
-=======
 import { useNavigate } from "react-router-dom";
->>>>>>> branch 'main' of https://github.com/saetbyeoloh/project-homecontroller.git
 
 const drawerWidth = 450;
 
@@ -198,25 +195,22 @@ const Header = () => {
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="검색어 입력"
-                  inputProps={{ "aria-label": "search" }}
-                  onChange={(e) => {
+                <StyledInputBase>
+                  placeholder="검색어 입력" inputProps=
+                  {{ "aria-label": "search" }}
+                  onChange=
+                  {(e) => {
                     setWord(e.target.value);
                     console.log(word);
                   }}
-                  onKeyPress={() => {
+                  onKeyPress=
+                  {() => {
                     onSubmit();
                   }}
-<<<<<<< HEAD
-                >
-                  검색
-                </button>
-=======
-                />
+                  <button>검색</button>
+                </StyledInputBase>
 
                 {/* <button type="button">검색</button> */}
->>>>>>> branch 'main' of https://github.com/saetbyeoloh/project-homecontroller.git
               </Search>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>

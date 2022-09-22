@@ -156,6 +156,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Integer> getOrderNoListByProductNo(int productNo, String userId) {
 		return productMapper.getOrderNoListByProductNo(productNo, userId);
+	}
 
 	public List<Map<String, Object>> getSearchProductImageList(int[] productNoArr) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
