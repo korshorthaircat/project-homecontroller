@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import com.bootreact.hmct.entity.Product;
+
 @Mapper
 public interface ProductMapper {
 	@Select("SELECT IFNULL(MAX(PRODUCT_IMAGE_NO), 0) + 1 FROM T_HMCT_PRODUCT_IMAGE WHERE PRODUCT_NO = #{productNo}")
@@ -47,5 +49,7 @@ public interface ProductMapper {
 	List<Map<String, Object>> getAllProductList();
 
 	List<Map<String, Object>> getAllProductImageList();
+
+	List<Map<String, Object>> getSearchProducts();
 
 }		

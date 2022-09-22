@@ -143,5 +143,10 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.getAllProductImageList();
 	}
 
+	@Override
+	public List<Map<String, Object>> getSearchProducts(String word) {
+		return productMapper.getSearchProducts();
+	}
+
 
 }
