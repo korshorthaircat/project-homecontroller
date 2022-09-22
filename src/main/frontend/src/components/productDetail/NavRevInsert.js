@@ -13,8 +13,8 @@ export default function NavRevInsert() {
   const [reviewTitle, setReviewTitle] = React.useState("");
   const [reviewContent, setReviewContent] = React.useState("");
   const [reviewGrade, setReviewGrade] = React.useState(5);
-  const [reviewOrderNo, setReviewOrderNo] = React.useState();
-  const [reviewCommonCode, setReviewCommonCode] = React.useState();
+  const [reviewOrderNo, setReviewOrderNo] = React.useState(0);
+  const [reviewCommonCode, setReviewCommonCode] = React.useState("");
 
   const [reviewNo, setReviewNo] = React.useState({}); //조회하고자 하는 게시글의 정보
 
@@ -76,7 +76,6 @@ export default function NavRevInsert() {
   }, []);
 
   React.useEffect(() => {
-    console.log(orderNoList);
     setReviewOrderNo(orderNoList.slice(0, 1));
     setReviewCommonCode(commonCodeList.slice(0, 1));
   }, [orderNoList, commonCodeList]);
@@ -116,7 +115,6 @@ export default function NavRevInsert() {
         ></textarea>
 
         <p style={{ fontSize: "17px", fontWeight: "700", marginTop: "50px" }}>
-          {" "}
           나의 주문번호
         </p>
         <input id="orderNo" value={orderNoList.slice(0, 1)} readonly></input>
