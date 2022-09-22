@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/dtd/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.bootreact.hmct.mapper.WishShowroomMapper">
+	<select id="getWishShowroom" resultType="camelHashMap" parameterType="string">
+	<![CDATA[
+	SELECT  A.SHOWROOM_NO,
+			B.USER_ID,
+			C.SHOWROOM_IMG_NAME,
+			C.SHOWROOM_IMG_ORIGINAL_NAME
+			FROM T_HMCT_WISHSHOWROOM A,
+				 T_HMCT_USER B,
+				 T_HMCT_SHOWROOM C
+			WHERE A.USER_ID = B.USER_ID
+				AND	A.SHOWROOM_NO = C.SHOWROOM_NO
+				AND A.USER_ID = #{userId}
+	]]>
+	</select>
+</mapper>
+
+
