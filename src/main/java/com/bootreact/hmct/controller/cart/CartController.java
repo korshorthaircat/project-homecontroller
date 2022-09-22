@@ -170,12 +170,12 @@ public class CartController {
     public Map<String, Object> getCartImageList(@RequestBody User user){
 		try {
 
-//			List<Map<String, Object>> cartList = cartService.getCartMapList(user.getUserId());
+			//List<Map<String, Object>> cartList = cartService.getCartMapList(user.getUserId());
 			List<Map<String, Object>> cartImageList = cartService.getCartImageList(user.getUserId());
 			
 			Map<String, Object> returnMap = new HashMap<String, Object>();
 			
-//			returnMap.put("cartList", cartList);
+			//returnMap.put("cartList", cartList);
 			returnMap.put("cartImageList", cartImageList);
 			
 			return returnMap; 

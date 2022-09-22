@@ -20,14 +20,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Paging from "../admin/Paging";
 import "../../css/paging.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const mdTheme = createTheme();
 
 function Orderlist() {
-  const [toggleState, setToggleState] = useState(1);
-
-  const toggleTab = (index) => {
-    setToggleState(index);
-  };
-
   const [orderList, setOrderList] = React.useState([]);
 
   const ordList = () => {
@@ -57,78 +54,61 @@ function Orderlist() {
   const offset = (page - 1) * limit;
   const handlePaging =(currentPage) =>{
     setPage(prev => currentPage);
-}
+  };
+
+  const changeLimit = (e) => {
+    setLimit(prev => e.target.value);
+    setPage(1);
+  }
 
   return (
-    <div className="container">
-      <div className="bloc-tabs">
-        <div
-          className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-          onClick={() => toggleTab(1)}
-        >
-          주문내역 조회
-        </div>
-        <div
-          className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-          onClick={() => toggleTab(2)}
-        >
-          반품내역 조회
-        </div>
-        <div
-          className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
-          onClick={() => toggleTab(3)}
-        >
-          교환내역 조회
-        </div>
-      </div>
-
-      {/* CONTENT 부분 */}
-      <div className="content-tabs">
-        <div
-          className={toggleState === 1 ? "content active-content" : "content"}
-        >
-          <div className="Date">
-            <p className="DataP">조회기간 선택</p>
-            <Form.Control type="date"></Form.Control>
-            <Form.Control type="date"></Form.Control>
-          </div>
-
-          <Paper
-            component="form"
-            sx={{
-              p: "2px 4px",
-              display: "flex",
-              alignItems: "center",
-              width: 400,
-              marginLeft: 105,
-              marginBottom: 5,
-            }}
-          >
-            {/* <IconButton sx={{ p: '10px' }} aria-label="menu">
-                      <MenuIcon />
-                    </IconButton> */}
-            <InputBase
-              sx={{ ml: 1, flex: 1 }}
-              placeholder="주문내역 검색"
-              inputProps={{ "aria-label": "search google maps" }}
-            />
-            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-              <SearchIcon />
-            </IconButton>
-            {/* <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                    <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
-                      <DirectionsIcon />
-                    </IconButton> */}
-          </Paper>
+    <ThemeProvider theme={mdTheme}>
+      <Box sx={{ display: "flex" }} >
+       <Container style={{ marginTop: "5%" }}>  
+          <Box>
+              <div className="Date" style={{maxWidth: "600px", height: "auto"}}>
+                <p className="DataP" style={{width: "200px"}}>조회기간 선택</p>
+                <Form.Control type="date"></Form.Control>
+                <Form.Control type="date"></Form.Control>
+              </div>
+          
+              <Paper
+                component="form"
+                sx={{
+                  p: "2px 4px",
+                  display: "flex",
+                  alignItems: "self-end",
+                  width: 400,
+                  marginLeft: 90,
+                  marginBottom: 5,
+                }}
+              >
+                {/* <IconButton sx={{ p: '10px' }} aria-label="menu">
+                          <MenuIcon />
+                        </IconButton> */}
+                <InputBase
+                  sx={{ ml: 1, flex: 1 }}
+                  placeholder="주문내역 검색"
+                  inputProps={{ "aria-label": "search google maps" }}
+                />
+                <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+                  <SearchIcon />
+                </IconButton>
+                {/* <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+                        <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
+                          <DirectionsIcon />
+                        </IconButton> */}
+              </Paper>
+          </Box>
           <Container style={{ marginTop: "5%" }}>
             <h1>나의 주문내역</h1>
             {/*페이지네이션 표출할 데이터양*/}
-            <label className="orderOption">
+            <label className="orderOption" style={{marginLeft: "850px"}}>
               페이지 당 표시할 게시물 수:&nbsp;
               <select
                 type="number"
                 value={limit}
-                onChange={({ target: { value } }) => setLimit(Number(value))}
+                onChange={changeLimit}
               >
                 <option value="5">5</option>
                 <option value="10">10</option>
@@ -236,122 +216,15 @@ function Orderlist() {
               </TableContainer>
             </Box>
           </Container>
-          <Paging
+          </Container>
+          </Box>
+        <Paging 
             total={orderList.length}
             limit={limit}
             page={page}
             handlePaging={handlePaging}
           />
-        </div>
-
-        <div
-          className={toggleState === 2 ? "content active-content" : "content"}
-        >
-          <div className="Date">
-            <p className="DataP">조회기간 선택</p>
-            <Form.Control type="date"></Form.Control>
-            <Form.Control type="date"></Form.Control>
-          </div>
-
-          <Paper
-            component="form"
-            sx={{
-              p: "2px 4px",
-              display: "flex",
-              alignItems: "center",
-              width: 400,
-              marginLeft: 105,
-              marginBottom: 5,
-            }}
-          >
-            {/* <IconButton sx={{ p: '10px' }} aria-label="menu">
-                      <MenuIcon />
-                    </IconButton> */}
-            <InputBase
-              sx={{ ml: 1, flex: 1 }}
-              placeholder="반품내역 검색"
-              inputProps={{ "aria-label": "search google maps" }}
-            />
-            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-              <SearchIcon />
-            </IconButton>
-            {/* <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                    <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
-                      <DirectionsIcon />
-                    </IconButton> */}
-          </Paper>
-        </div>
-
-        <div
-          className={toggleState === 3 ? "content active-content" : "content"}
-        >
-          <div className="Date">
-            <p className="DataP">조회기간 선택</p>
-            <Form.Control type="date"></Form.Control>
-            <Form.Control type="date"></Form.Control>
-          </div>
-
-          <Paper
-            component="form"
-            sx={{
-              p: "2px 4px",
-              display: "flex",
-              alignItems: "center",
-              width: 400,
-              marginLeft: 105,
-              marginBottom: 5,
-            }}
-          >
-            {/* <IconButton sx={{ p: '10px' }} aria-label="menu">
-                      <MenuIcon />
-                    </IconButton> */}
-            <InputBase
-              sx={{ ml: 1, flex: 1 }}
-              placeholder="교환내역 검색"
-              inputProps={{ "aria-label": "search google maps" }}
-            />
-            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-              <SearchIcon />
-            </IconButton>
-            {/* <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                    <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
-                      <DirectionsIcon />
-                    </IconButton> */}
-          </Paper>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-              </tr>
-            </thead>
-            <table class="table table-hover">
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td colspan="2">Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
-          </table>
-        </div>
-      </div>
-    </div>
+    </ThemeProvider>
   );
 }
 

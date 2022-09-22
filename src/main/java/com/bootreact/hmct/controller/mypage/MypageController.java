@@ -57,8 +57,6 @@ public class MypageController {
 	@Autowired
 	WishService wishService;
 	
-	private ChangePw changePw;
-	
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
 	
@@ -97,6 +95,12 @@ public class MypageController {
 	
 	
 	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Mypage 사용자 탈퇴 
 	 */
@@ -121,7 +125,8 @@ public class MypageController {
 
 	//비밀번호 변경 
 	@PostMapping("/changeUserPw")
-	public ResponseEntity<?> changeUserPw(@RequestBody User user) {
+	public ResponseEntity<?> changeUserPw(@RequestBody ChangePw changePw) {
+		System.out.println(changePw.toString());
 		Map<String, Object> result = mypageService.ChangePw(changePw);
 		return ResponseEntity.ok().body(result);
 	}

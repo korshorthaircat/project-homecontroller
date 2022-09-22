@@ -3,95 +3,97 @@
     z-index: 10;
   } */
 
-  .nav_wrapper {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-  }
-  
-  .MyNavMenu {
-    width: 70%;
-    height: auto;
-    background: white;
-    margin: 0 auto;
-    margin-top: 150px;
-  }
-  
-  .MyNavMenu ul {
-    padding: 0px;
-    margin: 0px;
-    list-style: none;
-    position: relative;
-    display: inline-block;
-    
-  }
-  
-  .MyNavMenu > li > ul.sub_menu {
-    min-width: 10em;
-    padding: 4px 0;
-    /* background-color: #f4f4f4; */
-    border: 1px solid black;
-    
-  }
-  
-  .MyNavMenunu ul li { 
-    padding: 0px; 
-    
-  }
-  
-  .MyNavMenu > ul > li { 
-    display: inline-block; 
-    
-    }
-  
-  .MyNavMenu ul li a {
-    display: block;
-    text-decoration: none;
-    color: black;
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 5px;
-  }
-  
-  .MyNavMenu ul li a:hover {
-    background: green;
-    color: #fff;
-    transition: all .5s ease-out;
-  }
-  
-  .MyNavMenu ul li.hover > a {
-    background: #efa666;
-    color: #fff;
-  }
-  
-  .MyNavMenu ul li > a { padding: 15px; }
-  
-  .MyNavMenu ul ul {
-    display: none;
-    position: absolute;
-    top: 100%;
-    min-width: 160px;
-    /* background: white; */
-  }
-  
-  .MyNavMenu ul li:hover > ul { display: block;}
-  
-  .MyNavMenu ul ul > li { position: relative; }
-  
-  .MyNavMenu ul ul > li a {
-    padding: 10px 15px;
-    height: auto;
-    background: rgb(227, 224, 224);
-  }
-  
-  .MyNavMenu ul ul > li a:hover {
-    background: green;
-    color: #fff;
-  }
-  
-  .MyNavMenu ul ul ul {
-    position: absolute;
-    left: 100%;
-    top: 0;
-  }
+.nav_wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.MyNavMenu {
+  width: 70%;
+  height: auto;
+  background: white;
+  margin: 0 auto;
+  margin-top: 150px;
+}
+
+.MyNavMenu ul {
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  position: relative;
+  display: inline-block;
+}
+
+.MyNavMenu > li > ul.sub_menu {
+  min-width: 10em;
+  padding: 4px 0;
+  border: 1px solid black;
+}
+
+.MyNavMenunu ul li {
+  padding: 0px;
+}
+
+.MyNavMenu > ul > li {
+  display: inline-block;
+}
+
+.MyNavMenu ul li a {
+  display: block;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.MyNavMenu ul li a:hover {
+  background: green;
+  color: #fff;
+  transition: all 0.5s ease-out;
+}
+
+.MyNavMenu ul li.hover > a {
+  background: #efa666;
+  color: #fff;
+}
+
+.MyNavMenu ul li > a {
+  padding: 15px;
+}
+
+.MyNavMenu ul ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  min-width: 160px;
+  /* background: white; */
+}
+
+.MyNavMenu ul li:hover > ul {
+  display: block;
+}
+
+.MyNavMenu ul ul > li {
+  position: relative;
+}
+
+.MyNavMenu ul ul > li a {
+  padding: 10px 15px;
+  height: auto;
+  background: rgb(227, 224, 224);
+}
+
+.MyNavMenu ul ul > li a:hover {
+  background: green;
+  color: #fff;
+}
+
+.MyNavMenu ul ul ul {
+  position: absolute;
+  left: 100%;
+  top: 0;
+}

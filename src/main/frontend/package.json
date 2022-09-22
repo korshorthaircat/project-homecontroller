@@ -23,6 +23,7 @@
     "react-bootstrap-form": "^0.1.4-beta6",
     "react-daum-postcode": "^3.1.1",
     "react-dom": "^18.2.0",
+    "react-heart": "^1.0.6",
     "react-horizontal-scrolling-menu": "^3.2.0",
     "react-icons": "^4.4.0",
     "react-js-pagination": "^3.0.3",

@@ -6,17 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bootreact.hmct.dto.ProductDTO;
-import com.bootreact.hmct.dto.ResponseDTO;
-import com.bootreact.hmct.dto.ShowroomDTO;
 import com.bootreact.hmct.entity.Showroom;
-import com.bootreact.hmct.entity.ShowroomItem;
 import com.bootreact.hmct.service.product.ProductService;
 import com.bootreact.hmct.service.showroom.ShowroomService;
 
@@ -34,6 +29,25 @@ public class MainController {
 	
 //	//헤더의 검색바 관련 메서드
 //	void getSearchProducts(String keyword) {}
+	@GetMapping("/getSearchProducts")
+	public Map<String, Object> getSearchProducts(@RequestParam String word) {
+		System.out.println("word : /////////"+word);
+		try {
+			List<Map<String, Object>> productList = productService.getSearchProducts(word);
+			
+			Map<String, Object> searchProducts = new HashMap<String, Object>();
+			
+			searchProducts.put("productList", productList);
+			
+			return searchProducts;
+			
+		} catch (Exception e) {
+			Map<String, Object> errorMap = new HashMap<String, Object>();
+			errorMap.put("error", e.getMessage());
+			return errorMap;
+		}
+	};
+	
 //
 //	//기획전 - 쇼룸
 //	ResponseEntity<?> getShowroomList(String code) {

@@ -4,8 +4,15 @@
 	
 <mapper namespace="com.bootreact.hmct.mapper.ShowroomMapper">
 	<select id="getShowroomItemList" resultType="camelHashMap">
-		SELECT * 
-			FROM T_HMCT_SHOWROOM_ITEM
+		SELECT A.*,
+	   		   B.*,
+	   		   C.COMMON_CODE_NAME AS PRODUCT_CATEGORY_NAME
+			FROM T_HMCT_SHOWROOM_ITEM A,
+				 T_HMCT_PRODUCT B,
+				 T_HMCT_COMMON C
+			WHERE A.PRODUCT_NO = B.PRODUCT_NO
+			  AND B.PRODUCT_CATEGORY = C.COMMON_CODE
+			  AND C.COMMON_TYPE = 'C'
 	</select>
 	
 	<select id="getColorShowroomItemList" parameterType="int" resultType="camelHashMap">

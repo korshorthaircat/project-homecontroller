@@ -27,9 +27,78 @@ const mdTheme = createTheme();
 const MyOrderstatus = () => {
     //주문 목록 부분
     const location = useLocation({});
+    const navigate = useNavigate();
     const [orderNo, setOrderNo] = useState(location.state);
     const [orderDetail, setOrderDetail] = useState({});
     const [orderItemList, setOrderItemList] = useState([]);
+
+     //토글 부분
+     const [toggleState, setToggleState] = useState(1);
+
+     const toggleTab = (index) => {
+         setToggleState(index);
+     };
+     
+     //서브밋할 내용(Cancel주문취소, Refund환불)
+     const [cancelReason, setCancelReason] = React.useState(" ");
+     const [cancelAmount, setCancelAmount] = React.useState(0);
+     const onCRHandler = (e) =>{
+         setCancelReason(e.target.value);
+     }
+ 
+     useEffect(() => {
+       setCancelAmount(prev => orderDetail.paymentAmount);//취소시 환불 받을 금액
+       setRetunAmount(prev => orderDetail.paymentAmount);//반품시 환불 받을 금액
+       setRefundAmount(prev => orderDetail.paymentAmount);//환불테이블에 들어갈 금액(cancel타는 refund)
+       setRefundAmount2(prev => orderDetail.paymentAmount);//환불테이블에 들어갈 금액(retun타는 refund)   
+     }, [orderDetail]);
+ 
+     const [refundAmount, setRefundAmount] = React.useState(0);
+     const [refundBank, setRefundBank] = React.useState(" ");
+     const [refundAccount, setRefundAccount] = React.useState(" ");
+     const [refundName, setRefundName] = React.useState(" ");
+ 
+     const RFBHandler = (e) =>{
+         setRefundBank(e.target.value);
+     };
+ 
+     const RFAHandler = (e) =>{
+         setRefundAccount(e.target.value);
+     };
+ 
+     const RFNHandler = (e) =>{
+         setRefundName(e.target.value);
+     };
+
+     //서브밋할 내용(Return반품, Refund환불)
+     const [retunReason, setRetunReason] = React.useState(" ");
+     const [retunAmount, setRetunAmount] = React.useState(0);
+     const onRRHandler = (e) => {
+         setRetunReason(e.target.value);
+       };
+    
+    const [refundAmount2, setRefundAmount2] = React.useState(0);
+    const [refundBank2, setRefundBank2] = React.useState(" ");
+    const [refundAccount2, setRefundAccount2] = React.useState(" ");
+    const [refundName2, setRefundName2] = React.useState(" ");
+
+    const RFBHandler2 = (e) =>{
+        setRefundBank2(e.target.value);
+    };
+
+    const RFAHandler2 = (e) =>{
+        setRefundAccount2(e.target.value);
+    };
+
+    const RFNHandler2 = (e) =>{
+        setRefundName2(e.target.value);
+    };
+
+     //서브밋할 내용(Exchange교환) 
+     const [exchangeReason, setExchangeReason] = React.useState(" "); 
+     const onECHandler = (e) => {
+        setExchangeReason(e.target.value);
+     };
  
     React.useEffect(() => {
         if(orderNo !== 0) {
@@ -47,10 +116,12 @@ const MyOrderstatus = () => {
             })
         }
     }, [orderNo]);
-
+   
+    //document.activeElement.value 값에 따라 다른 서브밋
     const handleSubmit = (e) =>{
         e.preventDefault();
-        if (document.activeElement.value === "update") {
+        // console.log(document.activeElement.value );
+        if (document.activeElement.value === "cancel") {
         axios({
             url: "http://localhost:8080/api/refund/createCancel",
             method: "post",
@@ -63,63 +134,45 @@ const MyOrderstatus = () => {
                    refundName : refundName}
             })
             .then((response) => {
-            //   setOrderNo(response.data);
-              console.log(response);
+              navigate("/orderlist");
             })
             .catch((e) => {
-              console.log("update오류" + e);
+              console.log("cancel오류" + e);
             });
+        }else if(document.activeElement.value === "retun") {
+        axios({
+            url: "http://localhost:8080/api/refund/createRetun",
+            method: "post",
+            data: {orderNo : orderNo,
+                   retunAmount : retunAmount,
+                   retunReason: retunReason,
+                   refundAccount2: refundAccount2,
+                   refundAmount2 : refundAmount2,
+                   refundBank2 : refundBank2,
+                   refundName2 : refundName2}
+            })
+            .then((response) => {
+                navigate("/orderlist");
+            })
+            .catch((e) => {
+                console.log("retun오류" + e);
+            });   
+        }else{
+        axios({
+            url: "http://localhost:8080/api/refund/createExchange",
+            method: "post",
+            data: {orderNo : orderNo,
+                  exchangeReason: exchangeReason,}
+            })
+            .then((response) => {
+                navigate("/orderlist");
+            })
+            .catch((e) => {
+                console.log("exchange오류" + e);
+            });      
         }
     };
     
-    //토글 부분
-    const [toggleState, setToggleState] = useState(1);
-
-    const toggleTab = (index) => {
-        setToggleState(index);
-    };
-    
-    //서브밋할 내용(Cancel)
-    const [cancelReason, setCancelReason] = React.useState(" ");
-    const [cancelAmount, setCancelAmount] = React.useState(0);
-    const onCRHandler = (e) =>{
-        setCancelReason(e.target.value);
-    }
-
-    const [reason, setReason] = React.useState(" ");
-    const [reason3, setReason3] = React.useState(" ");
-    const handleChange2 = (e) => {
-      setReason(e.target.value);
-    };
-    const handleChange4 = (e) => {
-        setReason3(e.target.value);
-    };
-
-    useEffect(() => {
-      setCancelAmount(prev => orderDetail.paymentAmount);
-      setRefundAmount(prev => orderDetail.paymentAmount);
-    }, [orderDetail]);
-
-    //서브밋할 내용(Refund)
-    const [refundAmount, setRefundAmount] = React.useState(0);
-    const [refundBank, setRefundBank] = React.useState(" ");
-    const [refundAccount, setRefundAccount] = React.useState(" ");
-    const [refundName, setRefundName] = React.useState(" ");
-
-    const RFBHandler = (e) =>{
-        setRefundBank(e.target.value);
-    };
-
-    const RFAHandler = (e) =>{
-        setRefundAccount(e.target.value);
-    };
-
-    const RFNHandler = (e) =>{
-        setRefundName(e.target.value);
-    };
-    //서브밋할 내용(Return)
-    
-    //서브밋할 내용(Exchange)
     return (
         <ThemeProvider theme={mdTheme} >
             <Box sx={{ display: "flex" }} > 
@@ -205,6 +258,11 @@ const MyOrderstatus = () => {
                             </Box>
 
                             <Typography variant="h6" sx={{marginTop: "50px"}}>반품 사유</Typography>
+                            <Typography variant="h6">
+                                <input  value={"반품 대기"}
+                                        name="refundStatus"
+                                        type="hidden"/>
+                            </Typography>
                             <Divider sx={{my: 2, borderBottom: "2px solid gray"}} style={{width:"100%"}}/>
                             <FormControl sx={{ m: 1, minWidth: 20 }}
                                     style={{marginTop: "20px"}}>
@@ -212,10 +270,9 @@ const MyOrderstatus = () => {
                                 <Select
                                     labelId="demo-simple-select-autowidth-label"
                                     id="demo-simple-select-autowidth"
-                                    value={reason}
-                                    onChange={handleChange2}
-                                    label="반품 사유를 선택해 주세요"
-                                    
+                                    value={retunReason}
+                                    onChange={onRRHandler}
+                                    label="반품 사유를 선택해 주세요"               
                                     >
                                     <MenuItem value={"단순 변심"}>단순 변심</MenuItem>
                                     <MenuItem value={" "}>기타 사유</MenuItem>
@@ -224,15 +281,15 @@ const MyOrderstatus = () => {
                                     <MenuItem value={"제품 정보와 상이"}>제품 정보와 상이</MenuItem>
                                 </Select>
                                 <TextareaAutosize style={{width: "500px", minHeight: "50px", resize: "none", marginTop:"20px"}}
-                                            value={reason}
-                                            onChange={handleChange2}
-                                            name="orderMemo"/>
+                                            value={retunReason}
+                                            onChange={onRRHandler}
+                                            name="retunReason"/>
                             </FormControl>                                               
                             <Typography variant="h6" sx={{marginTop: "50px"}}>결제 정보</Typography>
                             <Divider sx={{my: 2 , borderBottom: "2px solid gray"}}style={{width:"100%"}}/>
                             <Box sx={{marginTop:"20px"}}>
                                 <Table>
-                                    <TableRow>
+                                <TableRow>
                                         <TableCell component={"th"} sx={{backgroundColor: "#DCDCDC", borderBottom: "1px solid white" , padding:"0" , textAlign:"center"}}>
                                             환불 계좌
                                         </TableCell>
@@ -240,8 +297,9 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none" }}
-                                            name = "refundAccount"
-                                            placeholder="환불 계좌를 적어주세요"
+                                            name="refundAccount2"
+                                            value={refundAccount2}
+                                            onChange={RFAHandler2}
                                         />
                                         </TableCell> 
                                         <TableCell component={"th"} sx={{backgroundColor: "#DCDCDC", borderBottom: "1px solid white" , padding:"0" , textAlign:"center"}}>
@@ -251,8 +309,9 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none"}}
-                                            name="refundBank"
-                                            placeholder="환불 은행을 적어주세요"
+                                            name="refundBank2"
+                                            value={refundBank2}
+                                            onChange={RFBHandler2}
                                         />
                                         </TableCell> 
                                         <TableCell component={"th"} sx={{backgroundColor: "#DCDCDC", borderBottom: "1px solid white" , padding:"0" , textAlign:"center"}}>
@@ -262,8 +321,9 @@ const MyOrderstatus = () => {
                                         <input
                                             type="text"
                                             style={{ border: "none"}}
-                                            name="refundName"
-                                            placeholder="예금주 명을 적어주세요"
+                                            name="refundName2"
+                                            value={refundName2}
+                                            onChange={RFNHandler2}
                                         />
                                         </TableCell> 
                                         
@@ -273,8 +333,10 @@ const MyOrderstatus = () => {
                                         <TableCell >
                                         <input
                                             type="text"
-                                            style={{ border: "none" }}
-                                            value={orderDetail.paymentAmount}
+                                            style={{ border: "none" , outline:"none"}}
+                                            value={retunAmount}
+                                            name= "retunAmount"
+                                            readOnly
                                         />
                                         </TableCell>  
                                     </TableRow>
@@ -321,8 +383,10 @@ const MyOrderstatus = () => {
                                         <TableCell>
                                         <input
                                             type="text"
-                                            style={{ border: "none" }}
-                                            value={orderDetail.paymentAmount}
+                                            style={{ border: "none" , outline:"none"}}
+                                            value={refundAmount2}
+                                            name="refundAmount2"
+                                            readOnly
                                         />
                                         </TableCell>
                                     </TableRow>
@@ -333,7 +397,7 @@ const MyOrderstatus = () => {
                                 <Button
                                     type="submit"
                                     sx={{ marginTop: "20px", width:"150px" }}
-                                    value=" "
+                                    value="retun"
                                     >
                                     <img className="OrderEdit" src="images/edit.png" />
                                         반품 
@@ -382,8 +446,7 @@ const MyOrderstatus = () => {
                                     id="demo-simple-select-autowidth"
                                     value={cancelReason}
                                     onChange={onCRHandler}
-                                    label="취소 사유를 선택해 주세요"
-                                    
+                                    label="취소 사유를 선택해 주세요"   
                                     >
                                     <MenuItem value={"단순 변심"}>단순 변심</MenuItem>
                                     <MenuItem value={" "}>기타 사유</MenuItem>
@@ -452,8 +515,7 @@ const MyOrderstatus = () => {
                                         </TableCell>  
                                     </TableRow>
 
-                                    <TableRow>
-                                        
+                                    <TableRow>                                      
                                         <TableCell component={"th"} sx={{backgroundColor: "#DCDCDC", borderBottom: "1px solid white"}}>
                                             주문금액 (①)
                                         </TableCell>
@@ -511,7 +573,7 @@ const MyOrderstatus = () => {
                                 <Button
                                     type="submit"
                                     sx={{ marginTop: "20px", width:"150px" }}
-                                    value="update"
+                                    value="cancel"
                                     >
                                     <img className="OrderEdit" src="images/edit.png" />
                                         취소 
@@ -546,6 +608,11 @@ const MyOrderstatus = () => {
                             </Box>
 
                             <Typography variant="h6" sx={{marginTop: "50px"}}>교환 사유</Typography>
+                            <Typography variant="h6">
+                                <input value={"교환 대기"}
+                                        name="exchangeStatus"
+                                        type="hidden"/>
+                            </Typography>
                             <Divider sx={{my: 2 , borderBottom: "2px solid gray"}}style={{width:"100%"}}/>
                             <FormControl sx={{ m: 1, minWidth: 20 }}
                                     style={{marginTop: "20px"}}>
@@ -553,26 +620,23 @@ const MyOrderstatus = () => {
                                 <Select
                                     labelId="demo-simple-select-autowidth-label3"
                                     id="demo-simple-select-autowidth"
-                                    value={reason3}
-                                    onChange={handleChange4}
-                                    label="반품 사유를 선택해 주세요"
-                                    
+                                    value={exchangeReason}
+                                    onChange={onECHandler}
+                                    label="반품 사유를 선택해 주세요"       
                                     >
-                                    <MenuItem value={"단순 변심"}>단순 변심</MenuItem>
                                     <MenuItem value={" "}>기타 사유</MenuItem>
-                                    <MenuItem value={"실수로 주문함"}>실수로 주문함</MenuItem>
-                                    <MenuItem value={"제품 정보와 상이"}>제품 정보와 상이</MenuItem>
+                                    <MenuItem value={"제품 결함 : "}>제품 결함</MenuItem>
                                 </Select>
                                 <TextareaAutosize style={{width: "500px", minHeight: "50px", resize: "none", marginTop:"20px"}}
-                                            value={reason3}
-                                            onChange={handleChange4}
+                                            value={exchangeReason}
+                                            onChange={onECHandler}
                                             name="orderMemo"/>
                             </FormControl>           
                             <Box sx={{marginLeft: "40%", marginTop: "30px"}}>
                                 <Button
                                     type="submit"
                                     sx={{ marginTop: "20px", width:"150px" }}
-                                    value=" "
+                                    value="exchange"
                                     >
                                     <img className="OrderEdit" src="images/edit.png" />
                                         교환

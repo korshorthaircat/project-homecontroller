@@ -25,7 +25,6 @@ import Link from "@mui/material/Link";
 import Badge from "@mui/material/Badge";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
-import { Navigate, useNavigate, useParam } from "react-router-dom";
 
 const drawerWidth = 450;
 
@@ -82,11 +81,10 @@ const Header = () => {
   const [cartCount, setCartCount] = React.useState(0); //장바구니에 담긴 제품 개수
   const [loginUser, setLoginUser] = React.useState(null);
   const [word, setWord] = useState("");
-  // const { productCategoryName } = useParams();
 
-  // const onSubmit = async () => {
-  //   window.location.href = "/list/" + productCategoryName;
-  // };
+  const onSubmit = async () => {
+    window.location.href = "/list/" + word;
+  };
 
   const logout = React.useCallback((e) => {
     // console.log(e);
@@ -116,18 +114,17 @@ const Header = () => {
   };
 
   // const navigate = useNavigate();
-  const search = (event) => {
-    if (event.key === "Enter") {
-      //입력한 검색어를 읽어와서
-      //url을 바꿔준다
-      let keyword = event.target.value;
-      console.log("keyword", keyword);
+  // const search = (event) => {
+  //   if (event.key === "Enter") {
+  //     //입력한 검색어를 읽어와서
+  //     //url을 바꿔준다
+  //     let keyword = event.target.value;
+  //     console.log("keyword", keyword);
 
-      //url을 바꿔준다
-
-      // navigate(`/${keyword}`);
-    }
-  };
+  //     //url을 바꿔준다
+  //     navigate(`/list/?q=${keyword}`);
+  //   }
+  // };
 
   return (
     <>
@@ -192,19 +189,21 @@ const Header = () => {
                 <StyledInputBase
                   placeholder="검색어 입력"
                   inputProps={{ "aria-label": "search" }}
-                  onKeyPress={(event) => search(event)}
+                  onChange={(e) => {
+                    setWord(e.target.value);
+                    console.log(word);
+                  }}
                 />
 
-                {/* <button
-
+                <button
                   type="button"
                   onClick={() => {
                     onSubmit();
                   }}
                 >
                   검색
+                </button>
 
-                </button> */}
               </Search>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -234,29 +233,59 @@ const Header = () => {
                   )}
                 </IconButton>
 
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  color="inherit"
-                >
-                  <Link href="/wishlist">
-                    <FavoriteBorderOutlinedIcon sx={{ color: "black" }} />
-                  </Link>
-                </IconButton>
+                {loginUser !== null ? (
+                  <>
+                    <IconButton
+                      size="large"
+                      aria-label="show 17 new notifications"
+                      color="inherit"
+                    >
+                      <Link href="/wishlist">
+                        <FavoriteBorderOutlinedIcon sx={{ color: "black" }} />
+                      </Link>
+                    </IconButton>
 
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-haspopup="true"
-                  color="inherit"
-                >
-                  <Link href="/cart">
-                    <Badge badgeContent={cartCount} color="success">
-                      <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
-                    </Badge>
-                  </Link>
-                </IconButton>
+                    <IconButton
+                      size="large"
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-haspopup="true"
+                      color="inherit"
+                    >
+                      <Link href="/cart">
+                        <Badge badgeContent={cartCount} color="success">
+                          <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
+                        </Badge>
+                      </Link>
+                    </IconButton>
+                  </>
+                ) : (
+                  <>
+                    <IconButton
+                      size="large"
+                      aria-label="show 17 new notifications"
+                      color="inherit"
+                    >
+                      <Link href="/login">
+                        <FavoriteBorderOutlinedIcon sx={{ color: "black" }} />
+                      </Link>
+                    </IconButton>
+
+                    <IconButton
+                      size="large"
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-haspopup="true"
+                      color="inherit"
+                    >
+                      <Link href="/login">
+                        <Badge badgeContent={cartCount} color="success">
+                          <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
+                        </Badge>
+                      </Link>
+                    </IconButton>
+                  </>
+                )}
               </Box>
             </div>
           </Toolbar>

@@ -217,7 +217,7 @@ public class ProductController {
 //
 //	
 //	//인테리어 쇼룸 - 호버시 제품 상세정보 불러오기 
-		@PostMapping("/getShowroomProductItem")
+		@GetMapping("/getShowroomProductItem")
 		public Map<String, Object> getShowroomProductItem(@RequestBody Map<String, String> paramMap) {
 			try {
 				

@@ -145,6 +145,41 @@
 	]]>
 	</select>
 	
+	<!-- 메인 검색바 부분 -->
+	<select id="getSearchProducts"  resultType="camelHashMap">
+		SELECT AA.*
+			FROM (
+					SELECT A.*
+								 , B.COMMON_CODE_NAME AS PRODUCT_MATERIAL_NAME
+								 , C.COMMON_CODE_NAME AS PRODUCT_CATEGORY_NAME
+								FROM T_HMCT_PRODUCT A
+								   , (
+										SELECT * 
+											FROM T_HMCT_COMMON
+											WHERE COMMON_TYPE = 'B' 
+									 ) B
+								   , (
+										SELECT * 
+											FROM T_HMCT_COMMON
+											WHERE COMMON_TYPE = 'C' 
+									 ) C
+								WHERE 1=1
+								  AND A.PRODUCT_MATERIAL = B.COMMON_CODE
+								  AND A.PRODUCT_CATEGORY = C.COMMON_CODE
+				 ) AA
+			  <if test='word != null and !("").equals(word)'>
+				  WHERE AA.PRODUCT_NAME LIKE CONCAT('%', #{word}, '%')
+					OR AA.PRODUCT_DETAIL LIKE CONCAT('%', #{word}, '%')
+					OR AA.PRODUCT_CATEGORY IN (
+												SELECT D.COMMON_CODE 
+													FROM T_HMCT_COMMON D
+													WHERE COMMON_TYPE = 'C' 
+													  AND D.COMMON_CODE_NAME LIKE CONCAT('%', #{word}, '%')
+											  )
+			  </if>
+	</select>
+	
+	
 	
 <!-- <상품목록 페이지> 카테고리/컬러/소재/가격별 제품목록 조회 -->
 <!-- 	<select id="getProductListByFilter" parameterType="Map" resultType="camelHashMap">
