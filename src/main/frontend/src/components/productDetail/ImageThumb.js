@@ -16,6 +16,18 @@ const choice = {
   },
 };
 
+const moveMenu = () => {
+  window.location.replace("/list");
+};
+
+const moveCategory = () => {
+  window.location.replace("/list");
+};
+
+const moveInCategory = () => {
+  window.location.replace("/list");
+};
+
 function ImageThumb(props) {
   // useEffect(() => {
   //   userSelect({
@@ -48,7 +60,7 @@ function ImageThumb(props) {
       params: { productNo: productNo },
     }).then((response) => {
       console.log(response.data);
-      setProductList(response.data.productInfo);
+      setProductList(response.data.productInfo.slice(0, 1));
       setProductImageList(response.data.productImage);
       //setProductImageData(response.data.slice(0, 4));
     });
@@ -72,39 +84,59 @@ function ImageThumb(props) {
       });
   }, [productImageList]);
 
+  const changeProductColor = (images) => {
+    setProductImageList(images);
+  };
+
   return (
     <>
-      <div className="main">
-        <div>제품</div>
-        <div>카테고리</div>
-        {productList.map((r) => (
-          <div>{r.productCategoryName}</div>
-        ))}
-        <div className="imgBox">
-          <div style={{ textAlign: "center" }}>
-            <Box item={userSelect} />
+      <div>
+        <div id="categoryMenu">
+          <div id="categoryMenu2" onClick={moveMenu}>
+            제품
           </div>
-          <div className="thumbImg">
-            {productImageList.map((a, index) => (
-              <img
-                key={index}
-                src={`http://localhost:8080/upload/${a.productImageName}`}
-                className="btnThumImg"
-                onClick={() => play(a, index)}
-              />
-            ))}
+          <img id="arrow" src="/Product_arrow.png"></img>
+          <div id="categoryMenu2" onClick={moveCategory}>
+            카테고리
           </div>
-          <p>
-            <hr className="line1"></hr>
-          </p>
+          <img id="arrow" src="/Product_arrow.png"></img>
+          {productList.map((r) => (
+            <div id="categoryMenu2" onClick={moveInCategory}>
+              {r.productCategoryName}
+            </div>
+          ))}
+          <img id="arrow" src="/Product_arrow.png"></img>
+          {productList.map((e) => (
+            <div id="categoryMenu2"> {e.productName}</div>
+          ))}
+        </div>
+        <div className="main">
+          <div className="imgBox">
+            <div style={{ textAlign: "center" }}>
+              <Box item={userSelect} />
+            </div>
+            <div className="thumbImg">
+              {productImageList.map((a, index) => (
+                <img
+                  key={index}
+                  src={`http://localhost:8080/upload/${a.productImageName}`}
+                  className="btnThumImg"
+                  onClick={() => play(a, index)}
+                />
+              ))}
+            </div>
+            <p>
+              <hr className="line1"></hr>
+            </p>
 
-          <ProductDetailInfo />
+            <ProductDetailInfo />
+          </div>
+          <div className="contentBox">
+            <ProductMainInfo changeProductColor={changeProductColor} />
+          </div>
         </div>
-        <div className="contentBox">
-          <ProductMainInfo />
-        </div>
+        <SameCategoryList />
       </div>
-      <SameCategoryList />
     </>
   );
 }

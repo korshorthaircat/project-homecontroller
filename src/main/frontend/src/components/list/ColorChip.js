@@ -93,8 +93,8 @@ export default function MultipleSelectCheckmarks({ onCommonCodeHandler }) {
                 style={{
                   borderRadius: "50%",
                   background: "green",
-                  width: "30px",
-                  height: "30px",
+                  width: "20px",
+                  height: "20px",
                 }}
               />
             </MenuItem>

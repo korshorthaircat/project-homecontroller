@@ -23,7 +23,7 @@ public class Retun {
 	
 	//반품 번호(PK) 
 	@Id
-	private String retunNo;
+	private int retunNo; 
 	
 	//주문 번호(FK)
 	@OneToOne
@@ -43,10 +43,13 @@ public class Retun {
 	private String retunState;
 	
 	//운송장번호
-	@Column
+	@Column(nullable = false)
 	private String retunTrackingNo;
 	
+	//취소 금액
+	@Column
+	private String retunAmount;
+	
 	private String retunReason;
-	
-	
+
 }

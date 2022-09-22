@@ -35,6 +35,7 @@ const ProductCard = ({ item, productImageList }) => {
 
   useEffect(() => {
     if (Object.keys(item).length !== 0 && productImageList.length !== 0) {
+      console.log(productImageList);
       productImageList.map((productImage) => {
         if (
           item.productNo === productImage.productNo &&
@@ -46,6 +47,21 @@ const ProductCard = ({ item, productImageList }) => {
           productImage.productImageNo === 2
         )
           setHoverImage(productImage.productImageName);
+
+        // if (
+        //   item.productNo === productImage.productNo &&
+        //   item.commonCode === productImage.commonCode &&
+        //   (productImage.productImageNo === 1 ||
+        //     productImage.productImageNo === 3)
+        // )
+        //   setThumbnail(productImage.productImageName);
+        // else if (
+        //   item.productNo === productImage.productNo &&
+        //   item.commonCode === productImage.commonCode &&
+        //   (productImage.productImageNo === 2 ||
+        //     productImage.productImageNo === 4)
+        // )
+        //   setHoverImage(productImage.productImageName);
 
         return productImage;
       });

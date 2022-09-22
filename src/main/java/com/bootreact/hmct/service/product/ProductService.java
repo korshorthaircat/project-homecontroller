@@ -41,7 +41,7 @@ public interface ProductService {
 	List<Map<String, Object>> getProductImage(int productNo);
 
 	//제품번호, 커먼코드로 제품 하나의 이미지들 받아오기(
-	List<Map<String, Object>> getProductWithCommonCode(Map paramMap);
+	List<Map<String, Object>> getProductWithCommonCode(Map<String, Object> paramMap);
 	
 	//<관리자 페이지> 제품 전체 목록 가져오기
 	List<Map<String, Object>> getAdminProductList();

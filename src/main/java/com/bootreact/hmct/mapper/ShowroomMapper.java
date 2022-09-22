@@ -29,6 +29,6 @@ public interface ShowroomMapper {
 
 	List<Map<String, Object>> getShowroomItemList();
 
-	List<Map<String, Object>> getShowroomProductItem(int productNo);
+	List<Map<String, Object>> getShowroomProductItem(@Param("productNo")int productNo);
 	
 }

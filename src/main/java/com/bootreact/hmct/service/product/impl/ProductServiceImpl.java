@@ -104,7 +104,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<Map<String, Object>> getProductWithCommonCode(Map paramMap) {
+	public List<Map<String, Object>> getProductWithCommonCode(Map<String, Object> paramMap) {
 		return productMapper.getProductWithCommonCode(paramMap);
 	}
 

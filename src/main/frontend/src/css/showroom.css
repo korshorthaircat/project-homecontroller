@@ -69,8 +69,15 @@
     left: 90%;
 }
 
-/*.css-mhc70k-MuiGrid-root{
+.css-mhc70k-MuiGrid-root{
     display: flex;
     justify-content: space-evenly;
 
-}*/
+}
+
+.row {
+    margin: 0 auto;
+    width: 1350px;
+  }
+
+  

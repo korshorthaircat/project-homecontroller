@@ -1,20 +1,7 @@
 import "../../css/userupdate.css";
 import React, { useRef, useState, useCallback, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Input from "@mui/material/Input";
 import { API_BASE_URL } from "../../app-config";
-import {
-  Button,
-  TextField,
-  Link,
-  Grid,
-  Container,
-  Typography,
-  FormControlLabel,
-  Checkbox,
-  Modal,
-  autocompleteClasses,
-} from "@mui/material";
+import { Link } from "@mui/material";
 import axios from "axios";
 import "../../css/mypagesidebar.css";
 
@@ -83,37 +70,9 @@ function OutMembers() {
     });
   };
 
-  // 비밀번호 변경 모달
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-  };
-
-  const [pwdOpen, setPwdOpen] = React.useState(false);
-  const handlePwdOpen = () => {
-    setPwdOpen(true);
-  };
-  const handlePwdClose = () => {
-    setPwdOpen(false);
-  };
-
   //회원탈퇴 버튼 클릭시
   const deleteUserInfo = (e) => {
     if (window.confirm("정말로 떠나시겠어요?😢")) {
-      // 화면 유효성 검사
-      // 화면의 값들이 정상적인 값인지 체크해야한다
-      // ex:) 아래 조건들이 충족되지 않으면 정보 변경은 할 수 없다
-      // 비어있으면 안되는 값들이 비어있는지 체크 해야한다
-      // 휴대폰 번호는 숫자만 들어갈 수 있게 한다
       console.log("탈퇴버튼 클릭");
       let url = "http://localhost:8080/api/mypage/deleteUserInfo";
       axios({
@@ -182,7 +141,7 @@ function OutMembers() {
                   </a>
                   <ul>
                     <li>
-                      <a href="#Link" title="Link">
+                      <a href="/mypoint" title="Link">
                         포인트
                       </a>
                     </li>

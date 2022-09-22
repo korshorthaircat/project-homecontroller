@@ -5,6 +5,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import { useEffect } from "react";
 import { useState } from "react";
 import HoverIcon from "./HoverIcon";
+import { Link } from "react-router-dom";
 
 const ShowroomBox = ({ item, showroomItem }) => {
   const [showroomItemStyle, setShowroomItemStyle] = useState([]);
@@ -38,7 +39,17 @@ const ShowroomBox = ({ item, showroomItem }) => {
             position: "absolute",
           }}
         >
-          <HoverIcon />
+          <Link
+            to={`/productDetail/${a.productNo}`}
+            state={{ productList: item }}
+          >
+            <HoverIcon
+              productItem={a}
+              onClick={() => {
+                window.location.replace(`/productDetail/${a.productNo}`);
+              }}
+            />
+          </Link>
         </div>
       ))}
     </div>

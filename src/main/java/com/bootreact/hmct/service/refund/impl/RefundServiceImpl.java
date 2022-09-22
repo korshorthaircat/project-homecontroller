@@ -27,23 +27,44 @@ public class RefundServiceImpl implements RefundService{
    		return refundMapper.createRefundNo();
    	}
     
+    @Override
+   	public int createRetunNo() {
+   		return refundMapper.createRetunNo();
+   	}
+    
+    @Override
+   	public int createExchangeNo() {
+   		return refundMapper.createExchangeNo();
+   	}
+    
+    
   	//주문취소
     @Override
 	public void addCancel(int cancelNo, int orderNo,  String cancelAmount, String cancelStatus, String cancelReason ) {
-    	//취소 정보 입력
     	refundMapper.addCancel(cancelNo, orderNo,  cancelAmount, cancelStatus, cancelReason);
-    	
-    	//환불 정보 입력
-    	
-    	//주문상태 업데이트
 	}
-    
+       
+    //주문취소- 환불 정보 입력
     @Override
     public void addRefund(int refundNo, int cancelNo,String refundStatus, String refundAmount, String refundBank, String refundAccount, String refundName) {
     	refundMapper.addRefund(refundNo, cancelNo, refundStatus, refundAmount, refundBank, refundAccount, refundName);
     }
     
+    //반품 
+    @Override
+	public void addRetun(int retunNo, int orderNo,  String retunAmount, String retunState, String retunReason ) {
+    	refundMapper.addRetun(retunNo, orderNo,  retunAmount, retunState, retunReason);
+	}
     
+    //반품- 환불 정보 입력
+    @Override
+    public void addRefundsc(int refundNo, int retunNo,String refundStatus, String refundAmount, String refundBank, String refundAccount, String refundName) {
+    	refundMapper.addRefundsc(refundNo, retunNo, refundStatus, refundAmount, refundBank, refundAccount, refundName);
+    }
     
-   
+    //교환
+    @Override
+	public void addExchange(int exchangeNo, int orderNo, String exchangeStatus, String exchangeReason ) {
+    	refundMapper.addExchange(exchangeNo, orderNo, exchangeStatus, exchangeReason);
+	}
 }

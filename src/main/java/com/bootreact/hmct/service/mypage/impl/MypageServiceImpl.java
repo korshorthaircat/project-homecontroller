@@ -38,14 +38,17 @@ public class MypageServiceImpl implements MypageService{
 	@Autowired
 	private UserRepository userRepository;
 	
+	//비밀번호 변경 
 	public Map<String, Object> ChangePw(ChangePw prm) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		User user = userRepository.findByUserId(prm.getUserId());
 		
-		String encInputUserPw = passwordEncoder.encode(prm.getUserPw());
+		System.out.println(prm.getChgPw());
+		boolean isPwCorrect = passwordEncoder.matches(prm.getUserPw(), user.getUserPw());
+		//String encInputUserPw = passwordEncoder.encode(prm.getUserPw());
 		
-		if(!encInputUserPw.equals(user.getUserPw())) {
-			result.put("msg", "실패");
+		if(!isPwCorrect) {
+			result.put("msg", "현재 비밀번호가 일치하지 않습니다.");
 			return result;
 		}
 		
