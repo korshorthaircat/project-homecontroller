@@ -34,21 +34,13 @@ public class Review {
 //	@ManyToOne
 //	@JoinColumn(name="PRODUCT_NO")
 //	private Product product;
-	
-	@ManyToOne
-	@JoinColumn(name="USER_ID")
-	private User user;
-	
-//	@OneToOne
+	@OneToOne
 	@JoinColumns({
+		@JoinColumn(name = "ORDER_NO", referencedColumnName="ORDER_NO"),
 		@JoinColumn(name = "PRODUCT_NO", referencedColumnName="PRODUCT_NO"),
 		@JoinColumn(name = "COMMON_CODE", referencedColumnName="COMMON_CODE")
-		
-	})
-	@Column(nullable=false)
-	private int productNo;
-	@Column(nullable=false)
-	private String commonCode;
+	}) 
+	private OrderItem orderItem;
 	
 	//리뷰 제목
 	@Column(nullable=false)
@@ -65,5 +57,8 @@ public class Review {
 	@Column(nullable=false)
 	private String reviewContent;
 
-
+	public Object getProduct() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

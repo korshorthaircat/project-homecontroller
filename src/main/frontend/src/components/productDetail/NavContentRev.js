@@ -1,57 +1,85 @@
 import axios from "axios";
 import * as React from "react";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "../../css/ProductDetail.css";
 import Textarea from "../../css/Textarea";
-import RevInserNav from "./RevInsertNav";
+import RevInsertNav from "./RevInsertNav";
 import RevStar from "./RevStar";
 
-
-
 export default function NavContentRev() {
-
+  const { productNo } = useParams();
   const [reviewList, setReviewList] = React.useState([]); //전체 게시글 목록
 
-const [reviewTitle, setReviewTitle] = React.useState("");
-const [reviewContent, setReviewContent] = React.useState("");
-const [reviewGrade, setReviewGrade] = React.useState();
+  const [reviewTitle, setReviewTitle] = React.useState("");
+  const [reviewContent, setReviewContent] = React.useState("");
+  const [reviewGrade, setReviewGrade] = React.useState();
 
-const [reviewNo, setReviewNo] = React.useState({}); //조회하고자 하는 게시글의 정보
+  const [reviewNo, setReviewNo] = React.useState({}); //조회하고자 하는 게시글의 정보
 
-//게시글을 수정하는 함수(admin이 답변을 등록할 때 사용)
-const updateReview = () => {
-  axios({
-    url: "http://localhost:8080/api/inquiry/updateReview",
-    method: "post",
-    data: {
-      ReviewNo: reviewNo,
-    },
-  })
-    .then((response) => {
-      setReviewList(response.data);
-      window.location.href = "/productDetail";
+  //다시 불러온 상품정보 저장
+  const [orderHistory, setOrderHistory] = React.useState(0);
+  const [orderNoList, setOrderNoList] = React.useState([]);
+
+  //게시글을 수정하는 함수(admin이 답변을 등록할 때 사용)
+  const updateReview = () => {
+    axios({
+      url: "http://localhost:8080/api/inquiry/updateReview",
+      method: "post",
+      data: {
+        ReviewNo: reviewNo,
+      },
     })
-    .catch((e) => {
-      console.log(e);
-    });
-};
+      .then((response) => {
+        setReviewList(response.data);
+        window.location.href = "/productDetail";
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-//게시글을 삭제하는 함수(admin이 답변을 등록할 때 사용)
-const deleteReview = () => {
-  axios({
-    url: "http://localhost:8080/api/inquiry/deleteReview",
-    method: "delete",
-    data: {
-      reviewNo: reviewNo,
-    },
-  })
-    .then((response) => {
-      setReviewList(response.data);
-      window.location.href = "/productDetail";
+  // useEffect(() => {
+  //   console.log(orderHistory);
+  // }, [orderHistory]);
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  //게시글을 삭제하는 함수(admin이 답변을 등록할 때 사용)
+  const deleteReview = () => {
+    axios({
+      url: "http://localhost:8080/api/inquiry/deleteReview",
+      method: "delete",
+      data: {
+        reviewNo: reviewNo,
+      },
     })
-    .catch((e) => {
-      console.log(e);
+      .then((response) => {
+        setReviewList(response.data);
+        window.location.href = "/productDetail";
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  //상품 정보 조회하는 함수
+  const getProducts = async () => {
+    axios({
+      url: `http://localhost:8080/api/product/productDetail`,
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+      },
+      params: { productNo: productNo },
+    }).then((response) => {
+      console.log(response.data);
+      setOrderHistory((prev) => response.data.orderHistory);
+      setOrderNoList((prev) => response.data.orderNoList);
     });
-};
+  };
 
   return (
     <>
@@ -66,13 +94,16 @@ const deleteReview = () => {
           </p>
         </div>
 
-        <button type="button" id="RevInsert">
-          <div>
-            <RevInserNav />
-          </div>
-          상품평 작성
-        </button>
-
+        {orderNoList.length > 0 ? (
+          <button type="button" id="RevInsert">
+            <div>
+              <RevInsertNav />
+            </div>
+            상품평 작성
+          </button>
+        ) : (
+          <></>
+        )}
         <hr />
 
         <div className="revContents">

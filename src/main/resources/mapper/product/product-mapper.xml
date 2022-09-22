@@ -292,7 +292,28 @@
 			FROM T_HMCT_PRODUCT_IMAGE
 	]]>
 	</select>
-
+	
+	<!-- 로그인된 유저가 해당 제품을 구매한 횟수 가져오기 -->
+	<select id="getOrderHistory" resultType="int">
+		SELECT COUNT(A.ORDER_NO)
+			FROM T_HMCT_ORDR A
+			   , T_HMCT_ORDRITEM B
+			WHERE A.ORDER_NO = B.ORDER_NO
+		      AND A.USER_ID = #{userId}
+		      AND B.PRODUCt_NO = #{productNo}
+	</select>
+	
+	<!-- 유저가 해당 제품을 구매했을 떄의 주문번호를 리스트로 받아오기(단, 이미 리뷰 작성한 경우는 제외) -->
+	<select id="getOrderNoListByProductNo" resultType="int">
+		SELECT A.ORDER_NO
+			FROM T_HMCT_ORDR A
+			   , T_HMCT_ORDRITEM B
+	           , T_HMCT_REVIEW C
+			WHERE A.ORDER_NO = B.ORDER_NO
+		      AND A.USER_ID = #{userId}
+		      AND B.PRODUCt_NO = #{productNo}
+		      AND A.ORDER_NO != C.ORDER_NO
+	</select>
 </mapper>
 
 

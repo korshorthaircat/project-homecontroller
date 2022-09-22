@@ -34,7 +34,7 @@ const MainInfo = ({ changeProductColor }) => {
   //장바구니 클릭시 장바구니에 담기
   const addCart = () => {
     axios({
-      url: "http://localhost:8080/api/cart/addCart",
+      url: "http://localhost:8080/api/cart/addCartAtDetail",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
       },
@@ -43,6 +43,7 @@ const MainInfo = ({ changeProductColor }) => {
     }).then((response) => {
       // console.log("cart",response.data);
       setShow(true);
+      console.log("aaaaa" + response.data.productNo);
     });
   };
 
@@ -79,7 +80,7 @@ const MainInfo = ({ changeProductColor }) => {
 
         //console.log(productList);
         //console.log(response.data.productImage[0].commonCode);
-        console.log(productList[0].commonCodeName);
+        console.log(productList[0].commonCode);
 
         //색상변경클릭시 받아오는 이미지의 커먼코드를 뽑아서
         //기존의 프로덕트리스트가 갖고 있는 커먼코드에 다시 셋해준다.
@@ -90,12 +91,12 @@ const MainInfo = ({ changeProductColor }) => {
           },
         ]);
 
-        setProductImageList([
-          {
-            ...productList[0],
-            commonCodeName: response.data.productList[0].commonCode,
-          },
-        ]);
+        // setProductImageList([
+        //   {
+        //     ...productList[0],
+        //     commonCodeName: response.data.productList[0].commonCode,
+        //   },
+        // ]);
       })
       .catch((e) => {
         console.log(e);
@@ -150,7 +151,7 @@ const MainInfo = ({ changeProductColor }) => {
                 src="/Product_arrow.png"
                 alt="색상선택"
               ></img>
-              <span>{r.commonCodeName}</span>
+              <span>{r.commonCode}</span>
             </div>
           </div>
         ))}

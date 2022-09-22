@@ -104,7 +104,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<Map<String, Object>> getProductWithCommonCode(Map paramMap) {
+	public List<Map<String, Object>> getProductWithCommonCode(Map<String, Object> paramMap) {
 		return productMapper.getProductWithCommonCode(paramMap);
 	}
 
@@ -148,5 +148,13 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.getSearchProducts();
 	}
 
-
+	@Override
+	public int getOrderHistory(int productNo, String userId) {
+		return productMapper.getOrderHistory(productNo, userId);
+	}
+	
+	@Override
+	public List<Integer> getOrderNoListByProductNo(int productNo, String userId) {
+		return productMapper.getOrderNoListByProductNo(productNo, userId);
+	}
 }
