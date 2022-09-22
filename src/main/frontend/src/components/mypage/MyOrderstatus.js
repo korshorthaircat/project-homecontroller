@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Hidden, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import "../../css/admin.css";
 import axios from "axios";
@@ -21,6 +21,7 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { useEffect } from "react";
+import "../../css/reviewlist.css";
 
 const mdTheme = createTheme();
 
@@ -174,9 +175,10 @@ const MyOrderstatus = () => {
     };
     
     return (
+       
         <ThemeProvider theme={mdTheme} >
             <Box sx={{ display: "flex" }} > 
-                <Container style={{ marginTop: "5%" }}>              
+                <Container style={{ marginTop: "5%" }}>           
                     <Box
                         component="form"
                         sx={{
@@ -207,7 +209,7 @@ const MyOrderstatus = () => {
                               주문날짜 : {orderDetail.orderDate}
                             </Typography>
                         </Box>
-
+                       
                         <Box sx={{marginTop: "50px"}}>
                             <div className="bloc-tabs">
                                 <div
@@ -229,8 +231,7 @@ const MyOrderstatus = () => {
                                 교환
                                 </div>
                             </div>
-                        </Box>
-                      
+                        </Box>     
                         <div
                             className={toggleState === 1 ? "content active-content" : "content"}
                             >
@@ -239,6 +240,7 @@ const MyOrderstatus = () => {
                                 <TableHead>
                                         <TableRow sx={{backgroundColor: "#DCDCDC"}}>
                                             <TableCell>주문 상품</TableCell>
+                                            <TableCell align="center">제품 이름</TableCell>
                                             <TableCell align="center">판매가</TableCell>
                                             <TableCell align="center">수량</TableCell>
                                             <TableCell align="center">주문 금액</TableCell>
@@ -247,7 +249,13 @@ const MyOrderstatus = () => {
                                 <TableBody>
                                             {orderItemList.map((orderItem) => (
                                                 <TableRow>
-                                                    <TableCell>주문 상품 이미지</TableCell>
+                                                    <TableCell>
+                                                    <img 
+                                                        src={`http://localhost:8080/upload/${orderItem.productImageName}`} 
+                                                        alt="제품사진"
+                                                        id="ImgThum"/>
+                                                    </TableCell>
+                                                    <TableCell align="center">{orderItem.productName}</TableCell>
                                                     <TableCell align="center">{orderItem.productAmount}</TableCell>
                                                     <TableCell align="center">{orderItem.productCount}</TableCell>
                                                     <TableCell align="center">{parseInt(orderItem.productAmount) * parseInt(orderItem.productCount)}</TableCell>
@@ -413,6 +421,7 @@ const MyOrderstatus = () => {
                                 <TableHead>
                                         <TableRow sx={{backgroundColor: "#DCDCDC"}}>
                                             <TableCell>주문 상품</TableCell>
+                                            <TableCell align="center">제품 이름</TableCell>
                                             <TableCell align="center">판매가</TableCell>
                                             <TableCell align="center">수량</TableCell>
                                             <TableCell align="center">주문 금액</TableCell>
@@ -421,7 +430,13 @@ const MyOrderstatus = () => {
                                 <TableBody>
                                             {orderItemList.map((orderItem) => (
                                                 <TableRow>
-                                                    <TableCell>주문 상품 이미지</TableCell>
+                                                    <TableCell>
+                                                    <img 
+                                                        src={`http://localhost:8080/upload/${orderItem.productImageName}`} 
+                                                        alt="제품사진"
+                                                        id="ImgThum"/>
+                                                    </TableCell>
+                                                    <TableCell align="center">{orderItem.productName}</TableCell>
                                                     <TableCell align="center">{orderItem.productAmount}</TableCell>
                                                     <TableCell align="center">{orderItem.productCount}</TableCell>
                                                     <TableCell align="center">{parseInt(orderItem.productAmount) * parseInt(orderItem.productCount)}</TableCell>
@@ -589,6 +604,7 @@ const MyOrderstatus = () => {
                                 <TableHead>
                                         <TableRow sx={{backgroundColor: "#DCDCDC"}}>
                                             <TableCell>주문 상품</TableCell>
+                                            <TableCell align="center">제품 이름</TableCell>
                                             <TableCell align="center">판매가</TableCell>
                                             <TableCell align="center">수량</TableCell>
                                             <TableCell align="center">주문 금액</TableCell>
@@ -597,7 +613,13 @@ const MyOrderstatus = () => {
                                 <TableBody>
                                             {orderItemList.map((orderItem) => (
                                                 <TableRow>
-                                                    <TableCell>주문 상품 이미지</TableCell>
+                                                    <TableCell>
+                                                    <img 
+                                                        src={`http://localhost:8080/upload/${orderItem.productImageName}`} 
+                                                        alt="제품사진"
+                                                        id="ImgThum"/>
+                                                    </TableCell>
+                                                    <TableCell align="center">{orderItem.productName}</TableCell>
                                                     <TableCell align="center">{orderItem.productAmount}</TableCell>
                                                     <TableCell align="center">{orderItem.productCount}</TableCell>
                                                     <TableCell align="center">{parseInt(orderItem.productAmount) * parseInt(orderItem.productCount)}</TableCell>
@@ -643,11 +665,11 @@ const MyOrderstatus = () => {
                                 </Button>
                             </Box>
                         </div>
-                       
                     </Box>
                 </Container>
             </Box>
-        </ThemeProvider>
+        </ThemeProvider>   
+    
     );
 };
 

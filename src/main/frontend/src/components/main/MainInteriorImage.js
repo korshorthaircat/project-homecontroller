@@ -42,7 +42,7 @@ const MainInteriorImage = () => {
 
       {showRoomObjlocation.map((a) => (
         <div className="hoverIcon" style={a.stlye}>
-          <HoverIcon />
+          {/* <HoverIcon /> */}
         </div>
       ))}
     </div>

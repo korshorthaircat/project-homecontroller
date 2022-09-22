@@ -242,7 +242,7 @@ function UserUpdate() {
       // var usrData = response.data.data[0];
 
       console.log(response);
-      console.log("비번바뀌나");
+      console.log("비번바껴라제발");
       alert("비밀번호가 변경되었습니다.");
     });
   };
