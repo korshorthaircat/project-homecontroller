@@ -18,7 +18,7 @@ import { styled } from "@mui/material/styles";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 
-const SearchedProductCategoryList = () => {
+const NotUsedProductCategoryList = () => {
   const [searchKeyword, setSearchKeyword] = useState(""); //검색어. 추후 메인에서 받아온 검색어를 연결해줌
   const [serarchedListLength, setSerarchedListLength] = useState(0); //productList의 길이(검색된 결과물의 개수)
 
@@ -180,4 +180,4 @@ const SearchedProductCategoryList = () => {
   );
 };
 
-export default SearchedProductCategoryList;
+export default NotUsedProductCategoryList;

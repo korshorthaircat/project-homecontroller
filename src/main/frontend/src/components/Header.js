@@ -25,6 +25,7 @@ import Link from "@mui/material/Link";
 import Badge from "@mui/material/Badge";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 450;
 
@@ -83,7 +84,7 @@ const Header = () => {
   const [word, setWord] = useState("");
 
   const onSubmit = async () => {
-    window.location.href = "/list/" + word;
+    window.location.href = "/search/" + word;
   };
 
   const logout = React.useCallback((e) => {
@@ -193,17 +194,12 @@ const Header = () => {
                     setWord(e.target.value);
                     console.log(word);
                   }}
-                />
-
-                <button
-                  type="button"
-                  onClick={() => {
+                  onKeyPress={() => {
                     onSubmit();
                   }}
-                >
-                  검색
-                </button>
+                />
 
+                {/* <button type="button">검색</button> */}
               </Search>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>

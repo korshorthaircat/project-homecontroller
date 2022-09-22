@@ -33,13 +33,23 @@ public class MainController {
 	public Map<String, Object> getSearchProducts(@RequestParam String word) {
 		System.out.println("word : /////////"+word);
 		try {
-			List<Map<String, Object>> productList = productService.getSearchProducts(word);
+			List<Map<String, Object>> searchProductList = productService.getSearchProducts(word);
 			
-			Map<String, Object> searchProducts = new HashMap<String, Object>();
+			Map<String, Object> returnMap = new HashMap<String, Object>();
 			
-			searchProducts.put("productList", productList);
+			returnMap.put("searchProductList", searchProductList);
 			
-			return searchProducts;
+			int[] productNoArr = new int[searchProductList.size()];
+			
+			for(int i = 0; i < searchProductList.size(); i++) {
+				productNoArr[i] = Integer.parseInt(searchProductList.get(i).get("productNo").toString());
+			}
+			
+			List<Map<String, Object>> searchProductImageList = productService.getSearchProductImageList(productNoArr);
+			
+			returnMap.put("searchProductImageList", searchProductImageList);
+			
+			return returnMap;
 			
 		} catch (Exception e) {
 			Map<String, Object> errorMap = new HashMap<String, Object>();
