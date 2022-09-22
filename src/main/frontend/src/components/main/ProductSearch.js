@@ -10,7 +10,7 @@ const ProductSearch = () => {
   useEffect(() => {
     async function fetchData() {
       const result = await axios.get(
-        "http://localhost:8080/api/main/search?word=" + params.word
+        "http://localhost:8080/api/main/getSearchProducts" + params.word
       );
       console.log("////////////", result.data.result);
       setSearchData(result);

@@ -33,9 +33,24 @@
 	
 	<select id="getOrderItemList" parameterType="int" resultType="camelHashMap">
 	<![CDATA[
-		SELECT *
-			FROM T_HMCT_ORDRITEM
-		    WHERE ORDER_NO = #{orderNo}
+		SELECT A.*
+			 , B.PRODUCT_IMAGE_NO
+			 , B.PRODUCT_IMAGE_NAME
+		     , D.PRODUCT_NAME
+					FROM T_HMCT_ORDRITEM A
+		               , (
+							SELECT PRODUCT_NO
+								 , COMMON_CODE
+		                         , MIN(C.PRODUCT_IMAGE_NO) AS PRODUCT_IMAGE_NO
+		                         , C.PRODUCT_IMAGE_NAME
+								FROM T_HMCT_PRODUCT_IMAGE C
+		                        GROUP BY PRODUCT_NO, COMMON_CODE
+						 ) B
+					   , T_HMCT_PRODUCT D
+				    WHERE ORDER_NO = #{orderNo}
+					  AND A.PRODUCT_NO = B.PRODUCT_NO
+		              AND A.COMMON_CODE = B.COMMON_CODE
+		              AND A.PRODUCT_NO = D.PRODUCT_NO
 	]]>
 	</select>
 	

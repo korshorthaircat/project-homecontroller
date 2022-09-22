@@ -64,7 +64,8 @@ public interface ProductService {
 
 	List<Map<String, Object>> getSearchProducts(String word);
 
-	
+	//다수의 제품번호에 대한 이미지 리스트 조회
+	List<Map<String, Object>> getSearchProductImageList(int[] productNoArr);
 	
 }
 
