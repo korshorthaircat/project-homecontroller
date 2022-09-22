@@ -1,6 +1,7 @@
 package com.bootreact.hmct.controller.review;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 
@@ -32,13 +33,17 @@ public class ReviewController {
 	@Autowired
 	ReviewService reviewService;
 	
-//	문의글 생성
-//	@PostMapping("/insertReview")
-//	public ResponseEntity<?> insertReview(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
-//		try {
+//	상품평 생성
+	@PostMapping("/insertReview")
+	public ResponseEntity<?> insertReview(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
+		try {
+			
+			System.out.println("안녕");
+			System.out.println(paramMap);
+			
 //			int reviewNo = 1;
 //			
-//			//문의글 추가 처리하기
+//			//상품평 추가 처리하기
 //			reviewService.addReview(reviewNo,
 //									userId,
 //									paramMap.get("commonCode"),
@@ -46,13 +51,13 @@ public class ReviewController {
 //									paramMap.get("reviewContent"),
 //								    paramMap.get("reviewTitle"),
 //									paramMap.get("reviewGrade"));
-//			
-//			//게시글 목록 받아오기
-//			List<Review> ReviewList = reviewService.getReviewList();
-//			List<ReviewDTO> reviewDTOList = new ArrayList<ReviewDTO>();
-// 		
-//			for(Review r : ReviewList) {
-//				ReviewDTO reviewDTO = new ReviewDTO();
+			
+			//상품평 목록 받아오기
+			List<Review> ReviewList = reviewService.getReviewList();
+			List<ReviewDTO> reviewDTOList = new ArrayList<ReviewDTO>();
+ 		
+			for(Review r : ReviewList) {
+				ReviewDTO reviewDTO = new ReviewDTO();
 //				reviewDTO.setReviewNo(r.getReviewNo());
 //				reviewDTO.setCommonCode(r.getCommonCode());
 //				reviewDTO.setReviewTitle(r.getReviewTitle());
@@ -61,24 +66,22 @@ public class ReviewController {
 //				reviewDTO.setReviewContent(r.getReviewContent());
 //				reviewDTO.setProductNo(r.getProductNo());
 //				reviewDTO.setUser(r.getUser());
-//				
-//				
-//				reviewDTOList.add(reviewDTO);
-//			}
-//		ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
-//		
-//		response.setData(reviewDTOList);
-//		
-//		return ResponseEntity.ok().body(response);
-//		
-//		}catch(Exception e){
-//			System.out.println(e.getMessage());
-//			ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
-//			response.setError(e.getMessage());
-//			return ResponseEntity.badRequest().body(response);
-//		}
-//}
-//	
+				reviewDTOList.add(reviewDTO);
+			}
+			ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
+			
+			response.setData(reviewDTOList);
+			
+			return ResponseEntity.ok().body(response);
+		
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
+			response.setError(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
+}
+	
 //	문의글 목록 조회
 //	@PostMapping("/getReviewList")
 //	public ResponseEntity<?> getReviewList() {
