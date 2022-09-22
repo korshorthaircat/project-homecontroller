@@ -173,7 +173,7 @@ public class ProductController {
 	    		errorMap.put("error", e.getMessage());
 	    		return errorMap;
 	    	}
-		}
+		}  
 		//제품 조회(상세정보) - 제품번호, 커먼코드를 넘겨서 조회하기
 		@PostMapping("/changeProductColor")
 		public Map<String, Object> getProductWithCommonCode(@RequestBody Map<String, String> paramMap) {
