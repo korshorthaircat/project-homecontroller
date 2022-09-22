@@ -31,11 +31,11 @@ public class Exchange {
 	private Order order;
 
 	//교환 신청일자
-	@Column(nullable = false)
+	@Column
 	private LocalDateTime exchangeRgsdate = LocalDateTime.now();
 	
 	//교환 접수일자
-	@Column(nullable = false)
+	@Column
 	private LocalDateTime exchangeMdfdate = LocalDateTime.now();
 	
 	//교환 처리상태
