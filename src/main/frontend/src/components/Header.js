@@ -25,7 +25,12 @@ import Link from "@mui/material/Link";
 import Badge from "@mui/material/Badge";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
+<<<<<<< HEAD
+import Navbar from "./main/CategoryNavbar";
+import CategoryNavbar from "./main/CategoryNavbar";
+=======
 import { useNavigate } from "react-router-dom";
+>>>>>>> branch 'main' of https://github.com/saetbyeoloh/project-homecontroller.git
 
 const drawerWidth = 450;
 
@@ -105,6 +110,7 @@ const Header = () => {
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [CategoryPage, setCategoryPage] = React.useState();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -112,6 +118,11 @@ const Header = () => {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const categoryClick = (e) => {
+    const { name } = e.target;
+    setCategoryPage(name);
   };
 
   // const navigate = useNavigate();
@@ -197,9 +208,15 @@ const Header = () => {
                   onKeyPress={() => {
                     onSubmit();
                   }}
+<<<<<<< HEAD
+                >
+                  검색
+                </button>
+=======
                 />
 
                 {/* <button type="button">검색</button> */}
+>>>>>>> branch 'main' of https://github.com/saetbyeoloh/project-homecontroller.git
               </Search>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -321,13 +338,16 @@ const Header = () => {
           <List sx={{ paddingLeft: "40px" }}>
             <ListItem disablePadding>
               <ListItemButton>
-                <ListItemText primary="카테고리" />
+                <CategoryNavbar />
+                <ListItemText primary="모든제품" />
               </ListItemButton>
             </ListItem>
 
             <ListItem disablePadding>
               <ListItemButton>
-                <ListItemText primary="인테리어 쇼룸" />
+                <Link href="/showroom">
+                  <ListItemText primary="인테리어 쇼룸" />
+                </Link>
               </ListItemButton>
             </ListItem>
 
@@ -339,7 +359,7 @@ const Header = () => {
 
             <ListItem disablePadding>
               <ListItemButton>
-                <ListItemText primary="고객지원" />
+                <ListItemText primary="고객센터" />
               </ListItemButton>
             </ListItem>
 
@@ -351,13 +371,9 @@ const Header = () => {
 
             <ListItem disablePadding>
               <ListItemButton>
-                <ListItemText primary="배송조회" />
-              </ListItemButton>
-            </ListItem>
-
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemText primary="마이페이지" />
+                <Link href="/mypage">
+                  <ListItemText primary="마이페이지" />
+                </Link>
               </ListItemButton>
             </ListItem>
 
