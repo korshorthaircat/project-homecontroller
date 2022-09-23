@@ -80,20 +80,24 @@ const ShowroomBox = ({ item, showroomItem }) => {
         <FavoriteBorderOutlinedIcon sx={{ color: "white", fontSize: 30 }} />
       </button> */}
 
-      <Heart
-        className="showroomBoxHeart"
-        style={{ width: "2rem" }}
-        isActive={active}
-        onClick={() => {
-          setActive(!active);
-          if (!active) {
-            addWishShowroom();
-          } else {
-            deleteWishShowroom();
-            alert("취소되었습니다");
-          }
-        }}
-      />
+      <div className="testA">
+        <div className="testtttt">
+          <Heart
+            isActive={active}
+            onClick={() => {
+              setActive(!active);
+              if (!active) {
+                addWishShowroom();
+              } else {
+                deleteWishShowroom();
+                alert("취소되었습니다");
+              }
+            }}
+          />
+        </div>
+        <div className="showroomBoxHeartIcon" />
+      </div>
+
       <Modal show={wishlistShow} onHide={wishlistHandleClose}>
         <Modal.Header closeButton>
           <Modal.Title>위시리스트 등록</Modal.Title>

@@ -116,7 +116,7 @@
    
 } */
 
-.showroomBoxHeart {
+.showroomBoxHeartIcon {
   background-color: rgba(0, 0, 0, 0.5);
   width: 50px;
   height: 50px;
@@ -124,5 +124,15 @@
   border: 0px;
   position: relative;
   bottom: 7%;
-  left: 90%;
+  left: 44%;
+}
+
+.testtttt {
+  width: 5%;
+}
+
+.testA {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
