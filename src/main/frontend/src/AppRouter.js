@@ -141,11 +141,11 @@ const AppRouter = () => {
             path="/list/:productCategoryName"
             element={<NavProductCategoryList />}
           />
-          <Route path="/search" element={<SearchedProductCategoryList />} />
-          <Route
+          {/* <Route path="/search" element={<SearchedProductCategoryList />} /> */}
+          {/* <Route
             path="/search:searchKeyword"
             element={<SearchedProductCategoryList />}
-          />
+          /> */}
           <Route path="/navbar" element={<CategoryNavbar />} />
           <Route path="/search/:word" element={<ProductCategoryList />} />
           <Route path="/notuse" element={<NotUsedProductCategoryList />} />

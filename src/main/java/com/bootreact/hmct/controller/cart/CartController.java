@@ -60,10 +60,9 @@ public class CartController {
 	@PostMapping("/addCartAtDetail")
 	public String addCartAtDetail(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
 		
-			System.out.println(paramMap.toString());
-			System.out.println(userId);
-			System.out.println(paramMap.get("productNo"));
-			System.out.println(paramMap.get("commonCode"));
+//			System.out.println("카트에 넣으려고 하는 유저아이디" + userId);
+//			System.out.println("카트에 넣으려고 하는 제품번호" + paramMap.get("productNo"));
+//			System.out.println("카트에 넣으려고 하는 커먼코드" + paramMap.get("commonCode")); //ok
 			
 			int productCount = 1;
 			
@@ -75,8 +74,6 @@ public class CartController {
 			
     		return "add cart success";
 	}
-	
-	
 	
 //	//장바구니 제품수정 (수량 변경) 
 	@PutMapping("/updateCart")
@@ -170,12 +167,12 @@ public class CartController {
     public Map<String, Object> getCartImageList(@RequestBody User user){
 		try {
 
-			//List<Map<String, Object>> cartList = cartService.getCartMapList(user.getUserId());
+			List<Map<String, Object>> cartList = cartService.getCartMapList(user.getUserId());
 			List<Map<String, Object>> cartImageList = cartService.getCartImageList(user.getUserId());
 			
 			Map<String, Object> returnMap = new HashMap<String, Object>();
 			
-			//returnMap.put("cartList", cartList);
+			returnMap.put("cartList", cartList);
 			returnMap.put("cartImageList", cartImageList);
 			
 			return returnMap; 

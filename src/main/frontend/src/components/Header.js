@@ -191,27 +191,24 @@ const Header = () => {
 
             <div className="logoSearchbarLogin">
               <Link href="/">
-                <img className="logo" src="images/logo_2.png" alt="헤더로고" />
+                <img className="logo" src="../images/logo_2.png" alt="헤더로고" />
               </Link>
 
               <Search>
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>
-                <StyledInputBase>
-                  placeholder="검색어 입력" inputProps=
-                  {{ "aria-label": "search" }}
-                  onChange=
-                  {(e) => {
+                <StyledInputBase
+                  placeholder="검색어 입력"
+                  inputProps={{ "aria-label": "search" }}
+                  onChange={(e) => {
                     setWord(e.target.value);
                     console.log(word);
                   }}
-                  onKeyPress=
-                  {() => {
+                  onKeyPress={() => {
                     onSubmit();
                   }}
-                  <button>검색</button>
-                </StyledInputBase>
+                />
 
                 {/* <button type="button">검색</button> */}
               </Search>

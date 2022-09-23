@@ -21,23 +21,39 @@ export default function NavContentRev() {
   const [orderHistory, setOrderHistory] = React.useState(0);
   const [orderNoList, setOrderNoList] = React.useState([]);
 
-  //게시글을 수정하는 함수(admin이 답변을 등록할 때 사용)
-  const updateReview = () => {
+  //상품평 리스트 조회
+  //전체 상품평을 다 불러오는 쿼리.
+  //상세페이지 화면단에서는 제품번호를 기준으로 잘라서 쓰고,
+  //마이페이지 화면단에서는 유저아이디를 기준으로 잘라서 써야 함
+  const getReviewList = () => {
     axios({
-      url: "http://localhost:8080/api/inquiry/updateReview",
+      url: "http://localhost:8080/api/review/getReviewList",
       method: "post",
-      data: {
-        ReviewNo: reviewNo,
-      },
+      // params: { productNo: productNo },
     })
       .then((response) => {
-        setReviewList(response.data);
-        window.location.href = "/productDetail";
+        console.log(response.data.data);
+        setReviewList(response.data.data);
       })
-      .catch((e) => {
-        console.log(e);
-      });
+      .catch((e) => {});
   };
+
+  // const updateReview = () => {
+  //   axios({
+  //     url: "http://localhost:8080/api/inquiry/updateReview",
+  //     method: "post",
+  //     data: {
+  //       ReviewNo: reviewNo,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       setReviewList(response.data);
+  //       window.location.href = "/productDetail";
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
 
   // useEffect(() => {
   //   console.log(orderHistory);
@@ -45,25 +61,25 @@ export default function NavContentRev() {
 
   useEffect(() => {
     getProducts();
+    getReviewList();
   }, []);
 
-  //게시글을 삭제하는 함수(admin이 답변을 등록할 때 사용)
-  const deleteReview = () => {
-    axios({
-      url: "http://localhost:8080/api/inquiry/deleteReview",
-      method: "delete",
-      data: {
-        reviewNo: reviewNo,
-      },
-    })
-      .then((response) => {
-        setReviewList(response.data);
-        window.location.href = "/productDetail";
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  // const deleteReview = () => {
+  //   axios({
+  //     url: "http://localhost:8080/api/inquiry/deleteReview",
+  //     method: "delete",
+  //     data: {
+  //       reviewNo: reviewNo,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       setReviewList(response.data);
+  //       window.location.href = "/productDetail";
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
 
   //상품 정보 조회하는 함수
   const getProducts = async () => {
@@ -106,25 +122,38 @@ export default function NavContentRev() {
         )}
         <hr />
 
-        <div className="revContents">
-          <hr />
-          <p className="revTitle">안녕하세요.</p>
-          <div className="revRow">
-            <p className="revGrade">★★★★☆</p>
-            <p className="revDate" style={{ float: "right" }}>
-              2022/08/25
-            </p>
-            <p style={{ float: "right" }}>·</p>
-            <p className="revUserName" style={{ float: "right" }}>
-              비트캠프
-            </p>
-          </div>
-          <textarea rows="5" className="revContent" disabled>
-            서랍장은 좋다 아주좋다 서랍높이도 다르고 크기도달라정리하기좋다 다만
-            이서랍장과 어울리는 거울이 있었으면 하는 아쉬움에 별하나를 뺏어요
-            어울리는 거울사러 다니기가 좀 그랬어요
-          </textarea>
-        </div>
+        {reviewList ? (
+          reviewList.map((r, index) =>
+            r.productNo == productNo ? (
+              <>
+                <hr />
+                <p className="revTitle">{r.reviewTitle}</p>
+                <div className="revRow">
+                  <p className="revGrade">★★★★☆{r.reviewGrade}</p>
+                  <p className="revDate" style={{ float: "right" }}>
+                    {r.reviewRegdate.replace("T", " ")}
+                  </p>
+                  <p style={{ float: "right" }}>·</p>
+                  <p className="revUserName" style={{ float: "right" }}>
+                    {r.userId}
+                  </p>
+                </div>
+                <textarea
+                  rows="5"
+                  className="revContent"
+                  value={r.reviewContent}
+                  disabled
+                ></textarea>
+              </>
+            ) : (
+              <></>
+            )
+          )
+        ) : (
+          <></>
+        )}
+
+        <div className="revContents"></div>
       </div>
     </>
   );

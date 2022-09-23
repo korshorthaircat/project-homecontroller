@@ -13,8 +13,8 @@ import com.bootreact.hmct.entity.ReviewId;
 public interface ReviewRepository extends JpaRepository<Review, ReviewId>{ 	
 	
 	
-	@Query(value="select ifnull(max(a.review_no), 0) + 1 from t_hmct_review a", nativeQuery = true)
-	int selectNextReviewNo();
+//	@Query(value="select ifnull(max(a.review_no), 0) + 1 from t_hmct_review a", nativeQuery = true)
+//	int selectNextReviewNo();
 	
 	
 }

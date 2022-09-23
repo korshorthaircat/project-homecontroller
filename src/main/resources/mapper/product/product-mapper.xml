@@ -119,10 +119,13 @@
 	<!-- 제품번호, 커먼코드 둘 다 넘겨서 이미지 조회(컬러 구분 o)-->
 	<select id="getProductWithCommonCode" parameterType="Map" resultType="camelHashMap">
 	<![CDATA[
-		SELECT *
-			FROM T_HMCT_PRODUCT_IMAGE
-			WHERE PRODUCT_NO = #{productNo}
-			AND COMMON_CODE = #{commonCode}
+		SELECT A. *,
+		       B. COMMON_CODE_NAME
+			FROM T_HMCT_PRODUCT_IMAGE A,
+		         T_HMCT_COMMON B
+			WHERE PRODUCT_NO = #{productNo}			
+		    AND A.COMMON_CODE = #{commonCode}
+		    AND A.COMMON_CODE = B.COMMON_CODE;
 	]]>
 	</select>
 	
@@ -324,7 +327,7 @@
 		      AND A.USER_ID = #{userId}
 		      AND B.PRODUCt_NO = #{productNo}
 		      AND A.ORDER_NO != C.ORDER_NO
-	</select>
+	</select> 
 	
 	<!-- 유저가 해당 제품을 구매했을 때의 제품옵션(커먼코드)를 리스트로 받아오기(단, 이미 리뷰 작성한 경우는 제외) -->
 	<select id="getCommonCodeListByProductNo" resultType="String">

@@ -19,7 +19,7 @@ import NavContentRev from "./NavContentRev";
 import RevStar from "./RevStar";
 import { Button, Modal } from "react-bootstrap";
 
-const MainInfo = ({ changeProductColor }) => {
+const MainInfo = ({ changeProductColor, pr }) => {
   let { productNo, commonCode } = useParams();
   console.log(productNo);
 
@@ -31,35 +31,16 @@ const MainInfo = ({ changeProductColor }) => {
 
   const [show, setShow] = useState(false);
 
-  //장바구니 클릭시 장바구니에 담기
-  const addCart = () => {
-    axios({
-      url: "http://localhost:8080/api/cart/addCartAtDetail",
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
-      },
-      method: "post",
-      data: { productNo: productNo, commonCode: selectCommonCode },
-    }).then((response) => {
-      // console.log("cart",response.data);
-      setShow(true);
-      console.log("aaaaa" + response.data.productNo);
-    });
-  };
-
-  //장바구니 등록 완료시 모달창 띄우기
-  const handleClose = () => setShow(false);
-
   const getColorCommonCode = async () => {
     axios({
       url: `http://localhost:8080/api/product/productColorDetail`,
       method: "get",
       params: { productNo: productNo },
     }).then((response) => {
-      console.log(response.data);
+      console.log( productList);
       setProductList(response.data.productInfo.slice(0, 1));
       setProductImageList(response.data.productImage);
-      console.log("미미" + response.data.productImage);
+      // console.log("미미" + response.data.productImage);
     });
   };
 
@@ -74,38 +55,46 @@ const MainInfo = ({ changeProductColor }) => {
       data: { productNo: product.productNo, commonCode: product.commonCode },
     })
       .then((response) => {
-        //console.log(response);
         changeProductColor(response.data.productImage);
-        // changeProductColorName(response.data.commonCodeName);
-
-        //console.log(productList);
-        //console.log(response.data.productImage[0].commonCode);
-        console.log(productList[0].commonCode);
+        console.log(productList[0].commonCodeName);
 
         //색상변경클릭시 받아오는 이미지의 커먼코드를 뽑아서
-        //기존의 프로덕트리스트가 갖고 있는 커먼코드에 다시 셋해준다.
+        //기존의 프로덕트리스트가 갖고 있는 커먼코드에 다시 셋해준다.  
         setProductList([
           {
             ...productList[0],
-            commonCode: response.data.productImage[0].commonCode,
+            commonCodeName: response.data.productImage[0].commonCodeName,
+            commonCode: response.data.productImage[0].commonCode
           },
         ]);
-
-        // setProductImageList([
-        //   {
-        //     ...productList[0],
-        //     commonCodeName: response.data.productList[0].commonCode,
-        //   },
-        // ]);
+       
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
-  // const changeProductColorName = (commonCodeName) => {
-  //   setProductList(commonCodeName);
-  // };
+  //장바구니 클릭시 장바구니에 담기
+  const addCart = () => {
+    console.log(productList[0].commonCode);
+    axios({
+      url: "http://localhost:8080/api/cart/addCartAtDetail",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+      },
+      method: "post",
+      data: { productNo: productNo, 
+              userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId ,
+              commonCode: productList[0].commonCode},
+    }).then((response) => {
+      // console.log("cart",response.data);
+      setShow(true);
+      // console.log("aaaaa" + response.data.productNo);
+    });
+  };
+
+  //장바구니 등록 완료시 모달창 띄우기
+  const handleClose = () => setShow(false);
 
   return (
     <>
@@ -151,7 +140,7 @@ const MainInfo = ({ changeProductColor }) => {
                 src="/Product_arrow.png"
                 alt="색상선택"
               ></img>
-              <span>{r.commonCode}</span>
+              <span>{r.commonCodeName}</span>
             </div>
           </div>
         ))}

@@ -31,9 +31,8 @@ export default function NavRevInsert() {
   const [orderNoList, setOrderNoList] = React.useState([]);
   const [commonCodeList, setCommonCodeList] = React.useState([]);
 
-  //상품평 등록하는 함수
+  //상품평 등록
   const insertReview = () => {
-    console.log("아 왜");
     axios({
       url: `http://localhost:8080/api/review/insertReview`,
       method: "post",
@@ -50,11 +49,11 @@ export default function NavRevInsert() {
       },
     }).then((response) => {
       alert("상품평 작성이 완료되었습니다.");
-      window.location.href = "/productDetail";
+      window.location.href = "/productDetail/" + productNo;
     });
   };
 
-  //상품 정보 조회하는 함수
+  //상품 정보 조회
   const getProducts = async () => {
     axios({
       url: `http://localhost:8080/api/product/productDetail`,
@@ -76,8 +75,8 @@ export default function NavRevInsert() {
   }, []);
 
   React.useEffect(() => {
-    setReviewOrderNo(orderNoList.slice(0, 1));
-    setReviewCommonCode(commonCodeList.slice(0, 1));
+    setReviewOrderNo(orderNoList[0]);
+    setReviewCommonCode(commonCodeList[0]);
   }, [orderNoList, commonCodeList]);
 
   return (

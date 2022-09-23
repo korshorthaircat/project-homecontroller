@@ -2,6 +2,7 @@ package com.bootreact.hmct.service.review.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.bootreact.hmct.service.review.ReviewService;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
+	
 	@Autowired
     private ReviewRepository reviewRepository;
 	
@@ -24,10 +26,15 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewRepository.findAll();
 	}
 
+//	@Override
+//	public List<Map<String, Object>> getReviewListByProductNo(int productNo) {
+//		return reviewMapper.getReviewListByProductNo(productNo);
+//	}
+	
 	@Override
-	public void addReview(int reviewNo, String userId, String commonCode, String productNo, String reviewContent,
-			String reviewTitle, String reviewGrade) {
-		reviewMapper.addReview(reviewNo);
+	public void addReview(String userId, String commonCode, int productNo, int orderNo, int reviewGrade,
+			String reviewContent, String reviewTitle) {
+		reviewMapper.addReview(userId, commonCode, productNo, orderNo, reviewGrade, reviewContent, reviewTitle );
 	}
 
 	@Override
@@ -39,5 +46,11 @@ public class ReviewServiceImpl implements ReviewService{
 	public void deleteReview(int reviewNo) {
 		reviewMapper.deleteReview(reviewNo);
 	}
+
+
+
+
+
+	
 
 }

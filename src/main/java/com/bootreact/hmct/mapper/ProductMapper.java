@@ -18,7 +18,7 @@ public interface ProductMapper {
 	List<Map<String, Object>> getMainProductList();
 	
 	List<Map<String, Object>> getMainProductImageList();
-
+ 
 
 	@Insert("insert into t_hmct_product_optn ("
 			+ "common_code, product_no, product_inventory"

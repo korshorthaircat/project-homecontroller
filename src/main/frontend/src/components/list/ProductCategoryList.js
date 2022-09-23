@@ -16,7 +16,8 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { param } from "jquery";
 
 const ProductCategoryList = () => {
   const [productList, setProductList] = useState([]);
@@ -53,7 +54,9 @@ const ProductCategoryList = () => {
         "http://localhost:8080/api/product/getProductCategoryList=" +
           params.word
       );
-      console.log("////////////", result.data);
+
+      console.log(params.word);
+      console.log("검색어: ", result.data);
       setProductList(result.data.searchProductList);
       setProductImageList(result.data.searchProductImageList);
     }
@@ -182,16 +185,6 @@ const ProductCategoryList = () => {
         </div>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2} columns={16}>
-            {/*             
-            {productList ? (
-              productList.map((a) => (
-                <ProductCard item={a} productImageList={productImageList} />
-              ))
-            ) : (
-              <p>조회된 데이터가 없습니다.</p>
-            )} 
-            */}
-
             {showProductList.length !== 0 ? (
               showProductList.map((a) => (
                 <ProductCardForList

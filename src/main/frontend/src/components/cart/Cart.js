@@ -10,6 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "../../css/cart.css";
 
 const Cart = () => {
   //db에서 받아온 장바구니 데이터를 담을 state
@@ -28,6 +29,7 @@ const Cart = () => {
     }).then((response) => {
       console.log(response.data.data);
       setCartList(response.data.data);
+     
       sessionStorage.setItem("cartCount", response.data.data.length);
     });
     //제품 이미지 받아오기
@@ -38,6 +40,13 @@ const Cart = () => {
     }).then((response) => {
       console.log(response.data.cartImageList);
       setCartImageList(response.data.cartImageList);
+    }).catch(()=>{
+      window.onload = function() {
+        if(!window.location.hash) {
+          window.location = window.location + '#loaded';
+          window.location.reload();
+        }
+      }
     });
   };
 
@@ -124,7 +133,7 @@ const Cart = () => {
         marginTop={"20px"}
       >
         <Grid className="productsInCart">
-          <Typography variant="h4">장바구니</Typography>
+          <Typography id="cartTitle">장바구니</Typography>
 
           {cartList.map((cart, index) => (
             <ProductInCart
@@ -141,25 +150,46 @@ const Cart = () => {
           ))}
         </Grid>
 
-        <Grid className="cartInfo">
+        <Grid id="cartInfoPaper">
           <Paper
-            elevation={24}
+            className="cartInfo"
             sx={{
               p: 2,
               marginLeft: 20,
               width: 400,
               height: 400,
-              backgroundColor: "#F0F0F0",
+              backgroundColor: "none",
+              boxShadow: "none",
             }}
           >
             <Grid>
               <Grid sx={{ paddingBottom: "30px" }}>
-                <Typography variant="h4">총 주문금액</Typography>
-                <Typography>₩ {orderAmount}</Typography>
+                <Typography sx={{ fontWeight: "800" }}>주문 내역</Typography>
+                <hr style={{ color: "#b5c95a", border: "solid 1px" }} />
+                <div className="cartNamePriceColumn">
+                  <span className="productAllPrice">총 주문금액</span>
+                  <span>
+                    <Typography id="productAllPriceInput">
+                      ₩{" "}
+                      {(orderAmount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </Typography>
+                  </span>
+                </div>
               </Grid>
               <Grid sx={{ paddingBottom: "30px" }}>
-                <Typography variant="h5">할인 혜택 적용하기(선택)</Typography>
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <div>
+                  <img
+                    className="saleIcon"
+                    src="../images/saleIcon.png"
+                    style={{ float: "left", marginLeft: "10px" }}
+                  ></img>
+                  <Typography id="saleTitle">할인 혜택 적용하기</Typography>
+                </div>
+
+                <FormControl
+                  className="couponSelect"
+                  sx={{ m: 1, marginTop: "20px" }}
+                >
                   <InputLabel id="demo-simple-select-autowidth-label">
                     쿠폰 선택
                   </InputLabel>
@@ -171,9 +201,14 @@ const Cart = () => {
                     autoWidth
                     label="Coupon"
                   >
-                    <MenuItem value="">
+                    <MenuItem
+                      sx={{ width: "365px" }}
+                      className="couponSelect"
+                      value=""
+                    >
                       <em>쿠폰 선택 없음</em>
                     </MenuItem>
+
                     <MenuItem value={"1"}>첫 구매 회원 10% 할인</MenuItem>
                     <MenuItem value={"2"}>3,000원 할인</MenuItem>
                     <MenuItem value={"3"}>5,000원 할인</MenuItem>
@@ -181,7 +216,15 @@ const Cart = () => {
                 </FormControl>
               </Grid>
               <Grid sx={{ paddingBottom: "20px" }}>
-                <Typography variant="h4">주문금액 - 할인금액</Typography>
+                <Typography id="orderCal" className="cartNamePriceColumn">
+                  할인금액
+                </Typography>
+                <Typography>₩ {""}</Typography>
+
+                <br />
+                <Typography id="orderCal" className="cartNamePriceColumn">
+                  총 결제금액
+                </Typography>
                 <Typography>₩ {paymentAmount}</Typography>
               </Grid>
               <Grid>
@@ -198,7 +241,7 @@ const Cart = () => {
                     },
                   }}
                 >
-                  <Button variant="contained">상품 주문하기</Button>
+                  <button className="orderButton">결제하기</button>
                 </Link>
               </Grid>
             </Grid>

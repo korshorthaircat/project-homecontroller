@@ -85,7 +85,7 @@ const Board = () => {
     setPage(1);
   };
 
-  //게시글 리스트를 조회하는 함수
+  //게시글 리스트를 조회
   const getInquiryList = () => {
     axios({
       url: "http://localhost:8080/api/inquiry/getInquiryList",
@@ -98,7 +98,7 @@ const Board = () => {
       .catch((e) => {});
   };
 
-  //게시글을 등록하는 함수
+  //게시글 등록
   const insertInquiryBoard = () => {
     axios({
       url: "http://localhost:8080/api/inquiry/insertInquiryBoard",
@@ -121,7 +121,7 @@ const Board = () => {
     window.location.href = "/board";
   };
 
-  //게시글을 수정하는 함수(admin이 답변을 등록할 때 사용)
+  //게시글 수정(admin이 답변을 등록할 때 사용)
   const updateInquiryBoard = () => {
     axios({
       url: "http://localhost:8080/api/inquiry/updateInquiryBoard",
@@ -140,7 +140,7 @@ const Board = () => {
       });
   };
 
-  //게시글을 삭제하는 함수(admin이 답변을 등록할 때 사용)
+  //게시글 삭제
   const deleteInquiryBoard = () => {
     axios({
       url: "http://localhost:8080/api/inquiry/deleteInquiryBoard",
