@@ -123,7 +123,7 @@ const ProductCarousel = () => {
       const result = await axios.get(
         "http://localhost:8080/api/main/getSearchProducts?word=" + "조화"
       );
-      console.log("////////////", result.data);
+      console.log("검색어: ", result.data);
       setProductList(result.data.searchProductList);
       setProductImageList(result.data.searchProductImageList);
     }

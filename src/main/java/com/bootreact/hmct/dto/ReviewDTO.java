@@ -2,8 +2,6 @@ package com.bootreact.hmct.dto;
 
 import java.time.LocalDateTime;
 
-import com.bootreact.hmct.entity.User;
-
 import lombok.Data;
 
 @Data

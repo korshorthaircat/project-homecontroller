@@ -55,7 +55,7 @@ const ProductCategoryList = () => {
       );
 
       console.log(params.word);
-      console.log("////////////", result.data);
+      console.log("검색어: ", result.data);
       setProductList(result.data.searchProductList);
       setProductImageList(result.data.searchProductImageList);
     }
@@ -184,16 +184,6 @@ const ProductCategoryList = () => {
         </div>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2} columns={16}>
-            {/*             
-            {productList ? (
-              productList.map((a) => (
-                <ProductCard item={a} productImageList={productImageList} />
-              ))
-            ) : (
-              <p>조회된 데이터가 없습니다.</p>
-            )} 
-            */}
-
             {showProductList.length !== 0 ? (
               showProductList.map((a) => (
                 <ProductCardForList
