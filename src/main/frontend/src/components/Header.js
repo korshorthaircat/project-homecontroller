@@ -188,7 +188,7 @@ const Header = () => {
 
             <div className="logoSearchbarLogin">
               <Link href="/">
-                <img className="logo" src="images/logo_2.png" alt="헤더로고" />
+                <img className="logo" src="../images/logo_2.png" alt="헤더로고" />
               </Link>
 
               <Search>

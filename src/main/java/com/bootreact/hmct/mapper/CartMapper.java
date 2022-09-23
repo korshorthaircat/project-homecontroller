@@ -38,7 +38,7 @@ public interface CartMapper {
 				+ " and C.product_material = E.common_code"
 				+ " and C.product_category = F.common_code"
 				+ " and A.USER_ID = #{userId}")
-	List<Map<String, Object>> getCartList(String userId);
+	List<Map<String, Object>> getCartMapList(String userId);
 
 	
 	@Delete("DELETE FROM t_hmct_cart "

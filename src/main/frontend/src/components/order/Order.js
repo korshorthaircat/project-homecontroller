@@ -100,8 +100,7 @@ const Order = () => {
       url: "http://localhost:8080/api/cart/getCartList",
       data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
     }).then((response) => {
-      //console.log(response.data.data);
-      
+      //console.log(response); 
       setCartList(response.data.data);
     });
     //제품 이미지 받아오기
@@ -110,7 +109,15 @@ const Order = () => {
       url: "http://localhost:8080/api/cart/getCartImageList",
       data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
     }).then((response) => {
+      console.log(response);
       setCartImageList(response.data.cartImageList);
+    }).catch((e)=>{
+      e.window.onload = function() {
+        if(!window.location.hash) {
+          window.location = window.location + '#loaded';
+          window.location.reload();
+        }
+      }
     });
   };
 

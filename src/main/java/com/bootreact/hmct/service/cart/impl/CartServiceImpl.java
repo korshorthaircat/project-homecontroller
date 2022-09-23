@@ -50,10 +50,8 @@ public class CartServiceImpl implements CartService{
 
 	@Override
 	public List<Map<String, Object>> getCartMapList(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		return cartMapper.getCartMapList(userId);
 	}
-
 
 	@Override
 	public List<Map<String, Object>> getCartImageList(String userId) {

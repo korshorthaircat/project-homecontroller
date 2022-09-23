@@ -119,10 +119,14 @@
 	<!-- 제품번호, 커먼코드 둘 다 넘겨서 이미지 조회(컬러 구분 o)-->
 	<select id="getProductWithCommonCode" parameterType="Map" resultType="camelHashMap">
 	<![CDATA[
-		SELECT *
-			FROM T_HMCT_PRODUCT_IMAGE
-			WHERE PRODUCT_NO = #{productNo}
-			AND COMMON_CODE = #{commonCode};
+		SELECT A. *,
+		       B. COMMON_CODE_NAME
+			FROM T_HMCT_PRODUCT_IMAGE A,
+		         T_HMCT_COMMON B
+			WHERE PRODUCT_NO = #{productNo}			
+		    AND A.COMMON_CODE = #{commonCode}
+		    AND A.COMMON_CODE = B.COMMON_CODE;
+			
 	]]>
 	</select>
 	
