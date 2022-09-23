@@ -103,7 +103,7 @@ const MainShowroom = () => {
       <div class="showroomcontainer text-center">
         <div class="row row-cols-2">
           {showroomImgData.map((a) => (
-            <ShowroomBox item={a} />
+            <ShowroomBox item={a} showroomItem={showroomItem} />
           ))}
         </div>
       </div>

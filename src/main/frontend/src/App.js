@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import MainImage from "./components/main/MainImage";
 import MainShowroom from "./components/main/MainShowroom";
 import ProductCarousel from "./components/main/ProductCarousel";
+import ProductCarousel2 from "./components/main/ProductCarousel2";
 import ServiceCarousel from "./components/main/ServiceCarousel";
 import EventCarousel from "./components/main/EventCarousel";
 import TopButton from "./components/main/TopButton";
@@ -26,7 +27,7 @@ function App() {
       <ServiceCarousel />
 
       <h4 className="main_title">따뜻한 분위기의 내추럴 우드인테리어</h4>
-      <ProductCarousel />
+      <ProductCarousel2 />
 
       <h4 className="main_title">시들지 않는 조화로 매일 싱그럽게!</h4>
       <ProductCarousel />
