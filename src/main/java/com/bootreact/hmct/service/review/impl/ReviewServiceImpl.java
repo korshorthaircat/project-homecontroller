@@ -13,6 +13,7 @@ import com.bootreact.hmct.service.review.ReviewService;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
+	
 	@Autowired
     private ReviewRepository reviewRepository;
 	
@@ -25,9 +26,9 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public void addReview(int reviewNo, String userId, String commonCode, String productNo, String reviewContent,
-			String reviewTitle, String reviewGrade) {
-		reviewMapper.addReview(reviewNo);
+	public void addReview(String userId, String commonCode, int productNo, int orderNo, int reviewGrade,
+			String reviewContent, String reviewTitle) {
+		reviewMapper.addReview(userId, commonCode, productNo, orderNo, reviewGrade, reviewContent, reviewTitle );
 	}
 
 	@Override
@@ -39,5 +40,9 @@ public class ReviewServiceImpl implements ReviewService{
 	public void deleteReview(int reviewNo) {
 		reviewMapper.deleteReview(reviewNo);
 	}
+
+
+
+	
 
 }

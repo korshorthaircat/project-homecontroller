@@ -9,25 +9,31 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface ReviewMapper {
 
-	@Insert("INSERT INTO t_hmct_review\r\n"
-			+ "	(review_no,\r\n"
-			+ "	review_user_id,\r\n"
-			+ "	review_title,\r\n"
-			+ "	review_content,\r\n"
-			+ "	review_regdate,\r\n"
-			+ "	review_grade,\r\n"
-			+ "	common_code,\r\n"
-			+ "	product_no)\r\n"
-			+ "	VALUES\r\n"
-			+ "	((SELECT IFNULL(MAX(A.review_no), 0) + 1 FROM t_hmct_review A),\r\n"
-			+ "	#{userId},\r\n"
-			+ "	#{reviewTitle},\r\n"
-			+ "	#{reviewContent},\r\n"
-			+ "	now(),\r\n"
-			+ "	#{reviewGrade},\r\n"
-			+ "	#{commonCode},\r\n"
-			+ "	#{productNo});")
-	void addReview(@Param("reviewNo") int reviewNo);
+	@Insert("INSERT INTO t_hmct_review ("
+			+ "	review_no,"
+			+ "	review_title,"
+			+ "	review_content,"
+			+ "	review_grade,"
+			+ "	review_regdate,"
+			+ "	common_code,"
+			+ "	product_no,"
+			+ "	order_no"
+			+ "	) values ("
+			+ "	(SELECT IFNULL(MAX(A.review_no), 0) + 1 FROM t_hmct_review A),"
+			+ "	#{reviewTitle},"
+			+ "	#{reviewContent},"
+			+ "	#{reviewGrade},"
+			+ "	now(),"
+			+ "	#{commonCode},"
+			+ "	#{productNo},"
+			+ "	#{orderNo})")
+	void addReview(@Param("userId") String userId, 
+				   @Param("commonCode") String commonCode, 
+				   @Param("productNo") int productNo, 
+				   @Param("orderNo") int orderNo, 
+				   @Param("reviewGrade") int reviewGrade, 
+				   @Param("reviewContent") String reviewContent,
+				   @Param("reviewTitle") String reviewTitle);
 
 	@Update("UPDATE t_hmct_review"
 			+ "	WHERE review_no=#{reviewNo}")	
@@ -36,4 +42,6 @@ public interface ReviewMapper {
 	@Delete("DELETE FROM t_hmct_review"
 			+ "	WHERE review_no=#{reviewNo}")
 	void deleteReview(int reviewNo);
+
+	
 }
