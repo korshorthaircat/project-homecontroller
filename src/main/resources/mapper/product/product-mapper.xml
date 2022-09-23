@@ -122,7 +122,7 @@
 		SELECT *
 			FROM T_HMCT_PRODUCT_IMAGE
 			WHERE PRODUCT_NO = #{productNo}
-			AND COMMON_CODE = #{commonCode};
+			AND COMMON_CODE = #{commonCode}
 	]]>
 	</select>
 	
@@ -132,7 +132,7 @@
 	<![CDATA[
 		select  MIN(COMMON_CODE) as COMMON_CODE
 			from t_hmct_product_optn
-			where product_no = #{productNo};
+			where product_no = #{productNo}
 	]]>
 	</select>
 	
@@ -141,7 +141,7 @@
 	<![CDATA[
 		SELECT * FROM T_HMCT_PRODUCT_IMAGE
 			WHERE product_no = #{productNo}
-            group by common_code;
+            group by common_code
 	]]>
 	</select>
 	
@@ -341,7 +341,7 @@
 			) A
 		,	 t_hmct_ordritem B
 		where A.order_no = B.order_no
-		and B.product_no = #{productNo};
+		and B.product_no = #{productNo}
 	</select>
 
 	<select id="getSearchProductImageList" parameterType="map" resultType="camelHashMap">
@@ -351,6 +351,38 @@
 			<foreach collection="productNoArr" item="arr" open="(" close=")" separator=",">
 				#{arr}
 			</foreach>
+	</select>
+	
+	<select id="getProductCategoryList"  resultType="camelHashMap">
+	<![CDATA[
+		SELECT AA.*
+			,  BB.COMMON_CODE_NAME AS PRODUCT_MATERIAL_NAME
+			,  CC.COMMON_CODE_NAME AS PRODUCT_CATEGORY_NAME
+			FROM (
+					SELECT A.*
+						 , B.COMMON_CODE
+		                 , B.PRODUCT_INVENTORY
+						 , C.COMMON_CODE_NAME
+						FROM T_HMCT_PRODUCT A
+						   , T_HMCT_PRODUCT_OPTN B
+						   , T_HMCT_COMMON C
+						WHERE A.PRODUCT_NO = B.PRODUCT_NO
+						  AND B.COMMON_CODE = C.COMMON_CODE
+						  AND A.PRODUCT_NO = #{productNo}
+				) AA
+		        , (
+					SELECT * 
+						FROM T_HMCT_COMMON
+		                WHERE COMMON_TYPE = 'B' 
+				  ) BB
+				, (
+					SELECT * 
+						FROM T_HMCT_COMMON
+		                WHERE COMMON_TYPE = 'C' 
+				  ) CC
+			WHERE AA.PRODUCT_MATERIAL = BB.COMMON_CODE
+		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE
+	]]>
 	</select>
 	
 

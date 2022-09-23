@@ -17,7 +17,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import CloseIcon from "@mui/icons-material/Close";
 import ListItemText from "@mui/material/ListItemText";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
+import { initializeConnect } from "react-redux/es/components/connect";
+import "../../css/CategoryNavcss.css";
 const drawerBleeding = 56;
 const categoryDrawerWidth = 450;
 
@@ -43,7 +44,7 @@ const StyledBox = styled(Box)(({ theme }) => ({}));
 const Puller = styled(Box)(({ theme }) => ({}));
 
 function CategoryNavbar(props) {
-  const { window } = props;
+  const { window, moveToCategoryList } = props;
   const [open, setOpen] = React.useState(false);
 
   const theme = useTheme();
@@ -60,28 +61,29 @@ function CategoryNavbar(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  const moveCategoryList = (e) => {
+    console.log(e.target.textContent);
+    moveToCategoryList(e.target.textContent);
+  };
+
   return (
     <Root>
       <CssBaseline />
-      <Global
-        styles={{
-          ".MuiDrawer-root > .MuiPaper-root": {
-            height: `calc(106% - ${drawerBleeding}px)`,
-            width: `calc(30% - ${drawerBleeding}px)`,
-            overflow: "visible",
-          },
-        }}
-      />
 
       {/* 오픈박스버튼 */}
-      <Box sx={{ position: "absolute" }}>
+      <Box>
         <Button
           onClick={toggleDrawer(true)}
           sx={{
-            width: "500px",
+            width: "200px",
             height: "50px",
+            justifyContent: "left",
+            fontSize: "initial",
+            textAlign: "left",
           }}
-        ></Button>
+        >
+          모든제품
+        </Button>
       </Box>
       <Drawer
         sx={{
@@ -121,103 +123,103 @@ function CategoryNavbar(props) {
         <Divider />
         <List sx={{ paddingLeft: "50px" }}>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={moveCategoryList}>
               <ListItemText primary="침대" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={moveCategoryList}>
               <ListItemText primary="소파" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemText primary="테이블/식탁/책상" />
+            <ListItemButton onClick={moveCategoryList}>
+              <ListItemText primary="테이블 | 식탁 | 책상" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemText primary="거실장/tv장" />
+            <ListItemButton onClick={moveCategoryList}>
+              <ListItemText primary="거실장 | tv장" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemText primary="서랍/수납장" />
+            <ListItemButton onClick={moveCategoryList}>
+              <ListItemText primary="서랍 | 수납장" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemText primary="진열장/책상" />
+            <ListItemButton onClick={moveCategoryList}>
+              <ListItemText primary="진열장| 책장" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={moveCategoryList}>
               <ListItemText primary="선반" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemText primary="행거/옷장" />
+            <ListItemButton onClick={moveCategoryList}>
+              <ListItemText primary="행거 | 옷장" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={moveCategoryList}>
               <ListItemText primary="의자" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemText primary="화장대/콘솔" />
+            <ListItemButton onClick={moveCategoryList}>
+              <ListItemText primary="화장대 | 콘솔" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={moveCategoryList}>
               <ListItemText primary="조명" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={moveCategoryList}>
               <ListItemText primary="가전" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={moveCategoryList}>
               <ListItemText primary="패브릭" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={moveCategoryList}>
               <ListItemText primary="생필품" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={moveCategoryList}>
               <ListItemText primary="야외가구" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={moveCategoryList}>
               <ListItemText primary="주방용품" />
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={moveCategoryList}>
               <ListItemText primary="인테리어 소품" />
             </ListItemButton>
           </ListItem>

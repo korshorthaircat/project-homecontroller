@@ -134,6 +134,9 @@ const Header = () => {
   //     navigate(`/list/?q=${keyword}`);
   //   }
   // };
+  const moveToCategoryList = (param) => {
+    window.location.href = `/list/${encodeURI(param)}`;
+  };
 
   return (
     <>
@@ -330,10 +333,9 @@ const Header = () => {
           </div>
           <Divider />
           <List sx={{ paddingLeft: "40px" }}>
-            <ListItem disablePadding>
+            <ListItem disablePadding style={{ height: "48px" }}>
               <ListItemButton>
-                <CategoryNavbar />
-                <ListItemText primary="모든제품" />
+                <CategoryNavbar moveToCategoryList={moveToCategoryList} />
               </ListItemButton>
             </ListItem>
 

@@ -50,7 +50,8 @@ const ProductCategoryList = () => {
   useEffect(() => {
     async function fetchData() {
       const result = await axios.get(
-        "http://localhost:8080/api/main/getSearchProducts?word=" + params.word
+        "http://localhost:8080/api/product/getProductCategoryList=" +
+          params.word
       );
       console.log("////////////", result.data);
       setProductList(result.data.searchProductList);
