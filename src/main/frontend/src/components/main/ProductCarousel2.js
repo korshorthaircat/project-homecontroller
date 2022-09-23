@@ -101,7 +101,7 @@ const responsive = {
 
 //
 
-const ProductCarousel = () => {
+const ProductCarousel2 = () => {
   const [productList, setProductList] = useState([]);
   const [productImageList, setProductImageList] = useState([]);
 
@@ -121,13 +121,13 @@ const ProductCarousel = () => {
   useEffect(() => {
     async function fetchData() {
       const result = await axios.get(
-        "http://localhost:8080/api/main/getSearchProducts?word=" + "조화"
+        "http://localhost:8080/api/main/getSearchProducts?word=" + "소파"
       );
       console.log("////////////", result.data);
       setProductList(result.data.searchProductList);
       setProductImageList(result.data.searchProductImageList);
     }
-    if ("조화") fetchData();
+    if ("소파") fetchData();
   }, []);
 
   return (
@@ -147,4 +147,4 @@ const ProductCarousel = () => {
   );
 };
 
-export default ProductCarousel;
+export default ProductCarousel2;
