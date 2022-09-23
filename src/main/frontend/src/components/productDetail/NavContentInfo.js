@@ -8,9 +8,10 @@ import "../../css/ProductDetail.css";
 import Textarea from "../../css/Textarea";
 import axios from "axios";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 export default function NavContentInfo() {
+  let { productNo } = useParams();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -19,20 +20,19 @@ export default function NavContentInfo() {
 
   const [productList, setProductList] = React.useState([]);
 
-  let listUrl = "http://localhost:8080/api/admin/admin2";
-  const list = () => {
-    axios
-      .get(listUrl, {})
-      .then((response) => {
-        setProductList(response.data.data.slice(0, 1));
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  const getproductList = async () => {
+    axios({
+      url: `http://localhost:8080/api/product/productColorDetail`,
+      method: "get",
+      params: { productNo: productNo },
+    }).then((response) => {
+      console.log(response.data);
+      setProductList(response.data.productInfo.slice(0, 1));
+    });
   };
 
   React.useEffect(() => {
-    list();
+    getproductList();
   }, []);
 
   return (
@@ -42,6 +42,7 @@ export default function NavContentInfo() {
           <Accordion
             expanded={expanded === "panel1"}
             onChange={handleChange("panel1")}
+            key={r}
           >
             <AccordionDetails>
               <Typography>

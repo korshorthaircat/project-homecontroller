@@ -13,12 +13,12 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 
-const OrderReview = ({ cart }) => {
+const OrderReview = ({ cart , cartImage }) => {
   return (
-    <List sx={{ width: "100%", Width: 500, bgcolor: "background.paper" }}>
+    <List sx={{ width: "100%", Width: 500, bgcolor: "background.paper" }}> 
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="제품 이미지" src="/images/light1.png" />
+          <Avatar alt="제품 이미지" src={`http://localhost:8080/upload/${cartImage.productImageName}`} />
         </ListItemAvatar>
         <ListItemText
           primary={cart.productOption.product.productName}

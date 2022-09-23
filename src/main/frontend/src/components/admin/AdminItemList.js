@@ -77,15 +77,6 @@ export default function AdminItemList() {
                 <ListItemText primary="상품 조회" />
               </Link>
             </ListItemButton>
-
-            <ListItemButton sx={{ pl: 4 }}>
-              <ListItemIcon>
-                <EventNote />
-              </ListItemIcon>
-              <Link href="/admin3">
-                <ListItemText primary="상품 수정" />
-              </Link>
-            </ListItemButton>
           </List>
         </Collapse>
 
@@ -151,15 +142,6 @@ export default function AdminItemList() {
               </ListItemIcon>
               <Link href="/showroomAdmin2">
                 <ListItemText primary="쇼룸 조회" />
-              </Link>
-            </ListItemButton>
-
-            <ListItemButton sx={{ pl: 4 }}>
-              <ListItemIcon>
-                <EventNote />
-              </ListItemIcon>
-              <Link href="/showroomAdmin3">
-                <ListItemText primary="쇼룸 수정" />
               </Link>
             </ListItemButton>
           </List>

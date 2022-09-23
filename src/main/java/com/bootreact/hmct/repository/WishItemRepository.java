@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.bootreact.hmct.entity.Cart;
 import com.bootreact.hmct.entity.WishItem;
 import com.bootreact.hmct.entity.WishItemId;
 

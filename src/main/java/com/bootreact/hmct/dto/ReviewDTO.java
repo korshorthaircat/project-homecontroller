@@ -8,13 +8,15 @@ import lombok.Data;
 
 @Data
 public class ReviewDTO {
-	private int revNo;
-	private String revTitle;
-	private LocalDateTime revRgsde;
-	private String revGrade;
-	private String revContent;
-	private int orderNo;
+	private int reviewNo;
+	private String reviewTitle;
+	private LocalDateTime ReviewRegdate;
+	private String reviewGrade;
+	private String reviewContent;
+	
 	private int productNo;
+	private User user;
+	private String commonCode;
 	
 	
 }

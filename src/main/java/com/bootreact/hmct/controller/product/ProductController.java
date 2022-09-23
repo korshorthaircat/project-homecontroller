@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -143,29 +144,37 @@ public class ProductController {
 	
 	// 제품 조회(상세정보) - 제품번호만 넘겨서 조회하기
 		@GetMapping("/productDetail")
-		public Map<String, Object> getProduct(@RequestParam int productNo ) {
+		public Map<String, Object> getProduct(@RequestParam int productNo, @AuthenticationPrincipal String userId ) {
 			try {	
-
+//				System.out.println(userId);
 				List<Map<String, Object>> productInfo = productService.getProduct(productNo);
-				List<Map<String, Object>> productImage = productService.getProductImage(productNo);
-				//List<Map<String, Object>> productImage = productService.getProductImage(productNo);
 
 				//제품번호를 이용해서 대표컬러(커먼코드) 1개 가져오기
 				String commonCode = productService.getRepresentativeCommonCode(productNo);
 
-
 				//제품번호와 커먼코드를 맵에 담기
-				Map paramMap = new HashMap();
+				Map<String, Object> paramMap = new HashMap<String, Object>();
 				paramMap.put("productNo", productNo);
 				paramMap.put("commonCode", commonCode);
 
 				//제품번호, 커먼코드를 맵에 담아 보내서 이미지 받아오기
 				List<Map<String, Object>> productImage1 = productService.getProductWithCommonCode(paramMap);
+				
+				//로그인된 유저가 해당 제품을 구매한 횟수 가져오기
+				int orderHistory = productService.getOrderHistory(productNo, userId);
 
+				//유저가 해당 제품을 구매했을 떄의 주문번호를 리스트로 받아오기(단, 이미 리뷰 작성한 경우는 제외)
+				List<Integer> orderNoList = productService.getOrderNoListByProductNo(productNo, userId);
+				
+				//유저가 해당 제품을 구매했을 때의 제품옵션(커먼코드)를 리스트로 받아오기(단, 이미 리뷰 작성한 경우는 제외)
+				List<String> commonCodeList = productService.getCommonCodeListByProductNo(productNo, userId);
+				
 				Map<String, Object> returnMap = new HashMap<String, Object>();
-
 				returnMap.put("productInfo", productInfo);
 				returnMap.put("productImage", productImage1);
+				returnMap.put("orderHistory", orderHistory);
+				returnMap.put("orderNoList", orderNoList);
+				returnMap.put("commonCodeList", commonCodeList);
 				
 				return returnMap; 
 	    	}catch(Exception e){
@@ -173,7 +182,7 @@ public class ProductController {
 	    		errorMap.put("error", e.getMessage());
 	    		return errorMap;
 	    	}
-		}
+		}  
 		//제품 조회(상세정보) - 제품번호, 커먼코드를 넘겨서 조회하기
 		@PostMapping("/changeProductColor")
 		public Map<String, Object> getProductWithCommonCode(@RequestBody Map<String, Object> paramMap) {
@@ -182,13 +191,17 @@ public class ProductController {
 //		      params: { productNo: productNo,
 //						commonCode: commonCode },
 			try {	
-				System.out.println(paramMap.get("product"));
+				System.out.println(paramMap.get("productNo"));
 				System.out.println(paramMap.get("commonCode"));
 				
+				List<Map<String, Object>> productInfo = productService.getProduct(
+						Integer.parseInt(paramMap.get("productNo").toString())
+						);
 				List<Map<String, Object>> productImage = productService.getProductWithCommonCode(paramMap);
 				
 				Map<String, Object> returnMap = new HashMap<String, Object>();
 				
+				returnMap.put("productInfo", productInfo);
 				returnMap.put("productImage", productImage);
 				
 				return returnMap; 
@@ -237,8 +250,6 @@ public class ProductController {
 			}
 		}
 		
-
-		
 		
 	//색상 선택시 해당 색상 인테리어 쇼룸 이미지 조회(더보기 클릭시 추가)
 	@GetMapping("/getShowroomList")
@@ -271,12 +282,6 @@ public class ProductController {
 				return ResponseEntity.badRequest().body(response);
 			}
 	};
-
-//	// 하트 클릭 시 온라인쇼룸 위시리스트 추가
-//	ResponseEntity<?> addWishShowroom(Product product) {
-//		return null;
-//	}
-	
 	
 	//<리스트 페이지> 전제 제품 조회 (컬러별 중복 노출)
 	@GetMapping("/getAllProductList")

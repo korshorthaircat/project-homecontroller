@@ -56,29 +56,26 @@ public class WishServiceImpl implements WishService{
 		
 		
 		
-		
-		
-		
-		
+			
 		
 		//get위시쇼룸 
 		@Override
-		public List<WishShowroom> getWishShowroomList(String userId) {
-		List<WishShowroom> list = wishShowroomRepository.findByUserUserId(userId);
+		public List<Map<String, Object>> getWishShowroomList(String userId) {
+			List<Map<String, Object>> list = wishShowroomMapper.getWishShowroom(userId);
 		System.out.println(list.size());
-		return wishShowroomRepository.findByUserUserId(userId);
+		return list;
 		}
 	
 		//add위시쇼룸  
 		@Override
-		public void addWishShowroom(String userId, String showroomNo) {
-			wishShowroomMapper.addWishShowroom(userId, Integer.parseInt(showroomNo));		
+		public void addWishShowroom(String userId, int showroomNo) {
+			wishShowroomMapper.addWishShowroom(userId, showroomNo);		
 		}
 		
 		//delete위시쇼룸 
 		@Override
-		public void deleteWishShowroom(String userId, String showroomNo) {
-			wishShowroomMapper.deleteWishShowroom(userId, Integer.parseInt(showroomNo));	
+		public void deleteWishShowroom(String userId, int showroomNo) {
+			wishShowroomMapper.deleteWishShowroom(userId, showroomNo);	
 		}
 	
 }

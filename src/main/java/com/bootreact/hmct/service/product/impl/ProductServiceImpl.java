@@ -149,9 +149,25 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public int getOrderHistory(int productNo, String userId) {
+		return productMapper.getOrderHistory(productNo, userId);
+	}
+	
+	@Override
+	public List<Integer> getOrderNoListByProductNo(int productNo, String userId) {
+		return productMapper.getOrderNoListByProductNo(productNo, userId);
+	}
+	
+	@Override
+	public List<String> getCommonCodeListByProductNo(int productNo, String userId) {
+		return productMapper.getCommonCodeListByProductNo(productNo, userId);
+	}
+
 	public List<Map<String, Object>> getSearchProductImageList(int[] productNoArr) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("productNoArr", productNoArr);
 		return productMapper.getSearchProductImageList(paramMap);
 	}
+
+	
 }

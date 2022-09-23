@@ -1,51 +1,79 @@
-
-
-.wishBtnBlack {
-    width: 70px;
-    height: 30px;
-    margin-left: 10px;
-    margin-right: 50px;
-    background-color: black;
-    color: white;
-    border: 1px solid black;
-    font-weight: bold;
+.wishSwiper {
+  width: 1800px;
+  margin: 0 auto;
+  margin-top: 200px;
 }
 
-.wish {
-    max-width: 1200px;
-    margin: 0 auto;
-    margin-top: 50px;
+.wishBtnBlack {
+  width: 70px;
+  height: 30px;
+  margin-left: 10px;
+  margin-right: 50px;
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  font-weight: bold;
 }
 
 .wishTitle {
-    padding: 30px;
-}
-
-.wishImg {
-    width: 300px;
-    height: 350px; 
+  padding: 30px;
 }
 
 .deleteBtn {
-    position: absolute;
-    top: 8%;
-    left: 13%;
-    transform: translate(-50%, -50%);
-    width: 18px;
-    border: none;
-    background-color: #f0f0f000;
+  position: absolute;
+  top: 8%;
+  left: 13%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  border: none;
+  background-color: #f0f0f000;
+}
+
+.deleteBtn img {
+  width: 20px;
 }
 
 .cartBtn {
-    position: absolute;
-    height: 100%;
-    /* top: 50%;
-    left: 30%; */
-    /* transform: translate(-20%, -120%); */
-    transform: translate(-40%, -90%);
+  position: absolute;
+  height: 100%;
+  /* top: 50%;
+      left: 30%; */
+  /* transform: translate(-20%, -120%); */
+  transform: translate(-40%, -90%);
 }
 
 .wishTitle2 {
-    margin-top: 200px;
-    padding: 30px;
+  margin-top: 200px;
+  padding: 30px;
+}
+
+.swiper-slide {
+  text-align: center;
+  /* font-size: 18px; */
+  /* background: #fff; */
+
+  /* Center slide text vertically  */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 320px;
+  height: 320px;
+}
+
+.swiper-slide .wishshowroomImg {
+  width: 600px;
+  height: 600px;
 }

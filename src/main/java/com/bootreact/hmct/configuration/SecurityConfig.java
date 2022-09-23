@@ -43,7 +43,7 @@ public class SecurityConfig{
 			.and()
 			.authorizeRequests().antMatchers("/", "/api/user/**", "/api/product/*", "/api/admin/*",
 					                         "/api/cart/*", "/api/order/*", "/api/main/*", "/api/mypage/*", "/api/coupon/*", 
-					                         "/upload/*", "/api/refund/*", "/api/inquiry/*").permitAll()
+					                         "/upload/*", "/api/refund/*", "/api/inquiry/*", "/api/review/*").permitAll()
 								.anyRequest().authenticated();
 		
 		//filter 등록

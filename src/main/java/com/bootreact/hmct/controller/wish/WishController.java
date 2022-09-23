@@ -53,21 +53,20 @@ public class WishController {
 
 	
 	//위시쇼룸 조회
-	@PostMapping("/getWishShowroomList")
-    public ResponseEntity<?> getWishShowroomList(@RequestBody User user){
+	@GetMapping("/getWishShowroomList")
+    public Map<String, Object> getWishShowroomList(@AuthenticationPrincipal String userId){
 		
 		try {
 			
-    		List<WishShowroom> wishShowroomList = wishService.getWishShowroomList(user.getUserId());
-    		ResponseDTO<WishShowroom> response = new ResponseDTO<>();
-    		response.setData(wishShowroomList);
-    		return ResponseEntity.ok().body(response);
+			List<Map<String, Object>> wishShowroomList = wishService.getWishShowroomList(userId);
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			resultMap.put("wishShowroomList", wishShowroomList); 
+			return resultMap;
     		
     	}catch(Exception e){
-    		System.out.println(e.getMessage());
-    		ResponseDTO<WishShowroom> response = new ResponseDTO<>();
-    		response.setError(e.getMessage());
-    		return ResponseEntity.badRequest().body(response);
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+    		errorMap.put("error", e.getMessage());
+    		return errorMap;
     	}
 	}
 		
@@ -79,9 +78,12 @@ public class WishController {
 				
 	    		List<Map<String, Object>> wishItemList = wishService.getWishItemList(userId);
 	    		
+	    		List<Map<String, Object>> wishShowroomList = wishService.getWishShowroomList(userId);
+	    		
 	    		Map<String, Object> resultMap = new HashMap<String, Object>();
 	    		
 	    		resultMap.put("wishItemList", wishItemList);  
+	    		resultMap.put("wishShowroomList", wishShowroomList);
 	    		
 	    		return resultMap;
 	    		
@@ -108,24 +110,53 @@ public class WishController {
 		return "addWishItem Success";
 	}
 	
-	
-	
 	//위시아이템 삭제 
-	@PostMapping("/deleteWishItem")
-	public String deleteWishItem(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
-		
+		@PostMapping("/deleteWishItem")
+		public String deleteWishItem(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
+			
+			System.out.println(paramMap.toString());
+			System.out.println(paramMap.get("productNo"));
+			System.out.println(userId);
+			
+			int productNo = Integer.parseInt(paramMap.get("productNo").toString());
+			
+			wishService.deleteWishItem(userId, productNo);
+			
+			
+			
+			return "deleteWishItem Success";
+		}
+	
+	//위시쇼룸 담기 
+	@PostMapping("/addWishShowroom")
+	public String addWishShowroom(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
 		System.out.println(paramMap.toString());
-		System.out.println(paramMap.get("productNo"));
+		System.out.println(paramMap.get("showroomNo"));
 		System.out.println(userId);
 		
-		int productNo = Integer.parseInt(paramMap.get("productNo").toString());
+		int showroomNo = Integer.parseInt(paramMap.get("showroomNo"));
+		wishService.addWishShowroom(userId, showroomNo);
 		
-		wishService.deleteWishItem(userId, productNo);
-		
-		
-		
-		return "deleteWishItem Success";
+		return "addwishshowroom success";
 	}
+	
+	//위시쇼룸 삭제 
+	@PostMapping("/deleteWishShowroom")
+	public String deleteWishShowroom(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
+		System.out.println(paramMap.toString());
+		System.out.println(paramMap.get("showroomNo"));
+		System.out.println(userId);
+		
+		int showroomNo = Integer.parseInt(paramMap.get("showroomNo").toString());
+		
+		wishService.deleteWishShowroom(userId, showroomNo);
+		
+		
+		
+		return "deleteWishshowroom success";
+	}
+	
+	
     
 }
 

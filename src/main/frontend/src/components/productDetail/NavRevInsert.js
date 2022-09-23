@@ -1,14 +1,22 @@
+import { display } from "@mui/system";
 import axios from "axios";
 import * as React from "react";
+import { useParams } from "react-router-dom";
 import { API_BASE_URL } from "../../app-config";
 import "../../css/ProductDetail.css";
-import Textarea from "../../css/Textarea";
 import RevStar from "./RevStar";
 
 export default function NavRevInsert() {
+  const { productNo } = useParams();
+  const [reviewList, setReviewList] = React.useState([]); //전체 게시글 목록
+
   const [reviewTitle, setReviewTitle] = React.useState("");
   const [reviewContent, setReviewContent] = React.useState("");
   const [reviewGrade, setReviewGrade] = React.useState(5);
+  const [reviewOrderNo, setReviewOrderNo] = React.useState(0);
+  const [reviewCommonCode, setReviewCommonCode] = React.useState("");
+
+  const [reviewNo, setReviewNo] = React.useState({}); //조회하고자 하는 게시글의 정보
 
   const onRevTitleHandler = (event) => {
     setReviewTitle(event.currentTarget.value);
@@ -18,28 +26,59 @@ export default function NavRevInsert() {
     setReviewContent(event.currentTarget.value);
   };
 
+  //다시 불러온 상품정보 저장
+  const [orderHistory, setOrderHistory] = React.useState(0);
+  const [orderNoList, setOrderNoList] = React.useState([]);
+  const [commonCodeList, setCommonCodeList] = React.useState([]);
+
+  //상품평 등록하는 함수
   const insertReview = () => {
+    console.log("아 왜");
     axios({
+      url: `http://localhost:8080/api/review/insertReview`,
       method: "post",
-      url: API_BASE_URL + "/api/review/insertReview",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
       },
       data: {
-        userId: "choco",
-        productNo: 56,
-        orderNo: 33,
+        productNo: productNo,
         reviewTitle: reviewTitle,
         reviewContent: reviewContent,
         reviewGrade: reviewGrade,
-        commonCode: "A07",
+        orderNo: reviewOrderNo,
+        commonCode: reviewCommonCode,
       },
     }).then((response) => {
-      //회원가입 성공시 로그인 페이지로 이동
       alert("상품평 작성이 완료되었습니다.");
-      //window.location.href = "/productDetail";
+      window.location.href = "/productDetail";
     });
   };
+
+  //상품 정보 조회하는 함수
+  const getProducts = async () => {
+    axios({
+      url: `http://localhost:8080/api/product/productDetail`,
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+      },
+      params: { productNo: productNo },
+    }).then((response) => {
+      console.log(response.data);
+      setOrderHistory((prev) => response.data.orderHistory);
+      setOrderNoList((prev) => response.data.orderNoList);
+      setCommonCodeList((prev) => response.data.commonCodeList);
+    });
+  };
+
+  React.useEffect(() => {
+    getProducts();
+  }, []);
+
+  React.useEffect(() => {
+    setReviewOrderNo(orderNoList.slice(0, 1));
+    setReviewCommonCode(commonCodeList.slice(0, 1));
+  }, [orderNoList, commonCodeList]);
 
   return (
     <div>
@@ -60,6 +99,7 @@ export default function NavRevInsert() {
         >
           <RevStar sx={{ width: "200px" }} />
         </p>
+
         <p style={{ fontSize: "17px", fontWeight: "700", marginTop: "50px" }}>
           {" "}
           상품평 제목
@@ -73,6 +113,18 @@ export default function NavRevInsert() {
           id="reviewInputContent"
           onChange={onRevContentHandler}
         ></textarea>
+
+        <p style={{ fontSize: "17px", fontWeight: "700", marginTop: "50px" }}>
+          나의 주문번호
+        </p>
+        <input id="orderNo" value={orderNoList.slice(0, 1)} readonly></input>
+        <input id="productNo" value={productNo} type="hidden"></input>
+        <input
+          id="commonCode"
+          value={commonCodeList.slice(0, 1)}
+          type="hidden"
+        ></input>
+
         <button type="button" id="RevInsert" onClick={insertReview}>
           상품평 제출
         </button>

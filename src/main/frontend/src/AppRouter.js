@@ -36,6 +36,8 @@ import Coupon from "./components/event/Coupon";
 import SearchedProductCategoryList from "./components/list/NotUsedProductCategoryList";
 import NotUsedProductCategoryList from "./components/list/NotUsedProductCategoryList";
 import NavProductCategoryList from "./components/list/NavProductCategoryList";
+import OrderComplete from "./components/order/OrderComplete";
+import CategoryNavbar from "./components/main/CategoryNavbar";
 
 const AppRouter = () => {
   // 경로에 따라 실행되는 컴포넌트가 다르므로, 그 정보를 갖고있는 AppRouter를 가장 먼저 렌더링해야 한다.(Index.js에서)
@@ -78,6 +80,7 @@ const AppRouter = () => {
               <Route path="/wishlist" element={<WishList />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/order" element={<Order />} />
+              <Route path="/orderComplete" element={<OrderComplete />} />
               <Route path="/board" element={<Board />} />
             </>
           ) : (
@@ -109,6 +112,7 @@ const AppRouter = () => {
               <Route path="/UserManage" element={<UserManage />} />
               <Route path="/OrderManage" element={<OrderManage />} />
               <Route path="/AdminOrderDetail" element={<AdminOrderDetail />} />
+              <Route path="/showroomAdmin1" element={<ShowroomAdd />} />
             </>
           ) : (
             <>
@@ -133,6 +137,16 @@ const AppRouter = () => {
           <Route path="/bartest" element={<FixedBar />} />
           <Route path="/productDetail/:productNo" element={<ImageThumb />} />
           <Route path="/coupon" element={<Coupon />} />
+          <Route
+            path="/list/:productCategoryName"
+            element={<ProductCategoryList />}
+          />
+          <Route path="/search" element={<SearchedProductCategoryList />} />
+          <Route
+            path="/search:searchKeyword"
+            element={<SearchedProductCategoryList />}
+          />
+          <Route path="/navbar" element={<CategoryNavbar />} />
           <Route path="/search/:word" element={<ProductCategoryList />} />
           <Route path="/notuse" element={<NotUsedProductCategoryList />} />
         </Routes>

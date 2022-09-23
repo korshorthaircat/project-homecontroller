@@ -14,6 +14,8 @@ import NavContentSize from "./NavContentSize";
 import NavContentRev from "./NavContentRev";
 import ProductDetailInfo from "./ProductDetailInfo";
 import { hover } from "@testing-library/user-event/dist/hover";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const drawerBleeding = 56;
 
@@ -30,7 +32,7 @@ const StyledBox = styled(Box)(({ theme }) => ({}));
 const Puller = styled(Box)(({ theme }) => ({}));
 
 function MainInfoNav(props) {
-  const { window, option } = props;
+  const { window, option, orderHistory } = props;
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen) => () => {
@@ -40,6 +42,10 @@ function MainInfoNav(props) {
   // This is used only for the example
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
+  useEffect(() => {
+    console.log(orderHistory);
+  }, [orderHistory]);
 
   return (
     <Root>
@@ -96,11 +102,11 @@ function MainInfoNav(props) {
           }}
         >
           {option === "info" ? (
-            <NavContentInfo />
+            <NavContentInfo orderHistory={orderHistory} />
           ) : option === "size" ? (
-            <NavContentSize />
+            <NavContentSize orderHistory={orderHistory} />
           ) : (
-            <NavContentRev />
+            <NavContentRev orderHistory={orderHistory} />
           )}
         </StyledBox>
       </SwipeableDrawer>

@@ -64,8 +64,16 @@ public interface ProductService {
 
 	List<Map<String, Object>> getSearchProducts(String word);
 
+	int getOrderHistory(int productNo, String userId);
+	
+	List<Integer> getOrderNoListByProductNo(int productNo, String userId);
+	
+	List<String> getCommonCodeListByProductNo(int productNo, String userId);
+
 	//다수의 제품번호에 대한 이미지 리스트 조회
 	List<Map<String, Object>> getSearchProductImageList(int[] productNoArr);
+
+
 	
 }
 

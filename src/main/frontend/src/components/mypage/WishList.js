@@ -5,7 +5,6 @@ import "react-multi-carousel/lib/styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { useRef, useState, useCallback, useEffect } from "react";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../css/mypagesidebar.css";
@@ -21,9 +20,29 @@ import {
   Modal,
 } from "@mui/material";
 
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import IconButton from "@mui/material/IconButton";
+import Heart from "react-heart";
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+// import required modules
+import { Pagination, Navigation, Mousewheel, Zoom } from "swiper";
+
 function WishList() {
   const [data, setData] = useState();
+  //위시아이템
   const [wishItemList, setWishItemList] = useState([]);
+  //위시쇼룸
+  const [wishShowroomList, setWishShowroomList] = useState([]);
+  const [like, setLike] = useState(false);
+  const [active, setActive] = useState(false);
 
   // db에서 회원 데이터 받아오기
   const getWishItem = async () => {
@@ -37,16 +56,11 @@ function WishList() {
         Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
       },
     }).then((response) => {
-      console.log(response.data.wishItemList);
+      console.log(response.data);
       //var usrData = response.data.WishList; // DB 조회 결과
       // DB 조회 결과를 화면 input 항목에 반영
-      if (
-        response.data.wishItemList !== null &&
-        typeof response.data.wishItemList !== "undefined" &&
-        response.data.wishItemList.length !== 0
-      ) {
-        setWishItemList(response.data.wishItemList);
-      }
+      setWishItemList(response.data.wishItemList);
+      setWishShowroomList(response.data.wishShowroomList);
     });
   };
 
@@ -67,46 +81,25 @@ function WishList() {
     });
   };
 
+  //위시쇼룸 삭제하기
+  const deleteWishShowroom = (index) => {
+    axios({
+      url: "http://localhost:8080/api/wishlist/deleteWishShowroom",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+      },
+      method: "post",
+      data: { showroomNo: wishShowroomList[index].showroomNo },
+    }).then((response) => {});
+  };
+
+  const toggleLike = async (e) => {
+    setLike(!like);
+  };
+
   React.useEffect(() => {
     getWishItem();
   }, []);
-
-  //좌우 이동시키는 버튼
-  function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", background: "gray" }}
-        onClick={onClick}
-      />
-    );
-  }
-  //좌우 이동시키는 버튼
-  function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", background: "gray" }}
-        onClick={onClick}
-      />
-    );
-  }
-
-  const settings = {
-    className: "center",
-    centerMode: true,
-    infinite: true,
-    centerPadding: "100px",
-    slidesToShow: 3,
-    speed: 500,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
-    arrow: true,
-    slickNext: true,
-  };
-
   return (
     <div>
       <div class="nav_wrapper">
@@ -206,42 +199,143 @@ function WishList() {
         </nav>
       </div>
 
-      <div className="wish">
+      <div className="wishSwiper">
         <h1 className="wishTitle">나의 위시리스트</h1>
-        <Slider {...settings}>
-          {wishItemList.map((wishItem, index) => (
-            <div key={index}>
-              <div className="wItem">
-                <img
-                  className="wishImg"
-                  src={`http://localhost:8080/upload/${wishItem.productImageName}`}
-                />
+        <Swiper
+          slidesPerView={5}
+          spaceBetween={20}
+          slidesPerGroup={5}
+          loop={true}
+          loopFillGroupWithBlank={false}
+          // pagination={{
+          //   clickable: true,
+          // }}
+          navigation={true}
+          Mousewheel={true}
+          Zoom={true}
+          modules={[Navigation, Mousewheel, Zoom]}
+          className="mySwiper"
+        >
+          {wishItemList &&
+            wishItemList.map((wishItem, index) => (
+              <div key={index}>
+                <SwiperSlide>
+                  <div>
+                    <img
+                      className="wishImg"
+                      src={`http://localhost:8080/upload/${wishItem.productImageName}`}
+                    />
+                    <div>
+                      {/* <button
+                      onClick={() => {
+                        deleteWishList(index);
+                      }}
+                    >
+                      <img
+                        style={{ width: "20px", height: "20px" }}
+                        className="deleteBtn"
+                        src="https://cdn-icons-png.flaticon.com/128/1828/1828747.png"
+                      />
+                    </button> */}
+                      {/* <button type="button" class="btn btn-outline-dark">
+                      삭제
+                    </button> */}
+                      <Heart
+                        style={{ width: "2rem" }}
+                        isActive={!active}
+                        onClick={() => {
+                          setActive(!active);
+                          if (!active) {
+                            deleteWishList();
+                            alert("삭제되었습니다");
+                          }
+                        }}
+                      />
+                      <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-haspopup="true"
+                        color="inherit"
+                        // sx={{ padding: "0 6px", left: 140 }}
+                        onClick={"addCart"}
+                      >
+                        <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
+                      </IconButton>
+                    </div>
+                  </div>
+                </SwiperSlide>
               </div>
-              <button
-                onClick={() => {
-                  deleteWishList(index);
-                }}
-              >
-                삭제
-              </button>
-              <button>장바구니담기</button>
-            </div>
-          ))}
-        </Slider>
-
+            ))}
+        </Swiper>
+      </div>
+      <div className="wishSwiper">
         <h1 className="wishTitle2">나의 위시 쇼룸</h1>
-        <Slider {...settings}>
-          {wishItemList.map((wishItem, index) => (
-            <div key={index}>
-              <div className="wShow">
-                <img
-                  className="wishImg"
-                  src={`http://localhost:8080/upload/${wishItem.productImageName}`}
-                />
+        <Swiper
+          slidesPerView={3}
+          spaceBetween={20}
+          slidesPerGroup={3}
+          loop={true}
+          loopFillGroupWithBlank={false}
+          // pagination={{
+          //   clickable: true,
+          // }}
+          navigation={true}
+          Mousewheel={true}
+          Zoom={true}
+          modules={[Navigation, Mousewheel, Zoom]}
+          className="mySwiper"
+        >
+          {wishShowroomList &&
+            wishShowroomList.map((wishShowroom, index) => (
+              <div key={index}>
+                <SwiperSlide>
+                  <div>
+                    <img
+                      className="wishshowroomImg"
+                      src={`http://localhost:8080/upload/${wishShowroom.showroomImgName}`}
+                    />
+                    <div>
+                      {/* <button
+                      onClick={() => {
+                        deleteWishList(index);
+                      }}
+                    >
+                      <img
+                        style={{ width: "20px", height: "20px" }}
+                        className="deleteBtn"
+                        src="https://cdn-icons-png.flaticon.com/128/1828/1828747.png"
+                      />
+                    </button> */}
+                      {/* <button type="button" class="btn btn-outline-dark">
+                      삭제
+                    </button> */}
+                      <Heart
+                        style={{ width: "2rem" }}
+                        isActive={!active}
+                        onClick={() => {
+                          setActive(!active);
+                          if (!active) {
+                            deleteWishShowroom();
+                            alert("삭제되었습니다");
+                          }
+                        }}
+                      />
+                      <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-haspopup="true"
+                        color="inherit"
+                        // sx={{ padding: "0 6px", left: 140 }}
+                        onClick={"addCart"}
+                      >
+                        <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
+                      </IconButton>
+                    </div>
+                  </div>
+                </SwiperSlide>
               </div>
-            </div>
-          ))}
-        </Slider>
+            ))}
+        </Swiper>
       </div>
     </div>
   );

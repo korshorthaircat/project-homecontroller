@@ -3,8 +3,10 @@ import React, { Component } from "react";
 import MainInfoNav from "./MainInfoNav";
 import SameCategoryList from "./SameCategoryList";
 import ProductCarousel from "../main/ProductCarousel";
+import { useEffect } from "react";
+import { useState } from "react";
 
-const ProductDetailInfo = () => {
+const ProductDetailInfo = ({ orderHistory }) => {
   return (
     <div>
       <button
@@ -13,7 +15,7 @@ const ProductDetailInfo = () => {
         style={{ position: "relative" }}
       >
         <div>
-          <MainInfoNav option="info" />
+          <MainInfoNav option="info" orderHistory={orderHistory} />
         </div>
         제품설명
       </button>
@@ -29,7 +31,7 @@ const ProductDetailInfo = () => {
           style={{ position: "relative" }}
         >
           <div>
-            <MainInfoNav option="size" />
+            <MainInfoNav option="size" orderHistory={orderHistory} />
           </div>
           치수
         </button>
