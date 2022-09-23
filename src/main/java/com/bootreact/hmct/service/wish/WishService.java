@@ -19,9 +19,9 @@ public interface WishService {
 			
 			
 			//위시쇼룸 
-			List<WishShowroom> getWishShowroomList(String userId);
+			List<Map<String, Object>> getWishShowroomList(String userId);
 			
-			void addWishShowroom(String userId, String showroomNo);
+			void addWishShowroom(String userId, int showroomNo);
 			
-			void deleteWishShowroom(String userId, String showroomNo);
+			void deleteWishShowroom(String userId, int showroomNo);
 }

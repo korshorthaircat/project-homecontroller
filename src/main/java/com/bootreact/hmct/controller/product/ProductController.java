@@ -146,7 +146,7 @@ public class ProductController {
 		@GetMapping("/productDetail")
 		public Map<String, Object> getProduct(@RequestParam int productNo, @AuthenticationPrincipal String userId ) {
 			try {	
-				System.out.println(userId);
+//				System.out.println(userId);
 				List<Map<String, Object>> productInfo = productService.getProduct(productNo);
 
 				//제품번호를 이용해서 대표컬러(커먼코드) 1개 가져오기
@@ -159,7 +159,6 @@ public class ProductController {
 
 				//제품번호, 커먼코드를 맵에 담아 보내서 이미지 받아오기
 				List<Map<String, Object>> productImage1 = productService.getProductWithCommonCode(paramMap);
-				//////////
 				
 				//로그인된 유저가 해당 제품을 구매한 횟수 가져오기
 				int orderHistory = productService.getOrderHistory(productNo, userId);
@@ -167,12 +166,15 @@ public class ProductController {
 				//유저가 해당 제품을 구매했을 떄의 주문번호를 리스트로 받아오기(단, 이미 리뷰 작성한 경우는 제외)
 				List<Integer> orderNoList = productService.getOrderNoListByProductNo(productNo, userId);
 				
+				//유저가 해당 제품을 구매했을 때의 제품옵션(커먼코드)를 리스트로 받아오기(단, 이미 리뷰 작성한 경우는 제외)
+				List<String> commonCodeList = productService.getCommonCodeListByProductNo(productNo, userId);
+				
 				Map<String, Object> returnMap = new HashMap<String, Object>();
-
 				returnMap.put("productInfo", productInfo);
 				returnMap.put("productImage", productImage1);
 				returnMap.put("orderHistory", orderHistory);
 				returnMap.put("orderNoList", orderNoList);
+				returnMap.put("commonCodeList", commonCodeList);
 				
 				return returnMap; 
 	    	}catch(Exception e){

@@ -78,6 +78,18 @@ public class RefundController {
  			String orderStatus = "반품 대기";		
  			//Cancel 테이블에 주문 정보 인서트(cancelRgsDate는 자동생성)
  			
+ 			//처음부터 Map으로 돌리면 service, serviceImpl, mapper부분이 깔끔해짐
+ 			//Map<String, Object> refundMap = new HashMap<String, Object>();
+ 			
+// 			Map<String, Object> retunMap = new HashMap<String, Object>();
+// 			retunMap.put("returnNo", retunNo);
+// 			retunMap.put("orderNo", Integer.parseInt(paramMap.get("orderNo").toString()));
+// 			retunMap.put("retunAmount", paramMap.get("retunAmount"));
+// 			retunMap.put("retunState", retunState);
+// 			retunMap.put("retunReason", paramMap.get("retunReason"));
+// 			
+// 			refundService.addRetun(retunMap); 
+ 			
  			refundService.addRetun(
  								  retunNo,
  								  Integer.parseInt(paramMap.get("orderNo").toString()),

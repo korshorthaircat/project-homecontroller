@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import LooksOneOutlinedIcon from "@mui/icons-material/LooksOneOutlined";
 import LooksTwoOutlinedIcon from "@mui/icons-material/LooksTwoOutlined";
 import Looks3OutlinedIcon from "@mui/icons-material/Looks3Outlined";
@@ -39,6 +39,7 @@ const Order = () => {
 
   //Cart.js에서 Link를 통해 보낸 state를 이용
   const location = useLocation();
+  const navigate = useNavigate();
   useEffect(() => {
     // console.log(location.state.obj);
     // console.log(location.state.obj.cart);
@@ -91,7 +92,7 @@ const Order = () => {
 
   //db에서 받아온 장바구니 데이터를 담을 state
   const [cartList, setCartList] = useState([]);
-
+  const [cartImageList, setCartImageList] = useState([]);
   //db로부터 장바구니의 데이터 받아오기
   const getCartList = () => {
     axios({
@@ -100,7 +101,16 @@ const Order = () => {
       data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
     }).then((response) => {
       //console.log(response.data.data);
+      
       setCartList(response.data.data);
+    });
+    //제품 이미지 받아오기
+    axios({
+      method: "post",
+      url: "http://localhost:8080/api/cart/getCartImageList",
+      data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
+    }).then((response) => {
+      setCartImageList(response.data.cartImageList);
     });
   };
 
@@ -311,7 +321,7 @@ const Order = () => {
                     disabled
                     control={<Radio />}
                     label="신용카드"
-                  />
+                  /> 
                   <FormControlLabel
                     value="disabled"
                     disabled
@@ -396,8 +406,8 @@ const Order = () => {
             </Typography>
           </Grid>
 
-          {cartList.map((cart) => (
-            <OrderReview cart={cart}></OrderReview>
+          {cartList.map((cart, index) => (
+            <OrderReview cart={cart} cartImage={cartImageList[index]}></OrderReview>
           ))}
         </Grid>
 

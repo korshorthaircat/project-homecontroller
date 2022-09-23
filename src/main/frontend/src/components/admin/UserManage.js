@@ -83,7 +83,6 @@ function UserManage() {
 
   React.useEffect(() => {
     list();
-    console.log(userList);
   }, []);
 
   //수정, 삭제 서브밋 처리 함수
