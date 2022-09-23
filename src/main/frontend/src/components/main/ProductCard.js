@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import HeartButton from "./HeartButton";
 import Heart from "react-heart";
 import { HideImageRounded } from "@mui/icons-material";
+import HeartTest from "./HeartTest";
 
 const ProductCard = ({ item, productImageList }) => {
   //대표 이미지
@@ -17,7 +18,7 @@ const ProductCard = ({ item, productImageList }) => {
   //호버 이미지
   const [hoverImage, setHoverImage] = useState("");
   const [isHover, setIsHover] = useState(false);
-  //모달창
+  //장바구니 모달창
   const [show, setShow] = useState(false);
   //위시리스트 모달창
   const [wishlistShow, setwishlistShow] = useState(false);
@@ -177,7 +178,7 @@ const ProductCard = ({ item, productImageList }) => {
             >
               <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
             </IconButton> */}
-            <Heart
+            {/* <Heart
               style={{ width: "2rem" }}
               isActive={active}
               onClick={() => {
@@ -189,7 +190,10 @@ const ProductCard = ({ item, productImageList }) => {
                   alert("취소되었습니다");
                 }
               }}
-            />
+            /> */}
+
+            <HeartTest like={like} addWishList={addWishList} />
+
             <Modal show={wishlistShow} onHide={wishlistHandleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>위시리스트 등록</Modal.Title>
