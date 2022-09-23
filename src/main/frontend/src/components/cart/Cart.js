@@ -28,6 +28,7 @@ const Cart = () => {
     }).then((response) => {
       console.log(response.data.data);
       setCartList(response.data.data);
+     
       sessionStorage.setItem("cartCount", response.data.data.length);
     });
     //제품 이미지 받아오기
@@ -38,6 +39,13 @@ const Cart = () => {
     }).then((response) => {
       console.log(response.data.cartImageList);
       setCartImageList(response.data.cartImageList);
+    }).catch(()=>{
+      window.onload = function() {
+        if(!window.location.hash) {
+          window.location = window.location + '#loaded';
+          window.location.reload();
+        }
+      }
     });
   };
 

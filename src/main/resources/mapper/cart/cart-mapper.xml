@@ -17,9 +17,6 @@
 			group by product_no  ;
 	]]>
 	</select>
-
-	
-	
 </mapper>
 
 

@@ -191,8 +191,8 @@ public class ProductController {
 //		      params: { productNo: productNo,
 //						commonCode: commonCode },
 			try {	
-				System.out.println(paramMap.get("productNo"));
-				System.out.println(paramMap.get("commonCode"));
+
+				System.out.println(paramMap);
 				
 				List<Map<String, Object>> productInfo = productService.getProduct(
 						Integer.parseInt(paramMap.get("productNo").toString())

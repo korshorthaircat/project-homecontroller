@@ -60,7 +60,7 @@ public class CartController {
 	@PostMapping("/addCartAtDetail")
 	public String addCartAtDetail(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
 		
-			System.out.println(paramMap.toString());
+			System.out.println(paramMap.toString()+"//////////////////////////");
 			System.out.println(userId);
 			System.out.println(paramMap.get("productNo"));
 			System.out.println(paramMap.get("commonCode"));
@@ -170,12 +170,12 @@ public class CartController {
     public Map<String, Object> getCartImageList(@RequestBody User user){
 		try {
 
-			//List<Map<String, Object>> cartList = cartService.getCartMapList(user.getUserId());
+			List<Map<String, Object>> cartList = cartService.getCartMapList(user.getUserId());
 			List<Map<String, Object>> cartImageList = cartService.getCartImageList(user.getUserId());
 			
 			Map<String, Object> returnMap = new HashMap<String, Object>();
 			
-			//returnMap.put("cartList", cartList);
+			returnMap.put("cartList", cartList);
 			returnMap.put("cartImageList", cartImageList);
 			
 			return returnMap; 
