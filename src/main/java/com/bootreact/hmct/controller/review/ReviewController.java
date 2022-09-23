@@ -140,7 +140,7 @@ public class ReviewController {
 //				
 //				reviewDTOList.add(reviewDTO);
 //			}
-//		ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
+//		ResponseDTO<ReviewDTO> response = new ResponseDTO<>();//
 //		
 //		response.setData(reviewDTOList);
 //		
@@ -149,8 +149,8 @@ public class ReviewController {
 //		}catch(Exception e){
 //			System.out.println(e.getMessage());
 //			ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
-//			response.setError(e.getMessage());////
-//			return ResponseEntity.badRequest().body(response);////
+//			response.setError(e.getMessage());
+//			return ResponseEntity.badRequest().body(response);
 //		}
 //}
 //
