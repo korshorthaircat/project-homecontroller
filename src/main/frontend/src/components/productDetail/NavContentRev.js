@@ -22,10 +22,14 @@ export default function NavContentRev() {
   const [orderNoList, setOrderNoList] = React.useState([]);
 
   //상품평 리스트 조회
+  //전체 상품평을 다 불러오는 쿼리.
+  //상세페이지 화면단에서는 제품번호를 기준으로 잘라서 쓰고,
+  //마이페이지 화면단에서는 유저아이디를 기준으로 잘라서 써야 함
   const getReviewList = () => {
     axios({
       url: "http://localhost:8080/api/review/getReviewList",
       method: "post",
+      // params: { productNo: productNo },
     })
       .then((response) => {
         console.log(response.data.data);
@@ -119,30 +123,34 @@ export default function NavContentRev() {
         <hr />
 
         {reviewList ? (
-          reviewList.map((r, index) => (
-            <>
-              <hr />
-              <p className="revTitle">{r.reviewTitle}</p>
-              <div className="revRow">
-                <p className="revGrade">★★★★☆{r.reviewGrade}</p>
-                <p className="revDate" style={{ float: "right" }}>
-                  {r.reviewRegdate}
-                </p>
-                <p style={{ float: "right" }}>·</p>
-                <p className="revUserName" style={{ float: "right" }}>
-                  {r.userId}
-                </p>
-              </div>
-              <textarea
-                rows="5"
-                className="revContent"
-                value={r.reviewContent}
-                disabled
-              ></textarea>
-            </>
-          ))
+          reviewList.map((r, index) =>
+            r.productNo == productNo ? (
+              <>
+                <hr />
+                <p className="revTitle">{r.reviewTitle}</p>
+                <div className="revRow">
+                  <p className="revGrade">★★★★☆{r.reviewGrade}</p>
+                  <p className="revDate" style={{ float: "right" }}>
+                    {r.reviewRegdate.replace("T", " ")}
+                  </p>
+                  <p style={{ float: "right" }}>·</p>
+                  <p className="revUserName" style={{ float: "right" }}>
+                    {r.userId}
+                  </p>
+                </div>
+                <textarea
+                  rows="5"
+                  className="revContent"
+                  value={r.reviewContent}
+                  disabled
+                ></textarea>
+              </>
+            ) : (
+              <></>
+            )
+          )
         ) : (
-          <>작성된 리뷰가 없습니다.</>
+          <></>
         )}
 
         <div className="revContents"></div>
