@@ -150,7 +150,7 @@ public class ReviewController {
 //			System.out.println(e.getMessage());
 //			ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
 //			response.setError(e.getMessage());
-//			return ResponseEntity.badRequest().body(response);
+//			return ResponseEntity.badRequest().body(response);//
 //		}
 //}
 //
