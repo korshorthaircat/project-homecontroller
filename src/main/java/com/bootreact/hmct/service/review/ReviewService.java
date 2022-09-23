@@ -12,13 +12,19 @@ public interface ReviewService {
 	
 	List<Review> getReviewList();
 
-	void addReview(int reviewNo, String userId, String commonCode, String productNo, String reviewContent, String reviewTitle,
-			String reviewGrade);
+	void addReview(String userId, 
+				   String commonCode, 
+				   int productNo, 
+				   int orderNo, 
+				   int reviewGrade, 
+				   String reviewContent,
+				   String reviewTitle);
 
-	
 	void updateReview(int reviewNo);
 
 	void deleteReview(int reviewNo);
+
+	
 
 
 	

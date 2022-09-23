@@ -35,86 +35,79 @@ public class ReviewController {
 	
 //	상품평 생성
 	@PostMapping("/insertReview")
-	public ResponseEntity<?> insertReview(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
+	public void insertReview(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
 		try {
+			//상품평 추가 처리하기
+			reviewService.addReview(userId,
+									paramMap.get("commonCode"),
+									Integer.parseInt(paramMap.get("productNo")),
+									Integer.parseInt(paramMap.get("orderNo")),
+									Integer.parseInt(paramMap.get("reviewGrade")),
+									paramMap.get("reviewContent"),
+								    paramMap.get("reviewTitle"));
 			
-			System.out.println("안녕");
-			System.out.println(paramMap);
-			
-//			int reviewNo = 1;
-//			
-//			//상품평 추가 처리하기
-//			reviewService.addReview(reviewNo,
-//									userId,
-//									paramMap.get("commonCode"),
-//									paramMap.get("productNo"),
-//									paramMap.get("reviewContent"),
-//								    paramMap.get("reviewTitle"),
-//									paramMap.get("reviewGrade"));
-			
-			//상품평 목록 받아오기
-			List<Review> ReviewList = reviewService.getReviewList();
-			List<ReviewDTO> reviewDTOList = new ArrayList<ReviewDTO>();
- 		
-			for(Review r : ReviewList) {
-				ReviewDTO reviewDTO = new ReviewDTO();
-//				reviewDTO.setReviewNo(r.getReviewNo());
-//				reviewDTO.setCommonCode(r.getCommonCode());
-//				reviewDTO.setReviewTitle(r.getReviewTitle());
-//				reviewDTO.setReviewRegdate(r.getReviewRegdate());
-//				reviewDTO.setReviewGrade(r.getReviewGrade());
-//				reviewDTO.setReviewContent(r.getReviewContent());
-//				reviewDTO.setProductNo(r.getProductNo());
-//				reviewDTO.setUser(r.getUser());
-				reviewDTOList.add(reviewDTO);
-			}
-			ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
-			response.setData(reviewDTOList);		
-			return ResponseEntity.ok().body(response);
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-			ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
-			response.setError(e.getMessage());
-			return ResponseEntity.badRequest().body(response);
-		}
-}
-	
-//	상품평 목록 조회
-//	@PostMapping("/getReviewList")
-//	public ResponseEntity<?> getReviewList() {
-//		try {
-//			List<Review> reivewList = reviewService.getReviewList();
-//			
+//			//상품평 목록 받아오기
+//			List<Review> ReviewList = reviewService.getReviewList();
 //			List<ReviewDTO> reviewDTOList = new ArrayList<ReviewDTO>();
 // 		
 //			for(Review r : ReviewList) {
 //				ReviewDTO reviewDTO = new ReviewDTO();
-//				
-//				ReviewDTO reviewDTO1 = new ReviewDTO();
-//				reviewDTO1.setReviewNo(r.getReviewNo());
-//				reviewDTO1.setReviewTitle(r.getReviewTitle());
-//				reviewDTO1.setReviewRegdate(r.getReviewRegdate());
-//				reviewDTO1.setReviewGrade(r.getReviewGrade());
-//				reviewDTO1.setReviewContent(r.getReviewContent());
-//				reviewDTO.setProductNo(r.getProductNo());
-//				reviewDTO1.setUser(r.getUser());
-//				
-//				
-//				reviewDTOList.add(reviewDTO1);
+////				reviewDTO.setReviewNo(r.getReviewNo());
+////				reviewDTO.setCommonCode(r.getCommonCode());
+////				reviewDTO.setReviewTitle(r.getReviewTitle());
+////				reviewDTO.setReviewRegdate(r.getReviewRegdate());
+////				reviewDTO.setReviewGrade(r.getReviewGrade());
+////				reviewDTO.setReviewContent(r.getReviewContent());
+////				reviewDTO.setProductNo(r.getProductNo());
+////				reviewDTO.setUser(r.getUser());
+//				reviewDTOList.add(reviewDTO);
 //			}
-//		ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
-//		
-//		response.setData(reviewDTOList);
-//		
-//		return ResponseEntity.ok().body(response);
-//		
-//		}catch(Exception e) {
-//			System.out.println(e.getMessage());
-//			ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
+//			ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
+//			response.setData(reviewDTOList);		
+//			return ResponseEntity.ok().body(response);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+//			ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
 //			response.setError(e.getMessage());
 //			return ResponseEntity.badRequest().body(response);
-//		}
-//	}
+		}
+}
+	
+//	상품평 목록 조회
+	@PostMapping("/getReviewList")
+	public ResponseEntity<?> getReviewList() {
+		try {
+			List<Review> reivewList = reviewService.getReviewList();
+			
+			List<ReviewDTO> reviewDTOList = new ArrayList<ReviewDTO>();
+ 		
+			for(Review r : reivewList) {
+				ReviewDTO reviewDTO = new ReviewDTO();
+				
+				reviewDTO.setReviewNo(r.getReviewNo());
+				reviewDTO.setReviewTitle(r.getReviewTitle());
+				reviewDTO.setReviewContent(r.getReviewContent());
+				reviewDTO.setReviewGrade(r.getReviewGrade());
+				reviewDTO.setReviewRegdate(r.getReviewRegdate());
+				reviewDTO.setProductNo(r.getOrderItem().getProductOption().getProduct().getProductNo());
+				reviewDTO.setCommonCode(r.getOrderItem().getProductOption().getCommon().getCommonCodeName());
+				reviewDTO.setUserId(r.getOrderItem().getOrder().getUser().getUserId());
+		
+				reviewDTOList.add(reviewDTO);
+			}
+		ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
+		
+		response.setData(reviewDTOList);
+		
+		return ResponseEntity.ok().body(response);
+		
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
+			response.setError(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
+	}
 //
 //
 ////	상품평 수정

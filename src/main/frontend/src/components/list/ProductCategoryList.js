@@ -16,7 +16,8 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { param } from "jquery";
 
 const ProductCategoryList = () => {
   const [productList, setProductList] = useState([]);
@@ -52,6 +53,8 @@ const ProductCategoryList = () => {
       const result = await axios.get(
         "http://localhost:8080/api/main/getSearchProducts?word=" + params.word
       );
+
+      console.log(params.word);
       console.log("////////////", result.data);
       setProductList(result.data.searchProductList);
       setProductImageList(result.data.searchProductImageList);
