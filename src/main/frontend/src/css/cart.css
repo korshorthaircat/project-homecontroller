@@ -1,0 +1,152 @@
+.productInCart {
+    align-items: "left";
+    margin-left: 7%;
+    width: 700;
+}
+
+.productInCartImg{
+   width: 100%;
+   margin: 0;
+   align-content: left;
+}
+
+#cartContent {
+    padding-top: 5%
+}
+
+#productNameInCart {
+    font-size: 25px;
+    font-weight: 600;
+    /* padding: 50px 0px 0px 5px;   */
+    margin-bottom: 0px;
+}
+
+#productOptionInCart{
+    padding: 0px 10px;
+}
+
+.NumDecrease {
+    width: 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.NumIncrease {
+    width: 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.cartNamePriceColumn{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.NumDecreaseIncrease{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+#productNum {
+    font-size: 20px;
+    margin: 50px 0px 0px 20px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+#productPriceInCart {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.deleteProductInCart {
+    cursor: pointer;
+    font-weight: 800;
+    width: 70px;
+    height: 35px;
+    border-radius: 20px;
+    border: 1px solid rgb(212, 212, 212);
+    background-color: white;
+    color: black;
+    float: right;
+
+}
+
+#cartTitle {
+    font-size: 40px;
+    font-weight: 850;
+    padding: 100px 0px 50px 80px;
+}
+
+#cartInfoPaper {
+    position: sticky;
+    top: 20%
+}
+
+.cartInfo {
+    margin-left: 20;
+    width: 400;
+    height: 400;
+    background-color: none;
+    box-shadow: none;
+}
+
+.productAllPrice {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#productAllPriceInput {
+    font-size: 40px;
+    font-weight: 800;
+}
+
+.orderButton {
+    width: 100%;
+    height: 120px;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    text-align: left;
+    padding: 20px;
+
+    background-color: #b5c95a;
+    border: #b5c95a;
+    border-radius: 5px;
+}
+
+.saleIcon {
+    width: 30px;
+    margin-right: 10px;
+}
+
+#saleTitle {
+    margin: 5px;
+    font-size: 17px;
+    font-weight: 550;
+    vertical-align: bottom;
+    display: inline-block;
+}
+
+#saleTitle:hover {
+    text-decoration: underline;
+}
+
+.couponSelect {
+    width: 100%;
+    margin-top: 20px;
+}
+
+#couponSelect {
+    width: 100%;
+}
+
+#orderCal {
+    font-size: 20px;
+    font-weight: 500;
+}

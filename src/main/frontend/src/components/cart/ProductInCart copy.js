@@ -79,10 +79,23 @@ const ProductInCart = ({
   });
 
   return (
-    <Paper className="productInCart" sx={{ boxShadow: "none" }}>
-      <Grid container spacing={2} sx={{ padding: "10px" }}>
-        <Grid item sx={{ width: "23%" }}>
-          <ButtonBase className="productInCartImg">
+    <Paper
+      className="productInCart"
+      sx={{
+        p: 2,
+        alignItems: "left",
+        marginLeft: 5,
+        marginBottom: 5,
+        //maxWidth: 800,
+        width: 700,
+
+        backgroundColor: (theme) =>
+          theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+      }}
+    >
+      <Grid container spacing={2} sx={{ paddingBottom: "40px" }}>
+        <Grid item>
+          <ButtonBase sx={{ width: 128, height: 128 }}>
             <ProductImg
               alt="complex"
               src={`http://localhost:8080/upload/${cartImage.productImageName}`}
@@ -91,69 +104,44 @@ const ProductInCart = ({
         </Grid>
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>
-            <Grid id="cartContent" item xs>
-              <div>
-                <div className="cartNamePriceColumn">
-                  <Typography
-                    id="productNameInCart"
-                    gutterBottom
-                    variant="subtitle1"
-                    component="div"
-                  >
-                    {cart.productOption.product.productName}
-                  </Typography>
-
-                  <Typography
-                    variant="subtitle1"
-                    component="div"
-                    id="productPriceInCart"
-                  >
-                    ₩{" "}
-                    {(cart.productOption.product.productPrice + "").replace(
-                      /\B(?=(\d{3})+(?!\d))/g,
-                      ","
-                    )}
-                  </Typography>
-                </div>
-              </div>
-              <Typography id="productOptionInCart">
-                {cart.productOption.common.commonCodeName},{" "}
+            <Grid item xs>
+              <Typography gutterBottom variant="subtitle1" component="div">
+                {cart.productOption.product.productName}
+              </Typography>
+              <Typography>
+                옵션: {cart.productOption.common.commonCodeName},{" "}
                 {cart.productOption.product.productSize}
               </Typography>
 
-              <Typography id="productNum">
-                <div className="NumDecreaseIncrease">
-                  <div style={{ fontSize: "15px" }}>수량</div>
-                  <img
-                    className="NumDecrease"
-                    src="../images/ArrowDown.png"
-                    onClick={onDecrease}
-                  />
-                  {number}
-                  <img
-                    className="NumIncrease"
-                    src="../images/ArrowUp.png"
-                    onClick={onIncrease}
-                  />
-                </div>
-                <button
-                  className="deleteProductInCart"
-                  onClick={() =>
-                    deleteCart(
-                      cart.productOption.product.productNo,
-                      cart.productOption.common.commonCode
-                    )
-                  }
-                >
-                  <Typography>삭제</Typography>
-                </button>
+              <Typography>
+                수량:
+                <RemoveCircleOutlineIcon onClick={onDecrease} />
+                {number}
+                <AddCircleOutlineIcon onClick={onIncrease} />
               </Typography>
             </Grid>
+            <Grid item>
+              <div
+                onClick={() =>
+                  deleteCart(
+                    cart.productOption.product.productNo,
+                    cart.productOption.common.commonCode
+                  )
+                }
+              >
+                <Typography sx={{ cursor: "pointer" }} variant="body2">
+                  삭제하기
+                </Typography>
+              </div>
+            </Grid>
           </Grid>
-          <Grid item></Grid>
+          <Grid item>
+            <Typography variant="subtitle1" component="div">
+              ₩ {cart.productOption.product.productPrice}
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
-      <hr />
     </Paper>
   );
 };

@@ -140,7 +140,7 @@ public class ReviewController {
 //				
 //				reviewDTOList.add(reviewDTO);
 //			}
-//		ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
+//		ResponseDTO<ReviewDTO> response = new ResponseDTO<>();//
 //		
 //		response.setData(reviewDTOList);
 //		
