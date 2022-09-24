@@ -85,7 +85,8 @@ const MainInfo = ({ changeProductColor, pr }) => {
       method: "post",
       data: { productNo: productNo, 
               userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId ,
-              commonCode: productList[0].commonCode},
+              commonCode: productList[0].commonCode
+            },
     }).then((response) => {
       // console.log("cart",response.data);
       setShow(true);
