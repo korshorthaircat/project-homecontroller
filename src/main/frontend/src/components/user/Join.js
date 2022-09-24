@@ -44,7 +44,7 @@ const Join = () => {
 
   //state의 변화 감지
   const onIdHandler = (event) => {
-      const regex = /[^a-zA-Z].{4,8}$/
+      const regex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{2,5}$/
       if (!regex.test(userId)) {
         setIsId(false);
         setUserIdMessage(
