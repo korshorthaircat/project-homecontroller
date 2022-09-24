@@ -85,7 +85,7 @@
 
 #cartInfoPaper {
     position: sticky;
-    top: 20%
+    top: 20%;
 }
 
 .cartInfo {
@@ -102,22 +102,35 @@
 }
 
 #productAllPriceInput {
-    font-size: 40px;
-    font-weight: 800;
+    font-size: 35px;
+    font-weight: 400;
 }
 
 .orderButton {
     width: 100%;
     height: 120px;
     color: white;
-    font-size: 17px;
+    font-size: 20px;
     font-weight: 600;
     text-align: left;
     padding: 20px;
-
     background-color: #b5c95a;
     border: #b5c95a;
     border-radius: 5px;
+    margin-top: 30px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.9s, color 0.3s;
+   
+}
+
+.linkOrder {
+    text-decoration: none;
+}
+
+.orderButton:hover {
+    box-shadow: 500px 0 0 0 #9dac59 inset;
 }
 
 .saleIcon {
@@ -148,5 +161,50 @@
 
 #orderCal {
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 800;
+}
+
+#resultOrderPay{
+    font-size: 40px;
+    font-weight: 800;
+}
+
+#resultSalePrice {
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.orderImg {
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    float: left;
+    border-radius: 90%;
+}
+
+.delivery{
+    margin-top: 80px;
+}
+
+#deliveryInfo {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 10px;
+}
+
+#userZipSearch {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#paymentName {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+#bankTransferInfo {
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: 700;
+
 }

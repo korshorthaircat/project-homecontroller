@@ -18,16 +18,7 @@ import OrderReview from "./OrderReview";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
 import "../../css/cart.css";
-
-import {
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
-import { Card, Row } from "react-bootstrap";
+import { InputLabel, MenuItem, Select } from "@mui/material";
 
 const Order = () => {
   const [orderName, setOrderName] = useState(""); //"조명 외 2개"식으로 만들어서 KakaoPayReady.js에 전달하기
@@ -205,27 +196,19 @@ const Order = () => {
         alignItems="flex-start"
         marginTop={"20px"}
       >
-        <Grid sx={{ width: "36%", margin: "0 8%" }}>
+        <Grid>
           <Grid className="delivery">
-            <div id="deliveryInfo">
-              <img
-                src="../images/one (1).png"
-                style={{
-                  width: "80px",
-                  height: "auto",
-                  margin: "20px 20px 30px -20px",
-                }}
-              />
+            <Typography variant="h4">
+              <LooksOneOutlinedIcon />
               배송 정보 입력
-            </div>
+            </Typography>
 
             <Grid
               container
               spacing={3}
               justifyContent="center"
               alignItems="flex-start"
-              width={"100%"}
-              sx={{ margin: "0 5%" }}
+              width={"600px"}
             >
               <Grid item xs={8} sm={6}>
                 <TextField
@@ -322,25 +305,12 @@ const Order = () => {
             </Grid>
           </Grid>
 
-          <Grid className="delivery">
-            <Typography id="deliveryInfo">
-              <img
-                src="../images/two (1).png"
-                style={{
-                  width: "80px",
-                  height: "auto",
-                  margin: "20px 20px 30px -20px",
-                }}
-              />
+          <Grid className="paymentMethod" marginTop={"50px"}>
+            <Typography variant="h4">
+              <LooksTwoOutlinedIcon />
               결제 수단 선택
             </Typography>
-            <Grid
-              container
-              spacing={3}
-              marginTop={"5px"}
-              width={"100%"}
-              sx={{ margin: "1% 15%" }}
-            >
+            <Grid container spacing={3} marginTop={"5px"} marginLeft={"5px"}>
               <FormControl>
                 <RadioGroup
                   row
@@ -369,7 +339,6 @@ const Order = () => {
                     value="카카오페이"
                     control={<Radio />}
                     label="카카오페이"
-                    src="../images/kakaopayLogo.png"
                   />
                   <FormControlLabel
                     value="disabled"
@@ -382,10 +351,7 @@ const Order = () => {
             </Grid>
 
             {paymentWay == "무통장입금" ? (
-              <Grid
-                className="bankTransfer"
-                sx={{ width: "100%", margin: "5% 8%" }}
-              >
+              <Grid className="bankTransfer">
                 <TextField
                   name="paymentName"
                   id="paymentName"
@@ -394,45 +360,60 @@ const Order = () => {
                   value={paymentName}
                   onChange={onPmtNameHandler}
                 />
-                <Grid id="bankTransferInfo">
-                  <div>예금주 확인 : (주)홈컨트롤러 </div>
-                  <div>입금 계좌 : 비트은행 12345678901234567890 </div>
+                <Grid className="bankTransferInfo" marginTop={"30px"}>
+                  <Typography>예금주 확인: (주)홈컨트롤러 </Typography>
+                  <Typography>
+                    입금 계좌: 비트은행 12345678901234567890{" "}
+                  </Typography>
                   <Grid
                     className="bankTransferWarning"
                     marginTop={"20px"}
                     color={"gray"}
                   >
-                    <hr style={{ marginTop: "80px" }} />
-                    <div
-                      style={{
-                        display: "flex",
-                      }}
-                    >
-                      <img
-                        src="../images/notice.png"
-                        style={{
-                          height: "40px",
-                          float: "left",
-                          display: "flex",
-                          margin: "5px 20px 0px 0px",
-                        }}
-                      ></img>
-                      <div>
-                        <Typography>
-                          송금정보, 결제금액(1원 단위까지)이 정확히 일치할 경우
-                          1시간내로 확인됩니다.
-                        </Typography>
-                        <Typography>
-                          '입금확인완료'시점기준, 주문처리 일정이 최종 확정되며,
-                          재고상황에 따라 출고지연 또는 취소가능성이 있습니다.
-                        </Typography>
-                      </div>
-                    </div>
+                    <Typography>
+                      송금정보, 결제금액(1원 단위까지)이 정확히 일치할 경우
+                      1시간내로 확인됩니다.
+                    </Typography>
+                    <Typography>
+                      '입금확인 완료'(입금시간 아님) 시점 기준, 주문처리 일정이
+                      최종 확정되며,
+                    </Typography>
+                    <Typography>
+                      재고 상황에 따라 출고지연 또는 품절 후 취소 가능성이
+                      있습니다.
+                    </Typography>
                   </Grid>
                 </Grid>
               </Grid>
             ) : null}
           </Grid>
+
+          <Grid className="orderReview" marginTop={"50px"}>
+            <Typography variant="h4">
+              <Looks3OutlinedIcon />
+              주문 확인
+            </Typography>
+            <Typography>주문자: {payInfo.userId}</Typography>
+            <Typography>
+              주문 금액(+): ₩{" "}
+              {(payInfo.orderAmount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </Typography>
+            <Typography>
+              할인 금액(-): ₩{" "}
+              {(
+                parseInt(payInfo.orderAmount) -
+                parseInt(payInfo.paymentAmount) +
+                ""
+              ).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </Typography>
+          </Grid>
+
+          {cartList.map((cart, index) => (
+            <OrderReview
+              cart={cart}
+              cartImage={cartImageList[index]}
+            ></OrderReview>
+          ))}
         </Grid>
 
         <Grid id="cartInfoPaper">
@@ -440,8 +421,9 @@ const Order = () => {
             className="cartInfo"
             sx={{
               p: 2,
+              marginLeft: 20,
               width: 500,
-              height: 750,
+              height: 550,
               backgroundColor: "none",
               boxShadow: "none",
             }}
@@ -449,72 +431,45 @@ const Order = () => {
             <Grid>
               <Grid sx={{ paddingBottom: "30px" }}>
                 <Typography sx={{ fontWeight: "800", fontSize: "30px" }}>
-                  주문 정보
-                </Typography>
-                <div style={{ width: "100%", display: "flex" }}>
-                  {cartList.map((cart, index) => (
-                    <OrderReview
-                      cart={cart}
-                      cartImage={cartImageList[index]}
-                    ></OrderReview>
-                  ))}
-                </div>
-                <Typography
-                  sx={{
-                    fontWeight: "800",
-                    fontSize: "30px",
-                    marginTop: "50px",
-                  }}
-                >
                   주문 내역
                 </Typography>
-                <div>
-                  <hr />
-                  <div className="cartNamePriceColumn">
-                    <span className="productAllPrice">주문금액</span>
-                    <span>
-                      <Typography id="productAllPriceInput">
-                        ₩{" "}
-                        {(payInfo.orderAmount + "").replace(
-                          /\B(?=(\d{3})+(?!\d))/g,
-                          ","
-                        )}
-                      </Typography>
-                    </span>
-                  </div>
+                <hr style={{ color: "#b5c95a", border: "solid 1px" }} />
+                <div className="cartNamePriceColumn">
+                  <span className="productAllPrice">총 주문금액</span>
+                  <span>
+                    <Typography id="productAllPriceInput">
+                      ₩{" "}
+                      {("orderAmount" + "").replace(
+                        /\B(?=(\d{3})+(?!\d))/g,
+                        ","
+                      )}
+                    </Typography>
+                  </span>
                 </div>
               </Grid>
 
               <Grid sx={{ paddingBottom: "20px" }}>
                 <div className="cartNamePriceColumn">
-                  <Typography id="orderCal" sx={{ marginTop: "10%" }}>
-                    할인금액
-                  </Typography>
-                  <Typography id="resultSalePrice" sx={{ marginTop: "10%" }}>
-                    - ₩{" "}
-                    {(
-                      parseInt(payInfo.orderAmount) -
-                      parseInt(payInfo.paymentAmount) +
-                      ""
-                    ).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  <Typography id="orderCal">할인금액</Typography>
+                  <Typography id="resultSalePrice">
+                    - ₩ {("" + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                   </Typography>
                 </div>
 
                 <div className="cartNamePriceColumn">
                   <Typography id="orderCal">배송비</Typography>
                   <Typography id="resultSalePrice">
-                    + ₩ {(5000 + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    + ₩ {("" + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                   </Typography>
                 </div>
 
-                <hr />
                 <div className="cartNamePriceColumn">
                   <Typography id="orderCal" sx={{ fontSize: "30px" }}>
                     총 결제금액
                   </Typography>
                   <Typography id="resultOrderPay">
                     ₩{" "}
-                    {(payInfo.paymentAmount + 5000 + "").replace(
+                    {("paymentAmount" + "").replace(
                       /\B(?=(\d{3})+(?!\d))/g,
                       ","
                     )}
