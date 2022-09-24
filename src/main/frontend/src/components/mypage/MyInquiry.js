@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import "../css/board.css";
+import "../../css/MyInquiry.css";
 import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha, useTheme } from "@mui/material/styles";
@@ -39,7 +39,7 @@ const modalstyle = {
   width: "30%",
 };
 
-const Board = () => {
+const MyInquiry = () => {
   const [inquiryTitle, setInquiryTitle] = React.useState("");
   // const [inquiryContent, setInquiryContent] = React.useState("");
   // const [inquiryAnswer, setInquiryAnswer] = React.useState("");
@@ -86,23 +86,28 @@ const Board = () => {
   };
 
   //게시글 리스트를 조회
-  const getInquiryList = () => {
+  const getMyInquiryList = () => {
     axios({
-      url: "http://localhost:8080/api/inquiry/getInquiryList",
+      url: "http://localhost:8080/api/mypage/getMyInquiryList",
       method: "post",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+      },
     })
       .then((response) => {
         console.log(response.data.data);
         setInquiryList(response.data.data);
       })
-      .catch((e) => {});
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   //게시글 등록
   const insertInquiryBoard = () => {
     axios({
       url: "http://localhost:8080/api/inquiry/insertInquiryBoard",
-      method: "post",
+      method: "get",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
       },
@@ -113,15 +118,15 @@ const Board = () => {
     })
       .then((response) => {
         setInquiryList(response.data);
-        window.location.href = "/board";
+        window.location.href = "/myinquiry";
       })
       .catch((e) => {
         console.log(e);
       });
-    window.location.href = "/board";
+    window.location.href = "/myinquiry";
   };
 
-  //게시글 수정(admin이 답변을 등록할 때 사용)
+  // //게시글 수정(admin이 답변을 등록할 때 사용)
   const updateInquiryBoard = () => {
     axios({
       url: "http://localhost:8080/api/inquiry/updateInquiryBoard",
@@ -151,7 +156,7 @@ const Board = () => {
     })
       .then((response) => {
         setInquiryList(response.data);
-        window.location.href = "/board";
+        window.location.href = "/myinquiry";
       })
       .catch((e) => {
         console.log(e);
@@ -159,7 +164,7 @@ const Board = () => {
   };
 
   React.useEffect(() => {
-    getInquiryList();
+    getMyInquiryList();
   }, []);
 
   // const onInquiryTitleHandler = (e) => {
@@ -423,4 +428,4 @@ const Board = () => {
   );
 };
 
-export default Board;
+export default MyInquiry;

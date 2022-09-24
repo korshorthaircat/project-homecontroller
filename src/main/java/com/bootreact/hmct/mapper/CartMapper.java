@@ -1,7 +1,6 @@
 package com.bootreact.hmct.mapper;
 
 import java.util.List;
-
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
@@ -23,22 +22,26 @@ public interface CartMapper {
 				+ "D.COMMON_CODE_NAME as color,"	
 				+ "E.COMMON_CODE_NAME as material,"
 				+ "F.COMMON_CODE_NAME as category,"	
-				+ "A.PRODUCT_COUNT"
+				+ "A.PRODUCT_COUNT,"
+				+ "G.PRODUCT_IMAGE_NAME"
 			+ " FROM "		
 				+ "T_HMCT_CART A,"	
 				+ "T_HMCT_USER B,"
 				+ "T_HMCT_PRODUCT C,"	
 				+ "T_HMCT_COMMON D,"	
 				+ "T_HMCT_COMMON E,"
-				+ "T_HMCT_COMMON F"
+				+ "T_HMCT_COMMON F,"
+				+ "T_HMCT_PRODUCT_IMAGE G"
 			+ " where "
 				+ "A.USER_ID = B.USER_ID"
 				+ " and	A.PRODUCT_NO = C.PRODUCT_NO"
 				+ " and	A.COMMON_CODE = D.COMMON_CODE"
 				+ " and C.product_material = E.common_code"
 				+ " and C.product_category = F.common_code"
+				+ " and	A.PRODUCT_NO = G.PRODUCT_NO"
+				+ " and	G.COMMON_CODE = D.COMMON_CODE"
 				+ " and A.USER_ID = #{userId}")
-	List<Map<String, Object>> getCartList(String userId);
+	List<Map<String, Object>> getCartMapList(String userId);
 
 	
 	@Delete("DELETE FROM t_hmct_cart "
@@ -50,7 +53,7 @@ public interface CartMapper {
 					@Param("commonCode") String commonCode);
 
 
-	@Insert("INSERT into t_hmct_cart ("
+	@Insert("INSERT ignore into t_hmct_cart ("
 			+ " common_code, product_no, user_id, product_count"
 			+ " ) VALUE ("
 			+ "#{commonCode}, #{productNo}, #{userId}, #{productCount}"

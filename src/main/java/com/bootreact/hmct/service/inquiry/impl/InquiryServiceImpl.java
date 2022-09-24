@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bootreact.hmct.entity.Inquiry;
+import com.bootreact.hmct.entity.Order;
 import com.bootreact.hmct.mapper.InquiryMapper;
 import com.bootreact.hmct.repository.InquiryRepository;
 import com.bootreact.hmct.service.inquiry.InquiryService;
@@ -38,6 +39,11 @@ public class InquiryServiceImpl implements InquiryService{
 	@Override
 	public void deleteInquiry(int inquiryNo) {
 		inquiryMapper.deleteInquiry(inquiryNo);
+	}
+	
+	@Override
+	public List<Inquiry> getMyInquiryList(String userId) {
+		return inquiryRepository.findByUserUserId(userId);
 	}
 
 }

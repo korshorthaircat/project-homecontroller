@@ -14,7 +14,13 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import "../../css/cart.css";
 
-const OrderReview = ({ cart, cartImage }) => {
+
+const OrderReview = ({ cart , cartImage }) => {
+  // window.onload = function() {
+  //   if(!cartImage.productImageName) {
+  //     window.location.reload();
+  //   }
+  // }
   return (
     <div>
       <img

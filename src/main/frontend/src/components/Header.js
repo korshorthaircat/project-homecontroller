@@ -85,6 +85,10 @@ const Header = () => {
   const [loginUser, setLoginUser] = React.useState(null);
   const [word, setWord] = useState("");
 
+  // const onSubmit = async (e) => {
+  //   if (e.keyCode === 13) window.location.href = "/search/" + word;
+  // };
+
   const onSubmit = async () => {
     window.location.href = "/search/" + word;
   };
@@ -134,6 +138,9 @@ const Header = () => {
   //     navigate(`/list/?q=${keyword}`);
   //   }
   // };
+  const moveToCategoryList = (param) => {
+    window.location.href = `/list/${encodeURI(param)}`;
+  };
 
   return (
     <>
@@ -188,7 +195,7 @@ const Header = () => {
 
             <div className="logoSearchbarLogin">
               <Link href="/">
-                <img className="logo" src="images/logo_2.png" alt="헤더로고" />
+                <img className="logo" src="../images/logo_2.png" alt="헤더로고" />
               </Link>
 
               <Search>
@@ -202,12 +209,12 @@ const Header = () => {
                     setWord(e.target.value);
                     console.log(word);
                   }}
-                  onKeyPress={() => {
-                    onSubmit();
-                  }}
+                  onKeyPress={onSubmit}
                 />
-
-                {/* <button type="button">검색</button> */}
+                {/* 
+                <button type="button">
+                  검색
+                </button> */}
               </Search>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -327,10 +334,9 @@ const Header = () => {
           </div>
           <Divider />
           <List sx={{ paddingLeft: "40px" }}>
-            <ListItem disablePadding>
+            <ListItem disablePadding style={{ height: "48px" }}>
               <ListItemButton>
-                <CategoryNavbar />
-                <ListItemText primary="모든제품" />
+                <CategoryNavbar moveToCategoryList={moveToCategoryList} />
               </ListItemButton>
             </ListItem>
 

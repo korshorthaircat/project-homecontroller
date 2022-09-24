@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.Data;
 
@@ -17,6 +18,7 @@ import lombok.Data;
 @Table(name="T_HMCT_CART")
 @Data
 @DynamicInsert
+@DynamicUpdate
 @IdClass(CartId.class)
 public class Cart {
 	
@@ -34,9 +36,11 @@ public class Cart {
 		@JoinColumn(name = "COMMON_CODE", referencedColumnName="COMMON_CODE")
 	})
 	private ProductOption productOption;
-	
+	  
 	//제품 수량
 	@ColumnDefault("1")
 	private int productCount;
+	
+	
     
 }

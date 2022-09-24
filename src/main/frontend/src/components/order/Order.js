@@ -112,17 +112,25 @@ const Order = () => {
       data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
     }).then((response) => {
       //console.log(response.data.data);
-
       setCartList(response.data.data);
     });
     //제품 이미지 받아오기
     axios({
       method: "post",
-      url: "http://localhost:8080/api/cart/getCartImageList",
+      url: "http://localhost:8080/api/cart/getCartMapList",
       data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
     }).then((response) => {
+      console.log(response.data.data);
       setCartImageList(response.data.cartImageList);
     });
+    // .catch((e)=>{
+    //   e.window.onload = function() {
+    //     if(!window.location.hash) {
+    //       window.location = window.location + '#loaded';
+    //       window.location.reload();
+    //     }
+    //   }
+    // });
   };
 
   //결제하기 버튼 클릭시 db에 주문 데이터 저장하기

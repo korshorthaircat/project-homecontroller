@@ -11,6 +11,7 @@ import HeartButton from "./HeartButton";
 import Heart from "react-heart";
 import { HideImageRounded } from "@mui/icons-material";
 import HeartTest from "./HeartTest";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const ProductCard = ({ item, productImageList }) => {
   //대표 이미지
@@ -25,6 +26,7 @@ const ProductCard = ({ item, productImageList }) => {
   const [wishDeleteShow, setWishDeleteShow] = useState(false);
 
   const [courseCostChange, setCourseCostChange] = useState("");
+  const [wishItemList, setWishItemList] = useState([]);
 
   //
   const [cnt, setCnt] = useState(0);
@@ -74,6 +76,24 @@ const ProductCard = ({ item, productImageList }) => {
 
   const [like, setLike] = useState(false);
   const [active, setActive] = useState(false);
+
+  //위시리스트 데이터 조회
+  useEffect(() => {
+    axios({
+      url: "http://localhost:8080/api/wishlist/getWishItemList",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+      },
+      method: "get",
+    })
+      .then((response) => {
+        console.log(response);
+        setWishItemList(wishItemList);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   //위시리스트에 담기
   const addWishList = () => {
@@ -157,6 +177,14 @@ const ProductCard = ({ item, productImageList }) => {
     });
   };
 
+  useEffect(() => {
+    if (wishItemList.length != 0) {
+      wishItemList.map((wishItem) => {
+        wishItem.productNo === item.productNo ? setLike(true) : setLike(false);
+      });
+    }
+  }, [wishItemList]);
+
   //장바구니 등록 완료시 모달창 띄우기
   const handleClose = () => setShow(false);
   const wishlistHandleClose = () => setwishlistShow(false);
@@ -204,7 +232,7 @@ const ProductCard = ({ item, productImageList }) => {
             >
               <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
             </IconButton> */}
-            {/* <Heart
+            <Heart
               style={{ width: "2rem" }}
               isActive={active}
               onClick={() => {
@@ -216,9 +244,15 @@ const ProductCard = ({ item, productImageList }) => {
                   alert("취소되었습니다");
                 }
               }}
-            /> */}
+            />
 
-            <HeartTest like={like} addWishList={addWishList} />
+            {/* {like && like ? (
+              <FavoriteIcon onClick={addWishList} />
+            ) : (
+              <FavoriteBorderOutlinedIcon onClick={addWishList} />
+            )} */}
+
+            {/* <HeartTest like={like} addWishList={addWishList} /> */}
 
             <Modal show={wishlistShow} onHide={wishlistHandleClose}>
               <Modal.Header closeButton>

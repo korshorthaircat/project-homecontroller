@@ -1,10 +1,14 @@
 package com.bootreact.hmct.controller.mypage;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,22 +16,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;   
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.bootreact.hmct.dto.InquiryDTO;
 import com.bootreact.hmct.dto.OrderDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.entity.Order;
 import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.jwt.JwtTokenProvider;
 import com.bootreact.hmct.service.cart.CartService;
-//import com.bootreact.hmct.service.inquiry.InquiryService;
+import com.bootreact.hmct.service.inquiry.InquiryService;
 import com.bootreact.hmct.service.mypage.MypageService;
 import com.bootreact.hmct.service.order.OrderService;
 import com.bootreact.hmct.service.product.ProductService;
 import com.bootreact.hmct.service.review.ReviewService;
 import com.bootreact.hmct.service.user.UserService;
 import com.bootreact.hmct.service.wish.WishService;
+
+import lombok.RequiredArgsConstructor;
+
 import com.bootreact.hmct.entity.ChangePw;
+import com.bootreact.hmct.entity.Inquiry;
 
 @RestController
 @RequestMapping("/api/mypage")
@@ -48,8 +58,8 @@ public class MypageController {
 	@Autowired
 	ReviewService reviewService;
 
-//	@Autowired
-//	InquiryService inquiryService;
+	@Autowired
+	InquiryService inquiryService;
 
 	@Autowired
 	MypageService mypageService;
@@ -196,8 +206,51 @@ public class MypageController {
     	}
     }
 	
+	//나의 게시글 조회 
+	@PostMapping("/getMyInquiryList")
+    public ResponseEntity<?> getMyInquiryList(@AuthenticationPrincipal String userId) {
+		try {
+			List<Inquiry> inquiryList = inquiryService.getMyInquiryList(userId);
+			System.out.println(userId);
+			
+			List<InquiryDTO> inquiryDTOList = new ArrayList<InquiryDTO>();
+ 		
+			for(Inquiry i : inquiryList) {
+				InquiryDTO inquiryDTO = new InquiryDTO();
+				
+				inquiryDTO.setInquiryNo(i.getInquiryNo());
+				inquiryDTO.setInquiryAnswer(i.getInquiryAnswer());
+				inquiryDTO.setInquiryContent(i.getInquiryContent());
+				inquiryDTO.setInquiryRgsdate(i.getInquiryRgsdate());
+				inquiryDTO.setInquiryState(i.getInquiryState());
+				inquiryDTO.setInquiryTitle(i.getInquiryTitle());
+				inquiryDTO.setUser(i.getUser());
+				
+				inquiryDTOList.add(inquiryDTO);
+
+			}
+		System.out.println("왔어여?");
+		ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
+		
+		response.setData(inquiryDTOList);
+		
+		return ResponseEntity.ok().body(response);
+		
+		
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
+			response.setError(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
+	}
+
+		
+	}
 	
 	
 	
 	
-}
+	
+	
+

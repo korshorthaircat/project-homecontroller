@@ -8,7 +8,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import "../../css/cart.css";
 
@@ -29,17 +29,27 @@ const Cart = () => {
     }).then((response) => {
       console.log(response.data.data);
       setCartList(response.data.data);
+
       sessionStorage.setItem("cartCount", response.data.data.length);
     });
     //제품 이미지 받아오기
     axios({
       method: "post",
-      url: url + "/getCartImageList",
+      url: url + "/getCartMapList",
       data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
-    }).then((response) => {
-      console.log(response.data.cartImageList);
-      setCartImageList(response.data.cartImageList);
-    });
+    })
+      .then((response) => {
+        console.log(response);
+        setCartImageList(response.data.cartImageList);
+      })
+      .catch((e) => {
+        e.window.onload = function () {
+          if (!window.location.hash) {
+            window.location = window.location + "#loaded";
+            window.location.reload();
+          }
+        };
+      });
   };
 
   //장바구니 아이템 삭제 후 db로부터 장바구니의 데이터 받아오기
@@ -55,6 +65,7 @@ const Cart = () => {
     }).then((response) => {
       //console.log(response.data.data);
       setCartList(response.data.data);
+      window.location.reload("/cart");
     });
   }, []);
 
@@ -229,6 +240,7 @@ const Cart = () => {
                     {(paymentAmount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                   </Typography>
                 </div>
+
               </Grid>
               <Grid>
                 <Link

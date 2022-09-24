@@ -12,6 +12,7 @@ import UserUpdate from "./components/mypage/UserUpdate";
 import OutMembers from "./components/mypage/OutMembers";
 import MyPoint from "./components/mypage/MyPoint";
 import ReviewList from "./components/mypage/ReviewList";
+import MyInquiry from "./components/mypage/MyInquiry";
 import WishList from "./components/mypage/WishList";
 import OrderList from "./components/mypage/OrderList";
 import ImageThumb from "./components/productDetail/ImageThumb";
@@ -77,6 +78,7 @@ const AppRouter = () => {
               <Route path="/userupdate" element={<UserUpdate />} />
               <Route path="/outmembers" element={<OutMembers />} />
               <Route path="/reviewlist" element={<ReviewList />} />
+              <Route path="/myinquiry" element={<MyInquiry />} />
               <Route path="/wishlist" element={<WishList />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/order" element={<Order />} />
@@ -94,6 +96,7 @@ const AppRouter = () => {
               <Route path="/userupdate" element={<Login />} />
               <Route path="/outmembers" element={<Login />} />
               <Route path="/reviewlist" element={<Login />} />
+              <Route path="/myinquiry" element={<Login />} />
               <Route path="/wishlist" element={<Login />} />
               <Route path="/cart" element={<Login />} />
               <Route path="/order" element={<Login />} />
@@ -103,7 +106,6 @@ const AppRouter = () => {
 
           {isAdmin ? (
             <>
-              <Route path="/admin" element={<Dashboard />} />
               <Route path="/admin" element={<Dashboard />} />
               <Route path="/admin1" element={<ProductAdd />} />
               <Route path="/admin2" element={<ProductList />} />
@@ -116,7 +118,6 @@ const AppRouter = () => {
             </>
           ) : (
             <>
-              <Route path="/admin" element={<Login />} />
               <Route path="/admin" element={<Login />} />
               <Route path="/admin1" element={<Login />} />
               <Route path="/admin2" element={<Login />} />
@@ -139,7 +140,7 @@ const AppRouter = () => {
           <Route path="/coupon" element={<Coupon />} />
           <Route
             path="/list/:productCategoryName"
-            element={<ProductCategoryList />}
+            element={<NavProductCategoryList />}
           />
           {/* <Route path="/search" element={<SearchedProductCategoryList />} /> */}
           {/* <Route
