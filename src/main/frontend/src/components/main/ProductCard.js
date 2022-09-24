@@ -232,7 +232,7 @@ const ProductCard = ({ item, productImageList }) => {
             >
               <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
             </IconButton> */}
-            {/* <Heart
+            <Heart
               style={{ width: "2rem" }}
               isActive={active}
               onClick={() => {
@@ -244,13 +244,13 @@ const ProductCard = ({ item, productImageList }) => {
                   alert("취소되었습니다");
                 }
               }}
-            /> */}
+            />
 
-            {like && like ? (
+            {/* {like && like ? (
               <FavoriteIcon onClick={addWishList} />
             ) : (
               <FavoriteBorderOutlinedIcon onClick={addWishList} />
-            )}
+            )} */}
 
             {/* <HeartTest like={like} addWishList={addWishList} /> */}
 
