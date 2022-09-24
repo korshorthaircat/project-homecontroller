@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bootreact.hmct.dto.OrderDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.entity.Order;
+import com.bootreact.hmct.service.cart.CartService;
 import com.bootreact.hmct.service.order.OrderService;
 import com.bootreact.hmct.service.user.UserService;
 
@@ -31,6 +31,9 @@ public class OrderController {
     
     @Autowired
     UserService userService;
+    
+    @Autowired
+    CartService cartService;
 	
     //주문 목록 조회
     @GetMapping("/getOrderList")
@@ -148,6 +151,9 @@ public class OrderController {
 									paramMap.get("paymentName").toString(),
 									paramMap.get("paymentAmount").toString(),
 									paramMap.get("paymentWay").toString());
+			
+			//주문 생성 후 장바구니 비워주기
+//			cartService.deleteAllFromCart(paramMap.get("userId"));
 		
     	}catch(Exception e){
     		System.out.println(e.getMessage());
