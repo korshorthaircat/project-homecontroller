@@ -47,6 +47,11 @@ public class ReviewServiceImpl implements ReviewService{
 		reviewMapper.deleteReview(reviewNo);
 	}
 
+	@Override
+	public int getAvgRevGradeByProductNo(int productNo) {
+		return reviewMapper.getAvgRevGradeByProductNo(productNo);
+	}
+
 
 
 
