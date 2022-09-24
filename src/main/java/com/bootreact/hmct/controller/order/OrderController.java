@@ -153,7 +153,7 @@ public class OrderController {
 									paramMap.get("paymentWay").toString());
 			
 			//주문 생성 후 장바구니 비워주기
-//			cartService.deleteAllFromCart(paramMap.get("userId"));
+			cartService.deleteAllFromCart(paramMap.get("userId").toString());
 		
     	}catch(Exception e){
     		System.out.println(e.getMessage());

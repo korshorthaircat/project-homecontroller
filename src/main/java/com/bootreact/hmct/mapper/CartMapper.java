@@ -76,6 +76,10 @@ public interface CartMapper {
 
 
 	List<Map<String, Object>> getCartImageList(String userId);
+
+
+	@Delete("")
+	void deleteAllFromCart(String userId);
 	
 	
 }

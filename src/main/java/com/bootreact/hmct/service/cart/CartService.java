@@ -17,5 +17,7 @@ public interface CartService {
 	void addCart(String userId, String productNo, String commonCode, int productCount);
 
 	void updateCart(String userId, String productNo, String commonCode, String productCount);
+
+	void deleteAllFromCart(String userId);
 	
 }
