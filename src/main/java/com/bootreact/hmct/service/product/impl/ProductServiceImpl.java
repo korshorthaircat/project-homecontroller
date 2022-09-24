@@ -169,5 +169,10 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.getSearchProductImageList(paramMap);
 	}
 
+	@Override
+	public List<Map<String, Object>> getProductCategoryList(String code) {
+		return productMapper.getProductCategoryList(code);
+	}
+
 	
 }

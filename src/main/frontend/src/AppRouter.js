@@ -139,7 +139,7 @@ const AppRouter = () => {
           <Route path="/coupon" element={<Coupon />} />
           <Route
             path="/list/:productCategoryName"
-            element={<ProductCategoryList />}
+            element={<NavProductCategoryList />}
           />
           {/* <Route path="/search" element={<SearchedProductCategoryList />} /> */}
           {/* <Route

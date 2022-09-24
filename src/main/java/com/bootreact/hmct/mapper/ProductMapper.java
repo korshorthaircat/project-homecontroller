@@ -62,6 +62,8 @@ public interface ProductMapper {
 	
 	List<Map<String, Object>> getSearchProductImageList(Map<String, Object> paramMap);
 
+	List<Map<String, Object>> getProductCategoryList(String code);
+
 
 
 }		
