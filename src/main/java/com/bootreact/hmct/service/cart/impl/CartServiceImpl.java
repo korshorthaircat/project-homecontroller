@@ -55,4 +55,9 @@ public class CartServiceImpl implements CartService{
 	public List<Map<String, Object>> getCartImageList(String userId) {
 		return cartMapper.getCartImageList(userId);
 	}
+
+	@Override
+	public void deleteAllFromCart(String userId) {
+		cartMapper.deleteAllFromCart(userId);
+	}
 }
