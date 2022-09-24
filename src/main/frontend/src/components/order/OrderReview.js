@@ -14,6 +14,11 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 
 const OrderReview = ({ cart , cartImage }) => {
+  window.onload = function() {
+    if(!cartImage.productImageName) {
+      window.location.reload();
+    }
+  }
   return (
     <List sx={{ width: "100%", Width: 500, bgcolor: "background.paper" }}> 
       <ListItem alignItems="flex-start">

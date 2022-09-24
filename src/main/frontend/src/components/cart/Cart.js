@@ -8,7 +8,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import "../../css/cart.css";
 
@@ -63,6 +63,7 @@ const Cart = () => {
     }).then((response) => {
       //console.log(response.data.data);
       setCartList(response.data.data);
+      window.location.reload("/cart");
     });
   }, []);
 
@@ -80,6 +81,7 @@ const Cart = () => {
     }).then((response) => {
       //console.log(response.data.data);
       setCartList(response.data.data);
+      
     });
   }, []);
 
