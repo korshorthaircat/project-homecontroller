@@ -1,6 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
 import "react-multi-carousel/lib/styles.css";
-import ProductCardForList from "./ProductCardForList";
 import "../../css/productCategory.css";
 import { Container } from "react-bootstrap";
 import FixedBar from "./FixedBar";
@@ -18,6 +17,7 @@ import { styled } from "@mui/material/styles";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { param } from "jquery";
+import ProductCard from "../main/ProductCard";
 
 const ProductCategoryList = () => {
   const [productList, setProductList] = useState([]);
@@ -51,8 +51,7 @@ const ProductCategoryList = () => {
   useEffect(() => {
     async function fetchData() {
       const result = await axios.get(
-        "http://localhost:8080/api/product/getProductCategoryList=" +
-          params.word
+        "http://localhost:8080/api/main/getSearchProducts=" + params.word
       );
 
       console.log(params.word);
@@ -187,10 +186,7 @@ const ProductCategoryList = () => {
           <Grid container spacing={2} columns={16}>
             {showProductList.length !== 0 ? (
               showProductList.map((a) => (
-                <ProductCardForList
-                  item={a}
-                  productImageList={productImageList}
-                />
+                <ProductCard item={a} productImageList={productImageList} />
               ))
             ) : (
               <p>조회된 데이터가 없습니다.</p>
