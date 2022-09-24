@@ -107,7 +107,7 @@ const MyInquiry = () => {
   const insertInquiryBoard = () => {
     axios({
       url: "http://localhost:8080/api/inquiry/insertInquiryBoard",
-      method: "get",
+      method: "post",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
       },
@@ -123,7 +123,7 @@ const MyInquiry = () => {
       .catch((e) => {
         console.log(e);
       });
-    window.location.href = "/myinquiry";
+    // window.location.href = "/myinquiry";
   };
 
   // //게시글 수정(admin이 답변을 등록할 때 사용)
@@ -138,7 +138,7 @@ const MyInquiry = () => {
     })
       .then((response) => {
         setInquiryList(response.data);
-        window.location.href = "/board";
+        window.location.href = "/myinquiry";
       })
       .catch((e) => {
         console.log(e);
