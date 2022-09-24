@@ -123,16 +123,11 @@
   border-radius: 100%;
   border: 0px;
   position: relative;
-  bottom: 7%;
-  left: 44%;
-}
-
-.testtttt {
-  width: 5%;
-}
-
-.testA {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.testtttt {
+  width: 60%;
 }

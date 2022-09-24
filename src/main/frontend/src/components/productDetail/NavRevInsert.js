@@ -76,8 +76,8 @@ export default function NavRevInsert() {
   }, []);
 
   React.useEffect(() => {
-    setReviewOrderNo(orderNoList.slice(0, 1));
-    setReviewCommonCode(commonCodeList.slice(0, 1));
+    setReviewOrderNo(orderNoList[0]);
+    setReviewCommonCode(commonCodeList[0]);
   }, [orderNoList, commonCodeList]);
 
   return (
