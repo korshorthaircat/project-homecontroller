@@ -38,42 +38,35 @@
 } */
 
 .ttt {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(1, 1fr);
-    width: 1350px;
-    height: 890px;
-    margin: 0 auto;
-    position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  width: 1350px;
+  height: 890px;
+  margin: 0 auto;
+  position: relative;
 }
 
 .aaa {
-    grid-row: 1 / 3;
-    /* background-image: url("../../public/images/main_1.jpg"); */
-    background-image: url("https://www.ikea.com/ext/ingkadam/m/308fbe392b04ce5d/original/PH184524.jpg?f=xl");
-    background-size: cover;
-    /* background-repeat:no-repeat; */
-    margin: 10px;
-    
-    
+  grid-row: 1 / 3;
+  /* background-image: url("../../public/images/main_1.jpg"); */
+  background-image: url("https://www.ikea.com/ext/ingkadam/m/308fbe392b04ce5d/original/PH184524.jpg?f=xl");
+  background-size: cover;
+  /* background-repeat:no-repeat; */
+  margin: 10px;
 }
-
 
 .bbb {
-    background-color: blue;
-    background-image: url("https://www.ikea.com/ext/ingkadam/m/59d07cd6ed5edc0e/original/PH184523.jpg?f=xl");
-    
-    background-size: cover;
-    margin: 10px;
-}    
+  background-color: blue;
+  background-image: url("https://www.ikea.com/ext/ingkadam/m/59d07cd6ed5edc0e/original/PH184523.jpg?f=xl");
 
-.ccc {
-    background-color: yellow;
-    margin: 10px;
+  background-size: cover;
+  margin: 10px;
 }
 
-.showroomProductContent {
-    line-height: 2;
+.ccc {
+  background-color: yellow;
+  margin: 10px;
 }
 
 /* .hoverIcon {
@@ -90,41 +83,52 @@
     font-size: 30px;
 } */
 
-
-
-
 .hoverIcon2 {
-    width: 35px;
-    height: 35px;
-    background-color: rgba(0,0,0, 0.3);
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
+  width: 35px;
+  height: 35px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .smallHoverIcon2 {
-    width: 15px;
-    height: 15px;
-    background-color: white;
-    border-radius: 100%;
-    
+  width: 15px;
+  height: 15px;
+  background-color: white;
+  border-radius: 100%;
 }
 
 .hoverIcon2:hover {
-    background-color: rgba(0,0,0, 0.5);
-    
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.hoverIcon {
-    position: relative;
-    left: 300px;
-    bottom: 300px;
-    
-}
+/* .hoverIcon {
+  position: relative;
+  left: 300px;
+  bottom: 300px;
+} */
 
 /* .hoverIcon:hover {
     background-color: red;
     
 } */
+
+/* .productName {
+  font-size: 10px;
+  font-weight: bold;
+} */
+
+/* .productCategoryName {
+  font-size: 20px;
+}
+
+.productPrice {
+  font-size: 22px;
+} */
+
+.showroomProductContent {
+  line-height: 50%;
+  margin: 20px;
+}

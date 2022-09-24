@@ -18,11 +18,11 @@ const responsive = {
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2,
+    items: 5,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 1,
+    items: 4,
   },
 };
 
@@ -40,7 +40,7 @@ class ServiceCarousel extends React.Component {
           carouselItemWidth *
             (this.Carousel.state.totalItems -
               this.Carousel.state.slidesToShow) +
-            192
+            150
         );
         value = maxTranslateX / 100; // calculate the unit of transform for the slider
       }
@@ -60,7 +60,7 @@ class ServiceCarousel extends React.Component {
 
               if (
                 e.target.value === 0 &&
-                this.state.additionalTransfrom === 192
+                this.state.additionalTransfrom === 150
               ) {
                 this.Carousel.isAnimationAllowed = true;
                 this.setState({ additionalTransfrom: 0 });
@@ -87,10 +87,10 @@ class ServiceCarousel extends React.Component {
           containerClass="carousel-container-with-scrollbar"
           additionalTransfrom={-this.state.additionalTransfrom}
           beforeChange={(nextSlide) => {
-            if (nextSlide !== 0 && this.state.additionalTransfrom !== 192) {
-              this.setState({ additionalTransfrom: 192 });
+            if (nextSlide !== 0 && this.state.additionalTransfrom !== 150) {
+              this.setState({ additionalTransfrom: 150 });
             }
-            if (nextSlide === 0 && this.state.additionalTransfrom === 192) {
+            if (nextSlide === 0 && this.state.additionalTransfrom === 150) {
               this.setState({ additionalTransfrom: 0 });
             }
           }}
