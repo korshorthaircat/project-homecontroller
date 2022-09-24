@@ -16,7 +16,6 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { param } from "jquery";
 import ProductCard from "../main/ProductCard";
 
 const ProductCategoryList = () => {
@@ -51,7 +50,7 @@ const ProductCategoryList = () => {
   useEffect(() => {
     async function fetchData() {
       const result = await axios.get(
-        "http://localhost:8080/api/main/getSearchProducts=" + params.word
+        "http://localhost:8080/api/main/getSearchProducts?word=" + params.word
       );
 
       console.log(params.word);

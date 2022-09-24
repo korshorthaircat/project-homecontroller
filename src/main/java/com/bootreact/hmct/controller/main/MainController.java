@@ -31,7 +31,7 @@ public class MainController {
 //	void getSearchProducts(String keyword) {}
 	@GetMapping("/getSearchProducts")
 	public Map<String, Object> getSearchProducts(@RequestParam String word) {
-		System.out.println("word : /////////"+word);
+		System.out.println("검색바에서 다음과 같이 검색: "+word);
 		try {
 			List<Map<String, Object>> searchProductList = productService.getSearchProducts(word);
 			
