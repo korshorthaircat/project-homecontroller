@@ -88,7 +88,7 @@
   font-weight: bold;
 }
 
-.col {
+.Maincol {
   height: 900px;
   width: 655px;
   padding: 0;
@@ -96,7 +96,7 @@
   position: relative;
 }
 
-.col img {
+.Maincol img {
   width: 655px;
   height: 900px;
   position: relative;
@@ -106,6 +106,8 @@
   margin: 0 auto;
   width: 1350px;
 }
+
+
 
 /* 
 .showroomBoxBg {

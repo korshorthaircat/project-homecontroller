@@ -10,6 +10,7 @@ import MainShowroomColor from "../../components/main/MainShowroomColor";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import ShowroomtopContent from "./ShowroomtopContent";
 
 const ShowroomTop = () => {
   const [showroomImg, setShowroomImg] = React.useState([]);
@@ -48,8 +49,14 @@ const ShowroomTop = () => {
 
   return (
     <Container component="main" maxWidth="xl" style={{ marginTop: "3%" }}>
-      <h1 style={{ fontWeight: "bold" }}>인테리어 쇼룸</h1>
-      <p style={{ marginBottom: "5%" }}>나만의 색상으로 내 공간을 꾸며보자!</p>
+      <h1 style={{ fontWeight: "bold", marginBottom: "2%" }}>인테리어 쇼룸</h1>
+      <p style={{ marginBottom: "4%" }}>
+        여러가지 컬러로 당신의 색을 보여주세요 오늘은 어떤 컬러로 내 공간을
+        꾸며볼까? <br />
+        나만의 컬러로 내 공간을 꾸며보자!
+      </p>
+
+      <ShowroomtopContent />
       <div className="showroomMain">
         {colorArr.map((color, index) => (
           <ShowroomColor

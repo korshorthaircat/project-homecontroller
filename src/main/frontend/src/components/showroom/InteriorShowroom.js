@@ -87,7 +87,7 @@ const InteriorShowroom = () => {
     <div>
       <div>
         <ShowroomTop></ShowroomTop>
-        <Box sx={{ flexGrow: 4 }}>
+        <Box sx={{ flexGrow: 1 }}>
           <Grid
             container
             spacing={{ xs: 2, md: 3 }}
@@ -114,7 +114,7 @@ const InteriorShowroom = () => {
             console.log("data", showroomImgData);
           }}
         >
-          더 보기
+          쇼룸 더 보기
         </Button>
       </div>
     </div>
