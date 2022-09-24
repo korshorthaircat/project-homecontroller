@@ -29,6 +29,8 @@ const Join = () => {
   const [isPassword, setIsPassword] = useState(false);
   //비빌번호와 비밀번호체크가 서로 일치하는 경우(true)
   const [isCheckedPassword, setIsCheckedPassword] = useState(false);
+   //아이디가 형식에 부합하는 경우(true)
+   const [isId, setIsId] = useState(false);
   //아이디가 중복되지 않은 경우(true)
   const [isValidId, setIsValidId] = useState(false);
   //이메일 인증을 완료한 경우(true)
@@ -36,13 +38,24 @@ const Join = () => {
 
   //에러 메시지
   const [userPwMessage, setUserPwMessage] = useState("");
+  const [userIdMessage, setUserIdMessage] = useState("");
   const [userEmailCheckMessage, setUserEmailCheckMessage] = useState("");
   const [userPwCheckMessage, setUserPwCheckMessage] = useState("");
 
   //state의 변화 감지
   const onIdHandler = (event) => {
-    setUserId(event.currentTarget.value);
-  };
+      const regex = /[^a-zA-Z].{4,8}$/
+      if (!regex.test(userId)) {
+        setIsId(false);
+        setUserIdMessage(
+          "특수 문자를 제외하고 4자리 이상 8자리 미만으로 적어주세요."
+        );
+      } else {
+        setIsId(true);
+        setUserIdMessage("");
+      }
+      setUserId(event.target.value);
+    };
 
   const onPwHandler = useCallback(
     (event) => {
@@ -140,7 +153,7 @@ const Join = () => {
       data: { userId: userId },
     }).then((response) => {
       //console.log(response);
-      if (response.data == "") {
+      if (response.data === "") {
         alert("사용할 수 있는 아이디입니다.");
         setIsValidId(true);
       } else {
@@ -269,6 +282,11 @@ const Join = () => {
               value={userId}
               onChange={onIdHandler}
             />
+            {userId.length > 0 && (
+              <span className={`message ${isId ? "success" : "error"}`}>
+                {userIdMessage}
+              </span>
+            )}
           </Grid>
 
           <Grid item xs={12} sm={4}>

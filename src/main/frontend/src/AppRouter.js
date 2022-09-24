@@ -104,7 +104,6 @@ const AppRouter = () => {
           {isAdmin ? (
             <>
               <Route path="/admin" element={<Dashboard />} />
-              <Route path="/admin" element={<Dashboard />} />
               <Route path="/admin1" element={<ProductAdd />} />
               <Route path="/admin2" element={<ProductList />} />
               <Route path="/admin3" element={<ProductUpdate />} />
@@ -116,7 +115,6 @@ const AppRouter = () => {
             </>
           ) : (
             <>
-              <Route path="/admin" element={<Login />} />
               <Route path="/admin" element={<Login />} />
               <Route path="/admin1" element={<Login />} />
               <Route path="/admin2" element={<Login />} />

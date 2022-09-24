@@ -35,13 +35,13 @@ const Cart = () => {
     //제품 이미지 받아오기
     axios({
       method: "post",
-      url: url + "/getCartImageList",
+      url: url + "/getCartMapList",
       data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
     }).then((response) => {
-      console.log(response.data.cartImageList);
+      console.log(response);
       setCartImageList(response.data.cartImageList);
-    }).catch(()=>{
-      window.onload = function() {
+    }).catch((e)=>{
+      e.window.onload = function() {
         if(!window.location.hash) {
           window.location = window.location + '#loaded';
           window.location.reload();
