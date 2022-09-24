@@ -85,6 +85,10 @@ const Header = () => {
   const [loginUser, setLoginUser] = React.useState(null);
   const [word, setWord] = useState("");
 
+  // const onSubmit = async (e) => {
+  //   if (e.keyCode === 13) window.location.href = "/search/" + word;
+  // };
+
   const onSubmit = async () => {
     window.location.href = "/search/" + word;
   };
@@ -209,12 +213,12 @@ const Header = () => {
                     setWord(e.target.value);
                     console.log(word);
                   }}
-                  onKeyPress={() => {
-                    onSubmit();
-                  }}
+                  onKeyPress={onSubmit}
                 />
-
-                {/* <button type="button">검색</button> */}
+                {/* 
+                <button type="button">
+                  검색
+                </button> */}
               </Search>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>

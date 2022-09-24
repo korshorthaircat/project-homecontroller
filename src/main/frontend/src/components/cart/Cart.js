@@ -8,7 +8,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import "../../css/cart.css";
 
@@ -29,25 +29,27 @@ const Cart = () => {
     }).then((response) => {
       console.log(response.data.data);
       setCartList(response.data.data);
-     
+
       sessionStorage.setItem("cartCount", response.data.data.length);
     });
     //제품 이미지 받아오기
     axios({
       method: "post",
-      url: url + "/getCartImageList",
+      url: url + "/getCartMapList",
       data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
-    }).then((response) => {
-      console.log(response.data.cartImageList);
-      setCartImageList(response.data.cartImageList);
-    }).catch(()=>{
-      window.onload = function() {
-        if(!window.location.hash) {
-          window.location = window.location + '#loaded';
-          window.location.reload();
-        }
-      }
-    });
+    })
+      .then((response) => {
+        console.log(response);
+        setCartImageList(response.data.cartImageList);
+      })
+      .catch((e) => {
+        e.window.onload = function () {
+          if (!window.location.hash) {
+            window.location = window.location + "#loaded";
+            window.location.reload();
+          }
+        };
+      });
   };
 
   //장바구니 아이템 삭제 후 db로부터 장바구니의 데이터 받아오기
@@ -63,6 +65,7 @@ const Cart = () => {
     }).then((response) => {
       //console.log(response.data.data);
       setCartList(response.data.data);
+      window.location.reload("/cart");
     });
   }, []);
 
@@ -156,16 +159,18 @@ const Cart = () => {
             sx={{
               p: 2,
               marginLeft: 20,
-              width: 400,
-              height: 400,
+              width: 500,
+              height: 550,
               backgroundColor: "none",
               boxShadow: "none",
             }}
           >
             <Grid>
               <Grid sx={{ paddingBottom: "30px" }}>
-                <Typography sx={{ fontWeight: "800" }}>주문 내역</Typography>
-                <hr style={{ color: "#b5c95a", border: "solid 1px" }} />
+                <Typography sx={{ fontWeight: "800", fontSize: "30px" }}>
+                  주문 내역
+                </Typography>
+                <hr />
                 <div className="cartNamePriceColumn">
                   <span className="productAllPrice">총 주문금액</span>
                   <span>
@@ -202,7 +207,7 @@ const Cart = () => {
                     label="Coupon"
                   >
                     <MenuItem
-                      sx={{ width: "365px" }}
+                      sx={{ width: "460px" }}
                       className="couponSelect"
                       value=""
                     >
@@ -216,19 +221,30 @@ const Cart = () => {
                 </FormControl>
               </Grid>
               <Grid sx={{ paddingBottom: "20px" }}>
-                <Typography id="orderCal" className="cartNamePriceColumn">
-                  할인금액
-                </Typography>
-                <Typography>₩ {""}</Typography>
+                <div className="cartNamePriceColumn">
+                  <Typography id="orderCal">할인금액</Typography>
+                  <Typography id="resultOrderPay">
+                    ₩{" "}
+                    {(orderAmount - paymentAmount + "").replace(
+                      /\B(?=(\d{3})+(?!\d))/g,
+                      ","
+                    )}
+                  </Typography>
+                </div>
+                <div className="cartNamePriceColumn">
+                  <Typography id="orderCal" sx={{ fontSize: "30px" }}>
+                    총 결제금액
+                  </Typography>
+                  <Typography id="resultOrderPay">
+                    ₩{" "}
+                    {(paymentAmount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </Typography>
+                </div>
 
-                <br />
-                <Typography id="orderCal" className="cartNamePriceColumn">
-                  총 결제금액
-                </Typography>
-                <Typography>₩ {paymentAmount}</Typography>
               </Grid>
               <Grid>
                 <Link
+                  className="linkOrder"
                   to={"/order"}
                   state={{
                     obj: {
@@ -241,7 +257,13 @@ const Cart = () => {
                     },
                   }}
                 >
-                  <button className="orderButton">결제하기</button>
+                  <button className="orderButton">
+                    주문하기
+                    <img
+                      src="../images/buttonArrow.png"
+                      style={{ width: "14%" }}
+                    ></img>
+                  </button>
                 </Link>
               </Grid>
             </Grid>

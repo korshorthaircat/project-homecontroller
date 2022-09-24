@@ -47,9 +47,10 @@ public interface ReviewMapper {
 			+ "	WHERE review_no=#{reviewNo}")
 	void deleteReview(int reviewNo);
 
-//	@Select("select * from t_hmct_review "
-//			+ "where product_no = #{productNo}")
-//	List<Map<String, Object>> getReviewListByProductNo(int productNo);
+	@Select("select avg(review_grade) from t_hmct_review "
+			+ "	where product_no = #{productNo}")
+	int getAvgRevGradeByProductNo(@Param("productNo") int productNo);
+
 
 	
 }

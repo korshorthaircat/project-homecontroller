@@ -80,7 +80,7 @@ const ShowroomBox = ({ item, showroomItem }) => {
         <FavoriteBorderOutlinedIcon sx={{ color: "white", fontSize: 30 }} />
       </button> */}
 
-      <div className="testA">
+      <button className="showroomBoxHeartIcon">
         <div className="testtttt">
           <Heart
             isActive={active}
@@ -95,8 +95,7 @@ const ShowroomBox = ({ item, showroomItem }) => {
             }}
           />
         </div>
-        <div className="showroomBoxHeartIcon" />
-      </div>
+      </button>
 
       <Modal show={wishlistShow} onHide={wishlistHandleClose}>
         <Modal.Header closeButton>

@@ -18,6 +18,7 @@ import { height, width } from "@mui/system";
 import NavContentRev from "./NavContentRev";
 import RevStar from "./RevStar";
 import { Button, Modal } from "react-bootstrap";
+import Rating from "@mui/material/Rating";
 
 const MainInfo = ({ changeProductColor, pr }) => {
   let { productNo, commonCode } = useParams();
@@ -31,21 +32,36 @@ const MainInfo = ({ changeProductColor, pr }) => {
 
   const [show, setShow] = useState(false);
 
+  const [avgRevGrade, setAvgRevGrade] = React.useState(0);
+
   const getColorCommonCode = async () => {
     axios({
       url: `http://localhost:8080/api/product/productColorDetail`,
       method: "get",
       params: { productNo: productNo },
     }).then((response) => {
-      console.log( productList);
+      console.log(productList);
       setProductList(response.data.productInfo.slice(0, 1));
       setProductImageList(response.data.productImage);
       // console.log("미미" + response.data.productImage);
     });
   };
 
+  // 상품 별점 평균 조회
+  const getAvgRevGradeByProductNo = () => {
+    axios({
+      url: `http://localhost:8080/api/review/getAvgRevGradeByProductNo`,
+      method: "get",
+      params: { productNo: productNo },
+    }).then((response) => {
+      // console.log(response.data);
+      setAvgRevGrade(response.data.avgRevGrade);
+    });
+  };
+
   useEffect(() => {
     getColorCommonCode();
+    getAvgRevGradeByProductNo();
   }, []);
 
   const handleClickImg = (product) => {
@@ -59,15 +75,14 @@ const MainInfo = ({ changeProductColor, pr }) => {
         console.log(productList[0].commonCodeName);
 
         //색상변경클릭시 받아오는 이미지의 커먼코드를 뽑아서
-        //기존의 프로덕트리스트가 갖고 있는 커먼코드에 다시 셋해준다.  
+        //기존의 프로덕트리스트가 갖고 있는 커먼코드에 다시 셋해준다.
         setProductList([
           {
             ...productList[0],
             commonCodeName: response.data.productImage[0].commonCodeName,
-            commonCode: response.data.productImage[0].commonCode
+            commonCode: response.data.productImage[0].commonCode,
           },
         ]);
-       
       })
       .catch((e) => {
         console.log(e);
@@ -83,10 +98,11 @@ const MainInfo = ({ changeProductColor, pr }) => {
         Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
       },
       method: "post",
-      data: { productNo: productNo, 
-              userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId ,
-              commonCode: productList[0].commonCode
-            },
+      data: {
+        productNo: productNo,
+        userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId,
+        commonCode: productList[0].commonCode,
+      },
     }).then((response) => {
       // console.log("cart",response.data);
       setShow(true);
@@ -118,7 +134,9 @@ const MainInfo = ({ changeProductColor, pr }) => {
                   <div style={{ width: "100px" }}>
                     <MainInfoNav option="review" />
                   </div>
-                  <RevStar />
+                  {/* <RevStar /> */}
+                  <Rating name="avgRevGrade" value={avgRevGrade} readOnly />
+                  {avgRevGrade}
                 </p>
                 <p className="productRevCount"></p>
               </div>

@@ -29,6 +29,7 @@ public class InquiryController {
 	@PostMapping("/insertInquiryBoard")
 	public ResponseEntity<?> insertInquiryBoard(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
 		try {
+			System.out.println(paramMap);
 			int inquiryNo = 1;
 			String inquiryState = "답변대기";
 			String inquiryAnswer = "빠른 시일 내에 답변 드리겠습니다.";

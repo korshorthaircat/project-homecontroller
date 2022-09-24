@@ -19,20 +19,6 @@
   padding: 30px;
 }
 
-.deleteBtn {
-  position: absolute;
-  top: 8%;
-  left: 13%;
-  transform: translate(-50%, -50%);
-  width: 10px;
-  border: none;
-  background-color: #f0f0f000;
-}
-
-.deleteBtn img {
-  width: 20px;
-}
-
 .cartBtn {
   position: absolute;
   height: 100%;

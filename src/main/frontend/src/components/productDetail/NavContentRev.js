@@ -5,12 +5,15 @@ import { useParams } from "react-router-dom";
 import "../../css/ProductDetail.css";
 import Textarea from "../../css/Textarea";
 import RevInsertNav from "./RevInsertNav";
-import RevStar from "./RevStar";
+import Rating from "@mui/material/Rating";
+import Button from "@mui/material/Button";
 
 export default function NavContentRev() {
   const { productNo } = useParams();
-  const [reviewList, setReviewList] = React.useState([]); //전체 게시글 목록
 
+  const [reviewList, setReviewList] = React.useState([]); //전체 리뷰 목록
+
+  const [avgRevGrade, setAvgRevGrade] = React.useState(0);
   const [reviewTitle, setReviewTitle] = React.useState("");
   const [reviewContent, setReviewContent] = React.useState("");
   const [reviewGrade, setReviewGrade] = React.useState();
@@ -21,67 +24,7 @@ export default function NavContentRev() {
   const [orderHistory, setOrderHistory] = React.useState(0);
   const [orderNoList, setOrderNoList] = React.useState([]);
 
-  //상품평 리스트 조회
-  //전체 상품평을 다 불러오는 쿼리.
-  //상세페이지 화면단에서는 제품번호를 기준으로 잘라서 쓰고,
-  //마이페이지 화면단에서는 유저아이디를 기준으로 잘라서 써야 함
-  const getReviewList = () => {
-    axios({
-      url: "http://localhost:8080/api/review/getReviewList",
-      method: "post",
-      // params: { productNo: productNo },
-    })
-      .then((response) => {
-        console.log(response.data.data);
-        setReviewList(response.data.data);
-      })
-      .catch((e) => {});
-  };
-
-  // const updateReview = () => {
-  //   axios({
-  //     url: "http://localhost:8080/api/inquiry/updateReview",
-  //     method: "post",
-  //     data: {
-  //       ReviewNo: reviewNo,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       setReviewList(response.data);
-  //       window.location.href = "/productDetail";
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   console.log(orderHistory);
-  // }, [orderHistory]);
-
-  useEffect(() => {
-    getProducts();
-    getReviewList();
-  }, []);
-
-  // const deleteReview = () => {
-  //   axios({
-  //     url: "http://localhost:8080/api/inquiry/deleteReview",
-  //     method: "delete",
-  //     data: {
-  //       reviewNo: reviewNo,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       setReviewList(response.data);
-  //       window.location.href = "/productDetail";
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // };
-
-  //상품 정보 조회하는 함수
+  //상품 정보 조회
   const getProducts = async () => {
     axios({
       url: `http://localhost:8080/api/product/productDetail`,
@@ -91,22 +34,58 @@ export default function NavContentRev() {
       },
       params: { productNo: productNo },
     }).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       setOrderHistory((prev) => response.data.orderHistory);
       setOrderNoList((prev) => response.data.orderNoList);
     });
   };
+
+  // 상품 별점 평균 조회
+  const getAvgRevGradeByProductNo = () => {
+    axios({
+      url: `http://localhost:8080/api/review/getAvgRevGradeByProductNo`,
+      method: "get",
+      params: { productNo: productNo },
+    }).then((response) => {
+      // console.log(response.data);
+      setAvgRevGrade(response.data.avgRevGrade);
+    });
+  };
+
+  //상품리뷰 리스트 조회(전체 상품평을 다 불러옴)
+  //상세페이지 화면단에서는 제품번호를 기준으로 잘라서 쓰고,
+  //마이페이지 화면단에서는 유저아이디를 기준으로 잘라서 써야 함
+  const getReviewList = () => {
+    axios({
+      url: "http://localhost:8080/api/review/getReviewList",
+      method: "post",
+      // params: { productNo: productNo },
+    })
+      .then((response) => {
+        // console.log(response.data.data);
+        setReviewList(response.data.data);
+      })
+      .catch((e) => {});
+  };
+
+  useEffect(() => {
+    getProducts();
+    getAvgRevGradeByProductNo();
+    getReviewList();
+  }, []);
 
   return (
     <>
       <div className="ReviewPage">
         <p id="acodianProductName">상품평</p>
 
-        <p className="gradeNo">4.3</p>
+        <p>평균 별점: </p>
+        <p className="gradeNo">{avgRevGrade}</p>
         <div id="Review">
-          <RevStar />
+          <Rating name="read-only" value={avgRevGrade} readOnly />
           <p className="RevproductRevCount" style={{ fontSize: "20px" }}>
-            (267)
+            작성된 상품평 갯수:
+            {reviewList.filter((r) => r.productNo == productNo).length}
           </p>
         </div>
 
@@ -129,7 +108,10 @@ export default function NavContentRev() {
                 <hr />
                 <p className="revTitle">{r.reviewTitle}</p>
                 <div className="revRow">
-                  <p className="revGrade">★★★★☆{r.reviewGrade}</p>
+                  <p className="revGrade">
+                    <Rating name="read-only" value={r.reviewGrade} readOnly />
+                    {r.reviewGrade}
+                  </p>
                   <p className="revDate" style={{ float: "right" }}>
                     {r.reviewRegdate.replace("T", " ")}
                   </p>

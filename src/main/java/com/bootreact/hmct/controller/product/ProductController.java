@@ -229,10 +229,6 @@ public class ProductController {
 		@GetMapping("/getShowroomProductItem")
 		public Map<String, Object> getShowroomProductItem(@RequestBody Map<String, String> paramMap) {
 			try {
-				
-				System.out.println("안녕하세요~!~~~~~~~~~~~~~~~~~~~~~~~~~");
-				System.out.println("//////////////////////////////////" + paramMap);
-				
 				List<Map<String, Object>> showroomProductItem =  showroomService.getShowroomProductItem(
 						Integer.parseInt(paramMap.get("productNo"))
 						);

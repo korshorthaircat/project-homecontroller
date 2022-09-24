@@ -40,17 +40,18 @@ function Mypage() {
           />
         </Link>
 
-        <img
-          className="a03"
-          src="../images/mypage_icons/cart.png"
-          View
-          style={{
-            padding: 40,
-            flex: 1,
-            flexDirection: "row",
-          }}
-        />
-
+        <Link href="/cart">
+          <img
+            className="a03"
+            src="../images/mypage_icons/cart.png"
+            View
+            style={{
+              padding: 40,
+              flex: 1,
+              flexDirection: "row",
+            }}
+          />
+        </Link>
         <Link href="/orderlist">
           <img
             className="a04"
@@ -63,7 +64,7 @@ function Mypage() {
             }}
           />
         </Link>
-        <Link href="/reviewlist">
+        <Link href="/myinquiry">
           <img
             className="a05"
             src="../images/mypage_icons/board.png"
@@ -82,7 +83,7 @@ function Mypage() {
           View
           style={{
             padding: 40,
-            flex: 1,
+            // flex: 1,
             flexDirection: "row",
           }}
         />

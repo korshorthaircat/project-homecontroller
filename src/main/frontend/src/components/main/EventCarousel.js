@@ -16,6 +16,12 @@ const stateText = [
     image: process.env.PUBLIC_URL + "../images/111.jpg",
   },
   {
+    title: "#가을캠핑 & 인테리어",
+    content: "가을 인기 키워드 초특가 쇼핑!",
+    image:
+      "https://image.ohou.se/i/bucketplace-v2-development/uploads/exhibitions/cover_image/166261499844986324.jpg?gif=1&w=480&h=320&c=c&webp=1",
+  },
+  {
     title: "홈카페 BEST 아이템 모아보기",
     content: "레트로 컵부터 SNS대란 와플팬까지!",
     image: process.env.PUBLIC_URL + "../images/homecafe2.jpg",

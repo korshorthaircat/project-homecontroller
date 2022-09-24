@@ -23,7 +23,6 @@ import { Fragment } from "react";
 const mdTheme = createTheme();
 
 const MyOrderDetail = () => {
-    const navigate = useNavigate();
     const location = useLocation({});
     const [orderNo, setOrderNo] = useState(location.state);
     const [orderDetail, setOrderDetail] = useState({});
@@ -46,43 +45,6 @@ const MyOrderDetail = () => {
         }
     }, [orderNo]);
 
-    const handleSubmit = (e) =>{
-        e.preventDefault();
-        if (document.activeElement.value === "update") {
-        axios({
-            url: "http://localhost:8080/api/order/updateOrder",
-            method: "put",
-            data: {orderNo: orderNo,
-                     orderStatus: orderDetail.orderStatus,
-                     deliveryAddress: orderDetail.deliveryAddress,
-                     deliveryDetailAddress: orderDetail.deliveryDetailAddress,
-                     deliveryMessage: orderDetail.deliveryMessage,
-                     deliveryName: orderDetail.deliveryName,
-                     deliveryTel: orderDetail.deliveryTel,
-                     deliveryTrackingNo: orderDetail.deliveryTrackingNo,
-                     paymentName: orderDetail.paymentName,}
-            })
-            .then((response) => {
-            //   setOrderNo(response.data);
-              console.log(response.data);
-              navigate("/OrderList");
-              //location(response);             
-              //window.location.href = "/";
-            })
-            .catch((e) => {
-              console.log("update오류" + e);
-            });
-        }
-    }
-
-    const handleChange = (e) => {
-        const updateOrder = {
-          ...orderDetail,
-          [e.target.name]: e.target.value,
-        };
-        setOrderDetail(updateOrder);
-      };
-
     return (
         <ThemeProvider theme={mdTheme} >
             <Box sx={{ display: "flex" }}>
@@ -96,7 +58,6 @@ const MyOrderDetail = () => {
                         }}
                         noValidate
                         autoComplete="off"
-                        onSubmit={handleSubmit}
                     >
                        <Box sx={{display: "flex", justifyContent:"space-between"}}>
                             <Typography variant="h6">
@@ -134,7 +95,12 @@ const MyOrderDetail = () => {
                             <TableBody>
                                         {orderItemList.map((orderItem, index) => (
                                             <TableRow>
-                                                <TableCell>주문 상품 이미지</TableCell>
+                                                <TableCell>
+                                                    <img 
+                                                        src={`http://localhost:8080/upload/${orderItem.productImageName}`} 
+                                                        alt="제품사진"
+                                                        id="ImgThum"/>
+                                                </TableCell>
                                                 <TableCell align="center">{orderItem.productAmount}</TableCell>
                                                 <TableCell align="center">{orderItem.productCount}</TableCell>
                                                 <TableCell align="center">{parseInt(orderItem.productAmount) * parseInt(orderItem.productCount)}</TableCell>

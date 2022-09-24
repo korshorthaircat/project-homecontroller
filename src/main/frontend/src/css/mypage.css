@@ -1,69 +1,66 @@
+.icons {
+  display: flex;
+  /* flex-direction: row; */
+  position: relative;
+  width: 1500px;
+  height: 100%;
+  margin: 0 auto;
+  /* word-break: break-all; */
+  justify-content: center;
+  align-items: center;
+}
 
-    .icons {
-        display: flex;
-        /* flex-direction: row; */
-        position: relative;
-        width: 1500px;
-        height: 100%;
-        margin: 0 auto;
-        word-break: break-all;
-        justify-content: center;
-        align-items: center;
-      }
+.My {
+  margin-left: 380px;
+  margin-top: 50px;
+  font-weight: bold;
+}
 
-      .My {
-        margin-left: 380px;
-        margin-top: 50px;
-        font-weight: bold;
-      }
+.a01 {
+  transition: all 0.2s linear;
+}
+.a01:hover {
+  transform: scale(1.4);
+}
 
-      .a01 {
-        transition: all 0.2s linear;
-      }
-      .a01:hover {
-        transform: scale(1.4);
-      }
+.a02 {
+  transition: all 0.2s linear;
+}
+.a02:hover {
+  transform: scale(1.4);
+}
 
-      .a02 {
-        transition: all 0.2s linear;
-      }
-      .a02:hover {
-        transform: scale(1.4);
-      }
+.a03 {
+  transition: all 0.2s linear;
+}
+.a03:hover {
+  transform: scale(1.4);
+}
 
-      .a03 {
-        transition: all 0.2s linear;
-      }
-      .a03:hover {
-        transform: scale(1.4);
-      }
+.a04 {
+  transition: all 0.2s linear;
+}
+.a04:hover {
+  transform: scale(1.4);
+}
 
-      .a04 {
-        transition: all 0.2s linear;
-      }
-      .a04:hover {
-        transform: scale(1.4);
-      }
+.a05 {
+  transition: all 0.2s linear;
+}
+.a05:hover {
+  transform: scale(1.4);
+}
 
-      .a05 {
-        transition: all 0.2s linear;
-      }
-      .a05:hover {
-        transform: scale(1.4);
-      }
+.a06 {
+  transition: all 0.2s linear;
+}
+.a06:hover {
+  transform: scale(1.4);
+}
 
-      .a06 {
-        transition: all 0.2s linear;
-      }
-      .a06:hover {
-        transform: scale(1.4);
-      }
-
-      .mypageTitle h3 {
-        margin-left: 30px;
-        font-weight: bold;
-        text-decoration: none;
-        color: black;
-      }
-      
-      
+.mypageTitle h3 {
+  margin-left: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}

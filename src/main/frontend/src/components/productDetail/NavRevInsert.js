@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { API_BASE_URL } from "../../app-config";
 import "../../css/ProductDetail.css";
 import RevStar from "./RevStar";
+import Rating from "@mui/material/Rating";
 
 export default function NavRevInsert() {
   const { productNo } = useParams();
@@ -96,7 +97,14 @@ export default function NavRevInsert() {
           className="reviewGrade"
           style={{ fontSize: "20px", marginTop: "50px" }}
         >
-          <RevStar sx={{ width: "200px" }} />
+          <Rating
+            name="simple-controlled"
+            value={reviewGrade}
+            onChange={(event, newValue) => {
+              setReviewGrade(newValue);
+            }}
+          />
+          {reviewGrade}
         </p>
 
         <p style={{ fontSize: "17px", fontWeight: "700", marginTop: "50px" }}>

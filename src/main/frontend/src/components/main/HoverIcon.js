@@ -51,15 +51,25 @@ const HoverIcon = ({ productItem }) => {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <div className="showroomProductContent" responsive="responsive">
-          <Typography sx={{ p: 1 }}>
-            <div>
-              {productItem.productName} <br />
-              {productItem.productCategoryName} , {productItem.productSize}{" "}
-              <br /> {`₩ ${productItem.productPrice}`} <br />
-            </div>
-          </Typography>
+        {/* <div responsive="responsive"> */}
+        {/* <Typography sx={{ p: 1 }}> */}
+        <div className="showroomProductContent">
+          <p style={{ fontSize: "18px", fontWeight: "bold" }}>
+            {productItem.productName}
+          </p>{" "}
+          <br />
+          <p style={{ fontSize: "16px", lineHeight: "120%" }}>
+            {productItem.productCategoryName} ,
+            <br />
+            {productItem.productSize}
+          </p>
+          <br />
+          <p style={{ fontSize: "22px", fontWeight: "bold" }}>{`₩ ${(
+            productItem.productPrice + ""
+          ).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}</p>
         </div>
+        {/* </Typography> */}
+        {/* </div> */}
       </Popover>
     </div>
   );

@@ -27,6 +27,8 @@ public interface ReviewService {
 
 	void deleteReview(int reviewNo);
 
+	int getAvgRevGradeByProductNo(int productNo);
+
 
 	
 

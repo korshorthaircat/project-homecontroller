@@ -163,16 +163,14 @@ public class CartController {
 	
 	//수정 중
 	//장바구니 제품이미지 리스트 조회
-	@PostMapping("/getCartImageList")
+	@PostMapping("/getCartMapList")
     public Map<String, Object> getCartImageList(@RequestBody User user){
 		try {
 
-			List<Map<String, Object>> cartList = cartService.getCartMapList(user.getUserId());
 			List<Map<String, Object>> cartImageList = cartService.getCartImageList(user.getUserId());
 			
 			Map<String, Object> returnMap = new HashMap<String, Object>();
-			
-			returnMap.put("cartList", cartList);
+
 			returnMap.put("cartImageList", cartImageList);
 			
 			return returnMap; 

@@ -32,6 +32,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutline";
+
 // import required modules
 import { Pagination, Navigation, Mousewheel, Zoom } from "swiper";
 
@@ -207,9 +209,6 @@ function WishList() {
           slidesPerGroup={5}
           loop={true}
           loopFillGroupWithBlank={false}
-          // pagination={{
-          //   clickable: true,
-          // }}
           navigation={true}
           Mousewheel={true}
           Zoom={true}
@@ -224,39 +223,31 @@ function WishList() {
                     <img
                       className="wishImg"
                       src={`http://localhost:8080/upload/${wishItem.productImageName}`}
+                      onClick={() => {
+                        window.location.replace(
+                          `/productDetail/${wishItem.productNo}`
+                        );
+                      }}
                     />
                     <div>
-                      {/* <button
-                      onClick={() => {
-                        deleteWishList(index);
-                      }}
-                    >
-                      <img
-                        style={{ width: "20px", height: "20px" }}
-                        className="deleteBtn"
-                        src="https://cdn-icons-png.flaticon.com/128/1828/1828747.png"
-                      />
-                    </button> */}
-                      {/* <button type="button" class="btn btn-outline-dark">
-                      삭제
-                    </button> */}
-                      <Heart
-                        style={{ width: "2rem" }}
-                        isActive={!active}
+                      <IconButton
+                        aria-label="delete"
+                        size="large"
                         onClick={() => {
-                          setActive(!active);
-                          if (!active) {
-                            deleteWishList();
-                            alert("삭제되었습니다");
-                          }
+                          deleteWishList(index);
+                          alert("삭제되었습니다.");
                         }}
-                      />
+                      >
+                        <DeleteOutlinedIcon
+                          sx={{ fontSize: 35, fontWeight: "bold" }}
+                        />
+                      </IconButton>
+
                       <IconButton
                         size="large"
                         aria-label="account of current user"
                         aria-haspopup="true"
                         color="inherit"
-                        // sx={{ padding: "0 6px", left: 140 }}
                         onClick={"addCart"}
                       >
                         <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
@@ -276,9 +267,6 @@ function WishList() {
           slidesPerGroup={3}
           loop={true}
           loopFillGroupWithBlank={false}
-          // pagination={{
-          //   clickable: true,
-          // }}
           navigation={true}
           Mousewheel={true}
           Zoom={true}
@@ -293,33 +281,25 @@ function WishList() {
                     <img
                       className="wishshowroomImg"
                       src={`http://localhost:8080/upload/${wishShowroom.showroomImgName}`}
+                      onClick={() => {
+                        window.location.replace(
+                          `/productDetail/${wishShowroom.ShowroomNo}`
+                        );
+                      }}
                     />
                     <div>
-                      {/* <button
-                      onClick={() => {
-                        deleteWishList(index);
-                      }}
-                    >
-                      <img
-                        style={{ width: "20px", height: "20px" }}
-                        className="deleteBtn"
-                        src="https://cdn-icons-png.flaticon.com/128/1828/1828747.png"
-                      />
-                    </button> */}
-                      {/* <button type="button" class="btn btn-outline-dark">
-                      삭제
-                    </button> */}
-                      <Heart
-                        style={{ width: "2rem" }}
-                        isActive={!active}
+                      <IconButton
+                        aria-label="delete"
+                        size="large"
                         onClick={() => {
-                          setActive(!active);
-                          if (!active) {
-                            deleteWishShowroom();
-                            alert("삭제되었습니다");
-                          }
+                          deleteWishList(index);
+                          alert("삭제되었습니다.");
                         }}
-                      />
+                      >
+                        <DeleteOutlinedIcon
+                          sx={{ fontSize: 35, fontWeight: "bold" }}
+                        />
+                      </IconButton>
                       <IconButton
                         size="large"
                         aria-label="account of current user"
