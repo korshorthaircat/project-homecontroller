@@ -29,7 +29,7 @@ const Cart = () => {
     }).then((response) => {
       console.log(response.data.data);
       setCartList(response.data.data);
-     
+
       sessionStorage.setItem("cartCount", response.data.data.length);
     });
     //제품 이미지 받아오기
@@ -37,17 +37,19 @@ const Cart = () => {
       method: "post",
       url: url + "/getCartMapList",
       data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
-    }).then((response) => {
-      console.log(response);
-      setCartImageList(response.data.cartImageList);
-    }).catch((e)=>{
-      e.window.onload = function() {
-        if(!window.location.hash) {
-          window.location = window.location + '#loaded';
-          window.location.reload();
-        }
-      }
-    });
+    })
+      .then((response) => {
+        console.log(response);
+        setCartImageList(response.data.cartImageList);
+      })
+      .catch((e) => {
+        e.window.onload = function () {
+          if (!window.location.hash) {
+            window.location = window.location + "#loaded";
+            window.location.reload();
+          }
+        };
+      });
   };
 
   //장바구니 아이템 삭제 후 db로부터 장바구니의 데이터 받아오기
@@ -81,7 +83,6 @@ const Cart = () => {
     }).then((response) => {
       //console.log(response.data.data);
       setCartList(response.data.data);
-      
     });
   }, []);
 
@@ -221,7 +222,9 @@ const Cart = () => {
                 <Typography id="orderCal" className="cartNamePriceColumn">
                   할인금액
                 </Typography>
-                <Typography>₩ {""}</Typography>
+                <Typography>
+                  ₩ {parseInt(orderAmount) - parseInt(paymentAmount)}
+                </Typography>
 
                 <br />
                 <Typography id="orderCal" className="cartNamePriceColumn">
