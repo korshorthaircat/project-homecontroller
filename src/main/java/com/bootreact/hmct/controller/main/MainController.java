@@ -27,8 +27,7 @@ public class MainController {
 	ShowroomService showroomService;
 	
 	
-//	//헤더의 검색바 관련 메서드
-//	void getSearchProducts(String keyword) {}
+	//헤더의 검색바 관련 메서드
 	@GetMapping("/getSearchProducts")
 	public Map<String, Object> getSearchProducts(@RequestParam String word) {
 		System.out.println("검색바에서 다음과 같이 검색: "+word);
