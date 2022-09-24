@@ -4,6 +4,7 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import HoverIcon from "./HoverIcon";
 import axios from "axios";
+import ShowroomBox from "./ShowroomBox";
 
 const showRoomObjlocation = [
   { showroomNo: 1, productNo: 50, stlye: { left: "30%", top: "45%" } },
@@ -13,15 +14,19 @@ const showRoomObjlocation = [
 ];
 
 const MainInteriorImage = () => {
-  const [productList, setProductList] = React.useState([]);
+  const [showroomImg, setShowroomImg] = React.useState([]);
+  const [showroomItem, setShowroomItem] = React.useState([]);
+  const [showroomImgData, setShowroomImgData] = React.useState([]);
 
-  let productListUrl = "http://localhost:8080/api/main/getMainProductList";
+  let showroomListUrl = "http://localhost:8080/api/main/getShowroomList";
 
   const list = () => {
     axios
-      .get(productListUrl, {})
+      .get(showroomListUrl, {})
       .then((response) => {
-        setProductList(response.data.data);
+        setShowroomImg(response.data.showroomList);
+        setShowroomItem(response.data.showroomItemList);
+        setShowroomImgData(response.data.showroomList.slice(0, 2));
       })
       .catch((e) => {
         console.log(e);
@@ -34,17 +39,13 @@ const MainInteriorImage = () => {
 
   return (
     <div>
-      <div className="ttt">
-        <div className="aaa"></div>
-        <div className="bbb"></div>
-        {/* <div className='ccc'></div> */}
-      </div>
-
-      {showRoomObjlocation.map((a) => (
-        <div className="hoverIcon" style={a.stlye}>
-          {/* <HoverIcon /> */}
+      <div class="showroomcontainer text-center">
+        <div class="row row-cols-2">
+          {showroomImgData.map((a) => (
+            <ShowroomBox item={a} showroomItem={showroomItem} />
+          ))}
         </div>
-      ))}
+      </div>
     </div>
   );
 };
