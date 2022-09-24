@@ -34,18 +34,20 @@ const Join = () => {
   //아이디가 중복되지 않은 경우(true)
   const [isValidId, setIsValidId] = useState(false);
   //이메일 인증을 완료한 경우(true)
+  const [isMail, setIsMail] = useState(false);
   const [isValidMail, setIsValidMail] = useState(false);
 
   //에러 메시지
   const [userPwMessage, setUserPwMessage] = useState("");
   const [userIdMessage, setUserIdMessage] = useState("");
+  const [mailMessage, setMailMessage] = useState("");
   const [userEmailCheckMessage, setUserEmailCheckMessage] = useState("");
   const [userPwCheckMessage, setUserPwCheckMessage] = useState("");
 
   //state의 변화 감지
   const onIdHandler = (event) => {
-      const regex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{2,5}$/
-      if (!regex.test(userId)) {
+      const regex = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{4,8}$/
+      if (!regex.test(event.target.value)) {
         setIsId(false);
         setUserIdMessage(
           "특수 문자를 제외하고 4자리 이상 8자리 미만으로 적어주세요."
@@ -116,8 +118,18 @@ const Join = () => {
   };
 
   const onMailHandler = (event) => {
-    setUserMail(event.currentTarget.value);
-  };
+    const Mregex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
+      if (!Mregex.test(event.target.value)) {
+        setIsMail(false);
+        setMailMessage(
+          "메일 형식을 맞춰주세요."
+        );
+      } else {
+        setIsMail(true);
+        setMailMessage("");
+      }
+      setUserMail(event.target.value);
+    };
 
   const onMailCheckHandler = (event) => {
     setUserMailCheck(event.currentTarget.value);
@@ -391,6 +403,11 @@ const Join = () => {
               value={userMail}
               onChange={onMailHandler}
             />
+            {userMail.length > 0 && (
+              <span className={`message ${isMail ? "success" : "error"}`}>
+                {mailMessage}
+              </span>
+            )}
           </Grid>
 
           <Grid item xs={12} sm={4}>
