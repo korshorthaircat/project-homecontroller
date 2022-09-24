@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -118,7 +119,7 @@ public class ReviewController {
 		}
 	}
 
-////	상품평 수정
+//	상품평 수정
 //	@PostMapping("/updateReview")
 //	public ResponseEntity<?> updateReview(@RequestBody Map<String, String> paramMap) {
 //		try {
@@ -154,9 +155,8 @@ public class ReviewController {
 //			return ResponseEntity.badRequest().body(response);
 //		}
 //}
-//
-//
-////	상품평 삭제
+
+//	상품평 삭제
 //	@DeleteMapping("/deleteReview")
 //	public ResponseEntity<?> deleteReview(@RequestBody Map<String, String> paramMap) {
 //		try {
@@ -191,5 +191,22 @@ public class ReviewController {
 //			return ResponseEntity.badRequest().body(response);
 //		}
 //	}
-//	
+
+	//제품의 상품평 별점 평균을 조회
+	@GetMapping("/getAvgRevGradeByProductNo")
+	public Map<String, Object> getAvgRevGradeByProductNo(@RequestParam int productNo) {		
+		try {
+			int avgRevGrade = reviewService.getAvgRevGradeByProductNo(productNo);
+//			System.out.println("별점 평균 : " + avgRevGrade);
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			returnMap.put("avgRevGrade", avgRevGrade);
+			return returnMap; 
+		}catch(Exception e) {			
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+    		errorMap.put("error", e.getMessage());
+    		return errorMap;
+		}
+	}
+	
+		
 }
