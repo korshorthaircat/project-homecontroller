@@ -191,7 +191,11 @@ const Header = () => {
 
             <div className="logoSearchbarLogin">
               <Link href="/">
-                <img className="logo" src="../images/logo_2.png" alt="헤더로고" />
+                <img
+                  className="logo"
+                  src="../images/logo_2.png"
+                  alt="헤더로고"
+                />
               </Link>
 
               <Search>
@@ -321,7 +325,7 @@ const Header = () => {
             <img
               className="logo"
               style={{ margin: "0 0 16px 56px" }}
-              src="images/logo_2.png"
+              src="../images/logo_2.png"
               alt="네브바로고"
             />
           </div>

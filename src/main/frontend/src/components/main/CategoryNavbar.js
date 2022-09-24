@@ -112,7 +112,7 @@ function CategoryNavbar(props) {
           <img
             className="logo"
             style={{ margin: "0 0 16px 56px" }}
-            src="images/logo_2.png"
+            src="../images/logo_2.png"
             alt="네브바로고"
           />
         </div>
@@ -154,7 +154,7 @@ function CategoryNavbar(props) {
 
           <ListItem disablePadding>
             <ListItemButton onClick={moveCategoryList}>
-              <ListItemText primary="진열장| 책장" />
+              <ListItemText primary="진열장 | 책장" />
             </ListItemButton>
           </ListItem>
 

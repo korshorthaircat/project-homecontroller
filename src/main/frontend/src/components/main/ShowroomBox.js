@@ -73,7 +73,7 @@ const ShowroomBox = ({ item, showroomItem }) => {
   };
 
   return (
-    <div className="col">
+    <div className="Maincol">
       <img src={`http://localhost:8080/upload/${item.showroomImgName}`} />
 
       {/* <button className="showroomBoxHeart" onClick={addWishShowroom}>
