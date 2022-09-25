@@ -33,14 +33,14 @@ public class CartController {
 	@Autowired private JwtTokenProvider jwtTokenProvider;
 	@Autowired private PasswordEncoder passwordEncoder;
 
-	//<메인 페이지> 장바구니 제품추가 (대표 컬러로 추가됨)
+	//<메인 페이지, 위시아이템 페이지> 장바구니 제품추가 (대표 컬러로 추가됨)
 	@PostMapping("/addCart")
 	public String addCart(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
 		
 			System.out.println(paramMap.toString());
 			System.out.println(userId);
 			System.out.println(paramMap.get("productNo"));
-			System.out.println(paramMap.get("commonCode"));
+//			System.out.println(paramMap.get("commonCode"));
 			
 			int productCount = 1;
 			String commonCode = productService.getRepresentativeCommonCode(

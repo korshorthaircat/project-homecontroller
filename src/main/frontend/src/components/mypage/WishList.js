@@ -45,6 +45,8 @@ function WishList() {
   const [wishShowroomList, setWishShowroomList] = useState([]);
   const [like, setLike] = useState(false);
   const [active, setActive] = useState(false);
+  //장바구니 모달창
+  const [show, setShow] = useState(false);
 
   // db에서 회원 데이터 받아오기
   const getWishItem = async () => {
@@ -97,6 +99,24 @@ function WishList() {
 
   const toggleLike = async (e) => {
     setLike(!like);
+  };
+
+  //장바구니 클릭시 장바구니에 담기
+  const addCart = (index) => {
+    axios({
+      url: "http://localhost:8080/api/cart/addCart",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
+      },
+      method: "post",
+      data: {
+        productNo: wishItemList[index].productNo,
+        commonCode: "commonCode",
+      },
+    }).then((response) => {
+      // console.log("cart",response.data);
+      setShow(true);
+    });
   };
 
   React.useEffect(() => {
@@ -248,7 +268,10 @@ function WishList() {
                         aria-label="account of current user"
                         aria-haspopup="true"
                         color="inherit"
-                        onClick={"addCart"}
+                        onClick={() => {
+                          addCart(index);
+                          alert("장바구니에 추가되었습니다.");
+                        }}
                       >
                         <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
                       </IconButton>
