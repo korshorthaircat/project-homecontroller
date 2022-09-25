@@ -109,22 +109,37 @@ const Login = () => {
             </Button>
           </Grid>
         </Grid>
-        <Grid container justifyContent="space-between" sx={{marginTop: "10px"}}>
-        <Grid item>
+        <Grid
+          container
+          justifyContent="space-between"
+          sx={{ marginTop: "10px" }}
+        >
+          <Grid item>
             <img
-                className="lock"
-                style={{ width : "20px", height: " 20px", marginRight: "5px" }}
-                src="../images/lock.png"
-                alt="자물쇠"
-              />
-              <Link href="/Idfind" variant="body2" sx={{marginRight: " 150px"}}>
-                아이디 찾기
-              </Link>
+              className="lock"
+              style={{ width: "20px", height: " 20px", marginRight: "5px" }}
+              src="../images/lock.png"
+              alt="자물쇠"
+            />
+            <Link href="/Idfind" variant="body2" sx={{ marginRight: " 150px" }}>
+              아이디 찾기
+            </Link>
           </Grid>
           <Grid item>
-          <img
+            <img
+              className="lock"
+              style={{ width: "20px", height: " 20px", marginRight: "5px" }}
+              src="../images/lock.png"
+              alt="자물쇠"
+            />
+            <Link href="/Pwfind" variant="body2" sx={{ marginRight: " 150px" }}>
+              비밀번호를 잊으셨나요?
+            </Link>
+          </Grid>
+          <Grid item>
+            <img
               className="profile"
-              style={{ width : "20px", height: " 20px", marginRight: "5px" }}
+              style={{ width: "20px", height: " 20px", marginRight: "5px" }}
               src="../images/profile.png"
               alt="회원가입"
             />

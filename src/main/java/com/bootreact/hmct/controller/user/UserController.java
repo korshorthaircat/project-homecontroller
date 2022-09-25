@@ -264,7 +264,7 @@ public class UserController {
 		System.out.println("confirm: {}" + confirm);
 
 		return ResponseEntity.ok().body(confirm);
-}
+	}
 	
 	//로그인
 	@PostMapping("/login")
@@ -299,7 +299,7 @@ public class UserController {
 		}	
      }
 	
-	//아이디찾기
+	//아이디 찾기
 	@PostMapping("/Idfind")
     public Map<String, Object> Idfind(User user){
     	try {
@@ -314,5 +314,22 @@ public class UserController {
     		return errorMap;
     	}
     }
+	
+	//비밀번호 찾기
+	@PostMapping("/Pwfind")
+	public ResponseEntity<?> sendTemporaryPwMessage(@RequestBody String data) throws Exception {
+		System.out.println("////이메일/////" + data);
+		
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(data);
+		JSONObject jsonObj = (JSONObject) obj;
+		String email = (String) jsonObj.get("userMail");
+		System.out.println("이메일 파싱 : {} " + email);
+
+		String confirm = mailService.sendTemporaryPwMessage(email);
+		System.out.println("confirm: {}" + confirm);
+
+		return ResponseEntity.ok().body(confirm);
+	}
     
 }
