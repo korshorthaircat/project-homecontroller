@@ -5,6 +5,7 @@ import ProductCard from "./ProductCard";
 import "../../css/carousel.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import ProductCardForList from "../list/ProductCardForList";
 
 const responsive = {
   superLargeDesktop: {
@@ -65,7 +66,7 @@ const ThemeProductCarousel = ({ theme }) => {
         // itemClass="carousel-item-padding-40-px"
       >
         {productList.map((a) => (
-          <ProductCard item={a} productImageList={productImageList} />
+          <ProductCardForList item={a} productImageList={productImageList} />
         ))}
       </Carousel>
     </div>
