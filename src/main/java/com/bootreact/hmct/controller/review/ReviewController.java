@@ -94,7 +94,7 @@ public class ReviewController {
 				reviewDTO.setUserId(r.getOrderItem().getOrder().getUser().getUserId());
 				reviewDTOList.add(reviewDTO);
 			}
-		ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
+		ResponseDTO<ReviewDTO> response = new ResponseDTO<>(); 
 		response.setData(reviewDTOList);
 		return ResponseEntity.ok().body(response);
 			
@@ -138,7 +138,7 @@ public class ReviewController {
 //				reviewDTO.setReviewGrade(r.getReviewGrade());
 //				reviewDTO.setReviewContent(r.getReviewContent());
 //				reviewDTO.setProductNo(r.getProductNo());
-//				reviewDTO.setUser(r.getUser());
+//				reviewDTO.setUser(r.getUser());  
 //				
 //				reviewDTOList.add(reviewDTO);
 //			}
