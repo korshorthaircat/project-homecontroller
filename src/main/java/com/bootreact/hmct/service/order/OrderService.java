@@ -29,4 +29,8 @@ public interface OrderService {
 
    void updateStaus(int orderNo, String orderStatus);
 
+   int getRecentOrder(String userId);
+
+
+
 }

@@ -107,5 +107,10 @@ public class OrderServiceImpl implements OrderService{
 	public void updateStaus(int orderNo, String orderStatus) {
 		orderMapper.updateStatus(orderNo, orderStatus);
 	}
+
+	@Override
+	public int getRecentOrder(String userId) {
+		return orderMapper.getRecentOrder(userId);
+	}
     
 }
