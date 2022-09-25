@@ -29,6 +29,8 @@ public interface ReviewService {
 	void deleteReview(int reviewNo);
 
 	int getAvgRevGradeByProductNo(int productNo);
+	
+	Map<String, Object> myReviewImg();
 
 
 //	List<Review> getMyReviewList(String userId);

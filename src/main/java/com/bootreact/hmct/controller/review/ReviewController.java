@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bootreact.hmct.dto.InquiryDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.dto.ReviewDTO;
+import com.bootreact.hmct.entity.Order;
 import com.bootreact.hmct.entity.Review;
 import com.bootreact.hmct.service.product.ProductService;
 import com.bootreact.hmct.service.review.ReviewService;
@@ -118,6 +119,21 @@ public class ReviewController {
 //    		return errorMap;
 		}
 	}
+	
+	@GetMapping("/myReviewImg")
+    public Map<String, Object> myReviewImg(){
+    	try {
+    		Map<String, Object> reviewImg = reviewService.myReviewImg();
+    		
+    		System.out.println(reviewImg);
+    		
+    		return reviewImg;
+    	}catch(Exception e){
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+    		errorMap.put("error", e.getMessage());
+    		return errorMap;
+    	}
+    }
 
 //	상품평 수정
 //	@PostMapping("/updateReview")

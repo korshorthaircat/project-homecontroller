@@ -12,6 +12,10 @@ import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface ReviewMapper {
+	
+	Map<String, Object> myReviewImg(int reviewNo);
+	
+	List<Map<String, Object>> getReviewItemList();
 
 	@Insert("INSERT INTO t_hmct_review ("
 			+ "	review_no,"
