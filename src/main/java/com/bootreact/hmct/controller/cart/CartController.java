@@ -37,9 +37,9 @@ public class CartController {
 	@PostMapping("/addCart")
 	public String addCart(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
 		
-			System.out.println(paramMap.toString());
-			System.out.println(userId);
-			System.out.println(paramMap.get("productNo"));
+//			System.out.println(paramMap.toString());
+//			System.out.println(userId);
+//			System.out.println(paramMap.get("productNo"));
 //			System.out.println(paramMap.get("commonCode"));
 			
 			int productCount = 1;
@@ -79,10 +79,10 @@ public class CartController {
 	@PutMapping("/updateCart")
 	public ResponseEntity<?>updateCart(@RequestBody Map<String, String> paramMap) {
 		try {
-			System.out.println(paramMap.get("userId"));
-			System.out.println(paramMap.get("productNo"));
-			System.out.println(paramMap.get("commonCode"));
-			System.out.println(paramMap.get("productCount"));
+//			System.out.println(paramMap.get("userId"));
+//			System.out.println(paramMap.get("productNo"));
+//			System.out.println(paramMap.get("commonCode"));
+//			System.out.println(paramMap.get("productCount"));
 			
 			//수정 처리하기
 			cartService.updateCart(paramMap.get("userId"),
