@@ -219,18 +219,26 @@ const Cart = () => {
                 </FormControl>
               </Grid>
               <Grid sx={{ paddingBottom: "20px" }}>
-                <Typography id="orderCal" className="cartNamePriceColumn">
-                  할인금액
-                </Typography>
-                <Typography>
-                  ₩ {parseInt(orderAmount) - parseInt(paymentAmount)}
-                </Typography>
+                <div className="cartNamePriceColumn">
+                  <Typography id="orderCal">할인금액</Typography>
+                  <Typography id="resultOrderPay">
+                    ₩{" "}
+                    {(orderAmount - paymentAmount + "").replace(
+                      /\B(?=(\d{3})+(?!\d))/g,
+                      ","
+                    )}
+                  </Typography>
+                </div>
+                <div className="cartNamePriceColumn">
+                  <Typography id="orderCal" sx={{ fontSize: "30px" }}>
+                    총 결제금액
+                  </Typography>
+                  <Typography id="resultOrderPay">
+                    ₩{" "}
+                    {(paymentAmount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </Typography>
+                </div>
 
-                <br />
-                <Typography id="orderCal" className="cartNamePriceColumn">
-                  총 결제금액
-                </Typography>
-                <Typography>₩ {paymentAmount}</Typography>
               </Grid>
               <Grid>
                 <Link
@@ -245,6 +253,7 @@ const Cart = () => {
                       cart: cartList,
                     },
                   }}
+                  //pull용,,
                 >
                   <button className="orderButton">결제하기</button>
                 </Link>

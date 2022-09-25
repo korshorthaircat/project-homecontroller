@@ -72,12 +72,12 @@ const ShowroomtopContent = () => {
               />
               <CardContent sx={{ backgroundColor: "#B2CC5A" }}>
                 <Typography gutterBottom variant="h5" component="div">
-                  Greenary
+                  Greenery
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   오늘은 내 공간을 초록빛깔로 가득하게 하고싶다
                   <br />
-                  트렌디한 Greenary 디자인을 추천합니다
+                  트렌디한 Greenery 디자인을 추천합니다
                 </Typography>
               </CardContent>
             </Card>
@@ -85,7 +85,6 @@ const ShowroomtopContent = () => {
         </Grid>
       </Box>
     </div>
-    //pull용
   );
 };
 
