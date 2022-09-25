@@ -47,50 +47,7 @@ public class AdminController {
    ProductService productService;
    
    @Autowired
-   private ShowroomService showroomService;
-
-
-////주문 관리
-//
-////   주문/배송 수정
-//   ResponseEntity<?> updateOrder(Order order) {
-//      return null;
-//   }
-//   ResponseEntity<?> updateDelivery(Delivery delivery) {
-//      return null;
-//   }
-//
-////   주문 삭제
-//   ResponseEntity<?> deleteOrder(Order order) {
-//      return null;
-//   }
-//
-////   주문/배송 조회(리스트/상세)
-//   ResponseEntity<?> getOrderList() {
-//      return null;
-//   }
-//   
-//   ResponseEntity<?> getDeliveryList() {
-//      return null;
-//   }
-//
-//
-////상품 관리
-//
-////   상품 등록
-//   ResponseEntity<?> createProduct(Product product) {
-//      return null;
-//   }
-//
-////   상품 수정
-//    @GetMapping("/admin3")
-//    public String edit(@PathVariable("productNo") Long id, Model model) {
-//        ProductDTO productDTO = productService.findByproductNo(id);
-//        model.addAttribute("post", productDTO);
-//       // return ResponseEntity.badRequest().body(response);      
-//    }
-
-   
+   private ShowroomService showroomService;   
 
 //   상품 조회(리스트)
     @GetMapping("/admin2")

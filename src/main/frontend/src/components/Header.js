@@ -88,10 +88,15 @@ const Header = () => {
   const [word, setWord] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
 
+  //윈도우.로케이션 코드 실행이 안됨
   // const onSubmit = async (e) => {
-  //   if (e.keyCode === 13) window.location.href = "/search/" + word;
+  //   console.log(e.keyCode);
+  //   if (e.keyCode == 13) {
+  //     window.location.href = "/search/" + word;
+  //   }
   // };
 
+  //윈도우.로케이션은 잘 작동하지만, 영어로 검색어를 쓸 때 오류가 남
   const onSubmit = async () => {
     window.location.href = "/search/" + word;
   };

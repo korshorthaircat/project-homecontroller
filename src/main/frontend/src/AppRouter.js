@@ -40,6 +40,7 @@ import NavProductCategoryList from "./components/list/NavProductCategoryList";
 import OrderComplete from "./components/order/OrderComplete";
 import CategoryNavbar from "./components/main/CategoryNavbar";
 import Idfind from "./components/user/Idfind";
+import PwFind from "./components/user/PwFind";
 
 const AppRouter = () => {
   // 경로에 따라 실행되는 컴포넌트가 다르므로, 그 정보를 갖고있는 AppRouter를 가장 먼저 렌더링해야 한다.(Index.js에서)
@@ -68,6 +69,7 @@ const AppRouter = () => {
           <Route path="/join" element={<Join />} />
           <Route path="/login" element={<Login />} />
           <Route path="/Idfind" element={<Idfind />} />
+          <Route path="/Pwfind" element={<PwFind />} />
 
           {loginUser !== null ? (
             <>

@@ -138,7 +138,7 @@ const Cart = () => {
         <Grid className="productsInCart">
           <Typography id="cartTitle">장바구니</Typography>
 
-          {cartList.map((cart, index) => (
+          {/* {cartList.map((cart, index) => (
             <ProductInCart
               cartImage={cartImageList[index]}
               cart={cart}
@@ -150,7 +150,29 @@ const Cart = () => {
               deleteCart={deleteCart}
               updateCart={updateCart}
             ></ProductInCart>
-          ))}
+          ))} */}
+
+          {cartList.length == 0 ? (
+            <>
+              <Typography>장바구니에 표시할 제품이 없습니다.</Typography>
+            </>
+          ) : (
+            <>
+              {cartList.map((cart, index) => (
+                <ProductInCart
+                  cartImage={cartImageList[index]}
+                  cart={cart}
+                  orderAmount={orderAmount}
+                  getOrderAmount={getOrderAmount}
+                  paymentAmount={paymentAmount}
+                  getPaymentAmount={getPaymentAmount}
+                  coupon={coupon}
+                  deleteCart={deleteCart}
+                  updateCart={updateCart}
+                ></ProductInCart>
+              ))}
+            </>
+          )}
         </Grid>
 
         <Grid id="cartInfoPaper">
