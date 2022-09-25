@@ -24,10 +24,12 @@ import ListItemText from "@mui/material/ListItemText";
 import Link from "@mui/material/Link";
 import Badge from "@mui/material/Badge";
 import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./main/CategoryNavbar";
 import CategoryNavbar from "./main/CategoryNavbar";
 import { useNavigate } from "react-router-dom";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
 const drawerWidth = 450;
 
@@ -141,6 +143,22 @@ const Header = () => {
   const moveToCategoryList = (param) => {
     window.location.href = `/list/${encodeURI(param)}`;
   };
+
+  const [productList, setProductList] = useState([]);
+  const [productImageList, setProductImageList] = useState([]);
+
+  const getProducts = async () => {
+    let url = `http://localhost:8080/api/main/getMainProductList`;
+    let response = await fetch(url);
+    let data = await response.json();
+    console.log("data/////////", data.productList);
+    setProductList(data.productList);
+    setProductImageList(data.productImageList);
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   return (
     <>

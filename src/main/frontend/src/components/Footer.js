@@ -7,28 +7,30 @@ const Footer = () => {
     <div>
       <div className="footer_bg">
         <div className="footer_nav">
-          <Link href="/">
-            <p>카테고리</p>
-          </Link>
-          <Link href="/">
+          <div className="footer_link">
+            <Link href="/">
+              <p>카테고리</p>
+            </Link>
+          </div>
+          <Link className="footer_link" href="/">
             <p>인테리어쇼룸</p>
           </Link>
-          <Link href="/">
+          <Link className="footer_link" href="/">
             <p>이벤트 및 프로모션</p>
           </Link>
-          <Link href="#">
+          <Link className="footer_link" href="#">
             <p>지점안내</p>
           </Link>
-          <Link href="#">
+          <Link className="footer_link" href="#">
             <p>고객지원</p>
           </Link>
-          <Link href="#">
+          <Link className="footer_link" href="#">
             <p>배송조회</p>
           </Link>
-          <Link href="#">
+          <Link className="footer_link" href="#">
             <p>마이페이지</p>
           </Link>
-          <Link href="#">
+          <Link className="footer_link" href="#">
             <p>직원소개</p>
           </Link>
         </div>

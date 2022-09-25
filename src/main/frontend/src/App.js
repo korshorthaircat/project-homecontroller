@@ -31,7 +31,7 @@ function App() {
       <MainProductCarousel />
 
       <h4 className="main_title">따뜻한 분위기의 내추럴 우드인테리어</h4>
-      <ThemeProductCarousel theme={"소파"} />
+      <ThemeProductCarousel theme={"원목"} />
 
       <h4 className="main_title">시들지 않는 조화로 매일 싱그럽게!</h4>
       <ThemeProductCarousel theme={"조화"} />

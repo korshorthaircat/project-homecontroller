@@ -1,27 +1,29 @@
 body {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 .main_title {
-    font-weight: bold;
-    width: 1330px;
-    margin: 0 auto;
-    padding : 30px 0;
+  font-weight: bold;
+  width: 1330px;
+  margin: 0 auto;
+  padding: 80px 0 30px;
 }
 
 .sub_title {
-    width: 1330px;
-    margin: 0 auto;
-    color: darkgray;
+  width: 1330px;
+  margin: 0 auto;
+  color: darkgray;
+  padding: 10px 0;
 }
 
 .eventCard {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .showroom_title {
-    width: 1330px;
-    margin: 0 auto;
-    padding: 10px 0;
+  font-weight: bold;
+  width: 1330px;
+  margin: 0 auto;
+  padding: 70px 0 0px;
 }
