@@ -31,7 +31,7 @@ public interface ReviewService {
 	int getAvgRevGradeByProductNo(int productNo);
 
 
-	List<Review> getMyReviewList(String userId);
+//	List<Review> getMyReviewList(String userId);
 
 
 	
