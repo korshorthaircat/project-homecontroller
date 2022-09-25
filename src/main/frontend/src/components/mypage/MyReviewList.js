@@ -44,6 +44,7 @@ const MyReviewList = () => {
   const { productNo } = useParams();
 
   const [reviewList, setReviewList] = React.useState([]); //전체 리뷰 목록
+  const [myReviewImg, setMyReviewImg] = React.useState([]);
 
   const [avgRevGrade, setAvgRevGrade] = React.useState(0);
   const [reviewTitle, setReviewTitle] = React.useState("");
@@ -61,10 +62,7 @@ const MyReviewList = () => {
   // const [inquiryAnswer, setInquiryAnswer] = React.useState("");
 
   const [open, setOpen] = React.useState(false);
-  const [inquiryList, setInquiryList] = React.useState([]); //전체 게시글 목록
   // const [pagingInquiryList, setPagingInquiryList] = React.useState([]); //페이징 처리한 게시글 모곩
-
-  const [inquiryInfo, setInquiryInfo] = React.useState({}); //조회하고자 하는 게시글의 정보
 
   const handleOpenForWriting = () => {
     setOpen(true);
@@ -146,6 +144,15 @@ const MyReviewList = () => {
         setReviewList(response.data.data);
       })
       .catch((e) => {});
+
+    axios({
+      method: "get",
+      url: "http://localhost:8080/api/review/myReviewImg",
+      // data: { productImageName },
+    }).then((response) => {
+      console.log(response.data.reviewItemList);
+      setMyReviewImg(response.data.reviewItemList);
+    });
   };
 
   useEffect(() => {
@@ -154,27 +161,6 @@ const MyReviewList = () => {
     getMyReviewList();
     setUserInfoStr(JSON.parse(sessionStorage.getItem("USER_INFO")));
   }, []);
-
-  // const onInquiryTitleHandler = (e) => {
-  //   setInquiryTitle(e.curretTarget.value);
-  // };
-
-  //제목 셀렉트
-  // const [option, setOption] = React.useState(" ");
-  // const onOptionHandler = (e) => {
-  //   setOption(e.target.value);
-  //   setInquiryTitle(e.target.value);
-  // };
-
-  // const handleChange = (e) => {
-  //   console.log(e.target.name);
-  //   console.log(e.target.value);
-  //   const updateInquiry = {
-  //     ...inquiryInfo,
-  //     [e.target.name]: e.target.value,
-  //   };
-  //   setInquiryInfo(updateInquiry);
-  // };
 
   return (
     <div className="wrap">
@@ -254,7 +240,24 @@ const MyReviewList = () => {
                       </TableCell>
                       <TableCell align="center">{r.userId}</TableCell>
                       <TableCell align="center">{r.reviewRegdate}</TableCell>
-                      {/* <TableCell align="center">{r.reviewState}</TableCell> */}
+                      <TableCell align="center">
+                        {/* <img
+                          src={`http://localhost:8080/upload/${r.productImageName}`}
+                          alt="제품사진"
+                          id="ImgThum"
+                        /> */}
+                        {myReviewImg ? (
+                          <>
+                            <img
+                              src={`http://localhost:8080/upload/${myReviewImg[index].productImageName}`}
+                              alt="제품사진"
+                              id="ImgThum"
+                            />
+                          </>
+                        ) : (
+                          <></>
+                        )}
+                      </TableCell>
                     </TableRow>
                   </>
                 ) : (
