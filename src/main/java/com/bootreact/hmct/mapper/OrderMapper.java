@@ -73,4 +73,7 @@ public interface OrderMapper {
     		+ "  where order_no = #{orderNo}")
     void updateStatus(@Param ("orderNo") int orderNo,
     				  @Param ("orderStatus") String orderStatus);
+
+    @Select("select max(order_no) from t_hmct_ordr where user_id = #{userId}")
+	int getRecentOrder(@Param ("userId") String userId);
 }

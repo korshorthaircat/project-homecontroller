@@ -19,6 +19,7 @@ const KakaoPayResult = () => {
       approval_url: "http://localhost:3000/",
     });
     console.log(params);
+    window.location.href = "/orderComplete";
   }, [rcParams, tid]);
 
   useEffect(() => {

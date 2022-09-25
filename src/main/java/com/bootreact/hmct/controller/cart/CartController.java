@@ -131,7 +131,6 @@ public class CartController {
     	}
 	}	
 
-	//작동하는 메서드
 	//장바구니 제품리스트 조회 (이미지 포함X)
 	@PostMapping("/getCartList")
     public ResponseEntity<?> getCartList(@RequestBody User user){
@@ -161,7 +160,6 @@ public class CartController {
     	}
 	}
 	
-	//수정 중
 	//장바구니 제품이미지 리스트 조회
 	@PostMapping("/getCartMapList")
     public Map<String, Object> getCartImageList(@RequestBody User user){
