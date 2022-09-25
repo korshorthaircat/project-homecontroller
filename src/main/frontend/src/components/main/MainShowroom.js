@@ -48,8 +48,8 @@ const MainShowroom = () => {
   }, []);
 
   useEffect(() => {
-    console.log("sss", showroomImg);
-    console.log("ssss", showroomImg.slice(4 * cnt, 4 * (cnt + 1)));
+    console.log("showroomImg", showroomImg);
+    console.log("slice", showroomImg.slice(4 * cnt, 4 * (cnt + 1)));
 
     let copy = showroomImgData.concat(
       showroomImg.slice(4 * cnt, 4 * (cnt + 1))

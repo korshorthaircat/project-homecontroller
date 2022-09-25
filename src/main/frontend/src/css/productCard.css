@@ -1,71 +1,72 @@
 .imageArea {
-    width: 317.5px;
-    height: 317.5px;
-    
-    background-size: cover;
-    margin: 0 auto;
+  width: 317.5px;
+  height: 317.5px;
+
+  background-size: cover;
+  margin: 0 auto;
 }
 
 .textArea {
-    padding-top: 25px;
-    width: 317.5px;
-    height: 180px;
-    background-size: cover;
-    margin: 0 auto;
+  padding-top: 25px;
+  width: 317.5px;
+  height: 180px;
+  background-size: cover;
+  margin: 0 auto;
 }
 
 .textArea p {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 .card {
-    border: none;
-    
-
+  border: none;
 }
 
 .card a {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 .price_text {
-    font-size: 22px;
-    font-weight: bold;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 .last {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .last p {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 .title_text {
-    font-size: 18px;
-    font-weight: bold;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .category_text {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .priceArea {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .product_line {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 .react-multiple-carousel__arrow--left {
-    left: -0px;
+  left: -0px;
 }
 
 .react-multiple-carousel__arrow--right {
-    right: 0px;
-    
+  right: 0px;
 }
 
-
+.heartIcon {
+  position: relative;
+  left: 45%;
+  margin: 0 6px;
+}

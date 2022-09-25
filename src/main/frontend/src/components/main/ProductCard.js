@@ -235,8 +235,10 @@ const ProductCard = ({ item, productImageList }) => {
             >
               <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
             </IconButton> */}
+
             <Heart
-              style={{ width: "2rem" }}
+              className="heartIcon"
+              style={{ width: "1.5rem" }}
               isActive={active}
               onClick={() => {
                 setActive(!active);
@@ -293,7 +295,12 @@ const ProductCard = ({ item, productImageList }) => {
               aria-label="account of current user"
               aria-haspopup="true"
               color="inherit"
-              sx={{ padding: "0 6px", left: 140 }}
+              sx={{
+                padding: "0",
+                margin: "0 6px",
+                position: "relative",
+                left: "45%",
+              }}
               onClick={addCart}
             >
               <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
