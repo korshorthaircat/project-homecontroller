@@ -63,7 +63,7 @@ function ImageThumb(props) {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
       },
-      params: { productNo: productNo , commonCode: commonCode },
+      params: { productNo: productNo, commonCode: commonCode },
     }).then((response) => {
       console.log(response.data);
       setProductList((prev) => response.data.productInfo.slice(0, 1));
@@ -140,7 +140,7 @@ function ImageThumb(props) {
             <ProductDetailInfo orderHistory={orderHistory} />
           </div>
           <div className="contentBox">
-            <ProductMainInfo changeProductColor={changeProductColor}/>
+            <ProductMainInfo changeProductColor={changeProductColor} />
           </div>
         </div>
         <SameCategoryList />
