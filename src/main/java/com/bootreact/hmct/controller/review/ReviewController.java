@@ -29,7 +29,7 @@ public class ReviewController {
 	private static final Review[] ReviewList = null;
 
 	@Autowired
-	ProductService productService;
+	ProductService productService; 
 	
 	@Autowired
 	ReviewService reviewService;
