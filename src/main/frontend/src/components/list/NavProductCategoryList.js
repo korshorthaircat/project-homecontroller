@@ -271,9 +271,6 @@ const NavProductCategoryList = () => {
   useEffect(() => {
     console.log(paramCategory);
   }, [paramCategory]);
-  // useEffect(() => {
-  //   getProducts();
-  // }, []);
 
   return (
     <div className="cute">
