@@ -14,7 +14,6 @@
 	</settings>
 	
 	<typeAliases>
-	    <typeAlias type="com.bootreact.hmct.dto.UserDTO" alias="user"></typeAlias>
 	    <typeAlias type="com.bootreact.hmct.common.CamelHashMap" alias="camelHashMap"></typeAlias>
 	</typeAliases>
 </configuration>
