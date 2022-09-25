@@ -32,7 +32,7 @@ import { Card, Row } from "react-bootstrap";
 const Order = () => {
   const [orderName, setOrderName] = useState(""); //"조명 외 2개"식으로 만들어서 KakaoPayReady.js에 전달하기
 
-  //[1]배송정보 -> db에 저장하기
+  //[1]배송정보 ->  db에 저장하기
   const [deliveryName, setDeliveryName] = useState("");
   const [deliveryTel, setDeliveryTel] = useState("");
   const [deliveryDetailAddress, setDeliveryDetailAddress] = useState("");
