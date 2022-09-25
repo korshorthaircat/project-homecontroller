@@ -206,8 +206,8 @@ function WishList() {
         <Swiper
           slidesPerView={5}
           spaceBetween={20}
-          slidesPerGroup={5}
-          loop={true}
+          slidesPerGroup={1}
+          // loop={true}
           loopFillGroupWithBlank={false}
           navigation={true}
           Mousewheel={true}
@@ -264,8 +264,8 @@ function WishList() {
         <Swiper
           slidesPerView={3}
           spaceBetween={20}
-          slidesPerGroup={3}
-          loop={true}
+          slidesPerGroup={1}
+          // loop={true}
           loopFillGroupWithBlank={false}
           navigation={true}
           Mousewheel={true}
