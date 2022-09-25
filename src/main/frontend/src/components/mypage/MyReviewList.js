@@ -19,6 +19,8 @@ import Paging from "./Paging";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useParams } from "react-router-dom";
 import React, { useState, useCallback, useEffect } from "react";
+import { TextField, Link, Grid, Container } from "@mui/material";
+import "../../css/mypagesidebar.css";
 
 const style = {
   position: "absolute",
@@ -50,19 +52,10 @@ const MyReviewList = () => {
   const [reviewTitle, setReviewTitle] = React.useState("");
   const [reviewContent, setReviewContent] = React.useState("");
   const [reviewGrade, setReviewGrade] = React.useState();
-
   const [reviewNo, setReviewNo] = React.useState({}); //조회하고자 하는 게시글의 정보
 
-  //다시 불러온 상품정보 저장
-  const [orderHistory, setOrderHistory] = React.useState(0);
-  const [orderNoList, setOrderNoList] = React.useState([]);
-
-  const [inquiryTitle, setInquiryTitle] = React.useState("");
-  // const [inquiryContent, setInquiryContent] = React.useState("");
-  // const [inquiryAnswer, setInquiryAnswer] = React.useState("");
-
   const [open, setOpen] = React.useState(false);
-  // const [pagingInquiryList, setPagingInquiryList] = React.useState([]); //페이징 처리한 게시글 모곩
+  const [pagingReviewList, setPagingReviewList] = React.useState([]); //페이징 처리한 게시글 모곩
 
   const handleOpenForWriting = () => {
     setOpen(true);
@@ -70,34 +63,34 @@ const MyReviewList = () => {
 
   const handleOpen = (index) => {
     setOpen(true);
-    // setInquiryInfo(pagingInquiryList[index]);
+    // setReviewInfo(pagingReviewList[index]);
   };
   const handleClose = () => {
     setOpen(false);
   };
 
   //페이지에 따라 데이터 5개씩 잘라넣는 userList
-  // React.useEffect(() => {
-  //   setPagingInquiryList(inquiryList.slice(offset, offset + limit));
-  // }, [inquiryList]);
+  React.useEffect(() => {
+    setPagingReviewList(reviewList.slice(offset, offset + limit));
+  }, [reviewList]);
 
   //페이지네이션
-  // const [limit, setLimit] = React.useState(5);
-  // const [page, setPage] = React.useState(1);
-  // const offset = (page - 1) * limit;
-  // const handlePaging = (currentPage) => {
-  //   setPage((prev) => currentPage);
-  // };
+  const [limit, setLimit] = React.useState(5);
+  const [page, setPage] = React.useState(1);
+  const offset = (page - 1) * limit;
+  const handlePaging = (currentPage) => {
+    setPage((prev) => currentPage);
+  };
 
   //페이지 바뀔 때마다 잘라넣는 inquiryList 변경
-  // React.useEffect(() => {
-  //   setPagingInquiryList((prev) => inquiryList.slice(offset, offset + limit));
-  // }, [page, offset, limit]);
+  React.useEffect(() => {
+    setPagingReviewList((prev) => reviewList.slice(offset, offset + limit));
+  }, [page, offset, limit]);
 
-  // const changeLimit = (e) => {
-  //   setLimit((prev) => e.target.value);
-  //   setPage(1);
-  // };
+  const changeLimit = (e) => {
+    setLimit((prev) => e.target.value);
+    setPage(1);
+  };
 
   //상품 정보 조회
   // const getProducts = async () => {
@@ -163,126 +156,232 @@ const MyReviewList = () => {
   }, []);
 
   return (
-    <div className="wrap">
-      <h1>고객 지원</h1>
-      <h5>문의 게시판</h5>
+    <div>
+      <div class="nav_wrapper">
+        <nav className="MyNavMenu">
+          <ul>
+            <li>
+              <Link href="/mypage" title="Link">
+                MYPAGE
+              </Link>
+            </li>
+            <li>
+              <a href="#Link" title="Link">
+                나의 정보
+              </a>
+              <ul>
+                <li>
+                  <a href="/userupdate" title="Link ">
+                    나의정보 수정
+                  </a>
+                </li>
+                <li>
+                  <a href="/outmembers" title="Link">
+                    멤버십 해지
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/wishlist" title="Link">
+                위시리스트
+              </a>
+            </li>
+            <li>
+              <a href="#Link" title="Link">
+                장바구니
+              </a>
+            </li>
+            <li>
+              <a href="#Link" title="Link">
+                포인트/쿠폰
+              </a>
+              <ul>
+                <li>
+                  <a href="/mypoint" title="Link">
+                    포인트
+                  </a>
+                </li>
+                <li>
+                  <a href="#Link" title="Link">
+                    쿠폰
+                  </a>
+                </li>
+              </ul>
+            </li>
 
-      {/*페이지네이션 표출할 데이터양*/}
-      {/* <label className="orderOption">
-        페이지 당 표시할 게시물 수:&nbsp;
-        <select type="number" value={limit} onChange={changeLimit}>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-        </select>
-      </label> */}
+            <li>
+              <a href="#Link" title="Link">
+                주문내역
+              </a>
+              <ul>
+                <li>
+                  <a href="#Link" title="Link">
+                    주문
+                  </a>
+                </li>
+                <li>
+                  <a href="#Link" title="Link">
+                    반품
+                  </a>
+                </li>
+                <li>
+                  <a href="#Link" title="Link">
+                    교환
+                  </a>
+                </li>
+              </ul>
+            </li>
 
-      {/* 게시글 검색바 */}
-      {/*
-      <Paper
-        component="form"
-        sx={{
-          p: "2px 4px",
-          display: "flex",
-          alignItems: "center",
-          width: 400,
-          float: "right",
-        }}
-      >
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          placeholder="게시글 검색"
-          inputProps={{ "aria-label": "search google maps" }}
-        />
-        <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-          <SearchIcon />
-        </IconButton>
-      </Paper>
-      */}
+            <li>
+              <a href="#Link" title="Link">
+                나의 게시글
+              </a>
+              <ul>
+                <li>
+                  <a href="#Link" title="Link">
+                    자유게시판
+                  </a>
+                </li>
+                <li>
+                  <a href="/reviewlist" title="Link">
+                    상품후기
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div className="wrap">
+        <h2>나의 상품후기</h2>
 
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center" sx={{ width: "150px" }}>
-                번호
-              </TableCell>
-              <TableCell align="center">제목</TableCell>
-              <TableCell align="center" sx={{ width: "200px" }}>
-                작성자
-              </TableCell>
-              <TableCell align="center" sx={{ width: "200px" }}>
-                작성일
-              </TableCell>
-              <TableCell align="center" sx={{ width: "200px" }}>
-                처리현황
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {reviewList ? (
-              reviewList.map((r, index) =>
-                userInfoStr.userId == r.userId ? (
-                  <>
-                    <TableRow
-                      key={r.reviewNo}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row" align="center">
-                        {r.reviewNo}
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        id={`detailTitle${index}`}
-                        onClick={() => handleOpen(index)}
+        {/*페이지네이션 표출할 데이터양*/}
+        <label className="orderOption">
+          페이지 당 표시할 게시물 수:&nbsp;
+          <select type="number" value={limit} onChange={changeLimit}>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select>
+        </label>
+
+        {/* 게시글 검색바 */}
+
+        <Paper
+          component="form"
+          sx={{
+            p: "2px 4px",
+            display: "flex",
+            alignItems: "center",
+            width: 400,
+            float: "right",
+          }}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="게시글 검색"
+            inputProps={{ "aria-label": "search google maps" }}
+          />
+          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+            <SearchIcon />
+          </IconButton>
+        </Paper>
+
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center" sx={{ width: "150px" }}>
+                  <h5>No.</h5>
+                </TableCell>
+                <TableCell align="center" sx={{ width: "150px" }}></TableCell>
+                <TableCell align="center">
+                  <h5>제품명</h5>
+                </TableCell>
+                <TableCell align="center" sx={{ width: "200px" }}>
+                  <h5>제목</h5>
+                </TableCell>
+                <TableCell align="center" sx={{ width: "200px" }}>
+                  <h5>작성자</h5>
+                </TableCell>
+                <TableCell align="center" sx={{ width: "200px" }}>
+                  <h5>작성일</h5>
+                </TableCell>
+                <TableCell align="center" sx={{ width: "200px" }}>
+                  <h5>평점</h5>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {reviewList ? (
+                pagingReviewList &&
+                pagingReviewList.map((r, index) =>
+                  userInfoStr.userId == r.userId ? (
+                    <>
+                      <TableRow
+                        key={r.reviewNo}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
                       >
-                        {r.reviewTitle}
-                      </TableCell>
-                      <TableCell align="center">{r.userId}</TableCell>
-                      <TableCell align="center">{r.reviewRegdate}</TableCell>
-                      <TableCell align="center">
-                        {/* <img
-                          src={`http://localhost:8080/upload/${r.productImageName}`}
-                          alt="제품사진"
-                          id="ImgThum"
-                        /> */}
-                        {myReviewImg ? (
-                          <>
-                            <img
-                              src={`http://localhost:8080/upload/${myReviewImg[index].productImageName}`}
-                              alt="제품사진"
-                              id="ImgThum"
-                            />
-                          </>
-                        ) : (
-                          <></>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  </>
-                ) : (
-                  <>
-                    {/* <TableRow>
+                        <TableCell component="th" scope="row" align="center">
+                          <h6>{r.reviewNo}</h6>
+                        </TableCell>
+                        <TableCell align="center">
+                          {myReviewImg ? (
+                            <>
+                              <img
+                                src={`http://localhost:8080/upload/${myReviewImg[index].productImageName}`}
+                                alt="제품사진"
+                                id="ImgThum"
+                              />
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                        </TableCell>
+                        <TableCell component="th" scope="row" align="center">
+                          <h6>{`${myReviewImg[index].productName}`}</h6>
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          onClick={() => handleOpen(index)}
+                        >
+                          <h6>{r.reviewTitle}</h6>
+                        </TableCell>
+                        <TableCell align="center">
+                          <h6>{r.userId}</h6>
+                        </TableCell>
+                        <TableCell align="center">{r.reviewRegdate}</TableCell>
+                        <TableCell align="center">
+                          <h6>{r.reviewGrade}</h6>
+                        </TableCell>
+                      </TableRow>
+                    </>
+                  ) : (
+                    <>
+                      {/* <TableRow>
                       <TableCell>조회된 데이터가 없습니다.</TableCell>
                     </TableRow> */}
-                  </>
+                    </>
+                  )
                 )
-              )
-            ) : (
-              <></>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+              ) : (
+                <></>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
-      {/* <Paging
-        total={reviewList.length}
-        limit={limit}
-        page={page}
-        handlePaging={handlePaging}
-      /> */}
+        <Paging
+          total={reviewList.length}
+          limit={limit}
+          page={page}
+          handlePaging={handlePaging}
+        />
 
-      {/* <Button
+        {/* <Button
         variant="contained"
         color="success"
         onClick={() => handleOpenForWriting(true)}
@@ -291,7 +390,7 @@ const MyReviewList = () => {
         글쓰기
       </Button> */}
 
-      {/* <Modal
+        {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -359,7 +458,7 @@ const MyReviewList = () => {
               </Table>
             </TableContainer> */}
 
-      {/* <Typography
+        {/* <Typography
               id="modal-modal-title"
               sx={{
                 fontSize: "25px",
@@ -370,7 +469,7 @@ const MyReviewList = () => {
               답변
             </Typography> */}
 
-      {/* <TableRow>
+        {/* <TableRow>
               <TableCell component={"th"} sx={modalstyle}>
                 답변 내용
               </TableCell>
@@ -385,7 +484,7 @@ const MyReviewList = () => {
               </TableCell>
             </TableRow> */}
 
-      {/* <span class="buttonSpan">
+        {/* <span class="buttonSpan">
               <Button
                 type="button"
                 variant="contained"
@@ -419,9 +518,10 @@ const MyReviewList = () => {
                 <div className="noButton">.</div>
               )}
             </span> */}
-      {/* </Box>
+        {/* </Box>
         </form>
       </Modal> */}
+      </div>
     </div>
   );
 };

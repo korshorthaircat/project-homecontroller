@@ -2,3 +2,8 @@
   width: 1540px;
   margin: 0 auto;
 }
+
+.wrap h2 {
+  margin-top: 160px;
+  margin-left: 35px;
+}

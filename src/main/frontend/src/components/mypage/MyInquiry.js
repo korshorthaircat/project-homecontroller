@@ -18,6 +18,8 @@ import Modal from "@mui/material/Modal";
 import axios from "axios";
 import Paging from "./Paging";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import "../../css/mypagesidebar.css";
+import { TextField, Link, Grid, Container } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -189,241 +191,345 @@ const MyInquiry = () => {
   };
 
   return (
-    <div className="wrap">
-      <h1>고객 지원</h1>
-      <h5>문의 게시판</h5>
+    <div>
+      <div class="nav_wrapper">
+        <nav className="MyNavMenu">
+          <ul>
+            <li>
+              <Link href="/mypage" title="Link">
+                MYPAGE
+              </Link>
+            </li>
+            <li>
+              <a href="#Link" title="Link">
+                나의 정보
+              </a>
+              <ul>
+                <li>
+                  <a href="/userupdate" title="Link ">
+                    나의정보 수정
+                  </a>
+                </li>
+                <li>
+                  <a href="/outmembers" title="Link">
+                    멤버십 해지
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="/wishlist" title="Link">
+                위시리스트
+              </a>
+            </li>
+            <li>
+              <a href="#Link" title="Link">
+                장바구니
+              </a>
+            </li>
+            <li>
+              <a href="#Link" title="Link">
+                포인트/쿠폰
+              </a>
+              <ul>
+                <li>
+                  <a href="/mypoint" title="Link">
+                    포인트
+                  </a>
+                </li>
+                <li>
+                  <a href="#Link" title="Link">
+                    쿠폰
+                  </a>
+                </li>
+              </ul>
+            </li>
 
-      {/*페이지네이션 표출할 데이터양*/}
-      <label className="orderOption">
-        페이지 당 표시할 게시물 수:&nbsp;
-        <select type="number" value={limit} onChange={changeLimit}>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-        </select>
-      </label>
+            <li>
+              <a href="#Link" title="Link">
+                주문내역
+              </a>
+              <ul>
+                <li>
+                  <a href="#Link" title="Link">
+                    주문
+                  </a>
+                </li>
+                <li>
+                  <a href="#Link" title="Link">
+                    반품
+                  </a>
+                </li>
+                <li>
+                  <a href="#Link" title="Link">
+                    교환
+                  </a>
+                </li>
+              </ul>
+            </li>
 
-      {/* 게시글 검색바 */}
-      {/* 
-      <Paper
-        component="form"
-        sx={{
-          p: "2px 4px",
-          display: "flex",
-          alignItems: "center",
-          width: 400,
-          float: "right",
-        }}
-      >
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          placeholder="게시글 검색"
-          inputProps={{ "aria-label": "search google maps" }}
-        />
-        <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-          <SearchIcon />
-        </IconButton>
-      </Paper> 
-      */}
+            <li>
+              <a href="#Link" title="Link">
+                나의 게시글
+              </a>
+              <ul>
+                <li>
+                  <a href="#Link" title="Link">
+                    자유게시판
+                  </a>
+                </li>
+                <li>
+                  <a href="/reviewlist" title="Link">
+                    상품후기
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div className="wrap">
+        <h2>내가 쓴 게시글</h2>
 
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center" sx={{ width: "150px" }}>
-                번호
-              </TableCell>
-              <TableCell align="center">제목</TableCell>
-              <TableCell align="center" sx={{ width: "200px" }}>
-                작성자
-              </TableCell>
-              <TableCell align="center" sx={{ width: "200px" }}>
-                작성일
-              </TableCell>
-              <TableCell align="center" sx={{ width: "200px" }}>
-                처리현황
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {inquiryList ? (
-              pagingInquiryList &&
-              pagingInquiryList.map((a, index) => (
-                <TableRow
-                  key={a.inquiryNo}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row" align="center">
-                    {a.inquiryNo}
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    id={`detailTitle${index}`}
-                    onClick={() => handleOpen(index)}
-                  >
-                    {a.inquiryTitle}
-                  </TableCell>
-                  <TableCell align="center">{a.user.userId}</TableCell>
-                  <TableCell align="center">{a.inquiryRgsdate}</TableCell>
-                  <TableCell align="center">{a.inquiryState}</TableCell>
-                </TableRow>
-              ))
-            ) : (
+        {/*페이지네이션 표출할 데이터양*/}
+        <label className="orderOption">
+          페이지 당 표시할 게시물 수:&nbsp;
+          <select type="number" value={limit} onChange={changeLimit}>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select>
+        </label>
+
+        {/* 게시글 검색바 */}
+
+        <Paper
+          component="form"
+          sx={{
+            p: "2px 4px",
+            display: "flex",
+            alignItems: "center",
+            width: 400,
+            float: "right",
+          }}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="게시글 검색"
+            inputProps={{ "aria-label": "search google maps" }}
+          />
+          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+            <SearchIcon />
+          </IconButton>
+        </Paper>
+
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
               <TableRow>
-                <TableCell>조회된 데이터가 없습니다.</TableCell>
+                <TableCell align="center" sx={{ width: "150px" }}>
+                  <h5>No.</h5>
+                </TableCell>
+                <TableCell align="center">
+                  <h5>제목</h5>
+                </TableCell>
+                <TableCell align="center" sx={{ width: "200px" }}>
+                  <h5>작성자</h5>
+                </TableCell>
+                <TableCell align="center" sx={{ width: "200px" }}>
+                  <h5>작성일</h5>
+                </TableCell>
+                <TableCell align="center" sx={{ width: "200px" }}>
+                  <h5>처리 현황</h5>
+                </TableCell>
               </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      <Paging
-        total={inquiryList.length}
-        limit={limit}
-        page={page}
-        handlePaging={handlePaging}
-      />
-
-      <Button
-        variant="contained"
-        color="success"
-        onClick={() => handleOpenForWriting(true)}
-        sx={{ float: "right" }}
-      >
-        글쓰기
-      </Button>
-
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-      >
-        <form>
-          <Box sx={style}>
-            <Typography
-              id="modal-modal-title"
-              sx={{
-                fontSize: "25px",
-                fontWeight: "5rem",
-                backgroundColor: "rgb(178, 204, 90)",
-              }}
-            >
-              문의 게시글
-            </Typography>
-
-            <TableContainer>
-              <Table>
-                <TableRow>
-                  <TableCell component={"th"} sx={modalstyle}>
-                    제목
-                  </TableCell>
-                  <TableCell>
-                    <select
-                      name="inquiryTitle"
-                      onChange={onOptionHandler}
-                      value={option}
+            </TableHead>
+            <TableBody>
+              {inquiryList ? (
+                pagingInquiryList &&
+                pagingInquiryList.map((a, index) => (
+                  <TableRow
+                    key={a.inquiryNo}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row" align="center">
+                      <h6>{a.inquiryNo}</h6>
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      id={`detailTitle${index}`}
+                      onClick={() => handleOpen(index)}
                     >
-                      <option selected="selected">제목을 선택하세요.</option>
-                      <option value="상품 문의">상품 문의</option>
-                      <option value="배송 문의">배송 문의</option>
-                      <option value="교환/반품/취소 문의">
-                        교환/반품/취소 문의
-                      </option>
-                      <option value="주문/입금확인 문의">
-                        주문/입금확인 문의
-                      </option>
-                      <option value="기타 문의">기타 문의</option>
-                    </select>
-                  </TableCell>
-                  <TableCell>
-                    <input type="hidden" value={option} name="inquiryTitle" />
-                  </TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell component={"th"} sx={modalstyle}>
-                    내용
-                  </TableCell>
-                  <TableCell>
-                    <textarea
-                      type="text"
-                      style={{
-                        border: "none",
-                        width: "400px",
-                        height: "300px",
-                      }}
-                      name="inquiryContent"
-                      onChange={handleChange}
-                      value={inquiryInfo.inquiryContent}
-                    ></textarea>
-                  </TableCell>
-                </TableRow>
-              </Table>
-            </TableContainer>
-
-            <Typography
-              id="modal-modal-title"
-              sx={{
-                fontSize: "25px",
-                fontWeight: "5rem",
-                backgroundColor: "rgb(178, 204, 90)",
-              }}
-            >
-              답변
-            </Typography>
-
-            <TableRow>
-              <TableCell component={"th"} sx={modalstyle}>
-                답변 내용
-              </TableCell>
-              <TableCell>
-                <textarea
-                  type="text"
-                  style={{ border: "none", width: "400px", height: "150px" }}
-                  name="inquiryAnswer"
-                  onChange={handleChange}
-                  value={inquiryInfo.inquiryAnswer}
-                />
-              </TableCell>
-            </TableRow>
-
-            <span class="buttonSpan">
-              <Button
-                type="button"
-                variant="contained"
-                color="success"
-                onClick={insertInquiryBoard}
-              >
-                등록
-              </Button>
-
-              {JSON.parse(sessionStorage.getItem("USER_INFO")).userId ===
-              "admin" ? (
-                <>
-                  <Button
-                    type="button"
-                    variant="contained"
-                    color="success"
-                    onClick={updateInquiryBoard}
-                  >
-                    수정
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="contained"
-                    color="success"
-                    onClick={deleteInquiryBoard}
-                  >
-                    삭제
-                  </Button>
-                </>
+                      <h6>{a.inquiryTitle}</h6>
+                    </TableCell>
+                    <TableCell align="center">
+                      <h6>{a.user.userId}</h6>
+                    </TableCell>
+                    <TableCell align="center">
+                      <h6>{a.inquiryRgsdate}</h6>
+                    </TableCell>
+                    <TableCell align="center">
+                      <h6>{a.inquiryState}</h6>
+                    </TableCell>
+                  </TableRow>
+                ))
               ) : (
-                <div className="noButton">.</div>
+                <TableRow>
+                  <TableCell>조회된 데이터가 없습니다.</TableCell>
+                </TableRow>
               )}
-            </span>
-          </Box>
-        </form>
-      </Modal>
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <Paging
+          total={inquiryList.length}
+          limit={limit}
+          page={page}
+          handlePaging={handlePaging}
+        />
+
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => handleOpenForWriting(true)}
+          sx={{ float: "right" }}
+        >
+          글쓰기
+        </Button>
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+        >
+          <form>
+            <Box sx={style}>
+              <Typography
+                id="modal-modal-title"
+                sx={{
+                  fontSize: "25px",
+                  fontWeight: "5rem",
+                  backgroundColor: "rgb(178, 204, 90)",
+                }}
+              >
+                문의 게시글
+              </Typography>
+
+              <TableContainer>
+                <Table>
+                  <TableRow>
+                    <TableCell component={"th"} sx={modalstyle}>
+                      제목
+                    </TableCell>
+                    <TableCell>
+                      <select
+                        name="inquiryTitle"
+                        onChange={onOptionHandler}
+                        value={option}
+                      >
+                        <option selected="selected">제목을 선택하세요.</option>
+                        <option value="상품 문의">상품 문의</option>
+                        <option value="배송 문의">배송 문의</option>
+                        <option value="교환/반품/취소 문의">
+                          교환/반품/취소 문의
+                        </option>
+                        <option value="주문/입금확인 문의">
+                          주문/입금확인 문의
+                        </option>
+                        <option value="기타 문의">기타 문의</option>
+                      </select>
+                    </TableCell>
+                    <TableCell>
+                      <input type="hidden" value={option} name="inquiryTitle" />
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableCell component={"th"} sx={modalstyle}>
+                      내용
+                    </TableCell>
+                    <TableCell>
+                      <textarea
+                        type="text"
+                        style={{
+                          border: "none",
+                          width: "400px",
+                          height: "300px",
+                        }}
+                        name="inquiryContent"
+                        onChange={handleChange}
+                        value={inquiryInfo.inquiryContent}
+                      ></textarea>
+                    </TableCell>
+                  </TableRow>
+                </Table>
+              </TableContainer>
+
+              <Typography
+                id="modal-modal-title"
+                sx={{
+                  fontSize: "25px",
+                  fontWeight: "5rem",
+                  backgroundColor: "rgb(178, 204, 90)",
+                }}
+              >
+                답변
+              </Typography>
+
+              <TableRow>
+                <TableCell component={"th"} sx={modalstyle}>
+                  답변 내용
+                </TableCell>
+                <TableCell>
+                  <textarea
+                    type="text"
+                    style={{ border: "none", width: "400px", height: "150px" }}
+                    name="inquiryAnswer"
+                    onChange={handleChange}
+                    value={inquiryInfo.inquiryAnswer}
+                  />
+                </TableCell>
+              </TableRow>
+
+              <span class="buttonSpan">
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="success"
+                  onClick={insertInquiryBoard}
+                >
+                  등록
+                </Button>
+
+                {JSON.parse(sessionStorage.getItem("USER_INFO")).userId ===
+                "admin" ? (
+                  <>
+                    <Button
+                      type="button"
+                      variant="contained"
+                      color="success"
+                      onClick={updateInquiryBoard}
+                    >
+                      수정
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="contained"
+                      color="success"
+                      onClick={deleteInquiryBoard}
+                    >
+                      삭제
+                    </Button>
+                  </>
+                ) : (
+                  <div className="noButton">.</div>
+                )}
+              </span>
+            </Box>
+          </form>
+        </Modal>
+      </div>
     </div>
   );
 };
