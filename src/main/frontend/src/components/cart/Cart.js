@@ -159,18 +159,16 @@ const Cart = () => {
             sx={{
               p: 2,
               marginLeft: 20,
-              width: 500,
-              height: 550,
+              width: 400,
+              height: 400,
               backgroundColor: "none",
               boxShadow: "none",
             }}
           >
             <Grid>
               <Grid sx={{ paddingBottom: "30px" }}>
-                <Typography sx={{ fontWeight: "800", fontSize: "30px" }}>
-                  주문 내역
-                </Typography>
-                <hr />
+                <Typography sx={{ fontWeight: "800" }}>주문 내역</Typography>
+                <hr style={{ color: "#b5c95a", border: "solid 1px" }} />
                 <div className="cartNamePriceColumn">
                   <span className="productAllPrice">총 주문금액</span>
                   <span>
@@ -207,7 +205,7 @@ const Cart = () => {
                     label="Coupon"
                   >
                     <MenuItem
-                      sx={{ width: "460px" }}
+                      sx={{ width: "365px" }}
                       className="couponSelect"
                       value=""
                     >
@@ -221,30 +219,21 @@ const Cart = () => {
                 </FormControl>
               </Grid>
               <Grid sx={{ paddingBottom: "20px" }}>
-                <div className="cartNamePriceColumn">
-                  <Typography id="orderCal">할인금액</Typography>
-                  <Typography id="resultOrderPay">
-                    ₩{" "}
-                    {(orderAmount - paymentAmount + "").replace(
-                      /\B(?=(\d{3})+(?!\d))/g,
-                      ","
-                    )}
-                  </Typography>
-                </div>
-                <div className="cartNamePriceColumn">
-                  <Typography id="orderCal" sx={{ fontSize: "30px" }}>
-                    총 결제금액
-                  </Typography>
-                  <Typography id="resultOrderPay">
-                    ₩{" "}
-                    {(paymentAmount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                  </Typography>
-                </div>
+                <Typography id="orderCal" className="cartNamePriceColumn">
+                  할인금액
+                </Typography>
+                <Typography>
+                  ₩ {parseInt(orderAmount) - parseInt(paymentAmount)}
+                </Typography>
 
+                <br />
+                <Typography id="orderCal" className="cartNamePriceColumn">
+                  총 결제금액
+                </Typography>
+                <Typography>₩ {paymentAmount}</Typography>
               </Grid>
               <Grid>
                 <Link
-                  className="linkOrder"
                   to={"/order"}
                   state={{
                     obj: {
@@ -257,13 +246,7 @@ const Cart = () => {
                     },
                   }}
                 >
-                  <button className="orderButton">
-                    주문하기
-                    <img
-                      src="../images/buttonArrow.png"
-                      style={{ width: "14%" }}
-                    ></img>
-                  </button>
+                  <button className="orderButton">결제하기</button>
                 </Link>
               </Grid>
             </Grid>
