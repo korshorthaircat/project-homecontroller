@@ -1,6 +1,7 @@
 package com.bootreact.hmct.service.review.impl;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +51,16 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public int getAvgRevGradeByProductNo(int productNo) {
 		return reviewMapper.getAvgRevGradeByProductNo(productNo);
+	}
+	
+	@Override
+	public Map<String, Object> myReviewImg() {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+//		resultMap.put("orderDetail", orderMapper.viewOrder(orderNo));
+    	resultMap.put("reviewItemList", reviewMapper.getReviewItemList());
+    	
+    	return resultMap;
 	}
 
 

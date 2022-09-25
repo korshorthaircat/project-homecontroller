@@ -117,7 +117,7 @@ export default function NavContentRev() {
                   </p>
                   <p style={{ float: "right" }}>·</p>
                   <p className="revUserName" style={{ float: "right" }}>
-                    {r.userId}
+                    {r.userId.replaceAll("/[0-9a-zA-Z]{0,2}$/","*")}
                   </p>
                 </div>
                 <textarea

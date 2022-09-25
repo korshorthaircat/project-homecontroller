@@ -46,10 +46,10 @@
   padding-left: 72px;
 }
 
-.footer_nav:hover a {
+.footer_link:hover a {
   text-decoration: underline;
 }
 
-.footer_nav a {
+.footer_link a {
   text-decoration: none;
 }

@@ -159,18 +159,16 @@ const Cart = () => {
             sx={{
               p: 2,
               marginLeft: 20,
-              width: 500,
-              height: 550,
+              width: 400,
+              height: 400,
               backgroundColor: "none",
               boxShadow: "none",
             }}
           >
             <Grid>
               <Grid sx={{ paddingBottom: "30px" }}>
-                <Typography sx={{ fontWeight: "800", fontSize: "30px" }}>
-                  주문 내역
-                </Typography>
-                <hr />
+                <Typography sx={{ fontWeight: "800" }}>주문 내역</Typography>
+                <hr style={{ color: "#b5c95a", border: "solid 1px" }} />
                 <div className="cartNamePriceColumn">
                   <span className="productAllPrice">총 주문금액</span>
                   <span>
@@ -207,7 +205,7 @@ const Cart = () => {
                     label="Coupon"
                   >
                     <MenuItem
-                      sx={{ width: "460px" }}
+                      sx={{ width: "365px" }}
                       className="couponSelect"
                       value=""
                     >
@@ -243,7 +241,6 @@ const Cart = () => {
               </Grid>
               <Grid>
                 <Link
-                  className="linkOrder"
                   to={"/order"}
                   state={{
                     obj: {

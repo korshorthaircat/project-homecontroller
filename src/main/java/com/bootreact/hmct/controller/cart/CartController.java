@@ -33,14 +33,14 @@ public class CartController {
 	@Autowired private JwtTokenProvider jwtTokenProvider;
 	@Autowired private PasswordEncoder passwordEncoder;
 
-	//<메인 페이지> 장바구니 제품추가 (대표 컬러로 추가됨)
+	//<메인 페이지, 위시아이템 페이지> 장바구니 제품추가 (대표 컬러로 추가됨)
 	@PostMapping("/addCart")
 	public String addCart(@RequestBody Map<String, String> paramMap, @AuthenticationPrincipal String userId) {
 		
-			System.out.println(paramMap.toString());
-			System.out.println(userId);
-			System.out.println(paramMap.get("productNo"));
-			System.out.println(paramMap.get("commonCode"));
+//			System.out.println(paramMap.toString());
+//			System.out.println(userId);
+//			System.out.println(paramMap.get("productNo"));
+//			System.out.println(paramMap.get("commonCode"));
 			
 			int productCount = 1;
 			String commonCode = productService.getRepresentativeCommonCode(
@@ -79,10 +79,10 @@ public class CartController {
 	@PutMapping("/updateCart")
 	public ResponseEntity<?>updateCart(@RequestBody Map<String, String> paramMap) {
 		try {
-			System.out.println(paramMap.get("userId"));
-			System.out.println(paramMap.get("productNo"));
-			System.out.println(paramMap.get("commonCode"));
-			System.out.println(paramMap.get("productCount"));
+//			System.out.println(paramMap.get("userId"));
+//			System.out.println(paramMap.get("productNo"));
+//			System.out.println(paramMap.get("commonCode"));
+//			System.out.println(paramMap.get("productCount"));
 			
 			//수정 처리하기
 			cartService.updateCart(paramMap.get("userId"),
@@ -131,7 +131,6 @@ public class CartController {
     	}
 	}	
 
-	//작동하는 메서드
 	//장바구니 제품리스트 조회 (이미지 포함X)
 	@PostMapping("/getCartList")
     public ResponseEntity<?> getCartList(@RequestBody User user){
@@ -161,7 +160,6 @@ public class CartController {
     	}
 	}
 	
-	//수정 중
 	//장바구니 제품이미지 리스트 조회
 	@PostMapping("/getCartMapList")
     public Map<String, Object> getCartImageList(@RequestBody User user){

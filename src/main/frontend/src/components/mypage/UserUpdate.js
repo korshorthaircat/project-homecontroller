@@ -367,7 +367,7 @@ function UserUpdate() {
         </div> */}
 
         <div className="userImg">
-          <img src="https://images.pexels.com/photos/6739653/pexels-photo-6739653.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"></img>
+          <img src="https://images.pexels.com/photos/8226894/pexels-photo-8226894.jpeg?auto=compress&cs=tinysrgb&w=800"></img>
         </div>
 
         <div className="userForm">

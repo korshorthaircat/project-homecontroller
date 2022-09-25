@@ -1,7 +1,9 @@
 package com.bootreact.hmct.controller.user;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.dto.UserDTO;
+import com.bootreact.hmct.entity.Order;
 import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.jwt.JwtTokenProvider;
 import com.bootreact.hmct.service.mypage.MypageService;
@@ -139,11 +142,7 @@ public class UserController {
     		response.setError(e.getMessage());
     		return ResponseEntity.badRequest().body(response);
     	}
-    }
-    
-
-
-    
+    }  
    
     //회원 삭제  
     @DeleteMapping("/deleteUser")
@@ -232,12 +231,6 @@ public class UserController {
     	}
     };
 	
-//	//휴대전화 인증
-//	void validateTel() {}
-//
-//	//이메일 인증
-//	void validateEmail() {}
-//
 	//아이디 중복체크
 	@PostMapping("/checkId")
 	public ResponseEntity<?> checkId(@RequestBody User user) {
@@ -303,13 +296,23 @@ public class UserController {
 			ResponseDTO<UserDTO> response = new ResponseDTO<>();
 			response.setError("login failed");
 			return ResponseEntity.badRequest().body(response);
-		}
-		
-		
-
-
-
-//	//로그아웃
-//	void logout() {}
-}
+		}	
+     }
+	
+	//아이디찾기
+	@PostMapping("/Idfind")
+    public Map<String, Object> Idfind(User user){
+    	try {
+    		System.out.println(user.getUserMail());
+    		System.out.println("!!!!!!!" );
+    		Map<String, Object> userDetail = userService.Idfind(user.getUserName(), user.getUserMail());		
+    		System.out.println(userDetail);
+    		return userDetail;
+    	}catch(Exception e){
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+    		errorMap.put("error", e.getMessage());
+    		return errorMap;
+    	}
+    }
+    
 }

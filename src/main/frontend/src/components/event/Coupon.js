@@ -4,36 +4,37 @@ import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
+import "../../css/coupon.css";
 
 const Coupon = () => {
   const coupons = [
     {
       couponNo: 1,
-      couponName: "첫 구매 10% 할인",
-      couponExpdate: "221231",
-      couponMethod: "P",
-      couponPrice: 10,
-    },
-    {
-      couponNo: 2,
       couponName: "5% 할인",
       couponExpdate: "221231",
       couponMethod: "P",
       couponPrice: 5,
     },
     {
-      couponNo: 3,
-      couponName: "5000원 할인",
+      couponNo: 2,
+      couponName: "10% 할인",
       couponExpdate: "221231",
-      couponMethod: "W",
-      couponPrice: 5000,
+      couponMethod: "P",
+      couponPrice: 10,
     },
     {
-      couponNo: 4,
+      couponNo: 3,
       couponName: "3000원 할인",
       couponExpdate: "221231",
       couponMethod: "W",
       couponPrice: 3000,
+    },
+    {
+      couponNo: 4,
+      couponName: "5000원 할인",
+      couponExpdate: "221231",
+      couponMethod: "W",
+      couponPrice: 5000,
     },
   ];
 
@@ -61,88 +62,137 @@ const Coupon = () => {
 
   return (
     <div>
-      <Typography variant="h1" style={{ textAlign: "center" }}>
-        쿠폰 발급
-      </Typography>
+      <img className="treeImg" src="../images/pine-tree.png"></img>
+      <img className="treeImg" src="../images/pine-tree.png"></img>
+      <div className="couponOutline"></div>
+      <div style={{ position: "relative" }}>
+        <Typography id="couponTitle">MEMBERSHIP COUPON</Typography>
+        <Typography id="couponSub">
+          HOME CONTROLLER 회원들을 위한 특별한 혜택
+        </Typography>
 
-      <Grid
-        container
-        spacing={2}
-        columns={16}
-        style={{ width: "70%" }}
-        // direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Grid item xs={8}>
-          <Item>
-            <img
-              className="coupon"
-              src="images/coupons/coupon_10perdiscount.jpg"
-              alt="쿠폰"
-            />
-            <Button
-              color="success"
-              variant="contained"
-              fullWidth
-              onClick={createCoupon(1)}
-            >
-              발급 받기
-            </Button>
-          </Item>
+        <Grid
+          container
+          spacing={12}
+          columns={16}
+          style={{
+            width: "50%",
+            flexDirection: "row",
+            margin: "1% 26% 20%",
+          }}
+          // direction="row"
+          alignItems="center"
+        >
+          <Grid item xs={8}>
+            <div>
+              <div id="couponContent">
+                <div style={{ fontSize: "15px", color: "#546e23" }}>
+                  THANK YOU COUPON
+                </div>
+                <div
+                  style={{
+                    fontSize: "95px",
+                    fontWeight: "1000",
+                    color: "#74992e",
+                  }}
+                >
+                  5%
+                </div>
+              </div>
+
+              <div id="couponDownload">
+                쿠폰 발급
+                <p />
+                <img
+                  className="downloadIcon"
+                  src="../images/downloadIcon(2).png"
+                ></img>
+              </div>
+            </div>
+          </Grid>
+          <Grid item xs={8}>
+            <div>
+              <div id="couponContent">
+                <div style={{ fontSize: "15px", color: "#546e23" }}>
+                  THANK YOU COUPON
+                </div>
+                <div
+                  style={{
+                    fontSize: "95px",
+                    fontWeight: "1000",
+                    color: "#74992e",
+                  }}
+                >
+                  10%
+                </div>
+              </div>
+
+              <div id="couponDownload">
+                쿠폰 발급
+                <p />
+                <img
+                  className="downloadIcon"
+                  src="../images/downloadIcon(2).png"
+                ></img>
+              </div>
+            </div>
+          </Grid>
+          <Grid item xs={8}>
+            <div>
+              <div id="couponContent">
+                <div style={{ fontSize: "15px", color: "#546e23" }}>
+                  THANK YOU COUPON
+                </div>
+                <div
+                  style={{
+                    fontSize: "65px",
+                    fontWeight: "1000",
+                    color: "#74992e",
+                  }}
+                >
+                  3,000원
+                </div>
+              </div>
+
+              <div id="couponDownload">
+                쿠폰 발급
+                <p />
+                <img
+                  className="downloadIcon"
+                  src="../images/downloadIcon(2).png"
+                ></img>
+              </div>
+            </div>
+          </Grid>
+          <Grid item xs={8}>
+            <div>
+              <div id="couponContent">
+                <div style={{ fontSize: "15px", color: "#546e23" }}>
+                  THANK YOU COUPON
+                </div>
+                <div
+                  style={{
+                    fontSize: "65px",
+                    fontWeight: "1000",
+                    color: "#74992e",
+                  }}
+                >
+                  5,000원
+                </div>
+              </div>
+
+              <div id="couponDownload">
+                쿠폰 발급
+                <p />
+                <img
+                  className="downloadIcon"
+                  src="../images/downloadIcon(2).png"
+                ></img>
+              </div>
+            </div>
+          </Grid>
         </Grid>
-        <Grid item xs={8}>
-          <Item>
-            <img
-              className="coupon"
-              src="images/coupons/coupon_5perdiscount.jpg"
-              alt="쿠폰"
-            />{" "}
-            <Button
-              color="success"
-              variant="contained"
-              fullWidth
-              onClick={createCoupon(2)}
-            >
-              발급 받기
-            </Button>
-          </Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item>
-            <img
-              className="coupon"
-              src="images/coupons/coupon_5000discount.jpg"
-              alt="쿠폰"
-            />
-            <Button
-              color="success"
-              variant="contained"
-              fullWidth
-              onClick={createCoupon(3)}
-            >
-              발급 받기
-            </Button>
-          </Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item>
-            <img
-              className="coupon"
-              src="images/coupons/coupon_3000discount.jpg"
-              alt="쿠폰"
-            />
-            <Button
-              color="success"
-              variant="contained"
-              fullWidth
-              onClick={createCoupon(4)}
-            >
-              발급 받기
-            </Button>
-          </Item>
-        </Grid>
-      </Grid>
+      </div>
     </div>
   );
 };

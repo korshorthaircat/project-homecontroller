@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -68,7 +69,7 @@ public class OrderController {
     		System.out.println(e.getMessage());
     		ResponseDTO<OrderDTO> response = new ResponseDTO<>();
     		response.setError(e.getMessage());
-    		return ResponseEntity.badRequest().body(response);		
+    		return ResponseEntity.badRequest().body(response);
     	}
     }
     
@@ -161,26 +162,20 @@ public class OrderController {
 	}
 	
 //	//<주문 완료 페이지>가장 최근에 생성한 주문번호 가져오기
-//    @GetMapping("/getRecentOrderNo")
-//    public Map<String, Object> getRecentOrderNo(@AuthenticationPrincipal String userId){
-//    	try {
-//    		
-//    		String orderNo = orderService.getRecentOrderNo(userId);
-//    		
-//    		ResponseDTO<OrderDTO> response = new ResponseDTO<>();
-//    		
-//    		response.setData(orderNo);
-//    		
-//    		return ResponseEntity.ok().body(response);
-//    		
-//    	}catch(Exception e){
-//    		System.out.println(e.getMessage());
-//    		ResponseDTO<OrderDTO> response = new ResponseDTO<>();
-//    		response.setError(e.getMessage());
-//    		return ResponseEntity.badRequest().body(response);		
-//    	}
-//    }
-	
+    @PostMapping("/getRecentOrderNo")
+    public Map<String, Object> getRecentOrder(@AuthenticationPrincipal String userId){
+    	try {
+    		System.out.println("최근 주문번호 !!!!!!!!!!!!!!!!!!!!!");
+    		int recentOrderNo = orderService.getRecentOrder(userId);
 
+    		Map<String, Object> returnMap = new HashMap<String, Object>();
+			returnMap.put("recentOrderNo", recentOrderNo);		
+			return returnMap; 
+    	}catch(Exception e){
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+			errorMap.put("error", e.getMessage());
+			return errorMap;
+    	}
+    }
 
 }

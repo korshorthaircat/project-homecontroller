@@ -1,6 +1,7 @@
 package com.bootreact.hmct.service.user;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bootreact.hmct.entity.User;
 
@@ -18,6 +19,8 @@ public interface UserService {
 	User checkId(String userId);
           
 	User findbyUserId(String userId);
+
+	Map<String, Object>Idfind(String userName, String userMail);
 	
 
 }

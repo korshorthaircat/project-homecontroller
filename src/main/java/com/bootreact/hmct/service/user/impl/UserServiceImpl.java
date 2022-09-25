@@ -1,12 +1,15 @@
 package com.bootreact.hmct.service.user.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.bootreact.hmct.entity.User;
+import com.bootreact.hmct.mapper.UserMapper;
 import com.bootreact.hmct.repository.UserRepository;
 import com.bootreact.hmct.service.user.UserService;
 
@@ -18,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private UserMapper userMapper;
 	
 	@Override
 	public User join(User user) {
@@ -77,7 +83,13 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByUserId(userId);
 	}
 
-	
+	@Override
+	public Map<String, Object>Idfind(String userName, String userMail){
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		resultMap.put("userDetail", userMapper.Idfind(userName, userMail));
+		return resultMap;
+	};
 	
 
 

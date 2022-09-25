@@ -19,7 +19,7 @@ const ProductInCart = ({
   deleteCart,
   updateCart,
 }) => {
-  //제품 수량관리를 위해 useReducer 사용
+  //제품 수량관리를 위해 useReducer  사용
   const [number, dispatch] = useReducer(reducer, parseInt(cart.productCount));
 
   //수량 변경 버튼 클릭시 수량과 주문금액에 영향
