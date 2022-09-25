@@ -10,12 +10,29 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { width } from "@mui/system";
 import Typography from "@mui/material/Typography";
+import FixedBar from "../list/FixedBar";
+import MainShowroomColor from "../../components/main/MainShowroomColor";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
 
 const InteriorShowroom = () => {
   const [showroomImg, setShowroomImg] = React.useState([]);
   const [showroomImgData, setShowroomImgData] = useState([]);
   const [showroomItem, setShowroomItem] = useState([]);
   const [cnt, setCnt] = useState(0);
+
+  const colorArr = [
+    "red",
+    "yellow",
+    "green",
+    "blue",
+    "purple",
+    "white",
+    "beige",
+    "black",
+    "gray",
+    "pink",
+  ];
   //const [showroomProductItem, setShowroomProductItem] = useState([]);
 
   let showroomListUrl = "http://localhost:8080/api/main/getShowroomList";
@@ -87,6 +104,27 @@ const InteriorShowroom = () => {
     <div>
       <div>
         <ShowroomTop></ShowroomTop>
+        <div className="showroomMain">
+          <div>
+            <Box sx={{ flexGrow: 1 }}>
+              <AppBar position="static">
+                <Toolbar sx={{ backgroundColor: "white" }}>
+                  <Button color="success">color</Button>
+                  <div className="mainShowroomColor">
+                    {colorArr.map((color, index) => (
+                      <MainShowroomColor
+                        key={index}
+                        color={color}
+                        getColorShowroomList={getColorShowroomList}
+                      />
+                    ))}
+                  </div>
+                </Toolbar>
+              </AppBar>
+            </Box>
+          </div>
+        </div>
+        <FixedBar></FixedBar>
         <Box sx={{ flexGrow: 1 }}>
           <Grid
             container

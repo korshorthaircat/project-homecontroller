@@ -59,7 +59,7 @@ const HoverIcon = ({ productItem }) => {
           </p>{" "}
           <br />
           <p style={{ fontSize: "16px", lineHeight: "120%" }}>
-            {productItem.productCategoryName} ,
+            {productItem.productCategoryName}
             <br />
             {productItem.productSize}
           </p>
