@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bootreact.hmct.dto.InquiryDTO;
 import com.bootreact.hmct.dto.OrderDTO;
 import com.bootreact.hmct.dto.ResponseDTO;
+import com.bootreact.hmct.dto.ReviewDTO;
 import com.bootreact.hmct.entity.Order;
+import com.bootreact.hmct.entity.Review;
 import com.bootreact.hmct.entity.User;
 import com.bootreact.hmct.jwt.JwtTokenProvider;
 import com.bootreact.hmct.service.cart.CartService;
@@ -246,6 +248,51 @@ public class MypageController {
 	}
 
 		
+	
+	//나의 상품리뷰 조회 
+	@PostMapping("/getMyReviewList")
+	public ResponseEntity<?> getMyReviewList(@AuthenticationPrincipal String userId) {
+		try {
+			//JPA 쓸 경우 - 리턴타입은 ResponseEntity<?>
+			List<Review> reivewList = reviewService.getMyReviewList(userId);
+			List<ReviewDTO> reviewDTOList = new ArrayList<ReviewDTO>();
+			for(Review r : reivewList) {
+				ReviewDTO reviewDTO = new ReviewDTO();
+				reviewDTO.setReviewNo(r.getReviewNo());
+				reviewDTO.setReviewTitle(r.getReviewTitle());
+				reviewDTO.setReviewContent(r.getReviewContent());
+				reviewDTO.setReviewGrade(r.getReviewGrade());
+				reviewDTO.setReviewRegdate(r.getReviewRegdate());
+				
+				reviewDTO.setProductNo(r.getOrderItem().getProductOption().getProduct().getProductNo());
+				reviewDTO.setCommonCode(r.getOrderItem().getProductOption().getCommon().getCommonCodeName());
+				reviewDTO.setUserId(r.getOrderItem().getOrder().getUser().getUserId());
+				reviewDTOList.add(reviewDTO);
+			}
+		ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
+		response.setData(reviewDTOList);
+		return ResponseEntity.ok().body(response);
+			
+			//매퍼 쓸 경우 - 리턴타입은 Map<String, Object>
+//						- 매개변수는 @RequestParam int productNo
+//			List<Map<String, Object>> reviewList = reviewService.getReviewListByProductNo(productNo);
+//			
+//			Map<String, Object> returnMap = new HashMap<String, Object>();
+//			returnMap.put("reviewList", reviewList);
+//
+//			return returnMap; 
+		
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
+			response.setError(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+			
+//    		Map<String, Object> errorMap = new HashMap<String, Object>();
+//    		errorMap.put("error", e.getMessage());
+//    		return errorMap;
+		}
+	}
 	}
 	
 	

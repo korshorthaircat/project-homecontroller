@@ -53,7 +53,10 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 
-
+	@Override
+	public List<Review> getMyReviewList(String userId) {
+		return reviewRepository.findByUserUserId(userId);
+	}
 
 
 	

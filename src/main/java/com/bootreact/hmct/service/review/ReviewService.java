@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.bootreact.hmct.entity.Inquiry;
 import com.bootreact.hmct.entity.Review;
 
 @Service
@@ -30,7 +31,7 @@ public interface ReviewService {
 	int getAvgRevGradeByProductNo(int productNo);
 
 
-	
+	List<Review> getMyReviewList(String userId);
 
 
 	
