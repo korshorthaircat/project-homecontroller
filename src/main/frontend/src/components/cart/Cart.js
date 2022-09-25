@@ -240,7 +240,6 @@ const Cart = () => {
                     {(paymentAmount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                   </Typography>
                 </div>
-
               </Grid>
               <Grid>
                 <Link
@@ -256,6 +255,7 @@ const Cart = () => {
                       cart: cartList,
                     },
                   }}
+                  //pull용,,
                 >
                   <button className="orderButton">
                     주문하기
