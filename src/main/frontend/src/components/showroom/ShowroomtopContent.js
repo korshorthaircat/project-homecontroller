@@ -66,7 +66,7 @@ const ShowroomtopContent = () => {
             <Card sx={{ maxWidth: 450 }}>
               <CardMedia
                 component="img"
-                alt="green iguana"
+                alt="showroomcontent "
                 height="500"
                 src="../images/showroom_images/showroomcontent1.png"
               />

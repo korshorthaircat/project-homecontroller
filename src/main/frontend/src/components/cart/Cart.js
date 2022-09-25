@@ -252,7 +252,7 @@ const Cart = () => {
                       cart: cartList,
                     },
                   }}
-                  //pull용,,
+                  //pull용
                 >
                   <button className="orderButton">
                     주문하기

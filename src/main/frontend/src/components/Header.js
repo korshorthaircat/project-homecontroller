@@ -86,6 +86,7 @@ const Header = () => {
   const [cartCount, setCartCount] = React.useState(0); //장바구니에 담긴 제품 개수
   const [loginUser, setLoginUser] = React.useState(null);
   const [word, setWord] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
 
   // const onSubmit = async (e) => {
   //   if (e.keyCode === 13) window.location.href = "/search/" + word;
@@ -110,6 +111,12 @@ const Header = () => {
     setLoginUser(JSON.parse(sessionStorage.getItem("USER_INFO")));
     setCartCount(JSON.parse(sessionStorage.getItem("cartCount")));
   }, []);
+
+  React.useEffect(() => {
+    if (loginUser !== null && loginUser.userId == "admin") {
+      setIsAdmin(true);
+    }
+  }, [loginUser]);
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -401,6 +408,20 @@ const Header = () => {
                 <ListItemText primary="직원소개" />
               </ListItemButton>
             </ListItem>
+
+            {isAdmin ? (
+              <>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <Link href="/admin">
+                      <ListItemText primary="관리자페이지" />
+                    </Link>
+                  </ListItemButton>
+                </ListItem>
+              </>
+            ) : (
+              <></>
+            )}
           </List>
 
           <Divider />
