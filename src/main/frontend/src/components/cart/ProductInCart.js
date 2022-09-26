@@ -86,7 +86,9 @@ const ProductInCart = ({
           <ButtonBase className="productInCartImg">
             <ProductImg
               alt="complex"
-              src={`http://localhost:8080/upload/${cartImage.productImageName}`}
+              src={`http://localhost:8080/upload/${
+                cartImage ? cartImage.productImageName : null
+              }`}
             />
           </ButtonBase>
         </Grid>

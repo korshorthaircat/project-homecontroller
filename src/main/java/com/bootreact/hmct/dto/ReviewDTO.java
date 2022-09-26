@@ -14,6 +14,7 @@ public class ReviewDTO {
 	
 	
 	private int productNo;
+	private String proudctImageName;
 	private String userId;
 	private String commonCode;
 	

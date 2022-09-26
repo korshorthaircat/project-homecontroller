@@ -58,8 +58,7 @@ const SameCategoryList = () => {
           <ProductCard item={a} productImageList={productImageList} />
         ))}
       </Carousel> */}
-      {/* {productCategoryName} */}
-
+      {productCategoryName}
       <ThemeProductCarousel theme={productCategoryName} />
     </div>
   );
