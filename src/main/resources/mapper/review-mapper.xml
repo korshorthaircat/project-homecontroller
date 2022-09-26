@@ -15,6 +15,7 @@
 		      AND A.PRODUCT_NO = B.PRODUCT_NO
               AND B.PRODUCT_NO = C.PRODUCT_NO
 		      AND C.PRODUCT_IMAGE_NO = 1
+		      ORDER BY REVIEW_NO
 	]]>
 	</select>
 </mapper>
