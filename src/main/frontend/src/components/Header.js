@@ -147,7 +147,7 @@ const Header = () => {
   //     //url을 바꿔준다
   //     let keyword = event.target.value;
   //     console.log("keyword", keyword);
-
+  //     asdf
   //     //url을 바꿔준다
   //     navigate(`/list/?q=${keyword}`);
   //   }
@@ -230,7 +230,7 @@ const Header = () => {
                   src="../images/logo_2.png"
                   alt="헤더로고"
                 />
-              </Link>
+              </Link>   
 
               <Search>
                 <SearchIconWrapper>
