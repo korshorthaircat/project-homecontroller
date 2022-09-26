@@ -46,8 +46,26 @@ const ProductCardForList = ({ item, productImageList }) => {
         return productImage;
       });
 
-      setThumbnail(productImageList[indexList[0]].productImageName);
-      setHoverImage(productImageList[indexList[1]].productImageName);
+      // setThumbnail(productImageList[indexList[0]].productImageName);
+      // setHoverImage(productImageList[indexList[1]].productImageName);
+
+      if (
+        productImageList[indexList[0]] !== undefined &&
+        productImageList[indexList[0]] !== null
+      ) {
+        setThumbnail(productImageList[indexList[0]].productImageName);
+      } else {
+        setThumbnail();
+      }
+
+      if (
+        productImageList[indexList[1]] !== undefined &&
+        productImageList[indexList[1]] !== null
+      ) {
+        setHoverImage(productImageList[indexList[1]].productImageName);
+      } else {
+        setHoverImage();
+      }
     }
   }, [item, productImageList]);
 
@@ -136,8 +154,8 @@ const ProductCardForList = ({ item, productImageList }) => {
           className="imageArea"
           src={
             isHover
-              ? `http://localhost:8080/upload/${hoverImage}`
-              : `http://localhost:8080/upload/${thumbnail}`
+              ? `http://localhost:8080/upload/${hoverImage ? hoverImage : null}`
+              : `http://localhost:8080/upload/${thumbnail ? thumbnail : null}`
           }
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
