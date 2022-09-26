@@ -59,36 +59,6 @@ const ProductCategoryList = () => {
     if (params) fetchData();
   }, [params]);
 
-  // const getProducts = async () => {
-  //   // let serachQuery = query.get("q");
-  //   // console.log("serachQuery", serachQuery);
-  //   let url = "http://localhost:8080/api/product/getAllProductList";
-  //   let response = await fetch(url);
-  //   let data = await response.json();
-  //   console.log(data);
-  //   setProductList(data.productList);
-  //   setProductImageList(data.productImageList);
-  // };
-
-  // useEffect(() => {
-  //   if (
-  //     (commonCode === "" || typeof commonCode === "undefined") &&
-  //     (productMaterial === "" || typeof productMaterial === "undefined")
-  //   ) {
-  //     setShowProductList((prev) =>
-  //       productList.filter(
-  //         (p) => p.productPrice > lowestPrice && p.productPrice <= highestPrice
-  //       )
-  //     );
-  //   } else {
-  //     setShowProductList((prev) =>
-  //       prev.filter(
-  //         (p) => p.productPrice > lowestPrice && p.productPrice <= highestPrice
-  //       )
-  //     );
-  //   }
-  // }, [lowestPrice, highestPrice]);
-
   useEffect(() => {
     console.log(productList);
     if (Array.isArray(productList) && productList.length !== 0)

@@ -16,9 +16,16 @@
 	</select>
 	
 	<select id="getColorShowroomItemList" parameterType="int" resultType="camelHashMap">
-		SELECT * 
-			FROM T_HMCT_SHOWROOM_ITEM 
-			WHERE SHOWROOM_NO = #{showroomNo}
+		SELECT A.*,
+	   		   B.*,
+	   		   C.COMMON_CODE_NAME AS PRODUCT_CATEGORY_NAME
+			FROM T_HMCT_SHOWROOM_ITEM A,
+				 T_HMCT_PRODUCT B,
+				 T_HMCT_COMMON C
+			WHERE A.PRODUCT_NO = B.PRODUCT_NO
+			  AND B.PRODUCT_CATEGORY = C.COMMON_CODE
+			  AND C.COMMON_TYPE = 'C'
+			  AND A.SHOWROOM_NO = #{showroomNo}
 	</select>
 	
 	<select id="getShowroomProductItem" parameterType="int" resultType="camelHashMap">

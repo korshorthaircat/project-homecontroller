@@ -25,8 +25,6 @@ public interface ProductService {
 	
 	Product findbyProductNo(int productNo);
 	
-	void deleteProduct(Product product);
-	
 	List<Map<String, Object>> getMainProductList();
 	
 	List<Map<String, Object>> getMainProductImageList();
@@ -74,6 +72,8 @@ public interface ProductService {
 	List<Map<String, Object>> getSearchProductImageList(int[] productNoArr);
 
 	List<Map<String, Object>> getProductCategoryList(String code);
+
+	void deleteProduct(Product product);
 
 	
 }

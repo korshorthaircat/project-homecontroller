@@ -88,17 +88,10 @@ const Header = () => {
   const [word, setWord] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
 
-  //윈도우.로케이션 코드 실행이 안됨
-  // const onSubmit = async (e) => {
-  //   console.log(e.keyCode);
-  //   if (e.keyCode == 13) {
-  //     window.location.href = "/search/" + word;
-  //   }
-  // };
-
-  //윈도우.로케이션은 잘 작동하지만, 영어로 검색어를 쓸 때 오류가 남
-  const onSubmit = async () => {
-    window.location.href = "/search/" + word;
+  const onSubmit = async (e) => {
+    if (e.which === 13) {
+      window.location.href = "/search/" + word;
+    }
   };
 
   const logout = React.useCallback((e) => {
@@ -147,7 +140,7 @@ const Header = () => {
   //     //url을 바꿔준다
   //     let keyword = event.target.value;
   //     console.log("keyword", keyword);
-
+  //     asdf
   //     //url을 바꿔준다
   //     navigate(`/list/?q=${keyword}`);
   //   }
@@ -163,7 +156,7 @@ const Header = () => {
     let url = `http://localhost:8080/api/main/getMainProductList`;
     let response = await fetch(url);
     let data = await response.json();
-    console.log("data/////////", data.productList);
+    //console.log("헤더에서 호출", data.productList);
     setProductList(data.productList);
     setProductImageList(data.productImageList);
   };
@@ -376,7 +369,10 @@ const Header = () => {
 
             <ListItem disablePadding>
               <ListItemButton>
-                <Link href="/showroom">
+                <Link
+                  href="/showroom"
+                  sx={{ color: "black", textDecoration: "none" }}
+                >
                   <ListItemText primary="인테리어 쇼룸" />
                 </Link>
               </ListItemButton>
@@ -402,7 +398,10 @@ const Header = () => {
 
             <ListItem disablePadding>
               <ListItemButton>
-                <Link href="/mypage">
+                <Link
+                  href="/mypage"
+                  sx={{ color: "black", textDecoration: "none" }}
+                >
                   <ListItemText primary="마이페이지" />
                 </Link>
               </ListItemButton>
@@ -418,7 +417,10 @@ const Header = () => {
               <>
                 <ListItem disablePadding>
                   <ListItemButton>
-                    <Link href="/admin">
+                    <Link
+                      href="/admin"
+                      sx={{ color: "black", textDecoration: "none" }}
+                    >
                       <ListItemText primary="관리자페이지" />
                     </Link>
                   </ListItemButton>
