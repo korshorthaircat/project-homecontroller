@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 
 const KakaoPayReady = () => {
   //결제정보
+  //gg
   const [payInfo, setPayInfo] = useState({});
 
   const [params, setParams] = useState({

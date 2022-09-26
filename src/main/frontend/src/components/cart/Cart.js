@@ -12,6 +12,7 @@ import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import "../../css/cart.css";
 
+//gg
 const Cart = () => {
   //db에서 받아온 장바구니 데이터를 담을 state
   const [cartList, setCartList] = useState([]);

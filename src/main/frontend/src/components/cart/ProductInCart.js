@@ -8,6 +8,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import "../../css/cart.css";
 
+//gg
 const ProductInCart = ({
   cart,
   cartImage,

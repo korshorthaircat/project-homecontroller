@@ -357,7 +357,7 @@
 			</foreach>
 	</select>
 	
-	<select id="getProductCategoryList"  resultType="camelHashMap">
+	<select id="getProductCategoryList" parameterType="string"  resultType="camelHashMap">
 	<![CDATA[
 		SELECT AA.*
 			,  BB.COMMON_CODE_NAME AS PRODUCT_MATERIAL_NAME
@@ -372,7 +372,6 @@
 						   , T_HMCT_COMMON C
 						WHERE A.PRODUCT_NO = B.PRODUCT_NO
 						  AND B.COMMON_CODE = C.COMMON_CODE
-						  AND A.PRODUCT_NO = #{productNo}
 				) AA
 		        , (
 					SELECT * 
@@ -387,6 +386,9 @@
 			WHERE AA.PRODUCT_MATERIAL = BB.COMMON_CODE
 		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE
 	]]>
+			<if test='code != null and !("").equals(code)'>
+				AND AA.PRODUCT_CATEGORY = #{code}
+			</if>
 	</select>
 	
 
