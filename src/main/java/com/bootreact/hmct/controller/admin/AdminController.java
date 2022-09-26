@@ -303,17 +303,7 @@ public class AdminController {
     	//쇼룸 아이템 등록
     	showroomService.insertShowroomItems(itemList, srNo);
     }
-
-    
-
-    
-    //인테리어 쇼룸 수정
-    
-    
-    
-    //인테리어 쇼룸 삭제
-   
-    
+  
     
     //상품삭제
     @DeleteMapping("/deleteProduct")
