@@ -376,7 +376,10 @@ const Header = () => {
 
             <ListItem disablePadding>
               <ListItemButton>
-                <Link href="/showroom">
+                <Link
+                  href="/showroom"
+                  sx={{ color: "black", textDecoration: "none" }}
+                >
                   <ListItemText primary="인테리어 쇼룸" />
                 </Link>
               </ListItemButton>
@@ -402,7 +405,10 @@ const Header = () => {
 
             <ListItem disablePadding>
               <ListItemButton>
-                <Link href="/mypage">
+                <Link
+                  href="/mypage"
+                  sx={{ color: "black", textDecoration: "none" }}
+                >
                   <ListItemText primary="마이페이지" />
                 </Link>
               </ListItemButton>
@@ -418,7 +424,10 @@ const Header = () => {
               <>
                 <ListItem disablePadding>
                   <ListItemButton>
-                    <Link href="/admin">
+                    <Link
+                      href="/admin"
+                      sx={{ color: "black", textDecoration: "none" }}
+                    >
                       <ListItemText primary="관리자페이지" />
                     </Link>
                   </ListItemButton>

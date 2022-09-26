@@ -1,3 +1,17 @@
 .css-0 {
     background-color: white;
 }
+
+.css-istqt2-MuiButtonBase-root-MuiButton-root:hover{
+    background-color: none;
+}
+
+.css-istqt2-MuiButtonBase-root-MuiButton-root{
+    background-color: white;
+    color:black;
+}
+
+.css-1ps4owl-MuiTypography-root-MuiLink-root {
+    color: black;
+    text-decoration: none;
+}
