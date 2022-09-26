@@ -47,6 +47,7 @@ const Board = () => {
   const [open, setOpen] = React.useState(false);
   const [inquiryList, setInquiryList] = React.useState([]); //전체 게시글 목록
   const [pagingInquiryList, setPagingInquiryList] = React.useState([]); //페이징 처리한 게시글 모곩
+  const [thisReviewNo, setThisReviwNo] = React.useState(0);
 
   const [inquiryInfo, setInquiryInfo] = React.useState({}); //조회하고자 하는 게시글의 정보
 

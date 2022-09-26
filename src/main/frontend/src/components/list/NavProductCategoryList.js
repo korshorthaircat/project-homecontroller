@@ -138,13 +138,13 @@ const NavProductCategoryList = () => {
     },
     {
       title: "주방용품",
-      code: "C15",
+      code: "C16",
       content:
         "간단히 먹는 주중의 아침 식사부터 촛불을 켠 무드 있는 저녁 식사까지 실용성과 다양한 스타일을 겸비한 IKEA의 디너웨어를 이용하여 원하는 스타일로 테이블을 세팅하세요. 식사를 마친 후 식기세척기로 설거지할 수 있는 제품이란 걸 안다면 로맨틱한 저녁 식사가 더 맛있어지겠죠?",
     },
     {
       title: "인테리어 소품",
-      code: "C16",
+      code: "C17",
       content:
         "화장대를 찾고 계신가요? HOME CONTROLLER에는 다양한 화장대가 준비되어 있어서 집안에 필요한 화장대를 쉽게 찾으실 수 있어요. 어떤 화장대를 원하시든 맞는 의자를 만나실 수 있을 거예요.",
     },
@@ -173,7 +173,7 @@ const NavProductCategoryList = () => {
           paramCategory.code
       );
       console.log("////////////", result.data);
-      setProductList(result.data.searchProductList);
+      setShowProductList(result.data.getCategoryList);
       setProductImageList(result.data.searchProductImageList);
     }
 

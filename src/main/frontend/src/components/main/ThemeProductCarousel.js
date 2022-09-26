@@ -35,8 +35,7 @@ const ThemeProductCarousel = ({ theme }) => {
   //   let url = `http://localhost:8080/api/main/getMainProductList`;
   //   let response = await fetch(url);
   //   let data = await response.json();
-  //   console.log("data/////////", data.productList);
-  //   setProductList(data.productList);
+  //   console.log("data/////////", data.productList);s
   //   setProductImageList(data.productImageList);
   // };
 

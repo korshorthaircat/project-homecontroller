@@ -11,16 +11,15 @@ import Grid from "@mui/material/Grid";
 import { width } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import FixedBar from "../list/FixedBar";
-import MainShowroomColor from "../../components/main/MainShowroomColor";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
+import MainShowroomColor from "../main/MainShowroomColor";
 
 const InteriorShowroom = () => {
   const [showroomImg, setShowroomImg] = React.useState([]);
   const [showroomImgData, setShowroomImgData] = useState([]);
   const [showroomItem, setShowroomItem] = useState([]);
   const [cnt, setCnt] = useState(0);
-
   const colorArr = [
     "red",
     "yellow",
@@ -90,7 +89,7 @@ const InteriorShowroom = () => {
       params: { showroomColor: color },
     })
       .then((response) => {
-        console.log(response.data.colorShowroomList);
+        console.log(response.data);
         setShowroomImg(response.data.colorShowroomList);
         setShowroomItem(response.data.colorShowroomItemList);
         if (response.data.colorShowroomList.length > 4)
@@ -106,7 +105,7 @@ const InteriorShowroom = () => {
         <ShowroomTop></ShowroomTop>
         <div className="showroomMain">
           <div>
-            <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ flexGrow: 1, marginBottom: "3%" }}>
               <AppBar position="static">
                 <Toolbar sx={{ backgroundColor: "white" }}>
                   <Button color="success">color</Button>
@@ -124,7 +123,7 @@ const InteriorShowroom = () => {
             </Box>
           </div>
         </div>
-        <FixedBar></FixedBar>
+        <FixedBar getColorShowroomList={getColorShowroomList}></FixedBar>
         <Box sx={{ flexGrow: 1 }}>
           <Grid
             container

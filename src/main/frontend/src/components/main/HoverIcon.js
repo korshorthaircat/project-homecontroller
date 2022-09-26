@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { ConstructionOutlined } from "@mui/icons-material";
 
 const HoverIcon = ({ productItem }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -16,6 +17,10 @@ const HoverIcon = ({ productItem }) => {
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    console.log(productItem);
+  }, [productItem]);
 
   const open = Boolean(anchorEl);
 
@@ -55,17 +60,17 @@ const HoverIcon = ({ productItem }) => {
         {/* <Typography sx={{ p: 1 }}> */}
         <div className="showroomProductContent">
           <p style={{ fontSize: "18px", fontWeight: "bold" }}>
-            {productItem.productName}
+            {productItem && productItem.productName}
           </p>{" "}
           <br />
           <p style={{ fontSize: "16px", lineHeight: "120%" }}>
-            {productItem.productCategoryName}
+            {productItem && productItem.productCategoryName}
             <br />
-            {productItem.productSize}
+            {productItem && productItem.productSize}
           </p>
           <br />
           <p style={{ fontSize: "22px", fontWeight: "bold" }}>{`₩ ${(
-            productItem.productPrice + ""
+            productItem && productItem.productPrice + ""
           ).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}</p>
         </div>
         {/* </Typography> */}

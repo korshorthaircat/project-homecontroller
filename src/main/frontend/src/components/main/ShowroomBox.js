@@ -129,28 +129,29 @@ const ShowroomBox = ({ item, showroomItem }) => {
         </Modal.Footer>
       </Modal>
 
-      {showroomItemStyle.map((a) => (
-        <div
-          className="hoverIcon"
-          style={{
-            left: a.productLocationLeft,
-            top: a.productLocationTop,
-            position: "absolute",
-          }}
-        >
-          <Link
-            to={`/productDetail/${a.productNo}`}
-            state={{ productList: item }}
+      {showroomItemStyle &&
+        showroomItemStyle.map((a) => (
+          <div
+            className="hoverIcon"
+            style={{
+              left: a.productLocationLeft,
+              top: a.productLocationTop,
+              position: "absolute",
+            }}
           >
-            <HoverIcon
-              productItem={a}
-              onClick={() => {
-                window.location.replace(`/productDetail/${a.productNo}`);
-              }}
-            />
-          </Link>
-        </div>
-      ))}
+            <Link
+              to={`/productDetail/${a.productNo}`}
+              state={{ productList: item }}
+            >
+              <HoverIcon
+                productItem={a}
+                onClick={() => {
+                  window.location.replace(`/productDetail/${a.productNo}`);
+                }}
+              />
+            </Link>
+          </div>
+        ))}
     </div>
   );
 };
