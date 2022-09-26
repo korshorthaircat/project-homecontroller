@@ -338,24 +338,26 @@ public class ProductController {
 	
 	//네브바 클릭시 제품 카테고리별로 가져오기 
 	@GetMapping("/getProductCategoryList")
-	public Map<String, Object> getProductCategoryList(@RequestParam String code) {
-			System.out.println("code: ///////" + code);
+	public Map<String, Object> getProductCategoryList(@RequestParam String productCode) {
+			System.out.println("code: ///////" + productCode);
 			
 			try {
-				List<Map<String, Object>> getCategoryList = productService.getProductCategoryList(code);
+				List<Map<String, Object>> getCategoryList = productService.getProductCategoryList(productCode);
 				
 				Map<String, Object> returnMap = new HashMap<String, Object>();
 				
 				returnMap.put("getCategoryList", getCategoryList);
 				
-				int[] productNoArr = new int[getCategoryList.size()];
+				int[] productNoArr = new int[getCategoryList.size() > 0 ? getCategoryList.size() : 1];
 				
-				for(int i=0; i< getCategoryList.size();i++) {
-					productNoArr[i] = Integer.parseInt(getCategoryList.get(i).get("productNo").toString());
+				if(getCategoryList.size() > 0) {
+					for(int i=0; i< getCategoryList.size();i++) {
+						productNoArr[i] = Integer.parseInt(getCategoryList.get(i).get("productNo").toString());
+					}
+					
+					List<Map<String, Object>> searchProductImageList = productService.getSearchProductImageList(productNoArr);
+					returnMap.put("searchProductImageList", searchProductImageList);
 				}
-				
-				List<Map<String, Object>> searchProductImageList = productService.getSearchProductImageList(productNoArr);
-				returnMap.put("searchProductImageList", searchProductImageList);
 				
 				return returnMap;
 			}catch (Exception e) {

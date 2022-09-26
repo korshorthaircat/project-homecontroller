@@ -1,5 +1,5 @@
 import React from "react";
-import ShowroomTop from "../showroom/ShowroomTop";
+import ShowroomTop from "./ShowroomTop";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import { useState } from "react";
@@ -11,15 +11,18 @@ import Grid from "@mui/material/Grid";
 import { width } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import FixedBar from "../list/FixedBar";
+import MainShowroomColor from "../main/MainShowroomColor";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import MainShowroomColor from "../main/MainShowroomColor";
 
-const InteriorShowroom = () => {
+const InteriorShowroomFixedBartest = () => {
   const [showroomImg, setShowroomImg] = React.useState([]);
   const [showroomImgData, setShowroomImgData] = useState([]);
   const [showroomItem, setShowroomItem] = useState([]);
   const [cnt, setCnt] = useState(0);
+  const [ScrollY, setScrollY] = useState(0); // window 의 pageYOffset값을 저장
+  const [ScrollActive, setScrollActive] = useState(false);
+
   const colorArr = [
     "red",
     "yellow",
@@ -52,18 +55,6 @@ const InteriorShowroom = () => {
       });
   };
 
-  // const getShowroomProductItem = () => {
-  //   axios
-  //     .get(showroomProductItemUrl)
-  //     .then((response) => {
-  //       console.log(response);
-  //       setShowroomProductItem(response.data.data);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // };
-
   React.useEffect(() => {
     list();
   }, []);
@@ -89,7 +80,7 @@ const InteriorShowroom = () => {
       params: { showroomColor: color },
     })
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.colorShowroomList);
         setShowroomImg(response.data.colorShowroomList);
         setShowroomItem(response.data.colorShowroomItemList);
         if (response.data.colorShowroomList.length > 4)
@@ -99,31 +90,53 @@ const InteriorShowroom = () => {
       .catch((e) => {});
   };
 
+  //Fixedbar
+  function handleScroll() {
+    if (ScrollY > 1100) {
+      setScrollY(window.pageYOffset);
+      setScrollActive(true);
+    } else {
+      setScrollY(window.pageYOffset);
+      setScrollActive(false);
+    }
+  }
+  useEffect(() => {
+    function scrollListener() {
+      window.addEventListener("scroll", handleScroll);
+    } //  window 에서 스크롤을 감시 시작
+    scrollListener(); // window 에서 스크롤을 감시
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    }; //  window 에서 스크롤을 감시를 종료
+  });
+
   return (
     <div>
-      <div>
-        <ShowroomTop></ShowroomTop>
-        <div className="showroomMain">
-          <div>
-            <Box sx={{ flexGrow: 1, marginBottom: "3%" }}>
-              <AppBar position="static">
-                <Toolbar sx={{ backgroundColor: "white" }}>
-                  <Button color="success">color</Button>
-                  <div className="mainShowroomColor">
-                    {colorArr.map((color, index) => (
-                      <MainShowroomColor
-                        key={index}
-                        color={color}
-                        getColorShowroomList={getColorShowroomList}
-                      />
-                    ))}
-                  </div>
-                </Toolbar>
-              </AppBar>
-            </Box>
+      <ShowroomTop></ShowroomTop>
+      <div className="App">
+        <div className={ScrollActive ? "fixedBox fixed" : "fixedBox"}>
+          <div className="showroomMain">
+            <div>
+              <Box sx={{ flexGrow: 1 }}>
+                <AppBar position="static">
+                  <Toolbar sx={{ backgroundColor: "white" }}>
+                    <Button color="success">color</Button>
+                    <div className="mainShowroomColor">
+                      {colorArr.map((color, index) => (
+                        <MainShowroomColor
+                          key={index}
+                          color={color}
+                          getColorShowroomList={getColorShowroomList}
+                        />
+                      ))}
+                    </div>
+                  </Toolbar>
+                </AppBar>
+              </Box>
+            </div>
           </div>
         </div>
-        <FixedBar getColorShowroomList={getColorShowroomList}></FixedBar>
+
         <Box sx={{ flexGrow: 1 }}>
           <Grid
             container
@@ -158,4 +171,4 @@ const InteriorShowroom = () => {
   );
 };
 
-export default InteriorShowroom;
+export default InteriorShowroomFixedBartest;

@@ -142,3 +142,28 @@
 .css-96vknt-MuiGrid-root{
   margin-top: 10%;
 }
+
+.fixedBox {
+  position: fixed; 
+  /* top: 50px;  */
+  /* right: 20px; */
+  z-index: 1;
+  width: 100%;
+  padding: 20px; 
+  background: white; 
+  /* border-radius: 6px; */
+  color: #fff;
+  /* border: 1px solid rgb(23, 122, 117); */
+  text-align: center;
+}
+
+.fixedBox.fixed {
+  width: 100%; 
+  top: 0; 
+  right: 0;
+  font-size: 22px;
+  border-radius: 0;
+  padding: 20px; 
+  text-align: center;
+}
+ 
