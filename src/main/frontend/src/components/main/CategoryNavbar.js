@@ -78,8 +78,9 @@ function CategoryNavbar(props) {
             width: "200px",
             height: "50px",
             justifyContent: "left",
-            fontSize: "initial",
+            fontSize: "16px",
             textAlign: "left",
+            color: "black",
           }}
         >
           모든제품
