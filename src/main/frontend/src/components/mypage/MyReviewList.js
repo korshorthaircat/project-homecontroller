@@ -381,14 +381,14 @@ const MyReviewList = () => {
           handlePaging={handlePaging}
         />
 
-        {/* <Button
-        variant="contained"
-        color="success"
-        onClick={() => handleOpenForWriting(true)}
-        sx={{ float: "right" }}
-      >
-        글쓰기
-      </Button> */}
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => handleOpenForWriting(true)}
+          sx={{ float: "right" }}
+        >
+          글쓰기
+        </Button>
 
         {/* <Modal
         open={open}
