@@ -12,7 +12,7 @@
 				 t_hmct_cart B
 			where  B.user_id = #{userId}
 			and A.common_code = B.common_code
-			group by common_code  ;
+			group by common_code;
 	]]>
 	</select>
 </mapper>
