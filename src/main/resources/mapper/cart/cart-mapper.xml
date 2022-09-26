@@ -6,13 +6,23 @@
 	
 	<select id="getCartImageList" parameterType="String" resultType="camelHashMap">
 	<![CDATA[
-		select A.product_image_name
-			,  B.common_code 
-			from t_hmct_product_image A,
-				 t_hmct_cart B
-			where  B.user_id = #{userId}
-			and A.common_code = B.common_code
-			group by common_code;
+		select AA.product_image_name
+			 , MIN(AA.product_image_no) 
+			 , AA.COMMON_CODE
+			 , AA.PRODUCT_NO
+			from (
+					 select A.product_image_name
+					 	   , A.product_image_no
+						   ,  B.common_code
+						   ,  B.product_no 
+						   from t_hmct_product_image A,
+						   t_hmct_cart B
+						   where  B.user_id = #{userId}
+						   and A.common_code = B.common_code 
+						    and A.product_no = B.product_no
+				) AA
+			group by AA.PRODUCT_NO, AA.COMMON_CODE
+			order by AA.PRODUCT_NO ASC, AA.COMMON_CODE ASC
 	]]>
 	</select>
 </mapper>

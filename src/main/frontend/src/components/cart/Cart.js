@@ -22,35 +22,47 @@ const Cart = () => {
 
   //db로부터 장바구니의 데이터 받아오기
   const getCartList = () => {
-    //제품 정보(텍스트) 받아오기
-    axios({
-      method: "post",
-      url: url + "/getCartList",
-      data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
-    }).then((response) => {
-      console.log(response.data.data);
-      setCartList(response.data.data);
+    // //제품 정보(텍스트) 받아오기
+    // axios({
+    //   method: "post",
+    //   url: url + "/getCartList",
+    //   data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
+    // }).then((response) => {
+    //   console.log(response.data.data);
+    //   setCartList(response.data.data);
 
-      sessionStorage.setItem("cartCount", response.data.data.length);
-    });
-    //제품 이미지 받아오기
+    //   sessionStorage.setItem("cartCount", response.data.data.length);
+    // });
+    // //제품 이미지 받아오기
+    // axios({
+    //   method: "post",
+    //   url: url + "/getCartImageList",
+    //   data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
+    // })
+    //   .then((response) => {
+    //     console.log(response);
+    //     setCartImageList(response.data.cartImageList);
+    //   })
+    //   .catch((e) => {
+    //     e.window.onload = function () {
+    //       if (!window.location.hash) {
+    //         window.location = window.location + "#loaded";
+    //         window.location.reload();
+    //       }
+    //     };
+    //   });
     axios({
       method: "post",
       url: url + "/getCartMapList",
       data: { userId: JSON.parse(sessionStorage.getItem("USER_INFO")).userId },
-    })
-      .then((response) => {
-        console.log(response);
-        setCartImageList(response.data.cartImageList);
-      })
-      .catch((e) => {
-        e.window.onload = function () {
-          if (!window.location.hash) {
-            window.location = window.location + "#loaded";
-            window.location.reload();
-          }
-        };
-      });
+    }).then((response) => {
+      console.log(response.data.cartList);
+      console.log(response.data.cartImageList);
+      setCartList(response.data.cartList);
+      setCartImageList(response.data.cartImageList);
+
+      sessionStorage.setItem("cartCount", response.data.cartList.length);
+    });
   };
 
   //장바구니 아이템 삭제 후 db로부터 장바구니의 데이터 받아오기
@@ -153,7 +165,7 @@ const Cart = () => {
             ></ProductInCart>
           ))} */}
 
-          {cartList.length == 0 ? (
+          {cartList.length === 0 ? (
             <>
               <Typography>장바구니에 표시할 제품이 없습니다.</Typography>
             </>
