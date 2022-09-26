@@ -41,6 +41,7 @@ import OrderComplete from "./components/order/OrderComplete";
 import CategoryNavbar from "./components/main/CategoryNavbar";
 import Idfind from "./components/user/Idfind";
 import PwFind from "./components/user/PwFind";
+import InfoStore from "./components/InfoStore";
 
 const AppRouter = () => {
   // 경로에 따라 실행되는 컴포넌트가 다르므로, 그 정보를 갖고있는 AppRouter를 가장 먼저 렌더링해야 한다.(Index.js에서)
@@ -88,6 +89,7 @@ const AppRouter = () => {
               <Route path="/order" element={<Order />} />
               <Route path="/orderComplete" element={<OrderComplete />} />
               <Route path="/board" element={<Board />} />
+              <Route path="/infoStore" element={<InfoStore />} />
             </>
           ) : (
             <>
@@ -105,6 +107,7 @@ const AppRouter = () => {
               <Route path="/cart" element={<Login />} />
               <Route path="/order" element={<Login />} />
               <Route path="/board" element={<Login />} />
+              <Route path="/infoStore" element={<InfoStore />} />
             </>
           )}
 
