@@ -37,16 +37,15 @@ const PwFind = () => {
     setUserMail(e.target.value);
   };
 
-  const findId = (e) => {
-    // console.log(userDetail.userDetail.userId);
+  const sendTemporaryPwMessage = (e) => {
     axios({
       method: "post",
-      url: "http://localhost:8080/api/user/Idfind",
-      params: { userMail: userMail },
+      url: "http://localhost:8080/api/user/Pwfind",
+      params: { userId: userId, userMail: userMail },
     })
       .then((response) => {
         console.log(response.data.userDetail);
-        setUserDetail(response.data.userDetail);
+        // setUserDetail(response.data.userDetail);
       })
       .catch((e) => {
         console.log(e);
@@ -89,7 +88,7 @@ const PwFind = () => {
             variant="contained"
             fullWidth
             onClick={() => {
-              findId();
+              sendTemporaryPwMessage();
               handleOpen();
             }}
             color="success"
@@ -106,7 +105,7 @@ const PwFind = () => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            아이디 찾기
+            메일로 임시 비밀번호 발급하기
           </Typography>
           <Typography
             id="modal-modal-description"

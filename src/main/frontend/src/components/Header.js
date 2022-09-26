@@ -163,7 +163,7 @@ const Header = () => {
     let url = `http://localhost:8080/api/main/getMainProductList`;
     let response = await fetch(url);
     let data = await response.json();
-    console.log("data/////////", data.productList);
+    //console.log("헤더에서 호출", data.productList);
     setProductList(data.productList);
     setProductImageList(data.productImageList);
   };
@@ -230,7 +230,7 @@ const Header = () => {
                   src="../images/logo_2.png"
                   alt="헤더로고"
                 />
-              </Link>   
+              </Link>
 
               <Search>
                 <SearchIconWrapper>
@@ -376,7 +376,10 @@ const Header = () => {
 
             <ListItem disablePadding>
               <ListItemButton>
-                <Link href="/showroom">
+                <Link
+                  href="/showroom"
+                  sx={{ color: "black", textDecoration: "none" }}
+                >
                   <ListItemText primary="인테리어 쇼룸" />
                 </Link>
               </ListItemButton>
@@ -402,7 +405,10 @@ const Header = () => {
 
             <ListItem disablePadding>
               <ListItemButton>
-                <Link href="/mypage">
+                <Link
+                  href="/mypage"
+                  sx={{ color: "black", textDecoration: "none" }}
+                >
                   <ListItemText primary="마이페이지" />
                 </Link>
               </ListItemButton>
@@ -418,7 +424,10 @@ const Header = () => {
               <>
                 <ListItem disablePadding>
                   <ListItemButton>
-                    <Link href="/admin">
+                    <Link
+                      href="/admin"
+                      sx={{ color: "black", textDecoration: "none" }}
+                    >
                       <ListItemText primary="관리자페이지" />
                     </Link>
                   </ListItemButton>

@@ -156,12 +156,12 @@ public class CartController {
     		System.out.println(e.getMessage());
     		ResponseDTO<Cart> response = new ResponseDTO<>();
     		response.setError(e.getMessage());
-    		return ResponseEntity.badRequest().body(response);		
+    		return ResponseEntity.badRequest().body(response);	
     	}
 	}
 	
 	//장바구니 제품이미지 리스트 조회
-	@PostMapping("/getCartMapList")
+	@PostMapping("/getCartImageList")
     public Map<String, Object> getCartImageList(@RequestBody User user){
 		try {
 
@@ -180,4 +180,28 @@ public class CartController {
     	}
 	}
 	
+<<<<<<< HEAD
+=======
+	//장바구니 제품 정보 & 이미지 리스트 조회
+	@PostMapping("/getCartMapList")
+    public Map<String, Object> getCartMapList(@RequestBody User user){
+		try {
+
+			List<Cart> cartList = cartService.getCartList(user.getUserId());
+			List<Map<String, Object>> cartImageList = cartService.getCartImageList(user.getUserId());
+			
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+
+			returnMap.put("cartList", cartList);
+			returnMap.put("cartImageList", cartImageList);
+			
+			return returnMap; 
+    	}catch(Exception e){
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+			errorMap.put("error", e.getMessage());
+			return errorMap;	
+    	}
+	}
+	
+>>>>>>> branch 'main' of https://github.com/tjdcks0875/project-homecontroller.git
 }

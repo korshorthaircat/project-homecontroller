@@ -14,8 +14,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import "../../css/cart.css";
 
-
-const OrderReview = ({ cart , cartImage }) => {
+const OrderReview = ({ cart, cartImage }) => {
   // window.onload = function() {
   //   if(!cartImage.productImageName) {
   //     window.location.reload();
@@ -26,7 +25,9 @@ const OrderReview = ({ cart , cartImage }) => {
       <img
         className="orderImg"
         alt="제품 이미지"
-        src={`http://localhost:8080/upload/${cartImage.productImageName}`}
+        src={`http://localhost:8080/upload/${
+          cartImage ? cartImage.productImageName : null
+        }`}
       />
     </div>
   );
