@@ -9,6 +9,6 @@ import com.bootreact.hmct.entity.Cart;
 import com.bootreact.hmct.entity.CartId;
 
 public interface CartRepository extends JpaRepository<Cart, CartId>{
-	List<Cart> findByUserUserId(String userId);
+	List<Cart> findByUserUserIdOrderByProductOptionProductProductNoAscProductOptionCommonCommonCodeAsc(String userId);
 
 }
