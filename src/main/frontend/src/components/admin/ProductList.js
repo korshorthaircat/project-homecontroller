@@ -13,95 +13,18 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import { TablePagination, Toolbar } from "@mui/material";
 import "../../css/admin.css";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
 import { API_BASE_URL } from "../../app-config";
-import { getUserList } from "../../service/ApiService";
-import PropTypes from "prop-types";
-import { alpha } from "@mui/material/styles";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import { visuallyHidden } from "@mui/utils";
 import "../../css/ad_productList.css";
-import { data } from "jquery";
 import { Link } from "react-router-dom";
 import { useCallback } from "react";
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 
-function createData(
-  productNo,
-  productName,
-  productState,
-  productSize,
-  productRgsde,
-  productUpdde,
-  productPrice,
-  productType,
-  productInventory,
-  productRemark,
-  productUpdate,
-  productDelete,
-  commonCodeName
-) {
-  return {
-    productNo,
-    productName,
-    productState,
-    productSize,
-    productRgsde,
-    productUpdde,
-    productPrice,
-    productType,
-    productInventory,
-    productRemark,
-    productUpdate,
-    productDelete,
-    commonCodeName,
-  };
-}
-const productData = [
-  createData(
-    123,
-    "1인용쇼파",
-    "Y",
-    "M",
-    "2022.08.05",
-    "2022.08.07",
-    "117,300원",
-    "A123",
-    123,
-    "",
-    "",
-    "",
-    ""
-  ),
-];
 const mdTheme = createTheme();
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "100%",
-  height: "75%",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  margin: 0,
-  padding: 0,
-};
 
 const optModalStyle = {
   position: "absolute",
@@ -119,29 +42,11 @@ const optModalStyle = {
 };
 
 export default function EnhancedTable() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [isAddOption, setIsAddOption] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState({});
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
+  const [selectedProduct, setSelectedProduct] = useState({}); 
   const [productList, setProductList] = React.useState([]);
 
   let listUrl = "http://localhost:8080/api/admin/admin2";
-
-  const [update, setUpdate] = React.useState(false);
-  const handleUpdate = (index) => {
-    setUpdate(true);
-    setProductInfo(productList.data[index]);
-  };
-  const [productInfo, setProductInfo] = React.useState({});
   const list = () => {
     axios
       .get(listUrl, {})
@@ -176,19 +81,18 @@ export default function EnhancedTable() {
   //DELETE 요청으로
   const [product, setProduct] = useState([]);
 
-  const onRemove = useCallback((productNo) => {
-    // const productList = {
-    //   id: product,
-    // };
-
+  const onRemove = ()=> {
     axios({
       method: "delete",
-      url: API_BASE_URL + "/api/admin/deleteProduct",
-      data: { productNo: productNo },
+      url: "http://localhost:8080/api/admin/deleteProduct",
+      data: { productNo: productList.productNo },
     }).then((response) => {
+      console.log(response);
       setProduct(response.data.data);
+    }).catch((e) =>{
+      console.log("delete오류" + e);
     });
-  }, []);
+  };
 
   const [optionCommonCode, setOptionCommonCode] = useState(""); //새로 추가될 컬러옵션
   const [optionInventory, setOptionInventory] = useState(0); //새로 추가될 컬러옵션 제품의 재고량
@@ -231,19 +135,6 @@ export default function EnhancedTable() {
 
     fObj.uploadFiles = fileList;
 
-    // const formData = new FormData();
-
-    // formData.append(
-    //   "productNo",
-    //   new Blob([JSON.stringify(event.target.productNo.value)], {
-    //     type: "application/json",
-    //   })
-    // );
-
-    // fileList.forEach((file) => {
-    //   // 파일 데이터 저장
-    //   formData.append("uploadFiles", file);
-    // });
     console.log(fObj);
 
     axios({
@@ -365,8 +256,6 @@ export default function EnhancedTable() {
                           </TableCell>
 
                           <TableCell align="center" sx={{ padding: "0px" }}>
-                            {/* {productList.map((productInfo) => ( */}
-
                             <Button
                               sx={{
                                 border: "1px solid lightgray",
@@ -396,16 +285,15 @@ export default function EnhancedTable() {
                               </Link>
                             </Button>
 
-                            {/* ))} */}
                           </TableCell>
                           <TableCell align="center" sx={{ padding: "0px" }}>
                             <Button
                               onClick={() => {
-                                onRemove(r.productNo);
-                                confirmDelete();
-                                window.location.replace("/admin2");
+                                onRemove();
+
                               }}
-                              id={`Btn${r}`}
+                              id={`Btn${index}`}
+                              type="submit"
                               sx={{
                                 border: "1px solid lightgray",
                                 backgroundColor: "#fff",
@@ -417,7 +305,7 @@ export default function EnhancedTable() {
                             >
                               <img
                                 className="AdminEdit"
-                                src="images/edit.png"
+                                src="../images/delete.png"
                                 alt="AdminEdit"
                               />
                               삭제

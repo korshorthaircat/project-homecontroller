@@ -391,7 +391,15 @@
 			</if>
 	</select>
 	
-
+	<delete id="deleteProduct">
+	<![CDATA[
+		DELETE FROM  A, B
+			   USING T_HMCT_PRODUCT A
+			   LEFT JOIN T_HMCT_PRODUCT_OPTN B
+		       ON A.PRODUCT_NO = B.PRODUCT_NO
+		       WHERE A.PRODUCT_NO = #{productNo};
+	]]>
+	</delete>
 		
 		
 </mapper>
