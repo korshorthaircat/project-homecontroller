@@ -80,9 +80,10 @@ const ShowroomBox = ({ item, showroomItem }) => {
         <FavoriteBorderOutlinedIcon sx={{ color: "white", fontSize: 30 }} />
       </button> */}
 
-      <button className="showroomBoxHeartIcon">
-        <div className="testtttt">
+      <button className="showroomBoxHeart">
+        <div className="heart">
           <Heart
+            inactiveColor="white"
             isActive={active}
             onClick={() => {
               setActive(!active);

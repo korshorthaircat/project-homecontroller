@@ -8,6 +8,7 @@ import { Route, useLocation, useParams } from "react-router-dom";
 import { Details } from "@mui/icons-material";
 import axios from "axios";
 import SameCategoryList from "./SameCategoryList";
+import TopButton from "../main/TopButton";
 
 const choice = {
   img1: {
@@ -144,6 +145,7 @@ function ImageThumb(props) {
           </div>
         </div>
         <SameCategoryList />
+        <TopButton />
       </div>
     </>
   );

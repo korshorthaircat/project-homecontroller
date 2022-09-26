@@ -1,8 +1,7 @@
-import React from 'react';
-import "../../css/topButton.css"
-import { useState, useEffect } from 'react'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
+import React from "react";
+import "../../css/topButton.css";
+import { useState, useEffect } from "react";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 const TopButton = () => {
   const [showButton, setShowButton] = useState(false);
@@ -10,37 +9,33 @@ const TopButton = () => {
   const scrollToTop = () => {
     window.scroll({
       top: 0,
-      behavior: 'smooth'
-    })
-
-  }
+      behavior: "smooth",
+    });
+  };
   useEffect(() => {
     const ShowButtonClick = () => {
-      if (window.scrollY > 800) {
-        setShowButton(true)
+      if (window.scrollY > 100) {
+        setShowButton(true);
       } else {
-        setShowButton(false)
+        setShowButton(false);
       }
-    }
-    window.addEventListener("scroll", ShowButtonClick)
+    };
+    window.addEventListener("scroll", ShowButtonClick);
     return () => {
-      window.removeEventListener("scroll", ShowButtonClick)
-    }
-  }, [])
+      window.removeEventListener("scroll", ShowButtonClick);
+    };
+  }, []);
   return (
     <>
-      {showButton &&
-          <div>
-            <button
-            className='topButton'
-            onClick={scrollToTop}>
-            <KeyboardArrowUpIcon
-            />
-            </button>
-          </div>
-      }
+      {showButton && (
+        <div>
+          <button className="topButton" onClick={scrollToTop}>
+            <KeyboardArrowUpIcon />
+          </button>
+        </div>
+      )}
     </>
-  )
-}
+  );
+};
 
 export default TopButton;

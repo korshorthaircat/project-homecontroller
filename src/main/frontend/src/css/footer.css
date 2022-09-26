@@ -47,7 +47,7 @@
 }
 
 .footer_link:hover a {
-  text-decoration: underline;
+  text-decoration: underline black 1px;
 }
 
 .footer_link a {
