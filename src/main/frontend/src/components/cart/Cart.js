@@ -195,7 +195,7 @@ const Cart = () => {
               p: 2,
               marginLeft: 20,
               width: 400,
-              height: 400,
+              height: 600,
               backgroundColor: "none",
               boxShadow: "none",
             }}

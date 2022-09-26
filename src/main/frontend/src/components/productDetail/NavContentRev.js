@@ -79,13 +79,12 @@ export default function NavContentRev() {
       <div className="ReviewPage">
         <p id="acodianProductName">상품평</p>
 
-        <p>평균 별점: </p>
+        <p>평균 별점 </p>
         <p className="gradeNo">{avgRevGrade}</p>
         <div id="Review">
           <Rating name="read-only" value={avgRevGrade} readOnly />
           <p className="RevproductRevCount" style={{ fontSize: "20px" }}>
-            작성된 상품평 갯수:
-            {reviewList.filter((r) => r.productNo == productNo).length}
+            ({reviewList.filter((r) => r.productNo == productNo).length})
           </p>
         </div>
 
@@ -99,7 +98,6 @@ export default function NavContentRev() {
         ) : (
           <></>
         )}
-        <hr />
 
         {reviewList ? (
           reviewList.map((r, index) =>
@@ -117,7 +115,9 @@ export default function NavContentRev() {
                   </p>
                   <p style={{ float: "right" }}>·</p>
                   <p className="revUserName" style={{ float: "right" }}>
+
                     {r.userId.replaceAll(/(?<=.{2})./gi,"*")}
+
                   </p>
                 </div>
                 <textarea
