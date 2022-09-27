@@ -4,6 +4,15 @@ import { API_BASE_URL } from "../../app-config";
 import { Link } from "@mui/material";
 import axios from "axios";
 import "../../css/mypagesidebar.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+
+const mdTheme = createTheme();
+
+const moveHome = () => {
+  window.location.href = "/";
+};
 
 const ariaLabel = { "aria-label": "description" };
 function MyPoint() {
@@ -70,32 +79,6 @@ function MyPoint() {
     });
   };
 
-  //회원탈퇴 버튼 클릭시
-  const deleteUserInfo = (e) => {
-    if (window.confirm("정말로 떠나시겠어요?😢")) {
-      console.log("탈퇴버튼 클릭");
-      let url = "http://localhost:8080/api/mypage/deleteUserInfo";
-      axios({
-        method: "post",
-        url: url,
-        headers: {
-          Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
-        },
-        data: inputs, // 화면 input 항목에 대한 정보
-      }).then((response) => {
-        alert("삭제됨");
-
-        //로컬과 세션에 담긴 유저 정보 삭제
-        localStorage.removeItem("USER_INFO");
-        localStorage.removeItem("ACCESS_TOKEN");
-        sessionStorage.removeItem("USER_INFO");
-        sessionStorage.removeItem("ACCESS_TOKEN");
-        console.log("잘되나");
-        window.location.href = "/Join";
-      });
-    }
-  };
-
   return (
     <div className="container">
       <body>
@@ -157,23 +140,6 @@ function MyPoint() {
                   <a href="/orderlist" title="Link">
                     주문내역
                   </a>
-                  {/* <ul>
-                <li>
-                  <a href="/orderlist" title="Link">
-                    주문
-                  </a>
-                </li>
-                <li>
-                  <a href="#Link" title="Link">
-                    반품
-                  </a>
-                </li>
-                <li>
-                  <a href="#Link" title="Link">
-                    교환
-                  </a>
-                </li>
-              </ul> */}
                 </li>
 
                 <li>
@@ -183,7 +149,7 @@ function MyPoint() {
                   <ul>
                     <li>
                       <a href="/myinquiry" title="Link">
-                        자유게시판
+                        고객지원 게시판
                       </a>
                     </li>
                     <li>
@@ -199,15 +165,47 @@ function MyPoint() {
         </div>
       </body>
 
-      <div style={{ margin: "0 auto" }}>
+      <Container style={{ marginTop: "-7%" }}>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": { m: 1, width: "30ch" },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <div className="completeMain">
+            <img
+              className="homeLogo"
+              src="../../images/homeControllerLogo.png"
+            ></img>
+            <div className="orderText1">
+              HOME CONTROLLER
+              <p />
+            </div>
+          </div>
+        </Box>
+      </Container>
+      <div style={{ margin: "-50px auto" }}>
         <img src="https://i.pinimg.com/564x/ec/c5/22/ecc5225d244576eee4bbd9c71e34fafc.jpg" />
+        <h5
+          style={{
+            position: "absolute",
+            color: "white",
+            top: "55%",
+            left: "42%",
+          }}
+        >
+          {inputs.userNickname} 님의 현재까지 누적 포인트 : {inputs.userPoint}{" "}
+          POINT
+        </h5>
       </div>
 
-      <div className="outCard">
+      {/* <div className="outCard">
         <div class="card text-center">
           <div class="card-body">
             <div className="pointPart">
-              <h5 style={{ marginBottom: "50px" }}>
+              <h5 style={{ marginBottom: "50px", position: "absolute" }}>
                 {inputs.userNickname} 님의 현재까지 누적 포인트 :{" "}
                 {inputs.userPoint} POINT
               </h5>
@@ -216,7 +214,7 @@ function MyPoint() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

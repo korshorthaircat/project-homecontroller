@@ -86,6 +86,7 @@ function WishList() {
       method: "post",
       data: { showroomNo: wishShowroomList[index].showroomNo },
     }).then((response) => {});
+    window.location.href = "/wishlist";
   };
 
   const toggleLike = async (e) => {
@@ -176,7 +177,7 @@ function WishList() {
 
             <li>
               <a href="#Link" title="Link">
-                나의 게시글
+                고객지원 게시판
               </a>
               <ul>
                 <li>

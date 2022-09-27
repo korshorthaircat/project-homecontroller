@@ -25,6 +25,13 @@ function Mypage() {
               flexDirection: "row",
             }}
           />
+          <h3
+            style={{
+              margin: "0 auto",
+            }}
+          >
+            나의 정보
+          </h3>
         </Link>
 
         <Link href="/wishlist">
