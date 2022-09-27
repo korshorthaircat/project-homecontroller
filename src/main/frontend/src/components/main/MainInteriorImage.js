@@ -14,7 +14,7 @@ const showRoomObjlocation = [
 ];
 
 const MainInteriorImage = () => {
-  const [showroomImg, setShowroomImg] = React.useState([]);
+  //const [showroomImg, setShowroomImg] = React.useState([]);
   const [showroomItem, setShowroomItem] = React.useState([]);
   const [showroomImgData, setShowroomImgData] = React.useState([]);
 
@@ -24,9 +24,12 @@ const MainInteriorImage = () => {
     axios
       .get(showroomListUrl, {})
       .then((response) => {
-        setShowroomImg(response.data.showroomList);
         setShowroomItem(response.data.showroomItemList);
-        setShowroomImgData(response.data.showroomList.slice(0, 2));
+        setShowroomImgData(
+          response.data.showroomList.filter(
+            (showroom) => showroom.showroomNo == 35 || showroom.showroomNo == 36
+          )
+        );
       })
       .catch((e) => {
         console.log(e);
