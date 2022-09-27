@@ -390,17 +390,28 @@
 			</if>
 	</select>
 	
-	<delete id="deleteProduct">
+	<delete id="deleteProductOption" parameterType="map">
 	<![CDATA[
-		DELETE FROM  A, B
-			   USING T_HMCT_PRODUCT A
-			   LEFT JOIN T_HMCT_PRODUCT_OPTN B
-		       ON A.PRODUCT_NO = B.PRODUCT_NO
-		       WHERE A.PRODUCT_NO = #{productNo};
+		DELETE
+			FROM T_HMCT_PRODUCT_OPTN
+			WHERE PRODUCT_NO = #{productNo}
+			  AND COMMON_CODE = #{commonCode}
 	]]>
 	</delete>
 		
-		
+	<select id="getProductOptionCnt" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+			FROM T_HMCT_PRODUCT_OPTN
+			WHERE PRODUCT_NO = #{productNo}
+	</select>
+	
+	<delete id="deleteProduct" parameterType="map">
+	<![CDATA[
+		DELETE
+			FROM T_HMCT_PRODUCT
+			WHERE PRODUCT_NO = #{productNo}
+	]]>
+	</delete>
 </mapper>
 
 
