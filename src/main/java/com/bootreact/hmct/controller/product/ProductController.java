@@ -121,14 +121,11 @@ public class ProductController {
 		try {	
 			
 			List<Map<String, Object>> productInfo = productService.getProduct(productNo);
-			List<Map<String, Object>> productImage = productService.getProductImage(productNo);
+			List<Map<String, Object>> productImage1 = productService.getRepresentativeImage(productNo); //대표사진 가져오기(1개)
+			//List<Map<String, Object>> productImage = productService.getProductImage(productNo); //사진 전부 가져오기. 여기서는 사용하지 않음.
 			
 			Map<String, Object> returnMap = new HashMap<String, Object>();
 			
-			List<Map<String, Object>> productImage1 = productService.getRepresentativeImage(productNo);
-			
-	
-
 			returnMap.put("productInfo", productInfo);
 			returnMap.put("productImage", productImage1);
 			
@@ -146,7 +143,6 @@ public class ProductController {
 		@GetMapping("/productDetail")
 		public Map<String, Object> getProduct(@RequestParam int productNo, @AuthenticationPrincipal String userId ) {
 			try {	
-//				System.out.println(userId);
 				List<Map<String, Object>> productInfo = productService.getProduct(productNo);
 
 				//제품번호를 이용해서 대표컬러(커먼코드) 1개 가져오기
