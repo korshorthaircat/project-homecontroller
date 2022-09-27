@@ -121,6 +121,26 @@ public class ReviewController {
 		}
 	}
 	
+	//로그인한 유저가 작성한 리뷰 목록 조회
+	@PostMapping("/getMyReviewList")
+	public Map<String, Object> getMyReviewList(@AuthenticationPrincipal String userId) {
+		try {
+			//매퍼 쓸 경우 - 리턴타입은 Map<String, Object>
+//						- 매개변수는 @RequestParam int productNo
+			List<Map<String, Object>> reviewList = reviewService.getMyReviewList(userId);
+			
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			returnMap.put("reviewList", reviewList);
+
+			return returnMap; 
+		
+		}catch(Exception e) {
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+    		errorMap.put("error", e.getMessage());
+    		return errorMap;
+		}
+	}
+	
 	@GetMapping("/myReviewImg")
     public Map<String, Object> myReviewImg(){
     	try {

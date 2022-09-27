@@ -35,7 +35,7 @@ public interface ReviewService {
 
 //	List<Review> getMyReviewList(String userId);
 
-
+	List<Map<String, Object>> getMyReviewList(String userId);
 	
 	
 
