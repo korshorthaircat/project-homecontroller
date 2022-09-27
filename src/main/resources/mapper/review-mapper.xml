@@ -29,6 +29,8 @@
 		                   , T_HMCT_ORDRITEM C
 						WHERE A.ORDER_NO = B.ORDER_NO
 						  AND A.ORDER_NO = C.ORDER_NO
+						  AND A.PRODUCT_NO = C.PRODUCT_NO
+                          AND A.COMMON_CODE = C.COMMON_CODE
 				 ) AA
 			   , (
 					SELECT D.PRODUCT_NO
