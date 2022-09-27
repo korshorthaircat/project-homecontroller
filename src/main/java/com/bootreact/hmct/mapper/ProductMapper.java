@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.bootreact.hmct.entity.Product;
+import com.bootreact.hmct.entity.ProductOption;
 
 @Mapper
 public interface ProductMapper {
@@ -64,6 +65,9 @@ public interface ProductMapper {
 
 	List<Map<String, Object>> getProductCategoryList(String code);
 
-
-
+	void deleteProductOption(Map<String, Object> paramMap);
+	
+	int getProductOptionCnt(Map<String, Object> paramMap);
+	
+	void deleteProduct(Map<String, Object> paramMap);
 }		

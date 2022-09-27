@@ -73,9 +73,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public void deleteProduct(Product product) {
-		productRepository.delete(product);
+	public void deleteProduct(Map<String, Object> paramMap){
+		productMapper.deleteProductOption(paramMap);
 		
+		int productOptionCnt = productMapper.getProductOptionCnt(paramMap);
+		
+		if(productOptionCnt == 0) {
+			productMapper.deleteProduct(paramMap);
+		}
 	}
 	
 	@Override

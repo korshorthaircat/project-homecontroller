@@ -15,7 +15,7 @@ import List from "@mui/material/List";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { Select } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import "../../css/ad_productList.css";
 
@@ -34,7 +34,7 @@ function ProductUpdate() {
   const [productInfo, setProductInfo] = React.useState({});
 
   let upproductUrl = "http://localhost:8080/api/admin/admin3";
-
+ const navigate = useNavigate();
   const [productList, setProductList] = React.useState([]);
 
   const location = useLocation({});
@@ -134,6 +134,7 @@ function ProductUpdate() {
       })
         .then((response) => {
           setProductList(response.data);
+          navigate("/admin2");
         })
         .catch((e) => {
           console.log("update오류" + e);
