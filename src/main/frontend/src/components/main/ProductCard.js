@@ -41,7 +41,7 @@ const ProductCard = ({ item, productImageList }) => {
 
   useEffect(() => {
     if (Object.keys(item).length !== 0 && productImageList.length !== 0) {
-      console.log(productImageList);
+      //console.log(productImageList);
       productImageList.map((productImage) => {
         if (
           item.productNo === productImage.productNo &&
@@ -87,7 +87,7 @@ const ProductCard = ({ item, productImageList }) => {
       method: "get",
     })
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         setWishItemList(wishItemList);
       })
       .catch((e) => {

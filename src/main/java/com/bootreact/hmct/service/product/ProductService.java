@@ -75,6 +75,10 @@ public interface ProductService {
 
 	void deleteProduct(Map<String, Object> paramMap);
 
+	int getProductInventory(int productNo, String commonCode);
+
+	void updateProductOptionByOrder(List<Map<String, Object>> orderItemList);
+
 	
 }
 

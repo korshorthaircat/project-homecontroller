@@ -179,5 +179,24 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.getProductCategoryList(code);
 	}
 
+	@Override
+	public int getProductInventory(int productNo, String commonCode) {
+		return productMapper.getProductInventory(productNo, commonCode);
+	}
+
+	@Override
+	public void updateProductOptionByOrder(List<Map<String, Object>> orderItemList) {
+		
+		Map<String, Object> orderItem = new HashMap<String, Object>();
+		
+		for(int i = 0; i < orderItemList.size(); i++) {
+			orderItem = (Map<String, Object>) orderItemList.get(i);
+			productMapper.updateProductOptionByOrder(Integer.parseInt(orderItem.get("productNo").toString()), 
+												 	 Integer.parseInt(orderItem.get("productCount").toString()), 
+												 	 orderItem.get("commonCode").toString());
+		}	
+		
+	}
+
 	
 }

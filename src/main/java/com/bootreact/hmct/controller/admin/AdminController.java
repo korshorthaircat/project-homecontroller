@@ -100,6 +100,7 @@ public class AdminController {
          
          product.setProductNo(product1.getProductNo());
          productService.updateProduct(product);
+         //productService.updateProductOption();
          
          
          
