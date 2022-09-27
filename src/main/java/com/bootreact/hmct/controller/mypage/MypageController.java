@@ -85,7 +85,6 @@ public class MypageController {
 	){
 		// 등록된 사용자 정보를 조회한다 
 		User oldUser = userService.findbyUserId(user.getUserId());
-//		User pwChange = userService.changePw(user.getUserPw());
 
 		// 화면 input 항목에서 받아온 값들을 변경한다 
 		oldUser.setUserName(user.getUserName());
@@ -95,7 +94,6 @@ public class MypageController {
 		oldUser.setUserZip(user.getUserZip());
 		oldUser.setUserAddr(user.getUserAddr());
 		oldUser.setUserAddrDetail(user.getUserAddrDetail());
-//		oldUser.setUserPw(user.getUserPw());
 
 		// 실제 DB 저장 
 		userService.updateUser(oldUser);

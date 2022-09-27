@@ -17,10 +17,7 @@ import "../../css/admin.css";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
 import Paging from "./Paging";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { render } from "@testing-library/react";
-import { Prev } from "react-bootstrap/esm/PageItem";
 
 const mdTheme = createTheme();
 
