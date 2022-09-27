@@ -136,7 +136,7 @@ function Orderlist() {
                 <ul>
                   <li>
                     <a href="/myinquiry" title="Link">
-                      자유게시판
+                      고객지원 게시판
                     </a>
                   </li>
                   <li>
