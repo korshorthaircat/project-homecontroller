@@ -1,28 +1,19 @@
 import "../../css/wish.css";
-import React from "react";
+import "../../css/mypagesidebar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-multi-carousel/lib/styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
-import { useRef, useState, useCallback, useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../../css/mypagesidebar.css";
-import {
-  Button,
-  TextField,
-  Link,
-  Grid,
-  Container,
-  Typography,
-  FormControlLabel,
-  Checkbox,
-  Modal,
-} from "@mui/material";
+
+import React from "react";
+import axios from "axios";
+
+import { useRef, useState, useCallback, useEffect } from "react";
+import { Link } from "@mui/material";
 
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import IconButton from "@mui/material/IconButton";
-import Heart from "react-heart";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
