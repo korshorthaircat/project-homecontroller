@@ -35,7 +35,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "40%",
-  height: "40%",
+  height: "70%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -46,7 +46,7 @@ const style = {
 
 const modalstyle = {
   backgroundColor: "rgb(231, 225, 225)",
-  width: "30%",
+  width: "20%",
   textAlign: "center",
   fontWeight: "bold",
   fontSize: "large",
@@ -142,7 +142,7 @@ const MyReviewList = () => {
   const getMyReviewList = () => {
     // 로그인한 사용자의 ID 를 가져오기 위한 세션 정보 활용
     axios({
-      url: "http://localhost:8080/api/review/getReviewList",
+      url: "http://localhost:8080/api/review/getMyReviewList",
       method: "post",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
@@ -151,20 +151,12 @@ const MyReviewList = () => {
       // params: { productNo: productNo },
     })
       .then((response) => {
-        setReviewList(response.data.data);
-        console.log(response.data.reviewList);
+        console.log(response.data);
+        setReviewList(response.data.reviewList);
       })
-      .catch((e) => {});
-
-    axios({
-      method: "get",
-      url: "http://localhost:8080/api/review/myReviewImg",
-      // data: { productImageName },
-    }).then((response) => {
-      console.log(response.data.reviewItemList);
-      setMyReviewImg(response.data.reviewItemList);
-      setMyReviewMap(response.data.reviewItemList);
-    });
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   useEffect(() => {
@@ -350,8 +342,7 @@ const MyReviewList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {reviewItemList ? (
-                pagingReviewList &&
+              {pagingReviewList &&
                 pagingReviewList.map((r, index) =>
                   userInfoStr.userId == r.userId ? (
                     <>
@@ -368,7 +359,7 @@ const MyReviewList = () => {
                           {myReviewImg ? (
                             <>
                               <img
-                                src={`http://localhost:8080/upload/${myReviewImg[index].productImageName}`}
+                                src={`http://localhost:8080/upload/${r.productImageName}`}
                                 alt="제품사진"
                                 id="ImgThum"
                               />
@@ -378,7 +369,7 @@ const MyReviewList = () => {
                           )}
                         </TableCell>
                         <TableCell component="th" scope="row" align="center">
-                          <h6>{`${myReviewImg[index].productName}`}</h6>
+                          <h6>{`${r.productName}`}</h6>
                         </TableCell>
                         <TableCell
                           align="center"
@@ -403,10 +394,7 @@ const MyReviewList = () => {
                     </TableRow> */}
                     </>
                   )
-                )
-              ) : (
-                <></>
-              )}
+                )}
             </TableBody>
           </Table>
         </TableContainer>
@@ -434,63 +422,93 @@ const MyReviewList = () => {
           aria-labelledby="modal-modal-title"
         >
           <form>
-            {myReviewImg.map((n, reviewNo) => {
-              console.log(n.reviewNo);
-              return (
-                <Box className="reviewModal" key={n.reviewNo} sx={style}>
-                  <Typography
-                    id="modal-modal-title"
-                    sx={{
-                      borderTopLeftRadius: "18px",
-                      borderTopRightRadius: "18px",
-                    }}
-                  >
-                    <h3>상품 후기</h3>
-                    {/* <img
-                      src={`http://localhost:8080/upload/${n.productImageName}`}
-                      alt="제품사진"
-                      id={n.productImageName}
-                      // image={n.productImageName}
-                    /> */}
-                  </Typography>
+            <Box className="reviewModal" key={reviewInfo.reviewNo} sx={style}>
+              <Typography
+                id="modal-modal-title"
+                sx={{
+                  borderTopLeftRadius: "18px",
+                  borderTopRightRadius: "18px",
+                }}
+              >
+                <h3>상품 후기</h3>
+                <hr></hr>
+                <div>
+                  <img
+                    className="reviewImg"
+                    src={`http://localhost:8080/upload/${reviewInfo.productImageName}`}
+                    alt="제품사진"
+                    id={reviewInfo.productImageName}
+                  />
+                </div>
+              </Typography>
 
-                  <TableContainer>
-                    <Table>
-                      <TableRow>
-                        <TableCell component={"th"} sx={modalstyle}>
-                          제품명
-                        </TableCell>
-                        <TableCell>
-                          <input
-                            type="text"
-                            style={{
-                              border: "none",
-                            }}
-                            onChange={handleChange}
-                            value={reviewInfo.productName}
-                            name="productName"
-                          />
-                        </TableCell>
-                      </TableRow>
+              <TableContainer>
+                <Table>
+                  <TableRow>
+                    <TableCell component={"th"} sx={modalstyle}>
+                      제품명
+                    </TableCell>
+                    <TableCell>
+                      <input
+                        type="text"
+                        style={{
+                          border: "none",
+                          width: "100%",
+                        }}
+                        onChange={handleChange}
+                        value={reviewInfo.productName}
+                        name="productName"
+                      />
+                    </TableCell>
+                    <TableCell component={"th"} sx={modalstyle}>
+                      제품 옵션
+                    </TableCell>
+                    <TableCell>
+                      <input
+                        type="text"
+                        style={{
+                          border: "none",
+                          width: "100%",
+                        }}
+                        onChange={handleChange}
+                        value={reviewInfo.commonCode}
+                        name="productName"
+                      />
+                    </TableCell>
+                  </TableRow>
 
-                      <TableRow>
-                        <TableCell component={"th"} sx={modalstyle}>
-                          제목
-                        </TableCell>
-                        <TableCell>
-                          <input
-                            type="text"
-                            style={{
-                              border: "none",
-                            }}
-                            name="reviewContent"
-                            onChange={handleChange}
-                            value={reviewInfo.reviewTitle}
-                          ></input>
-                        </TableCell>
-                      </TableRow>
-                    </Table>
-                  </TableContainer>
+                  <TableRow>
+                    <TableCell component={"th"} sx={modalstyle}>
+                      제목
+                    </TableCell>
+                    <TableCell>
+                      <input
+                        type="text"
+                        style={{
+                          border: "none",
+                          width: "100%",
+                        }}
+                        name="reviewContent"
+                        onChange={handleChange}
+                        value={reviewInfo.reviewTitle}
+                      ></input>
+                    </TableCell>
+                    <TableCell component={"th"} sx={modalstyle}>
+                      작성일
+                    </TableCell>
+                    <TableCell>
+                      <input
+                        type="text"
+                        style={{
+                          border: "none",
+                          width: "100%",
+                        }}
+                        name="reviewContent"
+                        onChange={handleChange}
+                        value={reviewInfo.reviewRegdate}
+                      ></input>
+                    </TableCell>
+                  </TableRow>
 
                   {/* <Typography
                     id="modal-modal-title"
@@ -508,22 +526,22 @@ const MyReviewList = () => {
                       내용
                     </TableCell>
                     <TableCell>
-                      <textarea
+                      <input
                         type="text"
                         style={{
                           border: "none",
-                          width: "560px",
+                          width: "100%",
                           height: "150px",
                         }}
-                        name="inquiryAnswer"
+                        name="reviewContent"
                         onChange={handleChange}
                         value={reviewInfo.reviewContent}
-                      />
+                      ></input>
                     </TableCell>
                   </TableRow>
-                </Box>
-              );
-            })}
+                </Table>
+              </TableContainer>
+            </Box>
           </form>
         </Modal>
       </div>

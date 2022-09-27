@@ -56,5 +56,5 @@ public interface ReviewMapper {
 	int getAvgRevGradeByProductNo(@Param("productNo") int productNo);
 
 
-	
+	List<Map<String, Object>> getMyReviewList(String userId);
 }
