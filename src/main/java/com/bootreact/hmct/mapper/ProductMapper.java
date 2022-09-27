@@ -7,8 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-
-import com.bootreact.hmct.entity.Product;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface ProductMapper {
@@ -63,6 +62,17 @@ public interface ProductMapper {
 	List<Map<String, Object>> getSearchProductImageList(Map<String, Object> paramMap);
 
 	List<Map<String, Object>> getProductCategoryList(String code);
+
+	@Select("select product_inventory from t_hmct_product_optn where product_no = #{productNo} and common_code = #{commonCode}")
+	int getProductInventory(@Param("productNo") int productNo,
+							@Param("commonCode")String commonCode);
+
+	@Update("update t_hmct_product_optn "
+			+ " set product_inventory = product_inventory - #{productCount}"
+			+ " where product_no = #{productNo} and common_code = #{commonCode}")
+	void updateProductOptionByOrder(@Param("productNo") int productNo, 
+									@Param("productCount") int productCount, 
+									@Param("commonCode") String commonCode);
 
 
 

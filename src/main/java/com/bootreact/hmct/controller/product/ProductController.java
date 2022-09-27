@@ -156,6 +156,9 @@ public class ProductController {
 				//제품번호, 커먼코드를 맵에 담아 보내서 이미지 받아오기
 				List<Map<String, Object>> productImage1 = productService.getProductWithCommonCode(paramMap);
 				
+				//제품 재고량 가져오기
+				int productInventory = productService.getProductInventory(productNo, commonCode);
+				
 				//로그인된 유저가 해당 제품을 구매한 횟수 가져오기
 				int orderHistory = productService.getOrderHistory(productNo, userId);
 
@@ -171,6 +174,7 @@ public class ProductController {
 				returnMap.put("orderHistory", orderHistory);
 				returnMap.put("orderNoList", orderNoList);
 				returnMap.put("commonCodeList", commonCodeList);
+				returnMap.put("productInventory", productInventory);
 				
 				return returnMap; 
 	    	}catch(Exception e){

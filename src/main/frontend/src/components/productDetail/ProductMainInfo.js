@@ -20,7 +20,7 @@ import RevStar from "./RevStar";
 import { Button, Modal } from "react-bootstrap";
 import Rating from "@mui/material/Rating";
 
-const MainInfo = ({ changeProductColor, pr }) => {
+const MainInfo = ({ changeProductColor, pr, productInventory }) => {
   let { productNo, commonCode } = useParams();
   console.log(productNo);
 
@@ -185,9 +185,19 @@ const MainInfo = ({ changeProductColor, pr }) => {
         </div>
 
         <div className="sellHeartBtn">
-          <button type="button" id="sellBtn" onClick={addCart}>
-            구매하기
-          </button>
+          {productInventory > 0 ? (
+            <>
+              <button type="button" id="sellBtn" onClick={addCart}>
+                구매하기
+              </button>
+            </>
+          ) : (
+            <>
+              <button type="button" disabled>
+                재고없음
+              </button>
+            </>
+          )}
 
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
