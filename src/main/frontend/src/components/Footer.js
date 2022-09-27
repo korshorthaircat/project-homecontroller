@@ -2,37 +2,52 @@ import React from "react";
 import "../css/footer.css";
 import Link from "@mui/material/Link";
 
+const footerCategory = [
+  {
+    category: "카데고리",
+    link: "/",
+  },
+  {
+    category: "인테리어쇼룸",
+    link: "/showroom",
+  },
+  {
+    category: "이벤트 및 프로모션",
+    link: "#",
+  },
+  {
+    category: "지점안내",
+    link: "#",
+  },
+  {
+    category: "고객센터",
+    link: "/board",
+  },
+  {
+    category: "배송조회",
+    link: "#",
+  },
+  {
+    category: "마이페이지",
+    link: "mypage",
+  },
+  {
+    category: "직원소개",
+    link: "#",
+  },
+];
 const Footer = () => {
   return (
     <div>
       <div className="footer_bg">
         <div className="footer_nav">
-          <div className="footer_link">
-            <Link href="/">
-              <p>카테고리</p>
-            </Link>
-          </div>
-          <Link className="footer_link" href="/">
-            <p>인테리어쇼룸</p>
-          </Link>
-          <Link className="footer_link" href="/">
-            <p>이벤트 및 프로모션</p>
-          </Link>
-          <Link className="footer_link" href="#">
-            <p>지점안내</p>
-          </Link>
-          <Link className="footer_link" href="#">
-            <p>고객지원</p>
-          </Link>
-          <Link className="footer_link" href="#">
-            <p>배송조회</p>
-          </Link>
-          <Link className="footer_link" href="#">
-            <p>마이페이지</p>
-          </Link>
-          <Link className="footer_link" href="#">
-            <p>직원소개</p>
-          </Link>
+          {footerCategory.map((a) => (
+            <div className="footer_link">
+              <Link href={a.link}>
+                <p>{a.category}</p>
+              </Link>
+            </div>
+          ))}
         </div>
         <div className="footer_line">
           <hr />

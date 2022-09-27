@@ -25,11 +25,7 @@ import Link from "@mui/material/Link";
 import Badge from "@mui/material/Badge";
 import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useState } from "react";
-import Navbar from "./main/CategoryNavbar";
 import CategoryNavbar from "./main/CategoryNavbar";
-import { useNavigate } from "react-router-dom";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
 
 const drawerWidth = 450;
 
@@ -169,35 +165,44 @@ const Header = () => {
     <>
       <Box sx={{ flexGrow: 1 }}>
         <FormGroup>
-          <IconButton
-            className="greenheader_btn"
-            size="large"
-            aria-label="show 4 new mails"
-            color="inherit"
-          >
-            <LocalShippingOutlinedIcon sx={{ color: "white" }} />
-            <p className="greenheader_text">배송 서비스</p>
-          </IconButton>
+          <div className="greenHeaderHover">
+            <Link href="#">
+              <IconButton
+                className="greenHeaderBtn"
+                size="large"
+                color="inherit"
+              >
+                <LocalShippingOutlinedIcon sx={{ color: "white" }} />
+                <p className="greenHeaderText">배송 서비스</p>
+              </IconButton>
+            </Link>
+          </div>
 
-          <IconButton
-            className="greenheader_btn"
-            size="large"
-            aria-label="show 4 new mails"
-            color="inherit"
-          >
-            <CelebrationOutlinedIcon sx={{ color: "white" }} />
-            <p className="greenheader_text">이벤트 및 프로모션</p>
-          </IconButton>
+          <div className="greenHeaderHover">
+            <Link href="#">
+              <IconButton
+                className="greenHeaderBtn"
+                size="large"
+                color="inherit"
+              >
+                <CelebrationOutlinedIcon sx={{ color: "white" }} />
+                <p className="greenHeaderText">이벤트 및 프로모션</p>
+              </IconButton>
+            </Link>
+          </div>
 
-          <IconButton
-            className="greenheader_btn"
-            size="large"
-            aria-label="show 4 new mails"
-            color="inherit"
-          >
-            <LightOutlinedIcon sx={{ color: "white" }} />
-            <p className="greenheader_text">온라인쇼룸</p>
-          </IconButton>
+          <div className="greenHeaderHover">
+            <Link href="/showroom">
+              <IconButton
+                className="greenHeaderBtn"
+                size="large"
+                color="inherit"
+              >
+                <LightOutlinedIcon sx={{ color: "white" }} />
+                <p className="greenHeaderText">온라인쇼룸</p>
+              </IconButton>
+            </Link>
+          </div>
         </FormGroup>
 
         <AppBar
@@ -245,31 +250,33 @@ const Header = () => {
               </Search>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="show 4 new mails"
-                  color="inherit"
-                >
-                  <PermIdentityOutlinedIcon sx={{ fontSize: 28 }} />
-
-                  {loginUser !== null ? (
-                    <>
-                      <div className="loginName">
-                        <p>{loginUser.userNickname}</p>
-                      </div>
-
-                      <div className="logout">
-                        <Link onClick={logout} href="/">
-                          로그아웃
-                        </Link>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="login">
-                      <Link href="/login">로그인 또는 가입하기</Link>
+                {loginUser !== null ? (
+                  <>
+                    <div className="loginName">
+                      <Link href="/mypage">
+                        <IconButton
+                          sx={{ padding: 0 }}
+                          size="large"
+                          color="inherit"
+                        >
+                          <PermIdentityOutlinedIcon
+                            sx={{ fontSize: 28, marginLeft: "12px" }}
+                          />
+                          <p>{loginUser.userNickname}</p>
+                        </IconButton>
+                      </Link>
                     </div>
-                  )}
-                </IconButton>
+                    <div className="logout">
+                      <Link onClick={logout} href="/">
+                        로그아웃
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  <div className="login">
+                    <Link href="/login">로그인 또는 가입하기</Link>
+                  </div>
+                )}
 
                 {loginUser !== null ? (
                   <>
@@ -299,11 +306,7 @@ const Header = () => {
                   </>
                 ) : (
                   <>
-                    <IconButton
-                      size="large"
-                      aria-label="show 17 new notifications"
-                      color="inherit"
-                    >
+                    <IconButton size="large" color="inherit">
                       <Link href="/login">
                         <FavoriteBorderOutlinedIcon sx={{ color: "black" }} />
                       </Link>
@@ -312,7 +315,6 @@ const Header = () => {
                     <IconButton
                       size="large"
                       edge="end"
-                      aria-label="account of current user"
                       aria-haspopup="true"
                       color="inherit"
                     >

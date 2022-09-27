@@ -6,19 +6,25 @@ import Row from "react-bootstrap/Row";
 
 const stateText = [
   {
-    title: "가을맞이 패브릭",
-    content: "HOME CONTROLLER EXCLUSIVE",
-    image: process.env.PUBLIC_URL + "../images/fabric.jpg",
+    title: "매트커버/패드&토퍼/베개 BEST",
+    content: "사계절 필요한 교체침구!",
+    image:
+      "https://image.ohou.se/i/bucketplace-v2-development/uploads/exhibitions/cover_image/166389952372763333.png?gif=1&w=480&h=320&c=c&webp=1",
+    // image: process.env.PUBLIC_URL + "../images/fabric.jpg",
   },
   {
-    title: "식탁 & 테이블 인테리어",
-    content: "가을 인기 키워드 초특가 쇼핑!",
-    image: process.env.PUBLIC_URL + "../images/111.jpg",
+    title: "딩동~ 입점했어요! 이번주 신규 브랜드",
+    content: "론칭기념 일주일간 단독 특가",
+    image:
+      "https://image.ohou.se/i/bucketplace-v2-development/uploads/exhibitions/cover_image/166372612549680234.png?gif=1&w=480&h=320&c=c&webp=1",
+    // image: process.env.PUBLIC_URL + "../images/111.jpg",
   },
   {
     title: "홈카페 BEST 아이템 모아보기",
     content: "레트로 컵부터 SNS대란 와플팬까지!",
-    image: process.env.PUBLIC_URL + "../images/homecafe2.jpg",
+    image:
+      "https://image.ohou.se/i/bucketplace-v2-development/uploads/exhibitions/cover_image/166392204867996860.png?gif=1&w=480&h=320&c=c&webp=1",
+    // image: process.env.PUBLIC_URL + "../images/homecafe2.jpg",
   },
 ];
 

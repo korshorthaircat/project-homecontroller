@@ -8,6 +8,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import HeartButton from "../main/HeartButton";
+import Heart from "react-heart";
 
 const ProductCardForList = ({ item, productImageList }) => {
   //대표 이미지
@@ -102,6 +103,7 @@ const ProductCardForList = ({ item, productImageList }) => {
 
   //하트아이콘 클릭시 하트색 변경시키기
   const [like, setLike] = useState(false);
+  const [active, setActive] = useState(false);
 
   // useEffect(async () => {
   //   const fetchData = async () => {
@@ -176,7 +178,23 @@ const ProductCardForList = ({ item, productImageList }) => {
             <p className="price_text">
               ₩{(item.productPrice + "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </p>
-            <IconButton
+
+            <Heart
+              className="heartIcon"
+              style={{ width: "1.5rem" }}
+              isActive={active}
+              onClick={() => {
+                setActive(!active);
+                if (!active) {
+                  addWishList();
+                } else {
+                  deleteWishList();
+                  alert("취소되었습니다");
+                }
+              }}
+            />
+
+            {/* <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
@@ -184,9 +202,9 @@ const ProductCardForList = ({ item, productImageList }) => {
               onClick={like ? deleteWishList : addWishList}
             >
               <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
-            </IconButton>
+            </IconButton> */}
 
-            <HeartButton like={like} onClick={toggleLike} />
+            {/* <HeartButton like={like} onClick={toggleLike} /> */}
             <Modal show={wishlistShow} onHide={wishlistHandleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>위시리스트 등록</Modal.Title>
