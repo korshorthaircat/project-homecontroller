@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import com.bootreact.hmct.entity.Product;
+import com.bootreact.hmct.entity.ProductOption;
 
 @Mapper
 public interface ProductMapper {
@@ -63,6 +65,7 @@ public interface ProductMapper {
 
 	List<Map<String, Object>> getProductCategoryList(String code);
 
+
 	@Select("select product_inventory from t_hmct_product_optn where product_no = #{productNo} and common_code = #{commonCode}")
 	int getProductInventory(@Param("productNo") int productNo,
 							@Param("commonCode")String commonCode);
@@ -74,6 +77,10 @@ public interface ProductMapper {
 									@Param("productCount") int productCount, 
 									@Param("commonCode") String commonCode);
 
-
+	void deleteProductOption(Map<String, Object> paramMap);
+	
+	int getProductOptionCnt(Map<String, Object> paramMap);
+	
+	void deleteProduct(Map<String, Object> paramMap);
 
 }		

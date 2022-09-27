@@ -73,7 +73,7 @@ public interface ProductService {
 
 	List<Map<String, Object>> getProductCategoryList(String code);
 
-	void deleteProduct(Product product);
+	void deleteProduct(Map<String, Object> paramMap);
 
 	int getProductInventory(int productNo, String commonCode);
 

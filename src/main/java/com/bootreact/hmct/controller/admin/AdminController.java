@@ -71,7 +71,7 @@ public class AdminController {
    };
     
    
-//   상품 조회(상세)
+   //상품 조회(상세)
     @PostMapping("/admin3")
     public ResponseEntity<?> getProduct(@RequestBody Product product) {
        try {
@@ -308,48 +308,24 @@ public class AdminController {
     
     //상품삭제
     @DeleteMapping("/deleteProduct")
-    public ResponseEntity<?> deleteProduct(@RequestBody Product product){
-       try {
-
-          productService.deleteProduct(product);
+    public ResponseEntity<?> deleteProduct(@RequestBody Map<String, Object> paramMap) {
+        try {
           
-          List<Product> productList = productService.getProductList();
-          
-          List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
-          
-          for(Product t: productList) {
-             ProductDTO productDTO = new ProductDTO();
-             
-             productDTO.setProductNo(t.getProductNo());
-             productDTO.setProductName(t.getProductName());
-             productDTO.setProductState(t.getProductState());
-             productDTO.setProductSize(t.getProductSize());
-             productDTO.setProductRgsde(t.getProductRgsde());
-             productDTO.setProductUpdde(t.getProductUpdde());
-             productDTO.setProductPrice(t.getProductPrice());
-             productDTO.setProductSummary(t.getProductSummary());
-             productDTO.setProductDetail(t.getProductDetail());
-             productDTO.setProductRef(t.getProductRef());
-             productDTO.setProductMng(t.getProductMng());
-             productDTO.setProductSafe(t.getProductSafe());
-             productDTO.setProductDeliveryinfo(t.getProductDeliveryInfo());
-             productDTO.setProductGauge(t.getProductGauge());
-             productDTO.setProductMaterial(t.getProductMaterial());
-             productDTO.setProductCategory(t.getProductCategory());
-             
-             productDTOList.add(productDTO);   
-          }
-          ResponseDTO<ProductDTO> response = new ResponseDTO<>();
-          
-          response.setData(productDTOList);
-          
-          return ResponseEntity.ok().body(response);
-          
-       }catch(Exception e){
-          System.out.println(e.getMessage());
-          ResponseDTO<ProductDTO> response = new ResponseDTO<>();
-          response.setError(e.getMessage());
-          return ResponseEntity.badRequest().body(response);      
-       }
-    };
+           productService.deleteProduct(paramMap);
+        	
+           List<Map<String, Object>> productList = productService.getAdminProductList();
+        
+           
+           ResponseDTO<Map<String, Object>> response = new ResponseDTO<>();
+           
+           response.setData(productList);
+           return ResponseEntity.ok().body(response);
+           
+        } catch(Exception e) {
+           System.out.println(e.getMessage());
+           ResponseDTO<ProductDTO> response = new ResponseDTO<>();
+           response.setError(e.getMessage());
+           return ResponseEntity.badRequest().body(response);
+        }
+     };
 }

@@ -1,6 +1,5 @@
 import "../../css/userupdate.css";
 import React, { useRef, useState, useCallback, useEffect } from "react";
-import { API_BASE_URL } from "../../app-config";
 import { Link } from "@mui/material";
 import axios from "axios";
 import "../../css/mypagesidebar.css";
@@ -131,7 +130,7 @@ function OutMembers() {
                   </a>
                 </li>
                 <li>
-                  <a href="#Link" title="Link">
+                  <a href="/cart" title="Link">
                     장바구니
                   </a>
                 </li>
@@ -154,26 +153,9 @@ function OutMembers() {
                 </li>
 
                 <li>
-                  <a href="#Link" title="Link">
+                  <a href="/orderlist" title="Link">
                     주문내역
                   </a>
-                  <ul>
-                    <li>
-                      <a href="#Link" title="Link">
-                        주문
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#Link" title="Link">
-                        반품
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#Link" title="Link">
-                        교환
-                      </a>
-                    </li>
-                  </ul>
                 </li>
 
                 <li>
@@ -182,12 +164,12 @@ function OutMembers() {
                   </a>
                   <ul>
                     <li>
-                      <a href="#Link" title="Link">
+                      <a href="/myinquiry" title="Link">
                         자유게시판
                       </a>
                     </li>
                     <li>
-                      <a href="/reviewlist" title="Link">
+                      <a href="/myreviewlist" title="Link">
                         상품후기
                       </a>
                     </li>
