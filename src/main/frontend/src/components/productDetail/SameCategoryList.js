@@ -13,7 +13,7 @@ const SameCategoryList = () => {
   const { commonCode } = useParams();
   const [productList, setProductList] = useState([]);
   const [productImageList, setProductImageList] = useState([]);
-  const [productCategoryName, setProductCategoryName] = useState("아");
+  const [productCategoryName, setProductCategoryName] = useState("");
 
   const getProducts = async () => {
     axios({
@@ -24,11 +24,10 @@ const SameCategoryList = () => {
       },
       params: { productNo: productNo, commonCode: commonCode },
     }).then((response) => {
-      console.log(response.data.productInfo.slice(0, 1));
+      //console.log(response.data.productInfo.slice(0, 1));
       setProductList((prev) => response.data.productInfo.slice(0, 1));
-      setProductCategoryName(
-        response.data.productInfo.slice(0, 1).productCategoryName
-      );
+      //console.log(response.data.productInfo[0].productCategoryName);
+      setProductCategoryName(response.data.productInfo[0].productCategoryName);
     });
   };
 
@@ -36,30 +35,16 @@ const SameCategoryList = () => {
     getProducts();
   }, []);
 
-  // useEffect(() => {
-  //   console.log(productList[0].productCategoryName);
-  //   setProductCategoryName(productList[0].productCategoryName);
-  // }, [productList]);
-
   return (
     <div className="carousel_container">
       <div style={{ margin: "100px 50px 20px 15px" }}>
         <h className="sameCategoryTitle">비슷한 제품 추천</h>
       </div>
       <hr />
-      {/* <Carousel
-        responsive={responsive}
-        // showDots={true}
-        // dotListClass="custom-dot-list-style"
-        // containerClass="carousel-container"
-        // itemClass="carousel-item-padding-40-px"
-      >
-        {productList.map((a) => (
-          <ProductCard item={a} productImageList={productImageList} />
-        ))}
-      </Carousel> */}
-      {productCategoryName}
-      <ThemeProductCarousel theme={productCategoryName} />
+
+      {productCategoryName && (
+        <ThemeProductCarousel theme={productCategoryName} />
+      )}
     </div>
   );
 };
