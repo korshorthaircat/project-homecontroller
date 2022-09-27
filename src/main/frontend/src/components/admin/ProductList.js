@@ -23,6 +23,7 @@ import { useCallback } from "react";
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
+import { Delete } from "@mui/icons-material";
 
 const mdTheme = createTheme();
 
@@ -51,7 +52,8 @@ export default function EnhancedTable() {
     axios
       .get(listUrl, {})
       .then((response) => {
-        setProductList(response.data);
+        setProductList(response.data.data);
+        console.log(response.data.data);
       })
       .catch((e) => {
         console.log(e);
@@ -67,33 +69,29 @@ export default function EnhancedTable() {
       return;
     }
 
-    const confirmAction = () => {
-      if (window.confirm(message)) {
-        onConfirm();
-      }
-    };
-
+  const confirmAction = () => {
+    if (window.confirm(message)) {
+      onConfirm();
+    }
+  };
     return confirmAction;
   };
-  const deleteConfirm = () => console.log("삭제했습니다.");
-  const confirmDelete = useConfirm("삭제하시겠습니까?", deleteConfirm);
+  const confirmDelete = useConfirm("삭제하시겠습니까?");
 
   //DELETE 요청으로
-  const [product, setProduct] = useState([]);
-
-  const onRemove = ()=> {
-    axios({
-      method: "delete",
-      url: "http://localhost:8080/api/admin/deleteProduct",
-      data: { productNo: productList.productNo },
-    }).then((response) => {
-      console.log(response);
-      setProduct(response.data.data);
-    }).catch((e) =>{
-      console.log("delete오류" + e);
-    });
+  const onRemove = (product) => {
+      axios({
+        method: "delete",
+        url: "http://localhost:8080/api/admin/deleteProduct",
+        data: {productNo: product.productNo, commonCode: product.commonCode} ,
+      }).then((response) => {
+        console.log(response);
+        setProductList(response.data);
+        window.location.href="/admin2"
+      }).catch((e) =>{
+        console.log("delete오류" + e);
+      });
   };
-
   const [optionCommonCode, setOptionCommonCode] = useState(""); //새로 추가될 컬러옵션
   const [optionInventory, setOptionInventory] = useState(0); //새로 추가될 컬러옵션 제품의 재고량
 
@@ -178,7 +176,6 @@ export default function EnhancedTable() {
           <Container style={{ margin: "50px 0px 0px 100px" }}>
             <h1 style={{ marginBottom: "30px" }}>상품 조회</h1>
             <Box
-              component="form"
               sx={{
                 "& .MuiTextField-root": { m: 1, width: "50ch" },
                 width: "1300px",
@@ -208,8 +205,8 @@ export default function EnhancedTable() {
                   </TableHead>
 
                   <TableBody>
-                    {productList.data ? (
-                      productList.data.map((r, index) => (
+                    {productList? (
+                      productList.map((r, index) => (
                         <TableRow
                           key={index}
                           sx={{
@@ -289,11 +286,11 @@ export default function EnhancedTable() {
                           <TableCell align="center" sx={{ padding: "0px" }}>
                             <Button
                               onClick={() => {
-                                onRemove();
-
+                                onRemove(r);
+                                confirmDelete();
                               }}
-                              id={`Btn${index}`}
                               type="submit"
+                              id={`Btn${index}`}
                               sx={{
                                 border: "1px solid lightgray",
                                 backgroundColor: "#fff",
@@ -346,6 +343,7 @@ export default function EnhancedTable() {
                 </Table>
               </TableContainer>
             </Box>
+
             <Modal
               open={open}
               onClose={handleClose}

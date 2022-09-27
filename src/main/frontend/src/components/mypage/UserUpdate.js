@@ -2,7 +2,6 @@ import "../../css/userupdate.css";
 import React, { useRef, useState, useCallback, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
-import { API_BASE_URL } from "../../app-config";
 import { Button, TextField, Link, Grid, Container, Modal } from "@mui/material";
 import axios from "axios";
 import { useDaumPostcodePopup } from "react-daum-postcode";
@@ -319,23 +318,6 @@ function UserUpdate() {
                   <a href="/orderlist" title="Link">
                     주문내역
                   </a>
-                  {/* <ul>
-                <li>
-                  <a href="/orderlist" title="Link">
-                    주문
-                  </a>
-                </li>
-                <li>
-                  <a href="#Link" title="Link">
-                    반품
-                  </a>
-                </li>
-                <li>
-                  <a href="#Link" title="Link">
-                    교환
-                  </a>
-                </li>
-              </ul> */}
                 </li>
 
                 <li>
@@ -345,7 +327,7 @@ function UserUpdate() {
                   <ul>
                     <li>
                       <a href="/myinquiry" title="Link">
-                        자유게시판
+                        고객지원 게시판
                       </a>
                     </li>
                     <li>
@@ -362,10 +344,6 @@ function UserUpdate() {
       </body>
 
       <div className="FormDiv">
-        {/* <div className="userImg">
-          <img src="https://images.pexels.com/photos/8356403/pexels-photo-8356403.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"></img>
-        </div> */}
-
         <div className="userImg">
           <img src="https://images.pexels.com/photos/8226894/pexels-photo-8226894.jpeg?auto=compress&cs=tinysrgb&w=800"></img>
         </div>

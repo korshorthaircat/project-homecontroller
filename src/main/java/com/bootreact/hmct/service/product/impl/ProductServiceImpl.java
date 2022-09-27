@@ -73,9 +73,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public void deleteProduct(Product product) {
-		productRepository.delete(product);
+	public void deleteProduct(Map<String, Object> paramMap){
+		productMapper.deleteProductOption(paramMap);
 		
+		int productOptionCnt = productMapper.getProductOptionCnt(paramMap);
+		
+		if(productOptionCnt == 0) {
+			productMapper.deleteProduct(paramMap);
+		}
 	}
 	
 	@Override
@@ -172,6 +177,25 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Map<String, Object>> getProductCategoryList(String code) {
 		return productMapper.getProductCategoryList(code);
+	}
+
+	@Override
+	public int getProductInventory(int productNo, String commonCode) {
+		return productMapper.getProductInventory(productNo, commonCode);
+	}
+
+	@Override
+	public void updateProductOptionByOrder(List<Map<String, Object>> orderItemList) {
+		
+		Map<String, Object> orderItem = new HashMap<String, Object>();
+		
+		for(int i = 0; i < orderItemList.size(); i++) {
+			orderItem = (Map<String, Object>) orderItemList.get(i);
+			productMapper.updateProductOptionByOrder(Integer.parseInt(orderItem.get("productNo").toString()), 
+												 	 Integer.parseInt(orderItem.get("productCount").toString()), 
+												 	 orderItem.get("commonCode").toString());
+		}	
+		
 	}
 
 	

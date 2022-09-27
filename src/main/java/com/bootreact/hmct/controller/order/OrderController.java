@@ -20,6 +20,7 @@ import com.bootreact.hmct.dto.ResponseDTO;
 import com.bootreact.hmct.entity.Order;
 import com.bootreact.hmct.service.cart.CartService;
 import com.bootreact.hmct.service.order.OrderService;
+import com.bootreact.hmct.service.product.ProductService;
 import com.bootreact.hmct.service.user.UserService;
 
 //주문, 주문취소, 반품, 교환, 환불 처리
@@ -27,15 +28,11 @@ import com.bootreact.hmct.service.user.UserService;
 @RequestMapping("/api/order")
 public class OrderController {
 	
-    @Autowired
-	OrderService orderService;
+    @Autowired OrderService orderService;
+    @Autowired UserService userService;
+    @Autowired CartService cartService;
+    @Autowired ProductService productService;
     
-    @Autowired
-    UserService userService;
-    
-    @Autowired
-    CartService cartService;
-	
     //주문 목록 조회
     @GetMapping("/getOrderList")
     public ResponseEntity<?> getOrderList(){
@@ -155,7 +152,11 @@ public class OrderController {
 			
 			//주문 생성 후 장바구니 비워주기
 			cartService.deleteAllFromCart(paramMap.get("userId").toString());
-		
+			
+			//제품옵션에 주문한 제품 재고량 수정(주문한 제품에 전부 수정 일어나야 함)
+			productService.updateProductOptionByOrder(orderItemList);
+			
+			
     	}catch(Exception e){
     		System.out.println(e.getMessage());
     	}

@@ -42,6 +42,7 @@ function ImageThumb(props) {
   const [userSelect, setUserSelect] = useState();
   const [orderHistory, setOrderHistory] = useState(0);
   const [orderNoList, setOrderNoList] = useState([]);
+  const [productInventory, setProductInventory] = useState(0); //제품 재고량
 
   const play = (a, index) => {
     console.log(a);
@@ -66,12 +67,12 @@ function ImageThumb(props) {
       },
       params: { productNo: productNo, commonCode: commonCode },
     }).then((response) => {
-      console.log(response.data);
+      //console.log(response.data);
       setProductList((prev) => response.data.productInfo.slice(0, 1));
       setProductImageList((prev) => response.data.productImage);
       setOrderHistory((prev) => response.data.orderHistory);
       setOrderNoList((prev) => response.data.orderNoList);
-      //setProductImageData(response.data.slice(0, 4));
+      setProductInventory((prev) => response.data.productInventory);
     });
   };
 
@@ -141,7 +142,10 @@ function ImageThumb(props) {
             <ProductDetailInfo orderHistory={orderHistory} />
           </div>
           <div className="contentBox">
-            <ProductMainInfo changeProductColor={changeProductColor} />
+            <ProductMainInfo
+              changeProductColor={changeProductColor}
+              productInventory={productInventory}
+            />
           </div>
         </div>
         <SameCategoryList />
