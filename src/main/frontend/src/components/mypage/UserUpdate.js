@@ -265,49 +265,49 @@ function UserUpdate() {
             <nav className="MyNavMenu">
               <ul>
                 <li>
-                  <Link href="/mypage" title="Link">
+                  <Link href="/mypage" title="">
                     MYPAGE
                   </Link>
                 </li>
                 <li>
-                  <a href="#Link" title="Link">
+                  <a href="#Link" title="">
                     나의 정보
                   </a>
                   <ul>
                     <li>
-                      <a href="/userupdate" title="Link ">
+                      <a href="/userupdate" title="">
                         나의정보 수정
                       </a>
                     </li>
                     <li>
-                      <a href="/outmembers" title="Link">
+                      <a href="/outmembers" title="">
                         멤버십 해지
                       </a>
                     </li>
                   </ul>
                 </li>
                 <li>
-                  <a href="/wishlist" title="Link">
+                  <a href="/wishlist" title="">
                     위시리스트
                   </a>
                 </li>
                 <li>
-                  <a href="/cart" title="Link">
+                  <a href="/cart" title="">
                     장바구니
                   </a>
                 </li>
                 <li>
-                  <a href="#Link" title="Link">
+                  <a href="#Link" title="">
                     포인트/쿠폰
                   </a>
                   <ul>
                     <li>
-                      <a href="/mypoint" title="Link">
+                      <a href="/mypoint" title="">
                         포인트
                       </a>
                     </li>
                     <li>
-                      <a href="#Link" title="Link">
+                      <a href="#Link" title="">
                         쿠폰
                       </a>
                     </li>
@@ -315,23 +315,23 @@ function UserUpdate() {
                 </li>
 
                 <li>
-                  <a href="/orderlist" title="Link">
+                  <a href="/orderlist" title="">
                     주문내역
                   </a>
                 </li>
 
                 <li>
-                  <a href="#Link" title="Link">
+                  <a href="#Link" title="">
                     나의 게시글
                   </a>
                   <ul>
                     <li>
-                      <a href="/myinquiry" title="Link">
+                      <a href="/myinquiry" title="">
                         고객지원 게시판
                       </a>
                     </li>
                     <li>
-                      <a href="/myreviewlist" title="Link">
+                      <a href="/myreviewlist" title="">
                         상품후기
                       </a>
                     </li>
@@ -475,7 +475,7 @@ function UserUpdate() {
             <Box sx={{ ...style, width: 400 }}>
               <form noValidate onSubmit={handleSubmit}>
                 {" "}
-                <h2 id="parent-modal-title">Text in a modal</h2>
+                <h2 id="parent-modal-title">비밀번호 변경</h2>
                 <Grid item xs={12}>
                   <TextField
                     variant="outlined"
@@ -532,8 +532,24 @@ function UserUpdate() {
                     </span>
                   )}
                 </Grid>
-                <button onClick={onSubmitPw}>확인</button>
-                <button>취소</button>
+                <div className="CWBTN">
+                  <Button
+                    variant="contained"
+                    color="success"
+                    style={{ height: "35px" }}
+                    onClick={onSubmitPw}
+                  >
+                    확인
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    color="success"
+                    style={{ height: "35px" }}
+                  >
+                    취소
+                  </Button>
+                </div>
               </form>
             </Box>
           </Modal>
