@@ -12,8 +12,8 @@ public class ReviewDTO {
 	private String reviewGrade;
 	private LocalDateTime ReviewRegdate;
 	
-	
 	private int productNo;
+	private String productName;
 	private String proudctImageName;
 	private String userId;
 	private String commonCode;

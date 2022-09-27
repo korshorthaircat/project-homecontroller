@@ -67,30 +67,6 @@
   display: block;
 }
 
-/* .content h2 {
-  padding: 0px 0 5px 0px;
-  margin-top: 2%;
-}
-button {
-    border: none;
-  } 
- .content-tabs {
-  flex-grow: 1;
-}
-
-.content hr {
-  width: 100px;
-  height: 2px;
-  background: #222;
-  margin-bottom: 5px;
-}
-.content p {
-  width: 100%;
-  height: 100%;
-} */
-
-/* CONTENT */
-
 /* 조회시 기간선택하는 부분 */
 .Date {
   font-family: sans-serif;
@@ -104,4 +80,13 @@ button {
 .DataP {
   font-weight: bold;
   /* vertical-align:text-bottom; */
+}
+
+/* 리뷰모달 */
+.REVIEWmodal {
+}
+
+.reviewModal h3 {
+  text-align: center;
+  padding: 20px;
 }

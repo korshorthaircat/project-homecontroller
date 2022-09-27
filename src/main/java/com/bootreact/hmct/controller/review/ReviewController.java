@@ -91,6 +91,7 @@ public class ReviewController {
 				reviewDTO.setReviewRegdate(r.getReviewRegdate());
 				
 				reviewDTO.setProductNo(r.getOrderItem().getProductOption().getProduct().getProductNo());
+				reviewDTO.setProductName(r.getOrderItem().getProductOption().getProduct().getProductName());
 				reviewDTO.setCommonCode(r.getOrderItem().getProductOption().getCommon().getCommonCodeName());
 				reviewDTO.setUserId(r.getOrderItem().getOrder().getUser().getUserId());
 				reviewDTOList.add(reviewDTO);
@@ -128,6 +129,27 @@ public class ReviewController {
     		System.out.println(reviewImg);
     		
     		return reviewImg;
+    	}catch(Exception e){
+    		Map<String, Object> errorMap = new HashMap<String, Object>();
+    		errorMap.put("error", e.getMessage());
+    		return errorMap;
+    	}
+    }
+	
+	
+	@GetMapping("/myReviewMap")
+    public Map<String, Object> myReviewMap(){
+    	try {
+    		List<Review> reivewList = reviewService.getReviewList();
+    		Map<String, Object> reviewImg = reviewService.myReviewImg();
+    		
+    		Map<String, Object> returnMap = new HashMap<String, Object>();
+
+			returnMap.put("reivewList", reivewList);
+			returnMap.put("reviewImg", reviewImg);
+			
+			return returnMap; 
+    		
     	}catch(Exception e){
     		Map<String, Object> errorMap = new HashMap<String, Object>();
     		errorMap.put("error", e.getMessage());

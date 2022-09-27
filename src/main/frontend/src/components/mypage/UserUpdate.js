@@ -293,7 +293,7 @@ function UserUpdate() {
                   </a>
                 </li>
                 <li>
-                  <a href="#Link" title="Link">
+                  <a href="/cart" title="Link">
                     장바구니
                   </a>
                 </li>
@@ -316,26 +316,26 @@ function UserUpdate() {
                 </li>
 
                 <li>
-                  <a href="#Link" title="Link">
+                  <a href="/orderlist" title="Link">
                     주문내역
                   </a>
-                  <ul>
-                    <li>
-                      <a href="#Link" title="Link">
-                        주문
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#Link" title="Link">
-                        반품
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#Link" title="Link">
-                        교환
-                      </a>
-                    </li>
-                  </ul>
+                  {/* <ul>
+                <li>
+                  <a href="/orderlist" title="Link">
+                    주문
+                  </a>
+                </li>
+                <li>
+                  <a href="#Link" title="Link">
+                    반품
+                  </a>
+                </li>
+                <li>
+                  <a href="#Link" title="Link">
+                    교환
+                  </a>
+                </li>
+              </ul> */}
                 </li>
 
                 <li>
@@ -344,12 +344,12 @@ function UserUpdate() {
                   </a>
                   <ul>
                     <li>
-                      <a href="#Link" title="Link">
+                      <a href="/myinquiry" title="Link">
                         자유게시판
                       </a>
                     </li>
                     <li>
-                      <a href="/reviewlist" title="Link">
+                      <a href="/myreviewlist" title="Link">
                         상품후기
                       </a>
                     </li>
