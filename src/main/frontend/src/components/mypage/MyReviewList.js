@@ -16,16 +16,9 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
 import Paging from "./Paging";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useParams } from "react-router-dom";
 import React, { useState, useCallback, useEffect } from "react";
-import {
-  TextField,
-  Link,
-  Grid,
-  Container,
-  autocompleteClasses,
-} from "@mui/material";
+import { Link } from "@mui/material";
 import "../../css/mypagesidebar.css";
 import { NoEncryption } from "@mui/icons-material";
 
@@ -58,16 +51,11 @@ const MyReviewList = () => {
   const [reviewList, setReviewList] = React.useState([]); //전체 리뷰 목록
   const [myReviewImg, setMyReviewImg] = React.useState([]);
 
-  const [avgRevGrade, setAvgRevGrade] = React.useState(0);
   const [reviewTitle, setReviewTitle] = React.useState("");
-  const [reviewContent, setReviewContent] = React.useState("");
-  const [reviewGrade, setReviewGrade] = React.useState();
-  const [reviewNo, setReviewNo] = React.useState({}); //조회하고자 하는 게시글의 정보
 
   const [open, setOpen] = React.useState(false);
   const [pagingReviewList, setPagingReviewList] = React.useState([]); //페이징 처리한 게시글 모곩
   const [reviewInfo, setReviewInfo] = React.useState({}); //조회하고자 하는 게시글의 정보
-  const [reviewItemList, setReviewItemList] = React.useState({});
 
   const handleOpenForWriting = () => {
     setOpen(true);
@@ -105,34 +93,6 @@ const MyReviewList = () => {
     setPage(1);
   };
 
-  //상품 정보 조회
-  // const getProducts = async () => {
-  //   axios({
-  //     url: `http://localhost:8080/api/product/productDetail`,
-  //     method: "get",
-  //     headers: {
-  //       Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
-  //     },
-  //     params: { productNo: productNo },
-  //   }).then((response) => {
-  //     // console.log(response.data);
-  //     setOrderHistory((prev) => response.data.orderHistory);
-  //     setOrderNoList((prev) => response.data.orderNoList);
-  //   });
-  // };
-
-  // 상품 별점 평균 조회
-  // const getAvgRevGradeByProductNo = () => {
-  //   axios({
-  //     url: `http://localhost:8080/api/review/getAvgRevGradeByProductNo`,
-  //     method: "get",
-  //     params: { productNo: productNo },
-  //   }).then((response) => {
-  //     // console.log(response.data);
-  //     setAvgRevGrade(response.data.avgRevGrade);
-  //   });
-  // };
-
   //상품리뷰 리스트 조회(전체 상품평을 다 불러옴)
   //상세페이지 화면단에서는 제품번호를 기준으로 잘라서 쓰고,
   //마이페이지 화면단에서는 유저아이디를 기준으로 잘라서 써야 함
@@ -147,8 +107,6 @@ const MyReviewList = () => {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("ACCESS_TOKEN"),
       },
-      // data: { userId: userInfo.userId },
-      // params: { productNo: productNo },
     })
       .then((response) => {
         console.log(response.data);
@@ -160,8 +118,6 @@ const MyReviewList = () => {
   };
 
   useEffect(() => {
-    // getProducts();
-    // getAvgRevGradeByProductNo();
     getMyReviewList();
     setUserInfoStr(JSON.parse(sessionStorage.getItem("USER_INFO")));
   }, []);
@@ -242,23 +198,6 @@ const MyReviewList = () => {
               <a href="/orderlist" title="Link">
                 주문내역
               </a>
-              {/* <ul>
-                <li>
-                  <a href="/orderlist" title="Link">
-                    주문
-                  </a>
-                </li>
-                <li>
-                  <a href="#Link" title="Link">
-                    반품
-                  </a>
-                </li>
-                <li>
-                  <a href="#Link" title="Link">
-                    교환
-                  </a>
-                </li>
-              </ul> */}
             </li>
 
             <li>
@@ -368,7 +307,12 @@ const MyReviewList = () => {
                             <></>
                           )}
                         </TableCell>
-                        <TableCell component="th" scope="row" align="center">
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          align="center"
+                          onClick={() => handleOpen(index)}
+                        >
                           <h6>{`${r.productName}`}</h6>
                         </TableCell>
                         <TableCell
@@ -406,14 +350,6 @@ const MyReviewList = () => {
           handlePaging={handlePaging}
         />
 
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => handleOpenForWriting(true)}
-          sx={{ float: "right" }}
-        >
-          글쓰기
-        </Button>
         {/* 모달 */}
         <Modal
           className="REVIEWmodal"
@@ -438,6 +374,9 @@ const MyReviewList = () => {
                     src={`http://localhost:8080/upload/${reviewInfo.productImageName}`}
                     alt="제품사진"
                     id={reviewInfo.productImageName}
+                    onClick={() => {
+                      window.location.href = `/productDetail/${reviewInfo.productNo}`;
+                    }}
                   />
                 </div>
               </Typography>
@@ -509,17 +448,6 @@ const MyReviewList = () => {
                       ></input>
                     </TableCell>
                   </TableRow>
-
-                  {/* <Typography
-                    id="modal-modal-title"
-                    sx={{
-                      fontSize: "25px",
-                      fontWeight: "5rem",
-                      backgroundColor: "rgb(178, 204, 90)",
-                    }}
-                  >
-                    답변
-                  </Typography> */}
 
                   <TableRow>
                     <TableCell component={"th"} sx={modalstyle}>

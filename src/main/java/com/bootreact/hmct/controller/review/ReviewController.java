@@ -100,7 +100,7 @@ public class ReviewController {
 		}
 	}
 	
-	//로그인한 유저가 작성한 리뷰 목록 조회
+	//로그인한 유저가 작성한 리뷰 목록 조회(마이페이지)
 	@PostMapping("/getMyReviewList")
 	public Map<String, Object> getMyReviewList(@AuthenticationPrincipal String userId) {
 		try {
@@ -120,41 +120,41 @@ public class ReviewController {
 		}
 	}
 	
-	@GetMapping("/myReviewImg")
-    public Map<String, Object> myReviewImg(){
-    	try {
-    		Map<String, Object> reviewImg = reviewService.myReviewImg();
-    		
-    		System.out.println(reviewImg);
-    		
-    		return reviewImg;
-    	}catch(Exception e){
-    		Map<String, Object> errorMap = new HashMap<String, Object>();
-    		errorMap.put("error", e.getMessage());
-    		return errorMap;
-    	}
-    }
-	
-	
-	@GetMapping("/myReviewMap")
-    public Map<String, Object> myReviewMap(){
-    	try {
-    		List<Review> reivewList = reviewService.getReviewList();
-    		Map<String, Object> reviewImg = reviewService.myReviewImg();
-    		
-    		Map<String, Object> returnMap = new HashMap<String, Object>();
-
-			returnMap.put("reivewList", reivewList);
-			returnMap.put("reviewImg", reviewImg);
-			
-			return returnMap; 
-    		
-    	}catch(Exception e){
-    		Map<String, Object> errorMap = new HashMap<String, Object>();
-    		errorMap.put("error", e.getMessage());
-    		return errorMap;
-    	}
-    }
+//	@GetMapping("/myReviewImg")
+//    public Map<String, Object> myReviewImg(){
+//    	try {
+//    		Map<String, Object> reviewImg = reviewService.myReviewImg();
+//    		
+//    		System.out.println(reviewImg);
+//    		
+//    		return reviewImg;
+//    	}catch(Exception e){
+//    		Map<String, Object> errorMap = new HashMap<String, Object>();
+//    		errorMap.put("error", e.getMessage());
+//    		return errorMap;
+//    	}
+//    }
+//	
+//	
+//	@GetMapping("/myReviewMap")
+//    public Map<String, Object> myReviewMap(){
+//    	try {
+//    		List<Review> reivewList = reviewService.getReviewList();
+//    		Map<String, Object> reviewImg = reviewService.myReviewImg();
+//    		
+//    		Map<String, Object> returnMap = new HashMap<String, Object>();
+//
+//			returnMap.put("reivewList", reivewList);
+//			returnMap.put("reviewImg", reviewImg);
+//			
+//			return returnMap; 
+//    		
+//    	}catch(Exception e){
+//    		Map<String, Object> errorMap = new HashMap<String, Object>();
+//    		errorMap.put("error", e.getMessage());
+//    		return errorMap;
+//    	}
+//    }
 
 //	상품평 수정
 
