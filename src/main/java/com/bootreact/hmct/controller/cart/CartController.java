@@ -180,8 +180,6 @@ public class CartController {
     	}
 	}
 	
-<<<<<<< HEAD
-=======
 	//장바구니 제품 정보 & 이미지 리스트 조회
 	@PostMapping("/getCartMapList")
     public Map<String, Object> getCartMapList(@RequestBody User user){
@@ -202,6 +200,5 @@ public class CartController {
 			return errorMap;	
     	}
 	}
-	
->>>>>>> branch 'main' of https://github.com/tjdcks0875/project-homecontroller.git
+
 }
