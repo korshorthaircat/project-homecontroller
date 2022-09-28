@@ -1,5 +1,4 @@
 import Carousel from "react-bootstrap/Carousel";
-import "../../css/mainImage.css";
 
 function MainImage() {
   return (
@@ -8,7 +7,7 @@ function MainImage() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="../images/main_images/mainImage_01.png"
+            src="../images/main_images/메인이미지4.png"
             alt="First slide"
           />
           <Carousel.Caption>
@@ -19,7 +18,7 @@ function MainImage() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="../images/main_images/mainImage_02.png"
+            src="../images/main_images/메인이미지2.png"
             // src="https://www.maatila.co.kr/design/maatila/phps/main/main_img_02.jpg"
             alt="Second slide"
           />
@@ -32,7 +31,7 @@ function MainImage() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="../images/main_images/mainImage_03.png"
+            src="../images/main_images/메인이미지.png"
             // src="https://www.maatila.co.kr/design/maatila/phps/main/main_img_01.jpg"
             alt="Third slide"
           />
