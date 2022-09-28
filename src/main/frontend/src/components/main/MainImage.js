@@ -8,7 +8,7 @@ function MainImage() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://www.maatila.co.kr/design/maatila/phps/main/main_img_04.jpg"
+            src="../images/main_images/mainImage_01.png"
             alt="First slide"
           />
           <Carousel.Caption>
@@ -19,7 +19,8 @@ function MainImage() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://www.maatila.co.kr/design/maatila/phps/main/main_img_02.jpg"
+            src="../images/main_images/mainImage_02.png"
+            // src="https://www.maatila.co.kr/design/maatila/phps/main/main_img_02.jpg"
             alt="Second slide"
           />
 
@@ -31,7 +32,8 @@ function MainImage() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://www.maatila.co.kr/design/maatila/phps/main/main_img_01.jpg"
+            src="../images/main_images/mainImage_03.png"
+            // src="https://www.maatila.co.kr/design/maatila/phps/main/main_img_01.jpg"
             alt="Third slide"
           />
 

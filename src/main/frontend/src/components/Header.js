@@ -273,7 +273,9 @@ const Header = () => {
                   </>
                 ) : (
                   <div className="login">
-                    <Link href="/login">로그인 또는 가입하기</Link>
+                    <Link href="/login" sx={{ marginLeft: "50px" }}>
+                      로그인 또는 가입하기
+                    </Link>
                   </div>
                 )}
 
@@ -301,14 +303,18 @@ const Header = () => {
                   <>
                     <Link href="/login">
                       <FavoriteBorderOutlinedIcon
-                        sx={{ fontSize: 28, color: "black" }}
+                        sx={{ margin: "0 15px", fontSize: 28, color: "black" }}
                       />
                     </Link>
 
                     <Link href="/login">
                       <Badge badgeContent={cartCount} color="success">
                         <ShoppingCartOutlinedIcon
-                          sx={{ fontSize: 28, color: "black" }}
+                          sx={{
+                            margin: "0 15px",
+                            fontSize: 28,
+                            color: "black",
+                          }}
                         />
                       </Badge>
                     </Link>
@@ -429,6 +435,7 @@ const Header = () => {
           <Divider />
         </Drawer>
       </Box>
+      <hr className="headerLine" />
     </>
   );
 };

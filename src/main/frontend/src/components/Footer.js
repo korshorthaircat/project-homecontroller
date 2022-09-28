@@ -4,7 +4,7 @@ import Link from "@mui/material/Link";
 
 const footerCategory = [
   {
-    category: "카데고리",
+    category: "모든제품",
     link: "/",
   },
   {

@@ -18,6 +18,7 @@ import Modal from "@mui/material/Modal";
 import axios from "axios";
 import Paging from "./Paging";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { light } from "@mui/material/styles/createPalette";
 
 const style = {
   position: "absolute",
@@ -185,10 +186,10 @@ const Board = () => {
   };
 
   return (
-    <div className="wrap">
-      <h1>고객 지원</h1>
-      <h5>문의 게시판</h5>
-
+    <div className="boardWrap">
+      <div className="boardTitle">
+        <h2>문의 게시판</h2>
+      </div>
       {/*페이지네이션 표출할 데이터양*/}
       <label className="orderOption">
         페이지 당 표시할 게시물 수:&nbsp;
@@ -273,21 +274,21 @@ const Board = () => {
         </Table>
       </TableContainer>
 
+      <Button
+        variant="contained"
+        color="success"
+        onClick={() => handleOpenForWriting(true)}
+        sx={{ float: "right", marginTop: "10px" }}
+      >
+        글쓰기
+      </Button>
+
       <Paging
         total={inquiryList.length}
         limit={limit}
         page={page}
         handlePaging={handlePaging}
       />
-
-      <Button
-        variant="contained"
-        color="success"
-        onClick={() => handleOpenForWriting(true)}
-        sx={{ float: "right" }}
-      >
-        글쓰기
-      </Button>
 
       <Modal
         open={open}
@@ -310,7 +311,14 @@ const Board = () => {
             <TableContainer>
               <Table>
                 <TableRow>
-                  <TableCell component={"th"} sx={modalstyle}>
+                  <TableCell
+                    component={"th"}
+                    sx={{
+                      backgroundColor: "lightgray",
+                      width: "92px",
+                      textAlign: "center",
+                    }}
+                  >
                     제목
                   </TableCell>
                   <TableCell>
@@ -337,7 +345,14 @@ const Board = () => {
                 </TableRow>
 
                 <TableRow>
-                  <TableCell component={"th"} sx={modalstyle}>
+                  <TableCell
+                    component={"th"}
+                    sx={{
+                      backgroundColor: "lightgray",
+                      width: "92px",
+                      textAlign: "center",
+                    }}
+                  >
                     내용
                   </TableCell>
                   <TableCell>
@@ -345,7 +360,7 @@ const Board = () => {
                       type="text"
                       style={{
                         border: "none",
-                        width: "400px",
+                        width: "600px",
                         height: "300px",
                       }}
                       name="inquiryContent"
@@ -369,9 +384,13 @@ const Board = () => {
             </Typography>
 
             <TableRow>
-              <TableCell component={"th"} sx={modalstyle}>
+              <TableCell
+                component={"th"}
+                sx={{ backgroundColor: "lightgray", textAlign: "center" }}
+              >
                 답변 내용
               </TableCell>
+
               <TableCell>
                 {JSON.parse(sessionStorage.getItem("USER_INFO")).userId ===
                 "admin" ? (
@@ -380,8 +399,8 @@ const Board = () => {
                       type="text"
                       style={{
                         border: "none",
-                        width: "400px",
-                        height: "150px",
+                        width: "600px",
+                        height: "300px",
                       }}
                       name="inquiryAnswer"
                       onChange={handleChange}
@@ -394,7 +413,7 @@ const Board = () => {
                       type="text"
                       style={{
                         border: "none",
-                        width: "400px",
+                        width: "600px",
                         height: "150px",
                       }}
                       name="inquiryAnswer"
