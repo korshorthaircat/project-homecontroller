@@ -85,8 +85,9 @@ function WishList() {
       },
       method: "post",
       data: { showroomNo: wishShowroomList[index].showroomNo },
-    }).then((response) => {});
-    window.location.href = "/wishlist";
+    }).then((response) => {
+      window.location.href = "/wishlist";
+    });
   };
 
   const toggleLike = async (e) => {
@@ -177,12 +178,12 @@ function WishList() {
 
             <li>
               <a href="#Link" title="Link">
-                고객지원 게시판
+                나의 게시글
               </a>
               <ul>
                 <li>
                   <a href="/myinquiry" title="Link">
-                    자유게시판
+                    고객지원 게시판
                   </a>
                 </li>
                 <li>
@@ -286,7 +287,7 @@ function WishList() {
                         aria-label="delete"
                         size="large"
                         onClick={() => {
-                          deleteWishList(index);
+                          deleteWishShowroom(index);
                           alert("삭제되었습니다.");
                         }}
                       >

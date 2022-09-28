@@ -468,6 +468,7 @@ const MyReviewList = () => {
                     </TableCell>
                   </TableRow>
                 </Table>
+                <button>저장하기</button>
               </TableContainer>
             </Box>
           </form>
