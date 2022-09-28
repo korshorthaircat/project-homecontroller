@@ -225,7 +225,7 @@ const ProductCardForList = ({ item, productImageList }) => {
               aria-label="account of current user"
               aria-haspopup="true"
               color="inherit"
-              sx={{ padding: "0 6px", left: 140 }}
+              sx={{ padding: "0 6px", position: "absolute", left: "260px" }}
               onClick={addCart}
             >
               <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />

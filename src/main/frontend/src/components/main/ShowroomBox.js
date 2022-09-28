@@ -1,7 +1,5 @@
 import React from "react";
 import "../../css/mainShowroom.css";
-import IconButton from "@mui/material/IconButton";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { useEffect, useState } from "react";
 import HoverIcon from "./HoverIcon";
 import { Link } from "react-router-dom";

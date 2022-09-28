@@ -36,12 +36,12 @@ const Search = styled("div")(({ theme }) => ({
   "&:hover": {
     backgroundColor: "lightgray",
   },
-  marginRight: theme.spacing(2),
+  // marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: "100%",
+  width: "50%",
   [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(2),
-    width: "1100px",
+    // marginLeft: theme.spacing(2),
+    // width: "1100px",
   },
 }));
 
@@ -167,61 +167,53 @@ const Header = () => {
         <FormGroup>
           <div className="greenHeaderHover">
             <Link href="#">
-              <IconButton
-                className="greenHeaderBtn"
-                size="large"
-                color="inherit"
-              >
+              <div className="greenHeaderBtn">
                 <LocalShippingOutlinedIcon sx={{ color: "white" }} />
                 <p className="greenHeaderText">배송 서비스</p>
-              </IconButton>
+              </div>
             </Link>
           </div>
 
           <div className="greenHeaderHover">
             <Link href="#">
-              <IconButton
-                className="greenHeaderBtn"
-                size="large"
-                color="inherit"
-              >
+              <div className="greenHeaderBtn">
                 <CelebrationOutlinedIcon sx={{ color: "white" }} />
                 <p className="greenHeaderText">이벤트 및 프로모션</p>
-              </IconButton>
+              </div>
             </Link>
           </div>
 
           <div className="greenHeaderHover">
             <Link href="/showroom">
-              <IconButton
-                className="greenHeaderBtn"
-                size="large"
-                color="inherit"
-              >
+              <div className="greenHeaderBtn">
                 <LightOutlinedIcon sx={{ color: "white" }} />
                 <p className="greenHeaderText">온라인쇼룸</p>
-              </IconButton>
+              </div>
             </Link>
           </div>
         </FormGroup>
 
-        <AppBar
-          position="static"
-          sx={{ backgroundColor: "white", boxShadow: "none" }}
-        >
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              sx={{ mr: 2, ...(open && { display: "none" }) }}
-            >
-              <MenuIcon />
-            </IconButton>
-
-            <div className="logoSearchbarLogin">
+        <div className="logoSearchbarLogin">
+          <AppBar
+            position="static"
+            sx={{ backgroundColor: "white", boxShadow: "none" }}
+          >
+            <Toolbar>
+              <div className="menuIcon">
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={handleDrawerOpen}
+                  sx={{
+                    mr: 2,
+                    ...(open && { display: "none" }),
+                  }}
+                >
+                  <MenuIcon sx={{ fontSize: 28 }} />
+                </IconButton>
+              </div>
               <Link href="/">
                 <img
                   className="logo"
@@ -249,27 +241,34 @@ const Header = () => {
                 </button> */}
               </Search>
 
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Box
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                }}
+              >
                 {loginUser !== null ? (
                   <>
-                    <div className="loginName">
-                      <Link href="/mypage">
-                        <IconButton
-                          sx={{ padding: 0 }}
-                          size="large"
-                          color="inherit"
-                        >
-                          <PermIdentityOutlinedIcon
-                            sx={{ fontSize: 28, marginLeft: "12px" }}
-                          />
-                          <p>{loginUser.userNickname}</p>
-                        </IconButton>
+                    <div className="loginLogout">
+                      <Link
+                        href="/mypage"
+                        className="loginName"
+                        sx={{ textDecoration: "none" }}
+                      >
+                        <PermIdentityOutlinedIcon
+                          sx={{
+                            fontSize: 30,
+                            marginLeft: "50px",
+                            color: "black",
+                          }}
+                        />
+                        <p>{loginUser.userNickname}</p>
                       </Link>
-                    </div>
-                    <div className="logout">
-                      <Link onClick={logout} href="/">
-                        로그아웃
-                      </Link>
+
+                      <div className="logout">
+                        <Link onClick={logout} href="/">
+                          로그아웃
+                        </Link>
+                      </div>
                     </div>
                   </>
                 ) : (
@@ -280,57 +279,45 @@ const Header = () => {
 
                 {loginUser !== null ? (
                   <>
-                    <IconButton
-                      size="large"
-                      aria-label="show 17 new notifications"
-                      color="inherit"
-                    >
-                      <Link href="/wishlist">
-                        <FavoriteBorderOutlinedIcon sx={{ color: "black" }} />
-                      </Link>
-                    </IconButton>
+                    <Link href="/wishlist">
+                      <FavoriteBorderOutlinedIcon
+                        sx={{ margin: "0 15px", fontSize: 28, color: "black" }}
+                      />
+                    </Link>
 
-                    <IconButton
-                      size="large"
-                      edge="end"
-                      aria-label="account of current user"
-                      aria-haspopup="true"
-                      color="inherit"
-                    >
-                      <Link href="/cart">
-                        <Badge badgeContent={cartCount} color="success">
-                          <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
-                        </Badge>
-                      </Link>
-                    </IconButton>
+                    <Link href="/cart">
+                      <Badge badgeContent={cartCount} color="success">
+                        <ShoppingCartOutlinedIcon
+                          sx={{
+                            margin: "0 15px",
+                            fontSize: 28,
+                            color: "black",
+                          }}
+                        />
+                      </Badge>
+                    </Link>
                   </>
                 ) : (
                   <>
-                    <IconButton size="large" color="inherit">
-                      <Link href="/login">
-                        <FavoriteBorderOutlinedIcon sx={{ color: "black" }} />
-                      </Link>
-                    </IconButton>
+                    <Link href="/login">
+                      <FavoriteBorderOutlinedIcon
+                        sx={{ fontSize: 28, color: "black" }}
+                      />
+                    </Link>
 
-                    <IconButton
-                      size="large"
-                      edge="end"
-                      aria-haspopup="true"
-                      color="inherit"
-                    >
-                      <Link href="/login">
-                        <Badge badgeContent={cartCount} color="success">
-                          <ShoppingCartOutlinedIcon sx={{ color: "black" }} />
-                        </Badge>
-                      </Link>
-                    </IconButton>
+                    <Link href="/login">
+                      <Badge badgeContent={cartCount} color="success">
+                        <ShoppingCartOutlinedIcon
+                          sx={{ fontSize: 28, color: "black" }}
+                        />
+                      </Badge>
+                    </Link>
                   </>
                 )}
               </Box>
-            </div>
-          </Toolbar>
-        </AppBar>
-
+            </Toolbar>
+          </AppBar>
+        </div>
         <Drawer
           sx={{
             width: drawerWidth,

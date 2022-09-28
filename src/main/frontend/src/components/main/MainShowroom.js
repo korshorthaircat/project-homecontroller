@@ -88,18 +88,6 @@ const MainShowroom = () => {
         ))}
       </div>
 
-      {/* <div className='showroomBox'> */}
-      {/* <div className='container'>
-          <div className='row'>
-        {showroomImg.map((test, i) => {
-          return <Testt
-          box={ShowroomBox[i]} i={i} key={i}
-          />
-        })}
-        </div>
-        </div> */}
-      {/* </div> */}
-
       <div class="showroomcontainer text-center">
         <div class="row row-cols-2">
           {showroomImgData.map((a) => (

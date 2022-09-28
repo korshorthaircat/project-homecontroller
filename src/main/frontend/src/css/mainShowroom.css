@@ -63,7 +63,7 @@
 .mainShowroomColor {
   display: flex;
   justify-content: center;
-  width: 1350px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 20px 0 0;
 }
@@ -84,15 +84,15 @@
 
 .mainShowroom_MoreBtn {
   padding: 10px 0;
-  width: 1350px;
+  max-width: 1260px;
   text-align: center;
   margin: 0 auto;
   font-weight: bold;
 }
 
 .Maincol {
-  height: 900px;
-  width: 655px;
+  height: 815px;
+  width: 610px;
   padding: 0;
   margin: 10px;
   position: relative;
@@ -102,23 +102,14 @@
   /* width: 655px;
   height: 900px; */
   width: 100%;
-  height: auto;
+  height: 100%;
   position: relative;
 }
 
 .row {
   margin: 0 auto;
-  width: 1350px;
+  max-width: 1260px;
 }
-
-/* 
-.showroomBoxBg {
-    width: 50px;
-    height: 50px;
-    background-color: black;
-    border-radius: 100%;
-   
-} */
 
 .showroomBoxHeart {
   background-color: rgba(0, 0, 0, 0.5);
@@ -130,10 +121,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: 7%;
+  bottom: 7.5%;
   left: 90%;
 }
 
 .heart {
-  width: 50%;
+  width: 45%;
 }

@@ -296,10 +296,9 @@ const ProductCard = ({ item, productImageList }) => {
               aria-haspopup="true"
               color="inherit"
               sx={{
-                padding: "0",
-                margin: "0 6px",
-                position: "relative",
-                left: "45%",
+                padding: "0 6px",
+                position: "absolute",
+                left: "260px",
               }}
               onClick={addCart}
             >

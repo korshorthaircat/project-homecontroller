@@ -1,6 +1,7 @@
 .imageArea {
-  width: 317.5px;
-  height: 317.5px;
+  width: 295px;
+  /* width: 317.5px; */
+  height: 295px;
 
   background-size: cover;
   margin: 0 auto;
@@ -8,7 +9,7 @@
 
 .textArea {
   padding-top: 25px;
-  width: 317.5px;
+  width: 295px;
   height: 180px;
   background-size: cover;
   margin: 0 auto;
@@ -66,7 +67,11 @@
 }
 
 .heartIcon {
-  position: relative;
-  left: 45%;
+  position: absolute;
+  left: 225px;
   margin: 0 6px;
+}
+
+.menuIcon {
+  margin-right: 30px;
 }
