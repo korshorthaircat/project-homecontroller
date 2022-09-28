@@ -225,7 +225,6 @@ const MainInfo = ({ changeProductColor, pr, productInventory }) => {
           <MainInfoNav />
         </div>
       </div>
-      ;
     </>
   );
 };
