@@ -90,12 +90,13 @@ export default function MultipleSelectCheckmarks({ onCommonCodeHandler }) {
               <Checkbox checked={colorName.indexOf(name) > -1} />
               <ListItemText primary={name} />
               <div
-                style={{
-                  borderRadius: "50%",
-                  background: "green",
-                  width: "20px",
-                  height: "20px",
-                }}
+              // 색상 컬러별로 동그라미로 보여주는 것
+              // style={{
+              //   borderRadius: "50%",
+              //   background: "green",
+              //   width: "20px",
+              //   height: "20px",
+              // }}
               />
             </MenuItem>
           ))}
