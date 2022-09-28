@@ -1,28 +1,19 @@
 import "../../css/wish.css";
-import React from "react";
+import "../../css/mypagesidebar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-multi-carousel/lib/styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
-import { useRef, useState, useCallback, useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../../css/mypagesidebar.css";
-import {
-  Button,
-  TextField,
-  Link,
-  Grid,
-  Container,
-  Typography,
-  FormControlLabel,
-  Checkbox,
-  Modal,
-} from "@mui/material";
+
+import React from "react";
+import axios from "axios";
+
+import { useRef, useState, useCallback, useEffect } from "react";
+import { Link } from "@mui/material";
 
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import IconButton from "@mui/material/IconButton";
-import Heart from "react-heart";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -95,6 +86,7 @@ function WishList() {
       method: "post",
       data: { showroomNo: wishShowroomList[index].showroomNo },
     }).then((response) => {});
+    window.location.href = "/wishlist";
   };
 
   const toggleLike = async (e) => {
@@ -155,7 +147,7 @@ function WishList() {
               </a>
             </li>
             <li>
-              <a href="#Link" title="Link">
+              <a href="/cart" title="Link">
                 장바구니
               </a>
             </li>
@@ -178,40 +170,23 @@ function WishList() {
             </li>
 
             <li>
-              <a href="#Link" title="Link">
+              <a href="/orderlist" title="Link">
                 주문내역
               </a>
-              <ul>
-                <li>
-                  <a href="#Link" title="Link">
-                    주문
-                  </a>
-                </li>
-                <li>
-                  <a href="#Link" title="Link">
-                    반품
-                  </a>
-                </li>
-                <li>
-                  <a href="#Link" title="Link">
-                    교환
-                  </a>
-                </li>
-              </ul>
             </li>
 
             <li>
               <a href="#Link" title="Link">
-                나의 게시글
+                고객지원 게시판
               </a>
               <ul>
                 <li>
-                  <a href="#Link" title="Link">
+                  <a href="/myinquiry" title="Link">
                     자유게시판
                   </a>
                 </li>
                 <li>
-                  <a href="/reviewlist" title="Link">
+                  <a href="/myreviewlist" title="Link">
                     상품후기
                   </a>
                 </li>
@@ -244,9 +219,7 @@ function WishList() {
                       className="wishImg"
                       src={`http://localhost:8080/upload/${wishItem.productImageName}`}
                       onClick={() => {
-                        window.location.replace(
-                          `/productDetail/${wishItem.productNo}`
-                        );
+                        window.location.href = `/productDetail/${wishItem.productNo}`;
                       }}
                     />
                     <div>
@@ -305,9 +278,7 @@ function WishList() {
                       className="wishshowroomImg"
                       src={`http://localhost:8080/upload/${wishShowroom.showroomImgName}`}
                       onClick={() => {
-                        window.location.replace(
-                          `/productDetail/${wishShowroom.ShowroomNo}`
-                        );
+                        window.location.href = `/productDetail/${wishShowroom.ShowroomNo}`;
                       }}
                     />
                     <div>
@@ -322,16 +293,6 @@ function WishList() {
                         <DeleteOutlinedIcon
                           sx={{ fontSize: 35, fontWeight: "bold" }}
                         />
-                      </IconButton>
-                      <IconButton
-                        size="large"
-                        aria-label="account of current user"
-                        aria-haspopup="true"
-                        color="inherit"
-                        // sx={{ padding: "0 6px", left: 140 }}
-                        onClick={"addCart"}
-                      >
-                        <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
                       </IconButton>
                     </div>
                   </div>

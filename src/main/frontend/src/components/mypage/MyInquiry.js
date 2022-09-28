@@ -9,7 +9,6 @@ import Paper from "@mui/material/Paper";
 import "../../css/MyInquiry.css";
 import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
-import { styled, alpha, useTheme } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
@@ -17,7 +16,6 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
 import Paging from "./Paging";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "../../css/mypagesidebar.css";
 import { TextField, Link, Grid, Container } from "@mui/material";
 
@@ -43,8 +41,6 @@ const modalstyle = {
 
 const MyInquiry = () => {
   const [inquiryTitle, setInquiryTitle] = React.useState("");
-  // const [inquiryContent, setInquiryContent] = React.useState("");
-  // const [inquiryAnswer, setInquiryAnswer] = React.useState("");
 
   const [open, setOpen] = React.useState(false);
   const [inquiryList, setInquiryList] = React.useState([]); //전체 게시글 목록
@@ -125,7 +121,6 @@ const MyInquiry = () => {
       .catch((e) => {
         console.log(e);
       });
-    // window.location.href = "/myinquiry";
   };
 
   // //게시글 수정(admin이 답변을 등록할 때 사용)
@@ -168,10 +163,6 @@ const MyInquiry = () => {
   React.useEffect(() => {
     getMyInquiryList();
   }, []);
-
-  // const onInquiryTitleHandler = (e) => {
-  //   setInquiryTitle(e.curretTarget.value);
-  // };
 
   //제목 셀렉트
   const [option, setOption] = React.useState(" ");
@@ -249,23 +240,6 @@ const MyInquiry = () => {
               <a href="/orderlist" title="Link">
                 주문내역
               </a>
-              {/* <ul>
-                <li>
-                  <a href="/orderlist" title="Link">
-                    주문
-                  </a>
-                </li>
-                <li>
-                  <a href="#Link" title="Link">
-                    반품
-                  </a>
-                </li>
-                <li>
-                  <a href="#Link" title="Link">
-                    교환
-                  </a>
-                </li>
-              </ul> */}
             </li>
 
             <li>
@@ -275,7 +249,7 @@ const MyInquiry = () => {
               <ul>
                 <li>
                   <a href="/myinquiry" title="Link">
-                    자유게시판
+                    고객지원 게시판
                   </a>
                 </li>
                 <li>

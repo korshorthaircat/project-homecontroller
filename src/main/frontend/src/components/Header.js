@@ -387,6 +387,12 @@ const Header = () => {
 
             <ListItem disablePadding>
               <ListItemButton>
+                <ListItemText primary="배송추적" />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding>
+              <ListItemButton>
                 <Link
                   href="/mypage"
                   sx={{ color: "black", textDecoration: "none" }}

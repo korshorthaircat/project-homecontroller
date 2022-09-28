@@ -41,6 +41,7 @@ public class CartController {
 //			System.out.println(userId);
 //			System.out.println(paramMap.get("productNo"));
 //			System.out.println(paramMap.get("commonCode"));
+		
 			
 			int productCount = 1;
 			String commonCode = productService.getRepresentativeCommonCode(

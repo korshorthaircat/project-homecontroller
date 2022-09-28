@@ -35,8 +35,8 @@ export default function NavContentRev() {
       params: { productNo: productNo },
     }).then((response) => {
       // console.log(response.data);
-      setOrderHistory((prev) => response.data.orderHistory);
-      setOrderNoList((prev) => response.data.orderNoList);
+      setOrderHistory((prev) => response.data.orderHistory); //로그인된 유저가 해당 제품을 구매한 횟수 가져오기
+      setOrderNoList((prev) => response.data.orderNoList); //유저가 해당 제품을 구매했을 떄의 주문번호를 리스트로 받아오기(단, 이미 리뷰 작성한 경우는 제외)
     });
   };
 
@@ -53,8 +53,6 @@ export default function NavContentRev() {
   };
 
   //상품리뷰 리스트 조회(전체 상품평을 다 불러옴)
-  //상세페이지 화면단에서는 제품번호를 기준으로 잘라서 쓰고,
-  //마이페이지 화면단에서는 유저아이디를 기준으로 잘라서 써야 함
   const getReviewList = () => {
     axios({
       url: "http://localhost:8080/api/review/getReviewList",
@@ -115,9 +113,7 @@ export default function NavContentRev() {
                   </p>
                   <p style={{ float: "right" }}>·</p>
                   <p className="revUserName" style={{ float: "right" }}>
-
-                    {r.userId.replaceAll(/(?<=.{2})./gi,"*")}
-
+                    {r.userId.replaceAll(/(?<=.{2})./gi, "*")}
                   </p>
                 </div>
                 <textarea

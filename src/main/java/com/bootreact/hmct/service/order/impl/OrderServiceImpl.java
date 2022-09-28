@@ -54,7 +54,7 @@ public class OrderServiceImpl implements OrderService{
 	//주문아이템 추가
 	@Override
 	public void addOrderItem(int orderNo, List orderItemList) {
-		Map orderItem = new HashMap();
+		Map<String, Object> orderItem = new HashMap<String, Object>();
 		
 		for(int i = 0; i < orderItemList.size(); i++) {
 			orderItem = (Map) orderItemList.get(i);

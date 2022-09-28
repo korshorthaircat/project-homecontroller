@@ -69,7 +69,10 @@ public class ReviewServiceImpl implements ReviewService{
 //		return reviewRepository.findByUserUserId(userId);
 //	}
 
-
+	@Override
+	public List<Map<String, Object>> getMyReviewList(String userId) {
+		return reviewMapper.getMyReviewList(userId);
+	}
 	
 
 }

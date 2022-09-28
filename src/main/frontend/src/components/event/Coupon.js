@@ -78,7 +78,7 @@ const Coupon = () => {
           style={{
             width: "50%",
             flexDirection: "row",
-            margin: "1% 26% 20%",
+            margin: "0% 23.5% 14%",
           }}
           // direction="row"
           alignItems="center"
@@ -91,7 +91,7 @@ const Coupon = () => {
                 </div>
                 <div
                   style={{
-                    fontSize: "95px",
+                    fontSize: "80px",
                     fontWeight: "1000",
                     color: "#74992e",
                   }}
@@ -118,7 +118,7 @@ const Coupon = () => {
                 </div>
                 <div
                   style={{
-                    fontSize: "95px",
+                    fontSize: "80px",
                     fontWeight: "1000",
                     color: "#74992e",
                   }}
@@ -145,7 +145,8 @@ const Coupon = () => {
                 </div>
                 <div
                   style={{
-                    fontSize: "65px",
+                    fontSize: "55px",
+                    marginTop: "15px",
                     fontWeight: "1000",
                     color: "#74992e",
                   }}
@@ -172,7 +173,8 @@ const Coupon = () => {
                 </div>
                 <div
                   style={{
-                    fontSize: "65px",
+                    fontSize: "55px",
+                    marginTop: "15px",
                     fontWeight: "1000",
                     color: "#74992e",
                   }}

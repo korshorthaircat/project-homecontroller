@@ -3,19 +3,54 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.bootreact.hmct.mapper.ReviewMapper">
-	<select id="getReviewItemList" resultType="camelHashMap">
+	<select id="getMyReviewList" resultType="camelHashMap">
 	<![CDATA[
-		SELECT A.REVIEW_NO
-			 , B.PRODUCT_NAME
-		     , C.PRODUCT_IMAGE_NAME
-			FROM T_HMCT_REVIEW A
-			   , T_HMCT_PRODUCT B
-		       , T_HMCT_PRODUCT_IMAGE C
-			WHERE A.PRODUCT_NO = B.PRODUCT_NO
-		      AND A.PRODUCT_NO = B.PRODUCT_NO
-              AND B.PRODUCT_NO = C.PRODUCT_NO
-		      AND C.PRODUCT_IMAGE_NO = 1
-		      ORDER BY REVIEW_NO
+		SELECT AA.REVIEW_NO
+			 , AA.REVIEW_TITLE
+			 , AA.REVIEW_REGDATE
+			 , AA.REVIEW_GRADE
+			 , AA.REVIEW_CONTENT
+		     , AA.USER_ID
+		     , AA.COMMON_CODE
+		     , AA.PRODUCT_NO
+		     , BB.PRODUCT_NAME
+		     , BB.PRODUCT_IMAGE_NAME
+			FROM (
+					SELECT A.REVIEW_NO
+						 , A.REVIEW_TITLE
+		                 , A.REVIEW_REGDATE
+		                 , A.REVIEW_GRADE
+						 , A.REVIEW_CONTENT
+		                 , B.USER_ID
+		                 , C.PRODUCT_NO
+		                 , C.COMMON_CODE
+						FROM T_HMCT_REVIEW A
+						   , T_HMCT_ORDR B
+		                   , T_HMCT_ORDRITEM C
+						WHERE A.ORDER_NO = B.ORDER_NO
+						  AND A.ORDER_NO = C.ORDER_NO
+						  AND A.PRODUCT_NO = C.PRODUCT_NO
+                          AND A.COMMON_CODE = C.COMMON_CODE
+				 ) AA
+			   , (
+					SELECT D.PRODUCT_NO
+						 , D.PRODUCT_NAME
+		                 , E.PRODUCT_IMAGE_NAME
+		                 , E.COMMON_CODE
+						FROM T_HMCT_PRODUCT D
+		                   , (
+								SELECT F.PRODUCT_NO
+									 , F.COMMON_CODE
+									 , MIN(F.PRODUCT_IMAGE_NO)
+		                             , F.PRODUCT_IMAGE_NAME
+									FROM T_HMCT_PRODUCT_IMAGE F
+		                            GROUP BY F.PRODUCT_NO, F.COMMON_CODE
+							 ) E
+						WHERE D.PRODUCT_NO = E.PRODUCT_NO
+				 ) BB
+			 WHERE AA.PRODUCT_NO = BB.PRODUCT_NO
+		       AND AA.COMMON_CODE = BB.COMMON_CODE
+		       AND AA.USER_ID = #{userId}
 	]]>
 	</select>
 </mapper>

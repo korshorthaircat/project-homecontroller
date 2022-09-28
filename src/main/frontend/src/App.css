@@ -1,5 +1,11 @@
+@font-face {
+  font-family: 'NotoSansKR';
+  src: url('../public/fonts/NotoSansKR-Medium.otf');
+}
+
 body {
   overflow-x: hidden;
+  font-family: 'NotoSansKR';
 }
 
 .main_title {

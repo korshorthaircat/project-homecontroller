@@ -48,30 +48,9 @@ public class ReviewController {
 									paramMap.get("reviewContent"),
 								    paramMap.get("reviewTitle"));
 			
-//			//상품평 목록 받아오기
-//			List<Review> ReviewList = reviewService.getReviewList();
-//			List<ReviewDTO> reviewDTOList = new ArrayList<ReviewDTO>();
-// 		
-//			for(Review r : ReviewList) {
-//				ReviewDTO reviewDTO = new ReviewDTO();
-//				reviewDTO.setReviewNo(r.getReviewNo());
-//				reviewDTO.setCommonCode(r.getCommonCode());
-//				reviewDTO.setReviewTitle(r.getReviewTitle());
-//				reviewDTO.setReviewRegdate(r.getReviewRegdate());
-//				reviewDTO.setReviewGrade(r.getReviewGrade());
-//				reviewDTO.setReviewContent(r.getReviewContent());
-//				reviewDTO.setProductNo(r.getProductNo());
-//				reviewDTO.setUser(r.getUser());
-//				reviewDTOList.add(reviewDTO);
-//			}
-//			ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
-//			response.setData(reviewDTOList);		
-//			return ResponseEntity.ok().body(response);
+
 		}catch(Exception e){
 			System.out.println(e.getMessage());
-//			ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
-//			response.setError(e.getMessage());
-//			return ResponseEntity.badRequest().body(response);
 		}
 }
 	
@@ -121,114 +100,66 @@ public class ReviewController {
 		}
 	}
 	
-	@GetMapping("/myReviewImg")
-    public Map<String, Object> myReviewImg(){
-    	try {
-    		Map<String, Object> reviewImg = reviewService.myReviewImg();
-    		
-    		System.out.println(reviewImg);
-    		
-    		return reviewImg;
-    	}catch(Exception e){
-    		Map<String, Object> errorMap = new HashMap<String, Object>();
-    		errorMap.put("error", e.getMessage());
-    		return errorMap;
-    	}
-    }
-	
-	
-	@GetMapping("/myReviewMap")
-    public Map<String, Object> myReviewMap(){
-    	try {
-    		List<Review> reivewList = reviewService.getReviewList();
-    		Map<String, Object> reviewImg = reviewService.myReviewImg();
-    		
-    		Map<String, Object> returnMap = new HashMap<String, Object>();
-
-			returnMap.put("reivewList", reivewList);
-			returnMap.put("reviewImg", reviewImg);
+	//로그인한 유저가 작성한 리뷰 목록 조회(마이페이지)
+	@PostMapping("/getMyReviewList")
+	public Map<String, Object> getMyReviewList(@AuthenticationPrincipal String userId) {
+		try {
+			//매퍼 쓸 경우 - 리턴타입은 Map<String, Object>
+//						- 매개변수는 @RequestParam int productNo
+			List<Map<String, Object>> reviewList = reviewService.getMyReviewList(userId);
 			
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			returnMap.put("reviewList", reviewList);
+
 			return returnMap; 
-    		
-    	}catch(Exception e){
+		
+		}catch(Exception e) {
     		Map<String, Object> errorMap = new HashMap<String, Object>();
     		errorMap.put("error", e.getMessage());
     		return errorMap;
-    	}
-    }
+		}
+	}
+	
+//	@GetMapping("/myReviewImg")
+//    public Map<String, Object> myReviewImg(){
+//    	try {
+//    		Map<String, Object> reviewImg = reviewService.myReviewImg();
+//    		
+//    		System.out.println(reviewImg);
+//    		
+//    		return reviewImg;
+//    	}catch(Exception e){
+//    		Map<String, Object> errorMap = new HashMap<String, Object>();
+//    		errorMap.put("error", e.getMessage());
+//    		return errorMap;
+//    	}
+//    }
+//	
+//	
+//	@GetMapping("/myReviewMap")
+//    public Map<String, Object> myReviewMap(){
+//    	try {
+//    		List<Review> reivewList = reviewService.getReviewList();
+//    		Map<String, Object> reviewImg = reviewService.myReviewImg();
+//    		
+//    		Map<String, Object> returnMap = new HashMap<String, Object>();
+//
+//			returnMap.put("reivewList", reivewList);
+//			returnMap.put("reviewImg", reviewImg);
+//			
+//			return returnMap; 
+//    		
+//    	}catch(Exception e){
+//    		Map<String, Object> errorMap = new HashMap<String, Object>();
+//    		errorMap.put("error", e.getMessage());
+//    		return errorMap;
+//    	}
+//    }
 
 //	상품평 수정
-//	@PostMapping("/updateReview")
-//	public ResponseEntity<?> updateReview(@RequestBody Map<String, String> paramMap) {
-//		try {
-//			
-//			
-//			//게시글 목록 받아오기
-//			List<Review> reviewList = reviewService.getReviewList();
-//			List<ReviewDTO> reviewDTOList = new ArrayList<ReviewDTO>();
-// 		
-//			for(Review r : reviewList) {
-//				
-//				ReviewDTO reviewDTO = new ReviewDTO();
-//				reviewDTO.setReviewNo(r.getReviewNo());
-//				reviewDTO.setReviewTitle(r.getReviewTitle());
-//				reviewDTO.setReviewRegdate(r.getReviewRegdate());
-//				reviewDTO.setReviewGrade(r.getReviewGrade());
-//				reviewDTO.setReviewContent(r.getReviewContent());
-//				reviewDTO.setProductNo(r.getProductNo());
-//				reviewDTO.setUser(r.getUser());  
-//				
-//				reviewDTOList.add(reviewDTO);
-//			}
-//		ResponseDTO<ReviewDTO> response = new ResponseDTO<>();//
-//		
-//		response.setData(reviewDTOList);
-//		
-//		return ResponseEntity.ok().body(response);
-//		
-//		}catch(Exception e){
-//			System.out.println(e.getMessage());
-//			ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
-//			response.setError(e.getMessage());
-//			return ResponseEntity.badRequest().body(response);
-//		}
-//}
+
 
 //	상품평 삭제
-//	@DeleteMapping("/deleteReview")
-//	public ResponseEntity<?> deleteReview(@RequestBody Map<String, String> paramMap) {
-//		try {
-//			//상품평 삭제 처리하기
-//			reviewService.deleteReview(Integer.parseInt(paramMap.get("reviewNo")));
-//			
-//			//상품평 목록 받아오기
-//			List<Review> reviewList = reviewService.getReviewList();
-//			List<ReviewDTO> reviewDTOList = new ArrayList<ReviewDTO>();
-// 		
-//			for(Review r : reviewList) {
-//				ReviewDTO reviewDTO = new ReviewDTO();
-//				reviewDTO.setReviewNo(r.getReviewNo());
-//				reviewDTO.setReviewTitle(r.getReviewTitle());
-//				reviewDTO.setReviewRegdate(r.getReviewRegdate());
-//				reviewDTO.setReviewGrade(r.getReviewGrade());
-//				reviewDTO.setReviewContent(r.getReviewContent());
-//				reviewDTO.setProductNo((int) r.getProductNo());
-//				
-//				reviewDTOList.add(reviewDTO);
-//			}
-//		ResponseDTO<ReviewDTO> response = new ResponseDTO<>();
-//		
-//		response.setData(reviewDTOList);
-//		
-//		return ResponseEntity.ok().body(response);
-//		
-//		}catch(Exception e){
-//			System.out.println(e.getMessage());
-//			ResponseDTO<InquiryDTO> response = new ResponseDTO<>();
-//			response.setError(e.getMessage());
-//			return ResponseEntity.badRequest().body(response);
-//		}
-//	}
 
 	//제품의 상품평 별점 평균을 조회
 	@GetMapping("/getAvgRevGradeByProductNo")

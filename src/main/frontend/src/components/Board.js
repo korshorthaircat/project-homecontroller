@@ -373,13 +373,37 @@ const Board = () => {
                 답변 내용
               </TableCell>
               <TableCell>
-                <textarea
-                  type="text"
-                  style={{ border: "none", width: "400px", height: "150px" }}
-                  name="inquiryAnswer"
-                  onChange={handleChange}
-                  value={inquiryInfo.inquiryAnswer}
-                />
+                {JSON.parse(sessionStorage.getItem("USER_INFO")).userId ===
+                "admin" ? (
+                  <>
+                    <textarea
+                      type="text"
+                      style={{
+                        border: "none",
+                        width: "400px",
+                        height: "150px",
+                      }}
+                      name="inquiryAnswer"
+                      onChange={handleChange}
+                      value={inquiryInfo.inquiryAnswer}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <textarea
+                      type="text"
+                      style={{
+                        border: "none",
+                        width: "400px",
+                        height: "150px",
+                      }}
+                      name="inquiryAnswer"
+                      onChange={handleChange}
+                      value={inquiryInfo.inquiryAnswer}
+                      readOnly
+                    />
+                  </>
+                )}
               </TableCell>
             </TableRow>
 
