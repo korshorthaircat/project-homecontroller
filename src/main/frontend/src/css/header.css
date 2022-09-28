@@ -118,3 +118,8 @@
   align-items: center;
   justify-content: center;
 }
+
+.headerLine {
+  /* margin: 0 200px 0 270px; */
+  margin: 0;
+}

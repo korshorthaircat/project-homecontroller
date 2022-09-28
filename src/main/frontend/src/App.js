@@ -30,7 +30,7 @@ function App() {
       <ThemeProductCarousel theme={"원목"} />
 
       <h4 className="main_title">시들지 않는 조화로 매일 싱그럽게!</h4>
-      <ThemeProductCarousel theme={"조화"} />
+      <ThemeProductCarousel theme={"생화"} />
 
       <h4 className="showroom_title">인테리어 쇼룸</h4>
       <p className="sub_title">

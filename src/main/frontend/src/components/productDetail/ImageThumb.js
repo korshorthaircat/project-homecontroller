@@ -135,6 +135,10 @@ function ImageThumb(props) {
                 />
               ))}
             </div>
+
+            {productList.map((a) => (
+              <div className="summaryText"> {a.productSummary}</div>
+            ))}
             <p>
               <hr className="line1"></hr>
             </p>

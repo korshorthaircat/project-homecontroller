@@ -47,7 +47,7 @@ export default function NavContentInfo() {
             <AccordionDetails>
               <Typography>
                 <p id="acodianProductName">제품 설명</p>
-                <p>{r.productSummary}</p>
+                <p>{r.productDetail}</p>
                 <p id="acodianProductInfo"></p>
                 <span id="acodianProductNo_text">제품 번호 </span>
                 <p />
