@@ -90,7 +90,7 @@ function OutMembers() {
         sessionStorage.removeItem("USER_INFO");
         sessionStorage.removeItem("ACCESS_TOKEN");
         console.log("잘되나");
-        window.location.href = "/Join";
+        window.location.href = "/";
       });
     }
   };
