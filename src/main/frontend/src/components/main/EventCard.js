@@ -1,41 +1,22 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import React from "react";
+import "../../css/eventCarousel.css";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-
-const EventCard = ({title, content}) => {
-  
+const testt = ({ title, content, image }) => {
   return (
-    <div>
-      
-      <Card sx={{ maxWidth: 493, height: 350, margin: "0 auto"}}>
-      <CardActionArea>
-        
-        <CardMedia
-          component="img"
-          height="250"
-          image="images/inter (1).png"
-          alt="green iguana"
-          
-        />
-        <CardContent sx={{backgroundColor: "lightgray"}}>
-          <Typography gutterBottom variant="h5" component="div"
-          sx={{fontWeight: "bold"}}>
-            {title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {content}
-          </Typography>
-        </CardContent>
-        
-      </CardActionArea>
-    </Card>
+    <Col className="cardBox">
+      <div className="eventCardImg">
+        <img src={image} alt="사진" />
+      </div>
 
-    </div>
+      <div className="cardText">
+        <p className="cardMainText">{title}</p>
+        <p className="cardSubText">{content}</p>
+      </div>
+    </Col>
   );
 };
 
-export default EventCard;
+export default testt;

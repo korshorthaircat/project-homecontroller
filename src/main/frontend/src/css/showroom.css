@@ -26,7 +26,6 @@
   border: 1px solid darkgray;
 }
 
-
 .css-mhc70k-MuiGrid-root {
   display: flex;
   justify-content: space-evenly;
@@ -34,7 +33,7 @@
 
 .row {
   margin: 0 auto;
-  width: 1350px;
+  /* width: 1350px; */
 }
 
 .showroomColor {
@@ -55,12 +54,12 @@
 }
 
 .yellow {
-  background-color: #EFE480;
+  background-color: #efe480;
   border: 0px;
 }
 
 .green {
-  background-color: #B2CC5A;
+  background-color: #b2cc5a;
   border: 0px;
 }
 
@@ -99,18 +98,18 @@
   border: 0px;
 }
 
-.css-96vknt-MuiGrid-root{
+.css-96vknt-MuiGrid-root {
   margin-top: 10%;
 }
 
 .fixedBox {
-  position: fixed; 
+  position: fixed;
   /* top: 50px;  */
   /* right: 20px; */
   z-index: 1;
   width: 100%;
-  padding: 20px; 
-  background: white; 
+  padding: 20px;
+  background: white;
   /* border-radius: 6px; */
   color: #fff;
   /* border: 1px solid rgb(23, 122, 117); */
@@ -118,12 +117,11 @@
 }
 
 .fixedBox.fixed {
-  width: 100%; 
-  top: 0; 
+  width: 100%;
+  top: 0;
   right: 0;
   font-size: 22px;
   border-radius: 0;
-  padding: 20px; 
+  padding: 20px;
   text-align: center;
 }
- 

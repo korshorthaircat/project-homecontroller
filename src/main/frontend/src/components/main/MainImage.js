@@ -1,4 +1,5 @@
 import Carousel from "react-bootstrap/Carousel";
+import "../../css/mainImage.css";
 
 function MainImage() {
   return (

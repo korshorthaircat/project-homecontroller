@@ -1,7 +1,7 @@
 import React from "react";
 import "react-multi-carousel/lib/styles.css";
-import "../../css/testt.css";
-import Testt from "./Testt";
+import "../../css/eventCarousel.css";
+import EventCard from "../main/EventCard";
 import Row from "react-bootstrap/Row";
 
 const stateText = [
@@ -32,7 +32,11 @@ const EventCarousel = () => {
   return (
     <Row>
       {stateText.map((data) => (
-        <Testt title={data.title} content={data.content} image={data.image} />
+        <EventCard
+          title={data.title}
+          content={data.content}
+          image={data.image}
+        />
       ))}
     </Row>
   );

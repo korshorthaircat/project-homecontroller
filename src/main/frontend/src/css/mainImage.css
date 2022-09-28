@@ -1,0 +1,20 @@
+.mainImageCarousel {
+  width: 860px;
+  height: 500px;
+  border: 1px solid black;
+  margin: 10px;
+  border-radius: 6px;
+}
+
+.subImageCarousel {
+  width: 370px;
+  height: 500px;
+  border: 1px solid black;
+  border-radius: 6px;
+}
+
+.mainImages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
