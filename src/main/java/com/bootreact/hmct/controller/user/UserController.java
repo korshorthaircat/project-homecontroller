@@ -63,7 +63,7 @@ public class UserController {
 			userDTO.setUserNickname(joinUser.getUserNickname());
 			userDTO.setUserTel(joinUser.getUserTel());
 			userDTO.setUserMail(joinUser.getUserMail());
-			userDTO.setUserRole(joinUser.getUserRole());
+			userDTO.setUserRole(joinUser.getRole());
 			userDTO.setUserZip(joinUser.getUserZip());
 			userDTO.setUserAddr(joinUser.getUserAddr());
 			userDTO.setUserAddrDetail(joinUser.getUserAddrDetail());
@@ -98,7 +98,7 @@ public class UserController {
     			userDTO.setUserNickname(t.getUserNickname());
     			userDTO.setUserTel(t.getUserTel());
     			userDTO.setUserMail(t.getUserMail());
-    			userDTO.setUserRole(t.getUserRole());
+    			userDTO.setUserRole(t.getRole());
     			userDTO.setUserZip(t.getUserZip());
     			userDTO.setUserAddr(t.getUserAddr());
     			userDTO.setUserAddrDetail(t.getUserAddrDetail());
@@ -162,7 +162,7 @@ public class UserController {
     			userDTO.setUserNickname(t.getUserNickname());
     			userDTO.setUserTel(t.getUserTel());
     			userDTO.setUserMail(t.getUserMail());
-    			userDTO.setUserRole(t.getUserRole());
+    			userDTO.setUserRole(t.getRole());
     			userDTO.setUserZip(t.getUserZip());
     			userDTO.setUserAddr(t.getUserAddr());
     			userDTO.setUserAddrDetail(t.getUserAddrDetail());
@@ -207,7 +207,7 @@ public class UserController {
     			userDTO.setUserNickname(t.getUserNickname());
     			userDTO.setUserTel(t.getUserTel());
     			userDTO.setUserMail(t.getUserMail());
-    			userDTO.setUserRole(t.getUserRole());
+    			userDTO.setUserRole(t.getRole());
     			userDTO.setUserZip(t.getUserZip());
     			userDTO.setUserAddr(t.getUserAddr());
     			userDTO.setUserAddrDetail(t.getUserAddrDetail());
@@ -283,7 +283,7 @@ public class UserController {
 			userDTO.setUserNickname(loginUser.getUserNickname());
 			userDTO.setUserTel(loginUser.getUserTel());
 			userDTO.setUserMail(loginUser.getUserMail());
-			userDTO.setUserRole(loginUser.getUserRole());
+			userDTO.setUserRole(loginUser.getRole());
 			userDTO.setUserZip(loginUser.getUserZip());
 			userDTO.setUserAddr(loginUser.getUserAddr());
 			userDTO.setUserAddrDetail(loginUser.getUserAddrDetail());

@@ -56,7 +56,7 @@ const AppRouter = () => {
   }, []);
 
   useEffect(() => {
-    if (loginUser !== null && loginUser.userId == "admin") {
+    if (loginUser !== null && loginUser.userRole == "ROLE_ADMIN") {
       setIsAdmin(true);
     }
   }, [loginUser]);

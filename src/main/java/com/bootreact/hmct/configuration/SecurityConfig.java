@@ -41,10 +41,14 @@ public class SecurityConfig{
 			//토큰 방식을 사용하므로 세션방식을 사용하지 않도록 설정(세션 기반이 아님을 선언) 
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
+//			.authorizeRequests().antMatchers("/", "/api/user/*", "/api/product/*",
+//					                         "/api/cart/*", "/api/order/*", "/api/main/*", "/api/mypage/*", "/api/coupon/*", 
+//					                         "/upload/*", "/api/refund/*", "/api/inquiry/*", "/api/review/*").permitAll()
+//			.antMatchers("/api/admin/**", "/admin/**").access("hasRole('ROLE_ADMIN')")
 			.authorizeRequests().antMatchers("/", "/api/user/*", "/api/product/*", "/api/admin/*",
-					                         "/api/cart/*", "/api/order/*", "/api/main/*", "/api/mypage/*", "/api/coupon/*", 
-					                         "/upload/*", "/api/refund/*", "/api/inquiry/*", "/api/review/*").permitAll()
-								.anyRequest().authenticated();
+                    "/api/cart/*", "/api/order/*", "/api/main/*", "/api/mypage/*", "/api/coupon/*", 
+                    "/upload/*", "/api/refund/*", "/api/inquiry/*", "/api/review/*").permitAll()
+			.anyRequest().authenticated();
 		
 		//filter 등록
 		//매 요청마다 corsfilter 실행 후 jwtAuthenticationFilter 실행
