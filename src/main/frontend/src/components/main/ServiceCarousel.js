@@ -115,6 +115,7 @@ class ServiceCarousel extends React.Component {
               name="문의게시판"
             />
           </Link>
+
           <ServiceCard
             icon="../images/mypage_icons/지점소개.png"
             name="지점소개"
