@@ -115,12 +115,20 @@ class ServiceCarousel extends React.Component {
               name="문의게시판"
             />
           </Link>
+<<<<<<< HEAD
+
+          <ServiceCard
+            icon="../images/mypage_icons/지점소개.png"
+            name="지점소개"
+          />
+=======
           <Link to={"/infoStore"}>
             <ServiceCard
               icon="../images/mypage_icons/지점소개.png"
               name="지점소개"
             />
           </Link>
+>>>>>>> branch 'main' of https://github.com/gywn9708/project-homecontroller.git
           <ServiceCard
             icon="../images/mypage_icons/배송관련.png"
             name="배송조회"

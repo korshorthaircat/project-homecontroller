@@ -20,7 +20,7 @@ const ProductCard = ({ item, productImageList }) => {
   const [hoverImage, setHoverImage] = useState("");
   const [isHover, setIsHover] = useState(false);
   //장바구니 모달창
-  const [show, setShow] = useState(false);
+  const [cartShow, setCartShow] = useState(false);
   //위시리스트 모달창
   const [wishlistShow, setwishlistShow] = useState(false);
   const [wishDeleteShow, setWishDeleteShow] = useState(false);
@@ -137,7 +137,7 @@ const ProductCard = ({ item, productImageList }) => {
       // setWishItemList(response.data.wishItemList);
       // window.location.href = "/wishlist";
       // console.log(response.data);
-      // setWishDeleteShow(false);
+      setWishDeleteShow(true);
     });
   };
 
@@ -173,7 +173,7 @@ const ProductCard = ({ item, productImageList }) => {
       data: { productNo: item.productNo, commonCode: item.commonCode },
     }).then((response) => {
       // console.log("cart",response.data);
-      setShow(true);
+      setCartShow(true);
     });
   };
 
@@ -185,9 +185,12 @@ const ProductCard = ({ item, productImageList }) => {
     }
   }, [wishItemList]);
 
-  //장바구니 등록 완료시 모달창 띄우기
-  const handleClose = () => setShow(false);
-  const wishlistHandleClose = () => setwishlistShow(false);
+  //장바구니 등록 시 모달창 띄우기
+  const addCarthandleClose = () => setCartShow(false);
+
+  //위시리스트 등록, 취소 시 모달창 띄우기
+  const addWishlistHandleClose = () => setwishlistShow(false);
+  const deleteWishlistHandleClose = () => setWishDeleteShow(false);
 
   return (
     <div className="card">
@@ -246,7 +249,6 @@ const ProductCard = ({ item, productImageList }) => {
                   addWishList();
                 } else {
                   deleteWishList();
-                  alert("취소되었습니다");
                 }
               }}
             />
@@ -259,7 +261,7 @@ const ProductCard = ({ item, productImageList }) => {
 
             {/* <HeartTest like={like} addWishList={addWishList} /> */}
 
-            <Modal show={wishlistShow} onHide={wishlistHandleClose}>
+            <Modal show={wishlistShow} onHide={addWishlistHandleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>위시리스트 등록</Modal.Title>
               </Modal.Header>
@@ -268,14 +270,14 @@ const ProductCard = ({ item, productImageList }) => {
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={wishlistHandleClose}
+                  onClick={addWishlistHandleClose}
                 >
                   닫기
                 </Button>
               </Modal.Footer>
             </Modal>
 
-            <Modal show={wishDeleteShow} onHide={wishlistHandleClose}>
+            <Modal show={wishDeleteShow} onHide={deleteWishlistHandleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>위시리스트 삭제</Modal.Title>
               </Modal.Header>
@@ -284,7 +286,7 @@ const ProductCard = ({ item, productImageList }) => {
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={wishlistHandleClose}
+                  onClick={deleteWishlistHandleClose}
                 >
                   닫기
                 </Button>
@@ -304,7 +306,7 @@ const ProductCard = ({ item, productImageList }) => {
             >
               <ShoppingCartOutlinedIcon sx={{ fontSize: 30 }} />
             </IconButton>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={cartShow} onHide={addCarthandleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>장바구니 등록</Modal.Title>
               </Modal.Header>
@@ -313,7 +315,7 @@ const ProductCard = ({ item, productImageList }) => {
                 <Button
                   variant="contained"
                   color="success"
-                  onClick={handleClose}
+                  onClick={addCarthandleClose}
                 >
                   닫기
                 </Button>
