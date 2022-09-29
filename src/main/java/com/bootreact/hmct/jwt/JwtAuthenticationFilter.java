@@ -1,6 +1,7 @@
 package com.bootreact.hmct.jwt;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -10,13 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.bootreact.hmct.entity.CustomUserDetails;
+import com.bootreact.hmct.entity.User;
+import com.bootreact.hmct.repository.UserRepository;
 
 //요청이 왔을 때 함께 전달해오는 token을 받아서 유효성 검사를 하고
 //token 안에서 username을 꺼내서 사용하기 위한 필터
@@ -25,6 +30,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, 
@@ -39,9 +47,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			if(token != null && !token.equalsIgnoreCase("null")) {
 				//username 가져오기.(위조된 경우 예외처리됨) 
 				String userId = jwtTokenProvider.validateAndGetUsername(token);
+				System.out.println(userId);
+				
+				//스프링 시큐리티 토큰에 권한을 등록하기 위해 userId로 유저 정보 조회
+				User user = userRepository.findByUserId(userId);
+				System.out.println(user.toString());
+				
+				//권한에 대한 Authorities 객체를 만들기 위해 유저 정보로 CustomUserDetails 객체 생성 
+				CustomUserDetails customUserDetails = new CustomUserDetails(user);
+				System.out.println(customUserDetails.getAuthorities());
 				
 				//유효성 검사된 토큰은 security에 등록
-				AbstractAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userId, null, AuthorityUtils.NO_AUTHORITIES);
+				AbstractAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userId, null, customUserDetails.getAuthorities());
+				
+				Iterator<GrantedAuthority> i = authenticationToken.getAuthorities().iterator();
+				
+				while(i.hasNext()) {
+					System.out.println("11111111111111111" + i.next().getAuthority());
+				}
 				
 				authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContext securityContext = SecurityContextHolder.createEmptyContext();

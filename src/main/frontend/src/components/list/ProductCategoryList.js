@@ -2,8 +2,6 @@ import React, { Component, useEffect, useState } from "react";
 import "react-multi-carousel/lib/styles.css";
 import ProductCardForList from "./ProductCardForList";
 import "../../css/productCategory.css";
-import { Container } from "react-bootstrap";
-import FixedBar from "./FixedBar";
 import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -11,7 +9,6 @@ import Toolbar from "@mui/material/Toolbar";
 import ColorChip from "./ColorChip";
 import MaterialChip from "./MaterialChip";
 import PriceChip from "./PriceChip";
-import Categoryinfo from "./Categoryinfo";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
@@ -22,8 +19,6 @@ const ProductCategoryList = () => {
   const [productList, setProductList] = useState([]);
   const [productImageList, setProductImageList] = useState([]);
   const [showProductList, setShowProductList] = useState([]); //필터 처리한 제품목록을 담음
-  const [showProductImageList, setShowProductImageList] = useState([]); //필터 처리한 제품이미지목록을 담음
-  // const [query, setQuery] = useSearchParams();
 
   //제품조회 필터링 조건
   const [commonCode, setCommonCode] = useState("");
@@ -44,7 +39,6 @@ const ProductCategoryList = () => {
     setHighestPrice(highestPrice);
   };
 
-  const [searchData, setSearchData] = React.useState([]);
   const params = useParams();
 
   useEffect(() => {

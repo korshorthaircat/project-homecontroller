@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -46,7 +47,7 @@ public class User {
 	
 	//권한
 	@ColumnDefault("'ROLE_USER'")
-	private String userRole;
+	private String role;
 	
 	//우편번호
 	@Column(nullable = false)

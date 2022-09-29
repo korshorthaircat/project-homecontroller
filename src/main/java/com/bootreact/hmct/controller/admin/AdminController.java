@@ -328,4 +328,9 @@ public class AdminController {
            return ResponseEntity.badRequest().body(response);
         }
      };
+     
+     @GetMapping("/test")
+     public String test() {
+    	 return "OK";
+     }
 }
