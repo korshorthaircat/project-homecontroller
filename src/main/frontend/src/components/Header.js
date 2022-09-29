@@ -387,7 +387,12 @@ const Header = () => {
 
             <ListItem disablePadding>
               <ListItemButton>
-                <ListItemText primary="지점안내" />
+                <Link
+                  href="/infoStore"
+                  sx={{ color: "black", textDecoration: "none" }}
+                >
+                  <ListItemText primary="지점안내" />
+                </Link>
               </ListItemButton>
             </ListItem>
 
