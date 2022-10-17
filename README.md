@@ -9,7 +9,7 @@
 - 협업/설계: Github, Notion, Kakao Oven, ERD Cloud, Google Docs, Google Sheets
 
 ## API 명세서
-[노션 페이지로 이동](https://hail-lyre-36a.notion.site/HomeController-0a55068675494eb3b8e3779fdda03b19)
+[노션 페이지로 이동](https://hail-lyre-36a.notion.site/API-HomeController-bba4313445814876b42ef2977c0770c0)
 
 ## 상세 포트폴리오
 [노션 페이지로 이동](https://hail-lyre-36a.notion.site/HomeController-0a55068675494eb3b8e3779fdda03b19)
