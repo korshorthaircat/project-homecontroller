@@ -84,8 +84,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<Map<String, Object>> getMainProductList() {		
-		return productMapper.getMainProductList();
+	public List<Map<String, Object>> getMainProductList() {	
+		try {
+			return productMapper.getMainProductList();
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
 	}
 	
 	@Override

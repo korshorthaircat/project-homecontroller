@@ -96,6 +96,7 @@ const Header = () => {
     sessionStorage.removeItem("USER_INFO");
     sessionStorage.removeItem("ACCESS_TOKEN");
     sessionStorage.removeItem("cartCount");
+    sessionStorage.removeItem("USER_ROLE");
     //localStorage.removeItem("cartCount");
     setLoginUser(null);
     window.location.href = "/";

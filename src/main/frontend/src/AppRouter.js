@@ -51,15 +51,21 @@ const AppRouter = () => {
 
   useEffect(() => {
     if (sessionStorage.getItem("USER_INFO") !== null) {
+      if (
+        sessionStorage.getItem("USER_ROLE") !== null &&
+        sessionStorage.getItem("USER_ROLE") === "ROLE_ADMIN"
+      ) {
+        setIsAdmin(true);
+      }
       setLoginUser(JSON.parse(sessionStorage.getItem("USER_INFO")));
     }
   }, []);
 
-  useEffect(() => {
-    if (loginUser !== null && loginUser.userRole == "ROLE_ADMIN") {
-      setIsAdmin(true);
-    }
-  }, [loginUser]);
+  // useEffect(() => {
+  //   if (loginUser !== null && loginUser.userRole == "ROLE_ADMIN") {
+  //     setIsAdmin(true);
+  //   }
+  // }, [loginUser]);
 
   return (
     <div>

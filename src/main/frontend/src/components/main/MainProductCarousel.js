@@ -64,9 +64,10 @@ const MainProductCarousel = () => {
         // containerClass="carousel-container"
         // itemClass="carousel-item-padding-40-px"
       >
-        {productList.map((a) => (
-          <ProductCard item={a} productImageList={productImageList} />
-        ))}
+        {productList &&
+          productList.map((a) => (
+            <ProductCard item={a} productImageList={productImageList} />
+          ))}
       </Carousel>
     </div>
   );

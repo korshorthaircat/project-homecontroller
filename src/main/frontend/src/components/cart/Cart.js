@@ -105,13 +105,15 @@ const Cart = () => {
 
   //초기 주문금액 지정
   useEffect(() => {
-    const result = cartList.reduce((sum, cart) => {
-      return (
-        sum +
-        cart.productOption.product.productPrice * parseInt(cart.productCount)
-      );
-    }, 0);
-    setOrderAmount(result);
+    if (cartList) {
+      const result = cartList.reduce((sum, cart) => {
+        return (
+          sum +
+          cart.productOption.product.productPrice * parseInt(cart.productCount)
+        );
+      }, 0);
+      setOrderAmount(result);
+    }
   }, [cartList]);
 
   //주문금액
@@ -165,7 +167,7 @@ const Cart = () => {
             ></ProductInCart>
           ))} */}
 
-          {cartList.length === 0 ? (
+          {!cartList || cartList.length === 0 ? (
             <>
               <Typography>장바구니에 표시할 제품이 없습니다.</Typography>
             </>
