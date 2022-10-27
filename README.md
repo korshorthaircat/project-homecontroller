@@ -24,8 +24,8 @@
 
 <br/>
 ## API 명세서
-[노션 페이지로 이동](https://hail-lyre-36a.notion.site/API-HomeController-bba4313445814876b42ef2977c0770c0)
+[노션 페이지로 이동](https://hail-lyre-36a.notion.site/API-HomeController-01fb5359eb1742a3b5cec563b4f615b0)
 
 ## 상세 포트폴리오
-[노션 페이지로 이동](https://hail-lyre-36a.notion.site/HomeController-0a55068675494eb3b8e3779fdda03b19)
+[노션 페이지로 이동](https://hail-lyre-36a.notion.site/222-HomeController-cf170487921c4963889136b314f4455e)
 
