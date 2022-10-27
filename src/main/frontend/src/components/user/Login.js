@@ -17,6 +17,8 @@ const Login = () => {
       url: API_BASE_URL + "/api/user/login",
       data: user,
     }).then((response) => {
+      console.log("1111111");
+      console.log(response.data);
       if (response.data.token) {
         //웹 스토리지를 이용하면 사용자의 브라우저에 데이터를 key-value 형태로 저장할 수 있다. (쿠키와 비슷)
         //웹 스토리지에는 두 종류가 있다. 세션 스토리지와 로컬 스토리지.
@@ -25,6 +27,7 @@ const Login = () => {
         sessionStorage.setItem("ACCESS_TOKEN", response.data.token);
         //setUserInfo(response.data);
         sessionStorage.setItem("USER_INFO", JSON.stringify(response.data));
+        sessionStorage.setItem("USER_ROLE", response.data.userRole);
         window.location.href = "/";
       }
     });

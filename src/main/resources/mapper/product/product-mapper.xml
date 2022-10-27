@@ -11,13 +11,13 @@
 			FROM (
 					SELECT A.*
 						 , MIN(B.COMMON_CODE)
-		                 , B.PRODUCT_INVENTORY
-						 , C.COMMON_CODE_NAME
+	]]>
+		                 <!-- , B.PRODUCT_INVENTORY
+						 , C.COMMON_CODE_NAME -->
+	<![CDATA[
 						FROM T_HMCT_PRODUCT A
 						   , T_HMCT_PRODUCT_OPTN B
-						   , T_HMCT_COMMON C
 						WHERE A.PRODUCT_NO = B.PRODUCT_NO
-						  AND B.COMMON_CODE = C.COMMON_CODE
 						group by A.PRODUCT_NO
 				) AA
 		        , (
@@ -32,7 +32,7 @@
 				  ) CC
 			WHERE AA.PRODUCT_MATERIAL = BB.COMMON_CODE
 		      AND AA.PRODUCT_CATEGORY = CC.COMMON_CODE
-	]]>
+      ]]>
 	</select>
 	
 	<select id="getMainProductImageList" resultType="camelHashMap">
@@ -125,7 +125,7 @@
 		         T_HMCT_COMMON B
 			WHERE PRODUCT_NO = #{productNo}			
 		    AND A.COMMON_CODE = #{commonCode}
-		    AND A.COMMON_CODE = B.COMMON_CODE;
+		    AND A.COMMON_CODE = B.COMMON_CODE
 	]]>
 	</select>
 	
