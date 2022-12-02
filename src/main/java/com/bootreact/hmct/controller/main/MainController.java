@@ -20,7 +20,8 @@ import com.bootreact.hmct.service.showroom.ShowroomService;
 @RequestMapping("/api/main")
 public class MainController {
 
-	//develop2 첫커밋ㄴ
+	//develop2 첫커밋
+	//develop2 2트 첫커밋
 	@Autowired
 	ProductService productService;
 	
